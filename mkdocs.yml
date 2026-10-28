@@ -128,4 +128,5 @@ nav:
   - Contribuir:
       - contribuir/index.md
       - Convenções: contribuir/convencoes.md
+      - Quadro e roadmap: contribuir/quadro.md
       - Como rodar: contribuir/como-rodar.md

@@ -47,7 +47,7 @@ Um hook de pre-commit bloqueia PDF e imagens fora de `docs/assets/` e de `dados/
 
 ## Contribuir
 
-Leia o [CONTRIBUTING.md](CONTRIBUTING.md). Em resumo (gitflow): branch `tipo/numero-da-issue-descricao` criada a partir da `dev`, Conventional Commits em português, PR pequeno para a `dev` que fecha a issue, revisão do par da frente. A `main` só recebe releases da `dev`.
+Acompanhe o trabalho no [quadro e roadmap](https://github.com/orgs/grupo-8-residencia/projects/1). Leia o [CONTRIBUTING.md](CONTRIBUTING.md). Em resumo (gitflow): branch `tipo/numero-da-issue-descricao` criada a partir da `dev`, Conventional Commits em português, PR pequeno para a `dev` que fecha a issue, revisão do par da frente. A `main` só recebe releases da `dev`.
 
 ## Licença
 

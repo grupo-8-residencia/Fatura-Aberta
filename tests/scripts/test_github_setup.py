@@ -1,5 +1,6 @@
 """Testes do scripts/github_setup.py com um GitHub falso em memória (nada vai para a rede)."""
 
+import json
 from datetime import date
 from typing import Any
 
@@ -249,3 +250,90 @@ def test_issue_sem_usuario_confirmado_fica_sem_assignee(tmp_path: Any) -> None:
     por_id = {i.id: i for i in plano.issues}
     assert por_id["S1-01"].assignees == ()
     assert por_id["S1-04"].assignees == ("pedrohpsantos",)
+
+
+# ---- Project (v2): quadro e roadmap
+
+
+class ProjetoFalso:
+    """Executor do `gh project` em memória; guarda as chamadas e simula as respostas."""
+
+    def __init__(self, itens_existentes: list[dict[str, Any]] | None = None) -> None:
+        self.chamadas: list[list[str]] = []
+        self.campos: dict[str, dict[str, Any]] = {
+            "Status": {"id": "F-status", "name": "Status", "options": [{"id": "o", "name": "Todo"}]}
+        }
+        self.itens = itens_existentes or []
+
+    def __call__(self, args: list[str], entrada: str | None = None) -> str:
+        self.chamadas.append(args)
+        if args[:2] == ["project", "list"]:
+            return '{"projects": []}'
+        if args[:2] == ["project", "create"]:
+            return '{"number": 7, "id": "P1"}'
+        if args[:2] == ["project", "field-create"]:
+            nome = args[args.index("--name") + 1]
+            opcoes = []
+            if "--single-select-options" in args:
+                valores = args[args.index("--single-select-options") + 1].split(",")
+                opcoes = [{"id": f"{nome}-{v}", "name": v} for v in valores]
+            self.campos[nome] = {"id": f"F-{nome}", "name": nome, "options": opcoes}
+            return "{}"
+        if args[:2] == ["project", "field-list"]:
+            return json.dumps({"fields": list(self.campos.values())})
+        if args[:2] == ["api", "graphql"]:
+            corpo = json.loads(entrada or "{}")
+            opcoes = corpo["variables"]["opcoes"]
+            self.campos["Status"]["options"] = [
+                {"id": f"S-{o['name']}", "name": o["name"]} for o in opcoes
+            ]
+            return "{}"
+        if args[:2] == ["project", "item-list"]:
+            return json.dumps({"items": self.itens})
+        if args[:2] == ["project", "item-add"]:
+            return json.dumps({"id": f"I{len(self.chamadas)}"})
+        return "{}"
+
+    def comandos(self, *inicio: str) -> list[list[str]]:
+        return [c for c in self.chamadas if c[: len(inicio)] == list(inicio)]
+
+
+def _issues_do_github(plano: gs.Plano) -> list[dict[str, Any]]:
+    return [{"title": i.titulo, "url": f"https://github.com/x/y/issues/{n}"}
+            for n, i in enumerate(plano.issues, start=1)]  # fmt: skip
+
+
+def test_projeto_dry_run_nao_chama_o_gh(plano: gs.Plano) -> None:
+    falso = ProjetoFalso()
+    gs.sincronizar_projeto(plano, falso, [], aplicar=False, log=lambda _: None)
+    assert falso.chamadas == []
+
+
+def test_projeto_cria_campos_itens_e_datas(plano: gs.Plano) -> None:
+    falso = ProjetoFalso()
+    gs.sincronizar_projeto(plano, falso, _issues_do_github(plano), aplicar=True, log=lambda _: None)
+    criados = {c[c.index("--name") + 1] for c in falso.comandos("project", "field-create")}
+    assert criados == {"Frente", "Sprint", "Início", "Entrega"}
+    assert falso.comandos("project", "link")[0][-2:] == ["--repo", "Fatura-Aberta"]
+    assert len(falso.comandos("project", "item-add")) == 51
+    assert len(falso.comandos("project", "item-edit")) == 51 * 5
+    datas = {
+        c[c.index("--date") + 1] for c in falso.comandos("project", "item-edit") if "--date" in c
+    }
+    assert {"2026-10-26", "2026-10-30", "2026-12-07", "2026-12-11"} <= datas
+    assert [o["name"] for o in falso.campos["Status"]["options"]] == [
+        "A fazer", "Em andamento", "Em revisão", "Feito",
+    ]  # fmt: skip
+
+
+def test_projeto_segunda_rodada_nao_reseta_status(plano: gs.Plano) -> None:
+    issues = _issues_do_github(plano)
+    existentes = [
+        {"id": f"X{n}", "status": "Em andamento", "content": {"url": i["url"]}}
+        for n, i in enumerate(issues, start=1)
+    ]
+    falso = ProjetoFalso(existentes)
+    gs.sincronizar_projeto(plano, falso, issues, aplicar=True, log=lambda _: None)
+    assert falso.comandos("project", "item-add") == []
+    # Sem o Status: Frente, Sprint, Início e Entrega = 4 edições por item.
+    assert len(falso.comandos("project", "item-edit")) == 51 * 4
