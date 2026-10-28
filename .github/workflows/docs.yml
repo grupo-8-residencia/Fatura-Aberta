@@ -1,0 +1,48 @@
+name: Site de documentação
+
+# Publica no GitHub Pages a partir da main.
+# Requer Settings > Pages > Source = "GitHub Actions" (o setup ativa via API).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.12.19"
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run mkdocs build --strict
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.implantacao.outputs.page_url }}
+    steps:
+      - id: implantacao
+        uses: actions/deploy-pages@v5

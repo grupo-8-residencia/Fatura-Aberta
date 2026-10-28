@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Site de documentação
+/site/
+.cache/
+
+# Segredos e ambiente local (use .env.example como modelo)
+.env
+.env.*
+!.env.example
+
+# Node (esqueleto do web)
+node_modules/
+.next/
+
+# Sistema operacional / editores
+.DS_Store
+.idea/
+.vscode/
+
+# PRIVACIDADE: fatura real nunca entra no Git.
+# O hook de pre-commit é a barreira principal; estas linhas são a segunda barreira.
+# Exceções permitidas ficam em docs/assets/ e dados/benchmark/sinteticas/ (ver hook).
+*.heic
+notas-brutas/
+faturas-reais/

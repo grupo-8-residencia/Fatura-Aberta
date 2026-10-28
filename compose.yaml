@@ -1,0 +1,3 @@
+# Atalho para `docker compose up` na raiz; a definição de verdade está em infra/.
+include:
+  - infra/docker-compose.yml

@@ -1,0 +1,25 @@
+# API do Fatura Aberta (F6). Construído a partir da raiz do repositório:
+#   docker build -f infra/Dockerfile.api -t fatura-aberta-api .
+FROM python:3.12-slim
+
+COPY --from=ghcr.io/astral-sh/uv:0.12.19 /uv /usr/local/bin/uv
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Só o que a API precisa; o resto do monorepo fica de fora (ver .dockerignore).
+COPY pyproject.toml uv.lock ./
+COPY packages ./packages
+COPY apps/api ./apps/api
+
+RUN uv sync --locked --no-dev --no-default-groups --package fa-api
+
+# Processo sem privilégios.
+RUN useradd --system --create-home aplicacao
+USER aplicacao
+
+EXPOSE 8000
+CMD ["/app/.venv/bin/uvicorn", "fa_api.main:app", "--host", "0.0.0.0", "--port", "8000"]

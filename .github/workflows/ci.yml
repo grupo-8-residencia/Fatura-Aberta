@@ -1,0 +1,154 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_VERSION: "0.12.19"
+  GITLEAKS_VERSION: "8.30.1"
+  # SHA-256 de gitleaks_8.30.1_linux_x64.tar.gz, conferido contra o arquivo de checksums do release.
+  GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+
+jobs:
+  # Descobre quais pastas mudaram para rodar só o necessário.
+  mudancas:
+    runs-on: ubuntu-latest
+    outputs:
+      pacotes: ${{ steps.matriz.outputs.pacotes }}
+      docs: ${{ steps.filtro.outputs.docs }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v4
+        id: filtro
+        with:
+          filters: |
+            comum: &comum
+              - 'packages/contratos/**'
+              - 'pyproject.toml'
+              - 'uv.lock'
+              - '.github/workflows/ci.yml'
+            rag:
+              - *comum
+              - 'packages/rag/**'
+            motor:
+              - *comum
+              - 'packages/motor/**'
+            extracao:
+              - *comum
+              - 'packages/extracao/**'
+            agentes:
+              - *comum
+              - 'packages/agentes/**'
+            api:
+              - *comum
+              - 'apps/api/**'
+            docs:
+              - 'docs/**'
+              - 'mkdocs.yml'
+      - id: matriz
+        name: Monta a matriz de pacotes que mudaram
+        env:
+          MUDANCAS: ${{ steps.filtro.outputs.changes }}
+        run: |
+          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum")]')
+          echo "pacotes=${pacotes}" >> "$GITHUB_OUTPUT"
+
+  # Roda sempre: contratos, scripts e um teste ponta a ponta mínimo.
+  nucleo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --all-packages --locked
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy packages/contratos
+      - name: Testes de contratos, scripts e ponta a ponta mínimo
+        run: uv run pytest packages/contratos tests
+
+  # Cada pacote roda só os próprios testes (e todos, se contratos ou a configuração raiz mudarem).
+  pacotes:
+    needs: mudancas
+    if: needs.mudancas.outputs.pacotes != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pacote: ${{ fromJSON(needs.mudancas.outputs.pacotes) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --all-packages --locked
+      - name: Testes do pacote ${{ matrix.pacote }}
+        env:
+          PACOTE: ${{ matrix.pacote }}
+        run: |
+          if [ "$PACOTE" = "api" ]; then pasta=apps/api; else pasta="packages/$PACOTE"; fi
+          uv run pytest "$pasta"
+
+  # Roda em todo PR e em todo push na main.
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Instala o gitleaks (versão fixa, com checagem de SHA-256)
+        run: |
+          curl -sSfL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz gitleaks
+      - name: Procura segredos
+        env:
+          EVENTO: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          if [ "$EVENTO" = "pull_request" ]; then
+            ./gitleaks git --verbose --redact --log-opts="origin/${BASE}..HEAD"
+          else
+            ./gitleaks git --verbose --redact
+          fi
+
+  # Só quando docs/ (ou mkdocs.yml) mudar.
+  docs:
+    needs: mudancas
+    if: needs.mudancas.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run mkdocs build --strict
+
+  # Resultado único para a proteção da branch: passa se nada falhou (jobs pulados contam como ok).
+  ci-verde:
+    if: always()
+    needs: [nucleo, pacotes, gitleaks, docs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confere os resultados
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS"
+          if echo "$NEEDS" | jq -e 'map(select(.result == "failure" or .result == "cancelled")) | length > 0' > /dev/null; then
+            echo "Algum job falhou." && exit 1
+          fi

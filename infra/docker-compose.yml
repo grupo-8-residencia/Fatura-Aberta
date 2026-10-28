@@ -1,0 +1,17 @@
+name: fatura-aberta
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: ../.env
+        required: false
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/saude')"]
+      interval: 15s
+      timeout: 3s
+      retries: 3

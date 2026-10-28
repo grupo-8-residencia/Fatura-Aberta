@@ -1,0 +1,70 @@
+[project]
+name = "fatura-aberta"
+version = "0.1.0"
+description = "Verificador aberto e auditável de faturas de energia elétrica residencial (B1) da Neoenergia Brasília."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+default-groups = ["dev", "docs"]
+
+[tool.uv.workspace]
+members = ["packages/*", "apps/api"]
+
+[tool.uv.sources]
+fa-contratos = { workspace = true }
+fa-rag = { workspace = true }
+fa-motor = { workspace = true }
+fa-extracao = { workspace = true }
+fa-agentes = { workspace = true }
+fa-api = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "fa-contratos",
+    "fa-rag",
+    "fa-motor",
+    "fa-extracao",
+    "fa-agentes",
+    "fa-api",
+    "httpx2",
+    "mypy>=1.11",
+    "pre-commit>=3.8",
+    "pytest>=8.3",
+    "pyyaml>=6.0",
+    "ruff>=0.6",
+    "types-pyyaml>=6.0",
+]
+docs = [
+    "mkdocs>=1.6,<2",
+    "mkdocs-material>=9.5",
+]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+pythonpath = ["scripts"]
+testpaths = [
+    "packages",
+    "apps",
+    "tests",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["docs", "apps/web"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["fa_contratos", "fa_rag", "fa_motor", "fa_extracao", "fa_agentes", "fa_api"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+strict = true

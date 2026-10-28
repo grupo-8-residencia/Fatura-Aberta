@@ -1,0 +1,46 @@
+name: Bug
+description: Algo não funciona como esperado
+title: "Corrigir: descrição curta do problema"
+labels: ["tipo:bug"]
+body:
+  - type: checkboxes
+    id: privacidade
+    attributes:
+      label: Privacidade
+      options:
+        - label: Não anexei fatura real, nome, endereço nem número de instalação.
+          required: true
+  - type: dropdown
+    id: frente
+    attributes:
+      label: Frente afetada
+      options: [F1, F2, F3, F4, F5, F6, transversal]
+    validations:
+      required: true
+  - type: textarea
+    id: descricao
+    attributes:
+      label: O que aconteceu
+    validations:
+      required: true
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      description: Use uma fatura sintética.
+      value: |
+        1.
+        2.
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que deveria acontecer
+    validations:
+      required: true
+  - type: textarea
+    id: ambiente
+    attributes:
+      label: Ambiente
+      description: Sistema operacional, versão do Python, commit.

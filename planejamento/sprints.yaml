@@ -1,0 +1,44 @@
+# Fonte da verdade das sprints. Lido por scripts/github_setup.py (milestones) e
+# scripts/gerar_paginas.py (páginas em docs/sprints/).
+#
+# Cada sprint dura 1 semana, de segunda a sexta. A data de entrega é a sexta-feira da semana
+# (inicio + 7 * (n - 1) + 4 dias), calculada pelos scripts a partir de `inicio`.
+
+repositorio: grupo-8-residencia/Fatura-Aberta
+inicio: 2026-10-26 # segunda-feira da Sprint 1
+
+sprints:
+  - codigo: S1
+    titulo: Definição e delimitação
+    entregavel: Definição e delimitação
+    gate: Checklist de definição completo; se falhar, pivot com varredura de anterioridade.
+
+  - codigo: S2
+    titulo: Primeiro mecanismo RAG
+    entregavel: Primeiro mecanismo RAG
+    gate: recall@5 ≥ 0,70 em 30 perguntas e motor sem falso alarme nas faturas corretas.
+
+  - codigo: S3
+    titulo: Avaliação comparativa LLM × RAG
+    entregavel: Avaliação comparativa LLM × RAG
+    gate: Resultados com intervalo de confiança (resultado negativo também vale).
+
+  - codigo: S4
+    titulo: Primeira versão multiagentes
+    entregavel: Primeira versão multiagentes
+    gate: B5 ≥ B4 em afirmações sem suporte; senão B4 vira o produto e o achado entra no relatório.
+
+  - codigo: S5
+    titulo: Processamento multimodal integrado
+    entregavel: Processamento multimodal integrado
+    gate: ≥ 90% de acerto nos campos-chave em 40 fotos; senão OCR + formulário de confirmação.
+
+  - codigo: S6
+    titulo: Aplicação funcional
+    entregavel: Aplicação funcional
+    gate: 5 cenários ponta a ponta passando e CI verde.
+
+  - codigo: S7
+    titulo: Resultados, relatório e apresentação
+    entregavel: Resultados, relatório e apresentação
+    gate: Checklist final; repositório público.

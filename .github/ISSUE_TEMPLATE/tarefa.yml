@@ -1,0 +1,50 @@
+name: Tarefa
+description: Trabalho planejado de uma frente (feature, pesquisa, docs ou infra)
+title: "Verbo no imperativo: o que deve ser feito"
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Não anexe fatura real, nome, endereço ou número de instalação. Use dados sintéticos.
+  - type: dropdown
+    id: frente
+    attributes:
+      label: Frente
+      options: [F1, F2, F3, F4, F5, F6, transversal]
+    validations:
+      required: true
+  - type: dropdown
+    id: sprint
+    attributes:
+      label: Sprint
+      options: [S1, S2, S3, S4, S5, S6, S7]
+    validations:
+      required: true
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto
+      description: Por que isso é necessário? O que já existe?
+    validations:
+      required: true
+  - type: textarea
+    id: tarefas
+    attributes:
+      label: Tarefas
+      description: Checklist do que precisa ser feito.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Mensuráveis. Como saberemos que está pronto?
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true

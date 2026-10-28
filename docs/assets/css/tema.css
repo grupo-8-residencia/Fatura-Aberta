@@ -1,0 +1,163 @@
+/* Identidade visual do Fatura Aberta.
+   Sóbria, institucional e legível. Primária azul-petróleo; âmbar só para chamar atenção. */
+
+/* ------------------------------------------------------------------ Modo claro */
+:root,
+[data-md-color-scheme="default"] {
+  --fa-petroleo: #1f5c73;
+  --fa-ambar: #e0a100;
+  --fa-grafite: #2b2f33;
+
+  /* Cores dos níveis de evidência */
+  --fa-nivel-a: #4f6b2c; /* verde-musgo */
+  --fa-nivel-b: #e0a100; /* âmbar */
+  --fa-nivel-c: #5f7a8a; /* cinza-azulado */
+
+  --md-primary-fg-color: #1f5c73;
+  --md-primary-fg-color--light: #4a8197;
+  --md-primary-fg-color--dark: #153f50;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+
+  /* O âmbar #E0A100 tem pouco contraste como texto sobre branco (cerca de 2,2:1).
+     Para links e foco usamos uma versão mais escura; #E0A100 fica em bordas e destaques. */
+  --md-accent-fg-color: #8a6400;
+  --md-accent-fg-color--transparent: #8a64001a;
+  --md-accent-bg-color: #ffffff;
+
+  --md-default-fg-color: #2b2f33;
+  --md-default-fg-color--light: #4a5157;
+  --md-default-fg-color--lighter: #8a9197;
+  --md-default-fg-color--lightest: #d9dde0;
+  --md-typeset-color: #2b2f33;
+  --md-typeset-a-color: #1f5c73;
+  --md-code-fg-color: #2b2f33;
+  --md-code-bg-color: #f2f5f6;
+}
+
+/* ------------------------------------------------------------------ Modo escuro */
+[data-md-color-scheme="slate"] {
+  --fa-nivel-a: #8fae5c;
+  --fa-nivel-b: #e0a100;
+  --fa-nivel-c: #8aa6b5;
+
+  --md-hue: 200;
+  --md-primary-fg-color: #1f5c73;
+  --md-primary-fg-color--light: #4a8197;
+  --md-primary-fg-color--dark: #153f50;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+
+  --md-accent-fg-color: #e0a100;
+  --md-accent-fg-color--transparent: #e0a1001a;
+  --md-accent-bg-color: #14191c;
+
+  --md-default-bg-color: #14191c;
+  --md-default-fg-color: #e3e7ea;
+  --md-default-fg-color--light: #c3cacf;
+  --md-default-fg-color--lighter: #8a9197;
+  --md-default-fg-color--lightest: #2b3338;
+  --md-typeset-color: #e3e7ea;
+  --md-typeset-a-color: #7ab8cf;
+  --md-code-fg-color: #e3e7ea;
+  --md-code-bg-color: #1d2428;
+}
+
+/* ------------------------------------------------------------------ Tipografia e layout */
+.md-typeset {
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--md-typeset-color);
+}
+
+.md-typeset h2 {
+  font-weight: 600;
+  margin-top: 2.2em;
+}
+
+.md-typeset code,
+.md-typeset pre {
+  font-feature-settings: "calt" 1;
+}
+
+.md-header {
+  box-shadow: none;
+  border-bottom: 3px solid var(--fa-ambar);
+}
+
+.md-tabs {
+  background-color: var(--md-primary-fg-color--dark);
+}
+
+/* ------------------------------------------------------------------ Cartões da página inicial */
+.md-typeset .grid.cards > ul > li {
+  border: 0.05rem solid var(--md-default-fg-color--lightest);
+  border-radius: 0.3rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--md-primary-fg-color);
+  box-shadow: 0 0.1rem 0.6rem #0000001a;
+}
+
+/* ------------------------------------------------------------------ Admonitions dos níveis */
+:root {
+  /* Ícones Material Design: check, table e help-circle */
+  --md-admonition-icon--nivel-a: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59z"/></svg>');
+  --md-admonition-icon--nivel-b: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m0 4v4h6V8zm8 0v4h6V8zm-8 6v4h6v-4zm8 0v4h6v-4z"/></svg>');
+  --md-admonition-icon--nivel-c: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>');
+}
+
+/* Nível A: verde-musgo, ícone de check */
+.md-typeset .admonition.nivel-a,
+.md-typeset details.nivel-a {
+  border-color: var(--fa-nivel-a);
+}
+.md-typeset .nivel-a > .admonition-title,
+.md-typeset .nivel-a > summary {
+  background-color: color-mix(in srgb, var(--fa-nivel-a) 14%, transparent);
+}
+.md-typeset .nivel-a > .admonition-title::before,
+.md-typeset .nivel-a > summary::before {
+  background-color: var(--fa-nivel-a);
+  -webkit-mask-image: var(--md-admonition-icon--nivel-a);
+  mask-image: var(--md-admonition-icon--nivel-a);
+}
+
+/* Nível B: âmbar, ícone de tabela */
+.md-typeset .admonition.nivel-b,
+.md-typeset details.nivel-b {
+  border-color: var(--fa-nivel-b);
+}
+.md-typeset .nivel-b > .admonition-title,
+.md-typeset .nivel-b > summary {
+  background-color: color-mix(in srgb, var(--fa-nivel-b) 16%, transparent);
+}
+.md-typeset .nivel-b > .admonition-title::before,
+.md-typeset .nivel-b > summary::before {
+  background-color: var(--fa-nivel-b);
+  -webkit-mask-image: var(--md-admonition-icon--nivel-b);
+  mask-image: var(--md-admonition-icon--nivel-b);
+}
+
+/* Nível C: cinza-azulado, ícone de interrogação */
+.md-typeset .admonition.nivel-c,
+.md-typeset details.nivel-c {
+  border-color: var(--fa-nivel-c);
+}
+.md-typeset .nivel-c > .admonition-title,
+.md-typeset .nivel-c > summary {
+  background-color: color-mix(in srgb, var(--fa-nivel-c) 16%, transparent);
+}
+.md-typeset .nivel-c > .admonition-title::before,
+.md-typeset .nivel-c > summary::before {
+  background-color: var(--fa-nivel-c);
+  -webkit-mask-image: var(--md-admonition-icon--nivel-c);
+  mask-image: var(--md-admonition-icon--nivel-c);
+}

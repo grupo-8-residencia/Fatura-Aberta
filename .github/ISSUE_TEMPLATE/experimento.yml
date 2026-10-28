@@ -1,0 +1,52 @@
+name: Experimento
+description: Rodada do protocolo científico (baselines B1 a B5)
+title: "Executar: nome do experimento"
+labels: ["tipo:experimento"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Resultado negativo também vale. Registre tudo, inclusive o que não funcionou.
+  - type: dropdown
+    id: sprint
+    attributes:
+      label: Sprint
+      options: [S1, S2, S3, S4, S5, S6, S7]
+    validations:
+      required: true
+  - type: textarea
+    id: hipotese
+    attributes:
+      label: Hipótese
+      description: O que esperamos observar e por quê?
+    validations:
+      required: true
+  - type: checkboxes
+    id: baselines
+    attributes:
+      label: Baselines envolvidos
+      options:
+        - label: B1 (motor determinístico)
+        - label: B2 (LLM com RAG, sem filtro de vigência)
+        - label: B3 (LLM com RAG, com filtro de vigência)
+        - label: B4 (agente único)
+        - label: B5 (Analista + Auditor)
+  - type: textarea
+    id: dados
+    attributes:
+      label: Conjunto de dados
+      description: Qual golden set, qual versão e qual hash? Só dados sintéticos ou anonimizados.
+    validations:
+      required: true
+  - type: textarea
+    id: metricas
+    attributes:
+      label: Métricas e critério de decisão
+      description: recall@5, correção, afirmações sem suporte, falsos alarmes, intervalo de confiança. Qual limiar decide Go/No-Go?
+    validations:
+      required: true
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Como reproduzir
+      description: Comando, configuração, sementes e versões.

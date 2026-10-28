@@ -1,0 +1,126 @@
+site_name: Fatura Aberta
+site_description: Verificador aberto e auditável de faturas de energia elétrica residencial (B1) da Neoenergia Brasília.
+site_url: https://grupo-8-residencia.github.io/Fatura-Aberta/
+repo_url: https://github.com/grupo-8-residencia/Fatura-Aberta
+repo_name: grupo-8-residencia/Fatura-Aberta
+edit_uri: edit/main/docs/
+docs_dir: docs
+strict: true
+
+# Templates ficam no repositório, mas não viram páginas do site.
+exclude_docs: |
+  _templates/
+
+theme:
+  name: material
+  language: pt-BR
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    logo: material/clipboard-check-outline
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Mudar para o modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Mudar para o modo claro
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - content.action.edit
+
+extra_css:
+  - assets/css/tema.css
+
+plugins:
+  - search:
+      lang: pt
+  # Baixa as fontes no build e as serve do próprio site: sem requisições do visitante ao Google.
+  - privacy
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Início: index.md
+  - Produto:
+      - produto/index.md
+      - Personas: produto/personas.md
+      - Lean Inception: produto/lean-inception.md
+      - Critérios de aceite: produto/criterios-aceite.md
+  - Arquitetura:
+      - arquitetura/index.md
+      - Contratos: arquitetura/contratos.md
+      - Decisões (ADRs):
+          - arquitetura/decisoes/index.md
+          - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
+  - Frentes:
+      - frentes/index.md
+      - "F1 — Produto, Pesquisa e Conformidade": frentes/f1.md
+      - "F2 — Conhecimento e RAG": frentes/f2.md
+      - "F3 — Motor de Regras e Evidências": frentes/f3.md
+      - "F4 — Extração Documental e Multimodal": frentes/f4.md
+      - "F5 — Agentes, Avaliação e Ciência": frentes/f5.md
+      - "F6 — Plataforma, DevOps e AppSec": frentes/f6.md
+  - Conformidade:
+      - conformidade/index.md
+      - RIPD: conformidade/ripd.md
+      - Fronteira jurídica: conformidade/fronteira-juridica.md
+      - Política de dados: conformidade/politica-de-dados.md
+  - Avaliação:
+      - avaliacao/index.md
+      - Métricas: avaliacao/metricas.md
+      - Resultados: avaliacao/resultados.md
+  - Sprints:
+      - sprints/index.md
+      - "S1 — Definição e delimitação": sprints/s1.md
+      - "S2 — Primeiro mecanismo RAG": sprints/s2.md
+      - "S3 — Avaliação comparativa LLM × RAG": sprints/s3.md
+      - "S4 — Primeira versão multiagentes": sprints/s4.md
+      - "S5 — Processamento multimodal integrado": sprints/s5.md
+      - "S6 — Aplicação funcional": sprints/s6.md
+      - "S7 — Resultados, relatório e apresentação": sprints/s7.md
+  - Contribuir:
+      - contribuir/index.md
+      - Convenções: contribuir/convencoes.md
+      - Como rodar: contribuir/como-rodar.md

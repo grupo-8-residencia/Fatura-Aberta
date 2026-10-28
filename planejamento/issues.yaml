@@ -1,0 +1,739 @@
+# Fonte da verdade do backlog. Lido por scripts/github_setup.py (labels, issues, project)
+# e scripts/gerar_paginas.py (páginas de frentes e sprints).
+#
+# Regras:
+# - `responsaveis` é opcional; se ausente, vale o responsável da frente.
+# - Quem está com GitHub `A_CONFIRMAR` fica sem assignee até alguém preencher `equipe` abaixo.
+# - O id (S1-01 ...) é gravado como marcador invisível no corpo da issue e garante idempotência.
+# - O script NÃO reescreve o corpo de issues existentes (para não apagar checklists marcados).
+
+equipe:
+  Pedro: pedrohpsantos
+  Natalia: A_CONFIRMAR
+  Luiz: A_CONFIRMAR
+  Talita: TalitaaNunes
+  Maria Eduarda: mariadenis
+  Raissa: RaissaOliveira19
+
+frentes:
+  F1:
+    funcao: Líder de Produto, Pesquisa e Conformidade
+    responsavel: Natalia
+    par: Talita
+    cor: "1F5C73"
+    escopo: Produto, pesquisa com usuários e conformidade (LGPD, RIPD, fronteira jurídica).
+    pastas: [docs/produto, docs/conformidade]
+  F2:
+    funcao: Líder de Conhecimento e RAG
+    responsavel: Luiz
+    par: Natalia
+    cor: "3E8E7E"
+    escopo: Corpus normativo, chunking por dispositivo, índice híbrido e busca com citação.
+    pastas: [packages/rag, dados/normas]
+  F3:
+    funcao: Líder do Motor de Regras e Evidências
+    responsavel: Talita
+    par: Pedro
+    cor: "4F6B2C"
+    escopo: Motor tarifário determinístico (níveis A e B) e gerador de erros injetados.
+    pastas: [packages/motor, dados/tarifas]
+  F4:
+    funcao: Líder de Extração Documental e Multimodal
+    responsavel: Maria Eduarda
+    par: Luiz
+    cor: "C99A00"
+    escopo: Extração de PDF e foto da fatura para o contrato Fatura, com anonimização de PII.
+    pastas: [packages/extracao]
+  F5:
+    funcao: Líder de Agentes, Avaliação e Ciência
+    responsavel: Pedro
+    par: Raissa
+    cor: "7B5EA7"
+    escopo: Agentes (Analista Normativo e Auditor), harness B1–B5, métricas e relatório científico.
+    pastas: [packages/agentes, avaliacao, dados/golden-set, dados/benchmark]
+  F6:
+    funcao: Líder de Plataforma, DevOps e AppSec
+    responsavel: Raissa
+    par: Maria Eduarda
+    cor: "C0562B"
+    escopo: API, web app, CI/CD, infraestrutura, observabilidade e segurança de aplicação.
+    pastas: [apps, infra, .github]
+  transversal:
+    funcao: Tarefas que envolvem várias frentes
+    responsavel: Pedro
+    par: ""
+    cor: "6B7B86"
+    escopo: Itens que não pertencem a uma única frente (por exemplo, contratos e coleta de faturas).
+    pastas: []
+
+# Labels fixas (as de frente são geradas a partir de `frentes`).
+labels:
+  - {nome: "tipo:feature", cor: "1D76DB", descricao: "Nova funcionalidade"}
+  - {nome: "tipo:pesquisa", cor: "0E8A16", descricao: "Pesquisa, levantamento ou análise"}
+  - {nome: "tipo:docs", cor: "0075CA", descricao: "Documentação"}
+  - {nome: "tipo:infra", cor: "5319E7", descricao: "Infraestrutura, CI/CD, plataforma"}
+  - {nome: "tipo:bug", cor: "D73A4A", descricao: "Algo não funciona como esperado"}
+  - {nome: "tipo:experimento", cor: "FBCA04", descricao: "Experimento científico (baselines B1–B5)"}
+  - {nome: "prioridade:alta", cor: "B60205", descricao: "Fazer primeiro"}
+  - {nome: "prioridade:media", cor: "E99695", descricao: "Prioridade normal"}
+  - {nome: "prioridade:baixa", cor: "C2E0C6", descricao: "Se der tempo"}
+  - {nome: "gate", cor: "000000", descricao: "Decide o Go/No-Go/Pivot da sprint"}
+  - {nome: "contrato", cor: "0052CC", descricao: "Mexe em packages/contratos/ (exige 2 aprovações)"}
+  - {nome: "dados-pessoais", cor: "D93F0B", descricao: "Toca fatura real: atenção à LGPD"}
+
+# GitHub Project (v2) opcional: só é criado com --projeto e confirmação.
+projeto:
+  titulo: Fatura Aberta
+  status: [A fazer, Em andamento, Em revisão, Feito]
+
+issues:
+  # ------------------------------------------------------------------ S1
+  - id: S1-01
+    titulo: Facilitar a Lean Inception e registrar o resultado
+    sprint: S1
+    frente: F1
+    labels: [tipo:pesquisa, prioridade:alta, gate]
+    contexto: >-
+      A Lean Inception alinha o time sobre o MVP e alimenta a ADR-001 e o checklist de
+      definição da S1. O resultado precisa ficar registrado em `docs/produto/`.
+    tarefas:
+      - Agendar e preparar a oficina com o time
+      - "Conduzir os 6 frames (TODO: Natalia confirma quais 6 frames o time vai usar)"
+      - Registrar o resultado em `docs/produto/lean-inception.md`
+      - Revisão do par (Talita)
+    criterios:
+      - 6 frames concluídos e registrados em `docs/produto/lean-inception.md`
+      - PR aprovado pelo par de revisão
+      - Checklist de definição da S1 atualizado em `docs/sprints/s1.md`
+
+  - id: S1-02
+    titulo: Realizar 6 a 8 entrevistas e sintetizar de forma anonimizada
+    sprint: S1
+    frente: F1
+    labels: [tipo:pesquisa, prioridade:media, dados-pessoais]
+    contexto: >-
+      As entrevistas validam o problema com usuários reais. Notas brutas contêm dados pessoais
+      e ficam fora do Git; só a síntese anonimizada entra no repositório.
+    tarefas:
+      - Escrever o roteiro de entrevista
+      - Realizar de 6 a 8 entrevistas com consentimento registrado fora do Git
+      - Sintetizar os achados sem identificar ninguém
+      - Publicar a síntese em `docs/produto/`
+    criterios:
+      - Entre 6 e 8 entrevistas realizadas
+      - Síntese anonimizada publicada em `docs/produto/`
+      - Nenhuma nota bruta ou dado pessoal no repositório (conferido na revisão do PR)
+
+  - id: S1-03
+    titulo: Redigir o RIPD simplificado
+    sprint: S1
+    frente: F1
+    labels: [tipo:docs, prioridade:media]
+    contexto: >-
+      O Relatório de Impacto à Proteção de Dados simplificado documenta o tratamento de faturas
+      (nome, endereço e número da instalação) e as medidas de mitigação.
+    tarefas:
+      - "Definir as seções do RIPD simplificado (TODO: modelo a combinar com a F1)"
+      - Preencher `docs/conformidade/ripd.md`
+      - Revisão do par (Talita)
+    criterios:
+      - "`docs/conformidade/ripd.md` preenchido, sem `TODO` nas seções obrigatórias"
+      - PR aprovado pelo par de revisão
+
+  - id: S1-04
+    titulo: Registrar o parecer informal de docente de Direito sobre a fronteira jurídica
+    sprint: S1
+    frente: F1
+    responsaveis: [Natalia, Pedro]
+    labels: [tipo:pesquisa, prioridade:media]
+    contexto: >-
+      O produto usa linguagem de evidência e não diz "ilegal" nem estima restituição. A conversa
+      com docente de Direito ajuda a fixar essa fronteira antes do MVP.
+    tarefas:
+      - Marcar a conversa com docente de Direito
+      - Levar a lista de frases que o produto emite em cada nível (A, B, C)
+      - Registrar o parecer informal em `docs/conformidade/fronteira-juridica.md`
+    criterios:
+      - Conversa realizada e registrada em `docs/conformidade/fronteira-juridica.md`
+      - Lista de frases permitidas e proibidas validada na conversa
+
+  - id: S1-05
+    titulo: Escrever a ADR-001 com o teste de 5 faturas em concorrentes
+    sprint: S1
+    frente: F1
+    labels: [tipo:pesquisa, prioridade:alta, gate]
+    contexto: >-
+      A ADR-001 fixa o escopo do MVP e compara o produto com ferramentas concorrentes, incluindo
+      a ferramenta do Idec. É um dos itens do gate da S1.
+    tarefas:
+      - Escolher 5 faturas para o teste (sintéticas ou com consentimento; nunca no Git)
+      - Testar as 5 faturas em cada concorrente, incluindo a ferramenta do Idec
+      - Preencher `docs/arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md`
+      - Discutir em reunião e mudar o status de "proposta" para "aceita" ou "rejeitada"
+    criterios:
+      - 5 faturas testadas em cada concorrente, com a ferramenta do Idec incluída
+      - ADR-001 sem `TODO` e com status definido em reunião
+      - Nenhuma fatura real no repositório
+
+  - id: S1-06
+    titulo: Coletar pelo menos 15 faturas reais com termo de consentimento
+    sprint: S1
+    frente: transversal
+    responsaveis: [Natalia]
+    labels: [tipo:pesquisa, prioridade:alta, gate, dados-pessoais]
+    contexto: >-
+      Ponto focal: F1. As faturas reais alimentam a análise de layouts e o golden set, mas
+      contêm nome, endereço e número da instalação. Ficam armazenadas fora do Git.
+    tarefas:
+      - Preparar o termo de consentimento (revisão do RIPD)
+      - Coletar as faturas e registrar o consentimento de cada pessoa
+      - "Definir onde guardar as faturas (TODO: local seguro combinado com o time, fora do Git)"
+      - Manter uma lista de controle sem dados pessoais
+    criterios:
+      - Pelo menos 15 faturas coletadas, cada uma com termo de consentimento
+      - Nenhum arquivo de fatura real no repositório (hook de pre-commit e revisão)
+      - Lista de controle sem dados pessoais disponível ao time
+
+  - id: S1-07
+    titulo: Inventariar o corpus normativo com URL e vigência
+    sprint: S1
+    frente: F2
+    labels: [tipo:pesquisa, prioridade:media]
+    contexto: >-
+      O RAG só pode citar o que está inventariado. O inventário lista cada norma com a fonte
+      oficial e o período de vigência de cada dispositivo relevante.
+    tarefas:
+      - REN ANEEL 1.000/2021
+      - PRODIST Módulo 8
+      - Código de Defesa do Consumidor (CDC)
+      - Lei Distrital 7.919/2026
+      - Registrar URL oficial e vigência de cada uma em `dados/normas/`
+    criterios:
+      - As 4 normas inventariadas com URL oficial
+      - Vigência registrada para cada uma; onde não foi verificada, marcada como `TODO`
+      - PR aprovado pelo par de revisão
+
+  - id: S1-08
+    titulo: Baixar e versionar a tabela tarifária B1 da Neoenergia
+    sprint: S1
+    frente: F3
+    labels: [tipo:pesquisa, prioridade:alta, gate]
+    contexto: >-
+      A checagem de nível B compara a fatura com a tabela oficial da ANEEL. A tabela precisa
+      ser versionada com data e fonte para que o resultado seja reprodutível.
+    tarefas:
+      - Localizar a tabela B1 da Neoenergia Brasília no dataset da ANEEL
+      - Baixar e salvar em `dados/tarifas/`
+      - Registrar URL, data do download e hash SHA-256
+      - Documentar como baixar de novo
+    criterios:
+      - Arquivo em `dados/tarifas/` com URL, data de download e SHA-256 registrados
+      - Instruções para reproduzir o download documentadas
+      - PR aprovado pelo par de revisão
+
+  - id: S1-09
+    titulo: Mapear os layouts de fatura com pdftotext em 10 faturas
+    sprint: S1
+    frente: F4
+    labels: [tipo:pesquisa, prioridade:media, dados-pessoais]
+    contexto: >-
+      O layout da fatura mudou em maio/2026. O mapa dos layouts antes e depois dessa data guia o
+      parser da S2. As faturas ficam fora do Git.
+    tarefas:
+      - Rodar `pdftotext` em 10 faturas, localmente
+      - Mapear campos e posições nos layouts anterior e posterior a maio/2026
+      - Registrar o mapa (sem dados pessoais) em `docs/frentes/f4.md`
+    criterios:
+      - 10 faturas processadas
+      - Mapa dos dois layouts registrado em `docs/frentes/f4.md`, sem dados pessoais
+      - Nenhuma fatura real no repositório
+
+  - id: S1-10
+    titulo: Definir o protocolo de avaliação B1–B5 e as métricas
+    sprint: S1
+    frente: F5
+    labels: [tipo:experimento, prioridade:media]
+    contexto: >-
+      O experimento compara B1 (motor determinístico), B2 e B3 (LLM com RAG sem e com filtros de
+      vigência), B4 (agente único) e B5 (Analista + Auditor).
+    tarefas:
+      - Descrever cada baseline em `docs/avaliacao/`
+      - Definir as métricas (recall@5 da norma vigente, correção, afirmações sem suporte, falsos alarmes) e o intervalo de confiança
+      - "Definir o método do intervalo de confiança (TODO)"
+      - Revisão do par (Raissa)
+    criterios:
+      - Protocolo e métricas publicados em `docs/avaliacao/`
+      - Cada métrica com definição operacional e fórmula
+      - PR aprovado pelo par de revisão
+
+  - id: S1-11
+    titulo: Entregar monorepo, CI, pre-commit, CODEOWNERS e site de documentação
+    sprint: S1
+    frente: F6
+    labels: [tipo:infra, prioridade:alta]
+    contexto: >-
+      Este é o setup inicial do repositório. A F6 valida, mantém e evolui o que foi entregue.
+    tarefas:
+      - Conferir o monorepo, `uv sync` e `uv run pytest` em máquina limpa
+      - Conferir CI, pre-commit e CODEOWNERS
+      - Conferir a proteção da `main` e o site no GitHub Pages
+    criterios:
+      - CI verde na `main`
+      - Site publicado no GitHub Pages
+      - Proteção da `main` ativa (PR obrigatório, 1 aprovação de code owner, CI verde)
+
+  # ------------------------------------------------------------------ S2
+  - id: S2-01
+    titulo: Congelar os contratos v1 (Fatura, Achado, Citacao)
+    sprint: S2
+    frente: transversal
+    responsaveis: [Pedro]
+    labels: [tipo:feature, prioridade:alta, contrato]
+    contexto: >-
+      Todas as frentes dependem de `packages/contratos`. Congelar a v1 permite que as frentes
+      trabalhem em paralelo. Mudanças depois disso exigem issue com label `contrato` e 2 aprovações.
+    tarefas:
+      - Revisar `Fatura`, `ItemFatura`, `Achado` e `Citacao` com todas as frentes
+      - Ajustar os campos que as frentes pedirem
+      - Marcar a versão como `contratos-v1`
+    criterios:
+      - Contratos aprovados por 2 revisores de code owners
+      - Testes de contrato passando no CI
+      - Tag `contratos-v1` criada
+
+  - id: S2-02
+    titulo: Implementar o chunking por dispositivo e o índice híbrido com filtros
+    sprint: S2
+    frente: F2
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      Para citar o dispositivo exato e a vigência, o RAG precisa quebrar as normas por dispositivo
+      e filtrar por vigência e subgrupo tarifário.
+    tarefas:
+      - Implementar o chunking por dispositivo (artigo, inciso, parágrafo)
+      - Implementar o índice híbrido (lexical + vetorial)
+      - Implementar filtros de vigência e subgrupo
+      - Escrever testes
+    criterios:
+      - Cada chunk guarda ato, dispositivo e vigência (contrato `Citacao`)
+      - Filtros de vigência e subgrupo cobertos por testes
+      - Testes do pacote `rag` passando no CI
+
+  - id: S2-03
+    titulo: Medir o recall@5 em 30 perguntas
+    sprint: S2
+    frente: F2
+    labels: [tipo:experimento, prioridade:alta, gate]
+    contexto: >-
+      Gate da S2: o mecanismo RAG precisa recuperar a norma vigente entre os 5 primeiros
+      resultados na maioria das perguntas.
+    tarefas:
+      - Escrever 30 perguntas com a norma vigente esperada
+      - Rodar a recuperação e calcular o recall@5
+      - Registrar o resultado em `docs/avaliacao/`
+    criterios:
+      - recall@5 ≥ 0,70 em 30 perguntas
+      - Perguntas e respostas esperadas versionadas em `dados/golden-set/`
+      - Resultado registrado em `docs/avaliacao/`
+
+  - id: S2-04
+    titulo: Implementar o motor de nível A com testes unitários
+    sprint: S2
+    frente: F3
+    labels: [tipo:feature, prioridade:alta, gate]
+    contexto: >-
+      O nível A é o único emitido automaticamente: checagens determinísticas com dados da própria
+      fatura. Gate da S2: sem falso alarme nas faturas corretas.
+    tarefas:
+      - Checar leituras
+      - Checar somas
+      - Checar linhas
+      - Checar o ICMS com a alíquota impressa na fatura
+      - Checar a parcela até 80 kWh
+      - Testes unitários para cada checagem
+    criterios:
+      - Cada checagem tem testes unitários passando no CI
+      - Zero falso alarme nas faturas corretas do conjunto de teste
+      - Todo `Achado` emitido tem `nivel = A`
+
+  - id: S2-05
+    titulo: Criar o gerador de erros injetados v0
+    sprint: S2
+    frente: F3
+    labels: [tipo:feature, prioridade:media]
+    contexto: >-
+      O benchmark público usa faturas sintéticas com erros conhecidos, para medir recall e falsos
+      alarmes sem expor dados pessoais.
+    tarefas:
+      - Gerar faturas sintéticas válidas
+      - Injetar erros rotulados
+      - Gravar a saída em `dados/benchmark/sinteticas/`
+    criterios:
+      - Pelo menos 1 tipo de erro injetado por checagem do nível A
+      - Geração reprodutível por semente
+      - Testes passando no CI
+
+  - id: S2-06
+    titulo: Criar o parser de PDF para o contrato Fatura
+    sprint: S2
+    frente: F4
+    labels: [tipo:feature, prioridade:media]
+    contexto: >-
+      O parser transforma o PDF da fatura em `Fatura`, descartando dados pessoais, e precisa lidar
+      com os dois layouts mapeados na S1.
+    tarefas:
+      - Implementar o parser para os dois layouts
+      - Descartar nome, endereço e número da instalação
+      - Testar com faturas sintéticas ou anonimizadas
+    criterios:
+      - PDF sintético válido gera `Fatura` validada pelo contrato
+      - Nenhum campo de dados pessoais sai do parser
+      - "Meta de acerto por campo: TODO (definir com a F5)"
+
+  - id: S2-07
+    titulo: Criar o esqueleto da API com POST /analisar usando o motor nível A
+    sprint: S2
+    frente: F6
+    labels: [tipo:feature, prioridade:media]
+    contexto: >-
+      Primeira integração ponta a ponta: a API recebe uma `Fatura` e devolve `Achado` de nível A.
+    tarefas:
+      - Implementar `POST /analisar`
+      - Integrar o motor de nível A
+      - Subir a API com `docker compose up`
+    criterios:
+      - "`POST /analisar` devolve a lista de `Achado` para uma fatura sintética"
+      - Teste ponta a ponta passando no CI
+      - "`docker compose up` sobe a API e `/saude` responde"
+
+  # ------------------------------------------------------------------ S3
+  - id: S3-01
+    titulo: Montar o golden set com 120 perguntas e 200 faturas congeladas
+    sprint: S3
+    frente: F5
+    labels: [tipo:experimento, prioridade:alta]
+    contexto: >-
+      O golden set é a base de todas as rodadas. Cada pessoa anota 30 itens. TODO: conferir a
+      divisão (6 pessoas × 30 itens = 180, número diferente de 120 perguntas + 200 faturas).
+    tarefas:
+      - Escrever e revisar as 120 perguntas
+      - Reunir 200 faturas sintéticas ou anonimizadas
+      - Cada pessoa anota 30 itens
+      - Congelar o conjunto com hash
+    criterios:
+      - 120 perguntas e 200 faturas congeladas com hash registrado
+      - Cada pessoa anotou 30 itens
+      - Nenhuma fatura real no repositório
+
+  - id: S3-02
+    titulo: Rodar B2 e B3 e calibrar o juiz LLM contra 40 itens humanos
+    sprint: S3
+    frente: F5
+    labels: [tipo:experimento, prioridade:alta, gate]
+    contexto: >-
+      Gate da S3: resultados com intervalo de confiança. Resultado negativo também vale e deve
+      ser reportado.
+    tarefas:
+      - Rodar B2 (LLM com RAG sem filtros de vigência)
+      - Rodar B3 (LLM com RAG e filtros de vigência)
+      - Anotar 40 itens humanos e calibrar o juiz LLM
+    criterios:
+      - Resultados de B2 e B3 com intervalo de confiança
+      - Concordância juiz × humano medida em 40 itens (TODO limiar mínimo)
+      - Código e configuração das rodadas versionados
+
+  - id: S3-03
+    titulo: Implementar as checagens de nível B com a tabela ANEEL versionada
+    sprint: S3
+    frente: F3
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      O nível B compara TUSD+TE e bandeira com a tabela oficial versionada na S1. A saída sempre
+      diz que "diverge da tabela oficial que conseguimos obter", com fonte e data.
+    tarefas:
+      - Checar TUSD+TE contra a tabela versionada
+      - Checar a bandeira tarifária
+      - Incluir fonte e data da tabela em todo achado de nível B
+    criterios:
+      - Todo achado de nível B traz fonte e data da tabela
+      - Testes unitários passando no CI
+      - Nenhuma mensagem usa "ilegal" ou estima restituição
+
+  - id: S3-04
+    titulo: Ajustar a recuperação a partir dos erros da S3
+    sprint: S3
+    frente: F2
+    labels: [tipo:experimento, prioridade:media]
+    contexto: >-
+      Os erros de recuperação das rodadas B2 e B3 mostram onde o índice e os filtros falham.
+    tarefas:
+      - Classificar os erros de recuperação
+      - Ajustar chunking, filtros ou índice
+      - Medir de novo o recall@5
+    criterios:
+      - Análise dos erros documentada em `docs/avaliacao/`
+      - recall@5 re-medido e comparado com o da S2
+      - Testes do pacote `rag` passando no CI
+
+  # ------------------------------------------------------------------ S4
+  - id: S4-01
+    titulo: Implementar os agentes Analista Normativo e Auditor (B5)
+    sprint: S4
+    frente: F5
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      O Analista Normativo busca e cita normas via RAG. O Auditor confere cada afirmação e força
+      a abstenção quando não há suporte.
+    tarefas:
+      - Implementar o Analista Normativo
+      - Implementar o Auditor com abstenção forçada
+      - Testes com LLM simulado
+    criterios:
+      - Toda afirmação do Analista traz citação com ato, dispositivo e vigência
+      - O Auditor se abstém quando não há suporte
+      - Testes do pacote `agentes` passando no CI
+
+  - id: S4-02
+    titulo: Rodar B4 × B5 e fazer a ablação com falhas anotadas
+    sprint: S4
+    frente: F5
+    labels: [tipo:experimento, prioridade:alta, gate]
+    contexto: >-
+      Gate da S4: B5 deve ser pelo menos tão bom quanto B4 em afirmações sem suporte. Se não for,
+      B4 vira o produto e o achado entra no relatório.
+    tarefas:
+      - Rodar B4 e B5 no golden set
+      - Fazer a ablação (com e sem Auditor)
+      - Anotar as falhas
+    criterios:
+      - B5 ≥ B4 em afirmações sem suporte, com intervalo de confiança; ou decisão de adotar B4 registrada
+      - Falhas anotadas em `docs/avaliacao/`
+      - Código e configuração das rodadas versionados
+
+  - id: S4-03
+    titulo: Criar a ferramenta de busca com citação para os agentes
+    sprint: S4
+    frente: F2
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      Os agentes só podem citar o que a ferramenta de busca devolve, no formato do contrato
+      `Citacao`.
+    tarefas:
+      - Expor a busca como ferramenta para os agentes
+      - Devolver trechos com ato, dispositivo, vigência e URL
+      - Aplicar os filtros de vigência
+    criterios:
+      - Cada resultado valida contra o contrato `Citacao`
+      - Filtros de vigência cobertos por testes
+      - Testes do pacote `rag` passando no CI
+
+  - id: S4-04
+    titulo: Integrar os agentes na API
+    sprint: S4
+    frente: F6
+    labels: [tipo:feature, prioridade:media]
+    contexto: >-
+      A API passa a usar os agentes além do motor determinístico, sem perder o nível A.
+    tarefas:
+      - Chamar os agentes a partir de `POST /analisar`
+      - Tratar falha ou timeout dos agentes
+      - Atualizar o teste ponta a ponta
+    criterios:
+      - Falha dos agentes não derruba os achados de nível A
+      - Teste ponta a ponta passando no CI
+      - "Timeout máximo por análise: TODO (definir com a F5)"
+
+  # ------------------------------------------------------------------ S5
+  - id: S5-01
+    titulo: Implementar a extração de foto via VLM local com confirmação de campos
+    sprint: S5
+    frente: F4
+    labels: [tipo:feature, prioridade:alta, dados-pessoais]
+    contexto: >-
+      A foto é processada por um VLM local. O usuário confirma os campos extraídos antes da
+      análise, e a PII é anonimizada antes de qualquer registro.
+    tarefas:
+      - Extrair os campos da foto com VLM local
+      - Implementar a confirmação de campos pelo usuário
+      - Anonimizar PII antes de qualquer log ou armazenamento
+    criterios:
+      - Foto sintética gera `Fatura` validada pelo contrato
+      - Nenhum dado pessoal em logs ou armazenamento (verificado em teste)
+      - Análise só começa depois da confirmação do usuário
+
+  - id: S5-02
+    titulo: Medir a acurácia por campo em 40 fotos
+    sprint: S5
+    frente: F4
+    labels: [tipo:experimento, prioridade:alta, gate]
+    contexto: >-
+      Gate da S5: acerto de pelo menos 90% nos campos-chave. Se falhar, o plano de contingência
+      é OCR mais formulário de confirmação.
+    tarefas:
+      - "Definir os campos-chave (TODO)"
+      - Reunir 40 fotos com gabarito
+      - Medir a acurácia por campo
+    criterios:
+      - ≥ 90% de acerto nos campos-chave em 40 fotos; ou decisão de usar OCR + formulário registrada
+      - Resultado por campo publicado em `docs/avaliacao/`
+      - Nenhuma foto real no repositório
+
+  - id: S5-03
+    titulo: Testar injeção de prompt via imagem
+    sprint: S5
+    frente: F6
+    labels: [tipo:experimento, prioridade:media]
+    contexto: >-
+      Texto dentro de uma imagem pode tentar instruir o modelo. A F6 verifica o risco e as
+      mitigações.
+    tarefas:
+      - Montar um conjunto de imagens de ataque sintéticas
+      - Rodar contra o pipeline de extração e os agentes
+      - Registrar os resultados e as mitigações
+    criterios:
+      - "Conjunto de ataques versionado (número de casos: TODO)"
+      - Resultados documentados em `docs/`
+      - Cada falha com mitigação implementada ou risco aceito registrado
+
+  # ------------------------------------------------------------------ S6
+  - id: S6-01
+    titulo: Construir o web app com o cartão de decisão
+    sprint: S6
+    frente: F6
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      O cartão de decisão mostra, item por item, se a cobrança confere, com o nível de evidência
+      (A, B ou C) visível e a citação com vigência.
+    tarefas:
+      - Tela de envio de PDF ou foto
+      - Tela de confirmação de campos
+      - Cartão de decisão com nível A/B/C e citações
+    criterios:
+      - Cada item exibe nível, descrição e citação com vigência
+      - Nenhum texto afirma "ilegal" nem estima restituição
+      - Fluxo completo exercitado por pelo menos 1 cenário ponta a ponta
+
+  - id: S6-02
+    titulo: Publicar o deploy, a observabilidade e o teste de carga leve
+    sprint: S6
+    frente: F6
+    labels: [tipo:infra, prioridade:media]
+    contexto: >-
+      A aplicação precisa estar no ar, ser observável sem registrar dados pessoais e resistir a
+      uma carga leve de uso.
+    tarefas:
+      - Publicar o deploy
+      - Configurar logs e métricas sem PII
+      - Executar e documentar o teste de carga leve
+    criterios:
+      - Aplicação acessível por URL pública
+      - Logs revisados sem dados pessoais
+      - "Teste de carga leve documentado (metas: TODO)"
+
+  - id: S6-03
+    titulo: Automatizar 5 cenários ponta a ponta
+    sprint: S6
+    frente: F6
+    labels: [tipo:feature, prioridade:alta, gate]
+    contexto: >-
+      Gate da S6: 5 cenários ponta a ponta passando e CI verde.
+    tarefas:
+      - "Definir os 5 cenários (TODO: com F1 e F3)"
+      - Automatizar no CI
+    criterios:
+      - 5 cenários ponta a ponta passando no CI
+      - CI verde na `main`
+
+  - id: S6-04
+    titulo: Redigir a minuta de pedido à distribuidora em linguagem de evidência
+    sprint: S6
+    frente: F1
+    labels: [tipo:docs, prioridade:media]
+    contexto: >-
+      A minuta ajuda o usuário a pedir esclarecimento à distribuidora. Usa linguagem de evidência
+      e não diz "ilegal" nem estima restituição.
+    tarefas:
+      - Redigir a minuta
+      - Revisar quanto à fronteira jurídica
+    criterios:
+      - Minuta publicada em `docs/` sem as palavras "ilegal" e "restituição"
+      - Revisada quanto à fronteira jurídica (TODO: revisor a definir)
+
+  # ------------------------------------------------------------------ S7
+  - id: S7-01
+    titulo: Conduzir o estudo com 8 a 12 usuários
+    sprint: S7
+    frente: F1
+    labels: [tipo:pesquisa, prioridade:alta, dados-pessoais]
+    contexto: >-
+      O estudo avalia o produto com usuários reais.
+    tarefas:
+      - Recrutar participantes e registrar consentimento
+      - Conduzir as sessões
+      - Sintetizar os resultados sem identificar ninguém
+    criterios:
+      - Entre 8 e 12 participantes
+      - Síntese anonimizada publicada
+      - Consentimentos guardados fora do Git
+
+  - id: S7-02
+    titulo: Executar a rodada final B1–B5 e escrever o relatório técnico
+    sprint: S7
+    frente: F5
+    labels: [tipo:experimento, prioridade:alta, gate]
+    contexto: >-
+      A rodada final fecha o experimento científico e alimenta o relatório técnico.
+    tarefas:
+      - Rodar B1–B5 no golden set congelado
+      - Calcular métricas e intervalos de confiança
+      - Escrever o relatório técnico
+    criterios:
+      - Resultados de B1–B5 com intervalo de confiança publicados
+      - Relatório técnico concluído
+      - Resultados reproduzíveis a partir do repositório (TODO: comando único)
+
+  - id: S7-03
+    titulo: Publicar o dataset card do benchmark
+    sprint: S7
+    frente: F5
+    labels: [tipo:docs, prioridade:media]
+    contexto: >-
+      O benchmark público com erros injetados precisa de uma descrição formal.
+    tarefas:
+      - Escrever o dataset card
+      - Documentar a origem sintética e as regras de privacidade
+    criterios:
+      - Dataset card publicado em `dados/benchmark/` e na documentação
+      - Confirmação de que o benchmark só tem dados sintéticos ou anonimizados
+
+  - id: S7-04
+    titulo: Preparar a apresentação e ensaiar a demo com plano offline
+    sprint: S7
+    frente: F1
+    labels: [tipo:docs, prioridade:media]
+    contexto: >-
+      A demo precisa funcionar mesmo sem internet.
+    tarefas:
+      - Montar a apresentação
+      - Ensaiar a demo
+      - Preparar o plano offline
+    criterios:
+      - Pelo menos 1 ensaio completo realizado
+      - Plano offline testado sem rede
+
+  - id: S7-05
+    titulo: Concluir o checklist final do repositório
+    sprint: S7
+    frente: F6
+    labels: [tipo:infra, prioridade:alta, gate]
+    contexto: >-
+      O repositório já nasceu público. O checklist final garante que o histórico está limpo e que
+      a documentação está completa antes da entrega.
+    tarefas:
+      - Escanear o histórico por segredos e por faturas reais
+      - Conferir README, documentação e CONTRIBUTING
+      - "Definir a licença (TODO: decisão do time)"
+    criterios:
+      - Varredura do histórico sem segredos nem faturas reais
+      - README e documentação revisados
+      - Licença definida e publicada
