@@ -2,6 +2,8 @@ name: CI
 
 on:
   pull_request:
+    # `edited` reavalia o PR quando a branch de destino muda (regra de origem da main).
+    types: [opened, synchronize, reopened, edited]
   push:
     branches: [main, dev]
 
