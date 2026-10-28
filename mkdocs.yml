@@ -85,7 +85,7 @@ nav:
   - Início: index.md
   - Produto:
       - produto/index.md
-      - Personas: produto/personas.md
+      - Personas: produto/definicao/personas.md
       - Lean Inception: produto/lean-inception.md
       - Critérios de aceite: produto/criterios-aceite.md
   - Arquitetura:
