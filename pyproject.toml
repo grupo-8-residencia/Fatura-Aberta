@@ -4,7 +4,14 @@ version = "0.1.0"
 description = "Verificador aberto e auditável de faturas de energia elétrica residencial (B1) da Neoenergia Brasília."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fa-contratos",
+    "fa-rag",
+    "fa-motor",
+    "fa-extracao",
+    "fa-agentes",
+    "fa-api",
+]
 
 [tool.uv]
 default-groups = ["dev", "docs"]
@@ -22,12 +29,6 @@ fa-api = { workspace = true }
 
 [dependency-groups]
 dev = [
-    "fa-contratos",
-    "fa-rag",
-    "fa-motor",
-    "fa-extracao",
-    "fa-agentes",
-    "fa-api",
     "httpx2",
     "mypy>=1.11",
     "pre-commit>=3.8",
@@ -65,6 +66,7 @@ known-first-party = ["fa_contratos", "fa_rag", "fa_motor", "fa_extracao", "fa_ag
 quote-style = "double"
 
 [tool.mypy]
+files = ["packages", "apps", "scripts", "tests"]
 python_version = "3.12"
 plugins = ["pydantic.mypy"]
 strict = true

@@ -28,7 +28,7 @@ uv run pre-commit install
     ```bash
     uv run ruff check .
     uv run ruff format .
-    uv run mypy packages/contratos
+    uv run mypy
     uv run pre-commit run --all-files
     ```
 

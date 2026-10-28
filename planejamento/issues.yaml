@@ -57,7 +57,7 @@ frentes:
     par: Maria Eduarda
     cor: "C0562B"
     escopo: API, web app, CI/CD, infraestrutura, observabilidade e segurança de aplicação.
-    pastas: [apps, infra, .github]
+    pastas: [apps, infra, .github, scripts, tests, docs/assets, mkdocs.yml, compose.yaml]
   transversal:
     funcao: Tarefas que envolvem várias frentes
     responsavel: Pedro
@@ -281,6 +281,286 @@ issues:
       - CI verde na `main`
       - Site publicado no GitHub Pages
       - Proteção da `main` ativa (PR obrigatório, 1 aprovação de code owner, CI verde)
+
+  # ---- Pacote de definição do projeto (entrega da semana da S1)
+  - id: S1-12
+    titulo: Escrever a seção Cenário escolhido do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Natalia"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/cenario.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Onde, para quem e quando o problema acontece (grupo B1, Neoenergia Brasília, DF)"
+      - "Como o cenário se liga à Big Idea \"Qualidade de Vida\" e ao Challenge Statement"
+      - "Por que este cenário e não outro (o que foi considerado e descartado, se houve)"
+      - "Escrever em `docs/produto/definicao/cenario.md` (limite: até 200 palavras)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Talita) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/cenario.md` com até 200 palavras"
+      - "Cita a Big Idea e o Challenge Statement"
+      - "Nenhum número ou fato sem fonte (use `TODO:` e liste a fonte pendente)"
+      - "PR aprovado pelo par de revisão (Talita)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-13
+    titulo: Escrever a seção Problema do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Natalia"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/problema.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Enunciar o problema em uma frase"
+      - "Quem sofre o problema, com que frequência e com que consequência"
+      - "Evidências com fonte (entrevistas, normas, dados públicos); onde não houver, `TODO:`"
+      - "O que está fora do escopo do problema"
+      - "Escrever em `docs/produto/definicao/problema.md` (limite: até 250 palavras)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Talita) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/problema.md` com até 250 palavras"
+      - "Problema enunciado em uma frase"
+      - "Toda estatística traz fonte verificável; nada inventado"
+      - "PR aprovado pelo par de revisão (Talita)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-14
+    titulo: Montar o mapa de stakeholders do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Maria Eduarda"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/stakeholders.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Listar os stakeholders e classificar interesse e influência (alta, média, baixa)"
+      - "Ponto de partida a confirmar: consumidores residenciais, Neoenergia, ANEEL, Procon-DF, Defensoria, Idec, docente de Direito, professores da disciplina, o próprio time"
+      - "Para cada um: o que ganha ou perde com o produto e como vamos engajá-lo"
+      - "Desenhar a matriz interesse × influência (diagrama Mermaid ou tabela)"
+      - "Escrever em `docs/produto/definicao/stakeholders.md` (limite: tabela com pelo menos 8 stakeholders, mais 100 palavras de texto)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Luiz) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/stakeholders.md`"
+      - "Pelo menos 8 stakeholders, cada um com interesse, influência e forma de engajamento"
+      - "Matriz interesse × influência incluída"
+      - "PR aprovado pelo par de revisão (Luiz)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-15
+    titulo: Escrever as personas do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Maria Eduarda"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/personas.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Criar de 2 a 3 personas fictícias a partir das entrevistas da S1-02; enquanto elas não saírem, marcar o campo como hipótese"
+      - "Campos: nome fictício, contexto, objetivo, dor com a fatura, como lê e confere a fatura hoje, o que espera do cartão de decisão"
+      - "Nunca usar dados, nome ou foto de uma pessoa real entrevistada"
+      - "Escrever em `docs/produto/definicao/personas.md` (limite: até 120 palavras por persona)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Luiz) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/personas.md` com 2 a 3 personas"
+      - "Cada persona marcada como baseada em entrevista ou como hipótese"
+      - "Nenhum dado pessoal de pessoa real"
+      - "PR aprovado pelo par de revisão (Luiz)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-16
+    titulo: Escrever os requisitos funcionais do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Talita"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/requisitos-funcionais.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Listar os requisitos como RF-01, RF-02... no formato \"O sistema deve...\""
+      - "Cobrir, no mínimo: envio de PDF e de foto, confirmação de campos, checagens de nível A, de nível B e de nível C, citação com ato, dispositivo e vigência, abstenção, cartão de decisão e linguagem de evidência (sem \"ilegal\")"
+      - "Para cada RF: prioridade (MoSCoW), nível de evidência relacionado e critério de aceite verificável"
+      - "Indicar em que sprint cada RF entra"
+      - "Escrever em `docs/produto/definicao/requisitos-funcionais.md` (limite: tabela com pelo menos 10 requisitos)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Pedro) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/requisitos-funcionais.md`"
+      - "Pelo menos 10 RFs, cada um com prioridade, critério de aceite verificável e sprint"
+      - "Todos os níveis A, B e C aparecem em algum RF"
+      - "PR aprovado pelo par de revisão (Pedro)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-17
+    titulo: Escrever os requisitos não funcionais do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Raissa"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/requisitos-nao-funcionais.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Listar como RNF-01, RNF-02... com métrica e meta"
+      - "Cobrir, no mínimo: privacidade e LGPD, segurança, desempenho, disponibilidade, acessibilidade, transparência e auditabilidade, reprodutibilidade e custo de infraestrutura (VLM local)"
+      - "Onde a meta ainda não existir, escrever `TODO:` com quem decide e até quando"
+      - "Escrever em `docs/produto/definicao/requisitos-nao-funcionais.md` (limite: tabela com pelo menos 8 requisitos)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Maria Eduarda) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/requisitos-nao-funcionais.md`"
+      - "Pelo menos 8 RNFs, cada um com métrica e meta (ou `TODO:` com responsável)"
+      - "Regra \"fatura real nunca entra no Git\" aparece como RNF"
+      - "PR aprovado pelo par de revisão (Maria Eduarda)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-18
+    titulo: Escrever a seção Riscos do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Raissa"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/riscos.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Tabela: risco, categoria, probabilidade, impacto, mitigação, dono e gatilho"
+      - "Cobrir categorias técnico, jurídico e LGPD, dados, prazo e adoção"
+      - "Aproveitar os planos de contingência já definidos nos gates das sprints (pivot, B4 como produto, OCR + formulário)"
+      - "Escrever em `docs/produto/definicao/riscos.md` (limite: tabela com pelo menos 8 riscos)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Maria Eduarda) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/riscos.md`"
+      - "Pelo menos 8 riscos, com pelo menos 1 por categoria"
+      - "Cada risco tem mitigação e dono"
+      - "PR aprovado pelo par de revisão (Maria Eduarda)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-19
+    titulo: Escrever a seção Premissas do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Talita"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/premissas.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Listar o que assumimos como verdade sem ainda ter provado"
+      - "Ponto de partida a confirmar: acesso a pelo menos 15 faturas com consentimento; tabela tarifária da ANEEL disponível e versionável; modelo de visão rodando localmente; normas disponíveis em fonte oficial"
+      - "Para cada premissa: por que acreditamos, como validar, até quando e o que muda se for falsa"
+      - "Escrever em `docs/produto/definicao/premissas.md` (limite: tabela com pelo menos 8 premissas)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Pedro) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/premissas.md`"
+      - "Pelo menos 8 premissas, cada uma com forma e prazo de validação"
+      - "Nenhuma premissa apresentada como fato comprovado"
+      - "PR aprovado pelo par de revisão (Pedro)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-20
+    titulo: Definir as métricas de sucesso do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Pedro"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/metricas.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Três grupos: produto e usuário, científicas e de entrega"
+      - "Científicas: recall@5 da norma vigente, correção, afirmações sem suporte, falsos alarmes, intervalo de confiança; metas já fixadas nos gates (recall@5 ≥ 0,70; ≥ 90% em 40 fotos)"
+      - "Para cada métrica: definição, meta, método de medição e sprint; onde a meta não existir, `TODO:` com responsável"
+      - "Alinhar com a issue de protocolo B1–B5 (`docs/avaliacao/metricas.md`)"
+      - "Escrever em `docs/produto/definicao/metricas.md` (limite: tabela com pelo menos 8 métricas)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Raissa) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/metricas.md`"
+      - "Cada métrica com definição, meta (ou `TODO:`) e método de medição"
+      - "Coerente com `docs/avaliacao/metricas.md` (sem números diferentes)"
+      - "PR aprovado pelo par de revisão (Raissa)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-21
+    titulo: Escrever as guiding questions do pacote de definição
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Luiz"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/guiding-questions.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Escrever perguntas abertas que o time precisa responder para resolver o desafio"
+      - "Agrupar por tema: consumidor, jurídico, dados e normas, técnica de IA, ética e privacidade, avaliação"
+      - "Para cada pergunta: como vamos responder (entrevista, pesquisa, experimento) e em que sprint"
+      - "Escrever em `docs/produto/definicao/guiding-questions.md` (limite: de 8 a 12 perguntas)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Natalia) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/guiding-questions.md` com 8 a 12 perguntas"
+      - "Perguntas abertas (não respondíveis com sim ou não)"
+      - "Cada pergunta com método e sprint de resposta"
+      - "PR aprovado pelo par de revisão (Natalia)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-22
+    titulo: Definir a Essential Question da equipe
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Pedro"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Parte do **Pacote de definição do projeto**, a entrega da semana da Sprint 1: um documento de 3 a 5 páginas. Esta seção vive em `docs/produto/definicao/essential-question.md` e é consolidada em `docs/produto/pacote-de-definicao.md`. Prazo interno: PR aberto até **quinta 29/10, 12h**, para a consolidação e a revisão caberem antes da entrega na **sexta 30/10**.
+    tarefas:
+      - "Propor de 3 a 5 candidatas a partir da Big Idea \"Qualidade de Vida\""
+      - "A final deve ser aberta, ampla e motivadora, e não pode ser respondida com sim ou não"
+      - "Registrar por que ela foi escolhida e por que as outras foram descartadas"
+      - "Decidir em reunião do time e registrar data e participantes"
+      - "Escrever em `docs/produto/definicao/essential-question.md` (limite: 1 pergunta, mais até 100 palavras de justificativa)"
+      - "Abrir PR até quinta 29/10, 12h; revisão do par (Raissa) até quinta 17h"
+    criterios:
+      - "Seção preenchida em `docs/produto/definicao/essential-question.md`"
+      - "Uma única pergunta final, aberta, ligada à Big Idea"
+      - "Decisão do time registrada (data e participantes)"
+      - "PR aprovado pelo par de revisão (Raissa)"
+      - "Sem dados pessoais e sem fatura real"
+
+  - id: S1-23
+    titulo: Consolidar o pacote de definição em um documento de 3 a 5 páginas
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Pedro"]
+    labels: [tipo:docs, prioridade:alta, gate]
+    contexto: >-
+      Entrega da semana da Sprint 1: documento de 3 a 5 páginas com cenário escolhido, problema,
+      mapa de stakeholders, personas, requisitos funcionais e não funcionais, riscos, premissas,
+      métricas de sucesso, guiding questions e Essential Question da equipe. É parte do checklist
+      de definição do gate da S1.
+    tarefas:
+      - "Esperar os PRs das 11 seções (S1-12 a S1-22) ou cobrar quem estiver atrasado na quinta, 12h"
+      - "Montar `docs/produto/pacote-de-definicao.md` (ele inclui as seções) e rodar `uv run python scripts/pacote_definicao.py` para conferir palavras e páginas estimadas"
+      - "Revisar coerência entre problema, requisitos, métricas e riscos"
+      - "Cortar ou ajustar para caber em 3 a 5 páginas"
+      - "Exportar o PDF pela página do site (imprimir como PDF) e conferir o número de páginas"
+      - "Entregar pelo canal da disciplina (TODO: confirmar o canal e o formato exigidos com o professor)"
+    criterios:
+      - "Documento com as 10 seções pedidas, sem `TODO` nas seções obrigatórias"
+      - "PDF com 3 a 5 páginas"
+      - "Terminologia consistente (níveis A, B e C; nunca \"ilegal\")"
+      - "Entrega realizada até sexta 30/10 e registrada em `docs/sprints/s1.md`"
+
+  - id: S1-24
+    titulo: Revisar o pacote de definição como leitor externo
+    sprint: S1
+    frente: transversal
+    responsaveis: ["Luiz"]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      Uma leitura de fora, depois da consolidação, pega buracos e jargão que quem escreveu não
+      enxerga mais. A revisão acontece na sexta 30/10 de manhã, antes da entrega.
+    tarefas:
+      - "Ler o documento consolidado como quem nunca viu o projeto"
+      - "Conferir se as 10 seções pedidas estão presentes e se cada uma responde ao que promete"
+      - "Conferir termos, siglas, links e a regra de linguagem de evidência"
+      - "Devolver a lista de ajustes na issue S1-23"
+    criterios:
+      - "Lista de ajustes publicada na issue S1-23 até sexta 30/10, 11h"
+      - "Conferido que não há dado pessoal nem fatura real no documento"
+      - "Conferido que o PDF tem de 3 a 5 páginas"
 
   # ------------------------------------------------------------------ S2
   - id: S2-01

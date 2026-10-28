@@ -30,7 +30,7 @@ docs(conformidade): preenche RIPD
 
 ## Código
 
-- Python 3.12, Pydantic v2, `ruff` (lint e formato), `mypy` em `contratos`.
+- Python 3.12, Pydantic v2, `ruff` (lint e formato), `mypy --strict` no repositório inteiro.
 - Nomes de código podem ser em português; comentários, docs, issues e commits em português.
 
 ## Documentação

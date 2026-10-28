@@ -43,7 +43,7 @@ scripts/    automação (GitHub, geração de páginas, hooks)
 
 > **Fatura real nunca entra no Git.** Ela contém nome, endereço e número da instalação. No repositório só entram faturas sintéticas ou anonimizadas.
 
-Um hook de pre-commit bloqueia `*.pdf`, `*.jpg`, `*.jpeg`, `*.png` e `*.heic` fora de `docs/assets/` e de `dados/benchmark/sinteticas/`, e o gitleaks procura segredos em todo commit e PR. Nunca commite `.env`: use o `.env.example`.
+Um hook de pre-commit bloqueia PDF e imagens fora de `docs/assets/` e de `dados/benchmark/sinteticas/` (o CI repete a checagem em todo PR), e o gitleaks procura segredos em todo commit e PR. Nunca commite `.env`: use o `.env.example`.
 
 ## Contribuir
 

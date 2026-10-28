@@ -25,9 +25,10 @@ jobs:
     outputs:
       pacotes: ${{ steps.matriz.outputs.pacotes }}
       docs: ${{ steps.filtro.outputs.docs }}
+      contratos: ${{ steps.filtro.outputs.contratos }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: dorny/paths-filter@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
         id: filtro
         with:
           filters: |
@@ -51,6 +52,8 @@ jobs:
             api:
               - *comum
               - 'apps/api/**'
+            contratos:
+              - 'packages/contratos/**'
             docs:
               - 'docs/**'
               - 'mkdocs.yml'
@@ -59,22 +62,24 @@ jobs:
         env:
           MUDANCAS: ${{ steps.filtro.outputs.changes }}
         run: |
-          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum")]')
+          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum" and . != "contratos")]')
           echo "pacotes=${pacotes}" >> "$GITHUB_OUTPUT"
 
   # Roda sempre: contratos, scripts e um teste ponta a ponta mínimo.
   nucleo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
       - run: uv sync --all-packages --locked
       - run: uv run ruff check .
       - run: uv run ruff format --check .
-      - run: uv run mypy packages/contratos
+      - run: uv run mypy
+      - name: Bloqueia PDF e imagens fora das pastas permitidas (LGPD)
+        run: git ls-files -z | xargs -0 uv run python scripts/bloquear_binarios.py
       - name: Testes de contratos, scripts e ponta a ponta mínimo
         run: uv run pytest packages/contratos tests
 
@@ -88,8 +93,8 @@ jobs:
       matrix:
         pacote: ${{ fromJSON(needs.mudancas.outputs.pacotes) }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
@@ -105,7 +110,7 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
       - name: Instala o gitleaks (versão fixa, com checagem de SHA-256)
@@ -130,18 +135,36 @@ jobs:
     if: needs.mudancas.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
       - run: uv sync --locked
       - run: uv run mkdocs build --strict
 
-  # Resultado único para a proteção da branch: passa se nada falhou (jobs pulados contam como ok).
+  # Regra de processo: mudança em packages/contratos/ exige a label `contrato` no PR
+  # (e 2 aprovações, conferidas por quem faz o merge; ver CONTRIBUTING.md).
+  rotulo-contrato:
+    needs: mudancas
+    if: github.event_name == 'pull_request' && needs.mudancas.outputs.contratos == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confere a label `contrato`
+        env:
+          ROTULOS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+        run: |
+          if echo "$ROTULOS" | jq -e 'index("contrato")' > /dev/null; then
+            echo "Label contrato presente. Lembrete: este PR exige 2 aprovações."
+          else
+            echo "::error::Este PR altera packages/contratos/ e precisa da label 'contrato' (exige 2 aprovações)."
+            exit 1
+          fi
+
+  # Resultado único para a proteção da branch: nucleo e gitleaks precisam passar; os outros não podem falhar.
   ci-verde:
     if: always()
-    needs: [nucleo, pacotes, gitleaks, docs]
+    needs: [nucleo, pacotes, gitleaks, docs, rotulo-contrato]
     runs-on: ubuntu-latest
     steps:
       - name: Confere os resultados
@@ -149,6 +172,13 @@ jobs:
           NEEDS: ${{ toJSON(needs) }}
         run: |
           echo "$NEEDS"
+          # nucleo e gitleaks rodam sempre e precisam ter passado (pulado não vale).
+          for obrigatorio in nucleo gitleaks; do
+            if [ "$(echo "$NEEDS" | jq -r ".$obrigatorio.result")" != "success" ]; then
+              echo "::error::O job $obrigatorio não passou." && exit 1
+            fi
+          done
+          # Os demais podem ser pulados, mas não podem falhar nem ser cancelados.
           if echo "$NEEDS" | jq -e 'map(select(.result == "failure" or .result == "cancelled")) | length > 0' > /dev/null; then
-            echo "Algum job falhou." && exit 1
+            echo "::error::Algum job falhou." && exit 1
           fi

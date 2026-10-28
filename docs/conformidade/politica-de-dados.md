@@ -18,13 +18,13 @@
 
 ## Barreiras automáticas
 
-1. **Hook de pre-commit** bloqueia `*.pdf`, `*.jpg`, `*.jpeg`, `*.png` e `*.heic` fora de `docs/assets/` e de `dados/benchmark/sinteticas/`.
-2. **gitleaks** procura segredos no pre-commit e em todo PR.
+1. **Hook de pre-commit** bloqueia PDF e imagens (`.pdf`, `.jpg`, `.jpeg`, `.png`, `.heic`, `.heif`, `.webp`, `.bmp`, `.tif`, `.tiff`, `.gif`) fora de `docs/assets/` e de `dados/benchmark/sinteticas/`.
+2. **O CI repete essa checagem** em todo PR e em todo push (vale mesmo para quem não instalou o hook ou usou `--no-verify`). O **gitleaks** também roda no pre-commit e em todo PR.
 3. **`.gitignore`** ignora `.env`, `.heic` e pastas de notas brutas.
 4. **Revisão:** todo PR é conferido pelo par de revisão, com atenção a arquivos de dados.
 
 !!! danger "Se uma fatura real for commitada"
-    Avise o Tech Lead imediatamente. Apagar o arquivo em um novo commit não remove o histórico: é preciso reescrever o histórico e avisar quem já clonou. Como o repositório é público, trate como vazamento. TODO: registrar o procedimento detalhado com a F6.
+    Avise o Tech Lead imediatamente. Apagar o arquivo em um novo commit não remove o histórico: é preciso reescrever o histórico e avisar quem já clonou. Como o repositório é público, trate como vazamento. O procedimento detalhado está em `.github/SECURITY.md`.
 
 ## Onde ficam as faturas reais
 

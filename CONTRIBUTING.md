@@ -29,7 +29,8 @@ Tipos: `feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `ci`, `perf`.
 
 - Pequenos, focados, e que fecham a issue: `Closes #12`.
 - O **par de revisão** da frente revisa; um **code owner** precisa aprovar (ver `.github/CODEOWNERS` e a tabela em `docs/frentes/`).
-- O CI precisa estar verde: lint, testes por pasta, gitleaks e, quando `docs/` muda, `mkdocs build --strict`.
+- O CI precisa estar verde: lint, `mypy`, bloqueio de PDF e imagens, testes por pasta, gitleaks e, quando `docs/` muda, `mkdocs build --strict`.
+- PR que altera `packages/contratos/` sem a label `contrato` falha no CI.
 
 ### Mudanças em `packages/contratos/`
 
@@ -39,13 +40,13 @@ Os contratos são o idioma comum entre as frentes. Por isso:
 - **Exigem 2 aprovações.**
 - Os revisores esperados são Pedro, Talita, Maria Eduarda e Luiz.
 
-> **Por que está aqui?** A proteção de branch do GitHub aplica **um único número de aprovações para o repositório inteiro** (configuramos 1 aprovação de code owner). Não existe regra de aprovações por pasta. A segunda aprovação em `packages/contratos/` é portanto uma regra **de processo**, garantida por duas coisas: o `CODEOWNERS` pede revisão desses quatro responsáveis e **quem faz o merge confere que há 2 aprovações**. O PR template tem um item para isso.
+> **Por que está aqui?** A proteção de branch do GitHub aplica **um único número de aprovações para o repositório inteiro** (configuramos 1 aprovação de code owner). Não existe regra de aprovações por pasta. A segunda aprovação em `packages/contratos/` é portanto uma regra **de processo**, garantida por duas coisas: o `CODEOWNERS` pede revisão desses quatro responsáveis e **quem faz o merge confere que há 2 aprovações**. O PR template tem um item para isso, e o CI falha se o PR mexer em `contratos` sem a label `contrato`.
 
 ## Antes de abrir o PR
 
 ```bash
 uv run ruff check . && uv run ruff format --check .
-uv run mypy packages/contratos
+uv run mypy
 uv run pytest
 uv run pre-commit run --all-files
 uv run mkdocs build --strict   # se mexeu em docs/

@@ -404,15 +404,17 @@ wheels = [
 name = "fatura-aberta"
 version = "0.1.0"
 source = { virtual = "." }
-
-[package.dev-dependencies]
-dev = [
+dependencies = [
     { name = "fa-agentes" },
     { name = "fa-api" },
     { name = "fa-contratos" },
     { name = "fa-extracao" },
     { name = "fa-motor" },
     { name = "fa-rag" },
+]
+
+[package.dev-dependencies]
+dev = [
     { name = "httpx2" },
     { name = "mypy" },
     { name = "pre-commit" },
@@ -427,15 +429,17 @@ docs = [
 ]
 
 [package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
+requires-dist = [
     { name = "fa-agentes", editable = "packages/agentes" },
     { name = "fa-api", editable = "apps/api" },
     { name = "fa-contratos", editable = "packages/contratos" },
     { name = "fa-extracao", editable = "packages/extracao" },
     { name = "fa-motor", editable = "packages/motor" },
     { name = "fa-rag", editable = "packages/rag" },
+]
+
+[package.metadata.requires-dev]
+dev = [
     { name = "httpx2" },
     { name = "mypy", specifier = ">=1.11" },
     { name = "pre-commit", specifier = ">=3.8" },

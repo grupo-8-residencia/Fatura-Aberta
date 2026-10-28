@@ -78,7 +78,7 @@ def plano() -> gs.Plano:
 def test_plano_tem_o_tamanho_esperado(plano: gs.Plano) -> None:
     assert len(plano.milestones) == 7
     assert len(plano.labels) == 19  # 7 de frente + 12 fixas
-    assert len(plano.issues) == 38
+    assert len(plano.issues) == 51
 
 
 def test_milestones_vencem_nas_sextas_a_partir_de_26_10_2026(plano: gs.Plano) -> None:
@@ -109,7 +109,7 @@ def test_a_confirmar_nao_vira_assignee(plano: gs.Plano) -> None:
 def test_issues_de_gate_tem_label_gate(plano: gs.Plano) -> None:
     com_gate = {i.id for i in plano.issues if "gate" in i.labels}
     assert {"S1-01", "S1-05", "S1-06", "S1-08", "S2-03", "S2-04", "S3-02", "S4-02"} <= com_gate
-    assert {"S5-02", "S6-03", "S7-02", "S7-05"} <= com_gate
+    assert {"S5-02", "S6-03", "S7-02", "S7-05", "S1-23"} <= com_gate
 
 
 def test_dry_run_nao_escreve_nada(plano: gs.Plano) -> None:
@@ -117,7 +117,7 @@ def test_dry_run_nao_escreve_nada(plano: gs.Plano) -> None:
     linhas: list[str] = []
     resumo = gs.sincronizar(plano, gh, aplicar=False, log=linhas.append)
     assert gh.escritas == 0
-    assert resumo["issues"].criados == 38
+    assert resumo["issues"].criados == 51
     assert any("issue S1-01" in linha for linha in linhas)
 
 
@@ -126,13 +126,13 @@ def test_aplicar_cria_e_segunda_rodada_nao_duplica(plano: gs.Plano) -> None:
     gs.sincronizar(plano, gh, aplicar=True, log=lambda _: None)
     assert len(gh.labels) == 19
     assert len(gh.milestones) == 7
-    assert len(gh.issues) == 38
+    assert len(gh.issues) == 51
 
     escritas_antes = gh.escritas
     resumo = gs.sincronizar(plano, gh, aplicar=True, log=lambda _: None)
     assert gh.escritas == escritas_antes
     assert all(r.criados == 0 and r.atualizados == 0 for r in resumo.values())
-    assert len(gh.issues) == 38
+    assert len(gh.issues) == 51
 
 
 def test_issue_existente_pelo_titulo_nao_duplica_e_corpo_nao_e_reescrito(
@@ -145,7 +145,7 @@ def test_issue_existente_pelo_titulo_nao_duplica_e_corpo_nao_e_reescrito(
          "labels": [], "milestone": None, "assignees": []}
     )  # fmt: skip
     gs.sincronizar(plano, gh, aplicar=True, log=lambda _: None)
-    assert len(gh.issues) == 38
+    assert len(gh.issues) == 51
     editada = next(i for i in gh.issues if i["number"] == 7)
     assert editada["body"] == "corpo editado à mão"
     assert set(primeira.labels) <= set(editada["labels"])
@@ -210,7 +210,7 @@ def test_main_dry_run_sem_gh_nao_quebra(
     saida = capsys.readouterr().out
     assert "DRY-RUN" in saida
     assert "AVISO" in saida
-    assert "criar=38" in saida
+    assert "criar=51" in saida
 
 
 def test_main_aplicar_sem_gh_falha_com_erro(
@@ -222,3 +222,17 @@ def test_main_aplicar_sem_gh_falha_com_erro(
     monkeypatch.setattr(gs, "executar_gh", sem_gh)
     assert gs.main(["--aplicar"]) == 1
     assert "ERRO" in capsys.readouterr().err
+
+
+def test_issues_do_pacote_de_definicao(plano: gs.Plano) -> None:
+    pacote = [i for i in plano.issues if i.id in {f"S1-{n}" for n in range(12, 25)}]
+    assert len(pacote) == 13
+    assert all(i.sprint == "S1" and i.frente == "transversal" for i in pacote)
+    # Cada seção tem dono; as pessoas sem usuário confirmado (Natalia, Luiz) ficam sem assignee.
+    por_id = {i.id: i for i in pacote}
+    assert por_id["S1-12"].assignees == ()  # Natalia
+    assert por_id["S1-21"].assignees == ()  # Luiz
+    assert por_id["S1-14"].assignees == ("mariadenis",)
+    assert por_id["S1-16"].assignees == ("TalitaaNunes",)
+    assert por_id["S1-17"].assignees == ("RaissaOliveira19",)
+    assert por_id["S1-20"].assignees == ("pedrohpsantos",)

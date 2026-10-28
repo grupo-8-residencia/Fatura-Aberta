@@ -43,6 +43,11 @@
 /scripts/                          @RaissaOliveira19 @mariadenis
 /docs/assets/                      @RaissaOliveira19 @mariadenis
 /mkdocs.yml                        @RaissaOliveira19 @mariadenis
+/tests/                            @RaissaOliveira19 @mariadenis
+/compose.yaml                      @RaissaOliveira19 @mariadenis
+/pyproject.toml                    @RaissaOliveira19 @mariadenis
+/uv.lock                           @RaissaOliveira19 @mariadenis
+/.pre-commit-config.yaml           @RaissaOliveira19 @mariadenis
 
 # Planejamento: Tech Lead
 /planejamento/                     @pedrohpsantos

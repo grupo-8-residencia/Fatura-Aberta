@@ -13,7 +13,7 @@
 ## Regras
 
 1. Nada de fatura real, foto real, nota bruta de entrevista ou termo de consentimento.
-2. Arquivos `*.pdf`, `*.jpg`, `*.jpeg`, `*.png` e `*.heic` só em `benchmark/sinteticas/` (e `docs/assets/` para a documentação). O hook de pre-commit bloqueia o resto.
+2. PDF e imagens (`.pdf`, `.jpg`, `.jpeg`, `.png`, `.heic`, `.webp`, `.tiff` etc.) só em `benchmark/sinteticas/` (e `docs/assets/` para a documentação). O hook de pre-commit e o CI bloqueiam o resto.
 3. Todo conjunto de dados traz origem, data e hash. Conjuntos do experimento são congelados antes das rodadas.
 4. Dúvida se algo é pessoal? Não commite e pergunte ao Tech Lead.
 

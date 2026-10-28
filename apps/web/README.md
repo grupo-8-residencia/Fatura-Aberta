@@ -8,4 +8,4 @@ npm install
 npm run dev
 ```
 
-TODO (F6): decidir a versão do Next.js, o gerenciador de pacotes e o estilo na Sprint 6.
+As versões estão fixas em `package.json` (sem `latest`). TODO (F6): gerar e commitar o `package-lock.json` no primeiro `npm install` real (Sprint 6) e decidir o estilo.
