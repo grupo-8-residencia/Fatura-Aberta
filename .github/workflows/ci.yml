@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 permissions:
   contents: read
@@ -143,6 +143,20 @@ jobs:
       - run: uv sync --locked
       - run: uv run mkdocs build --strict
 
+  # Gitflow: a main só recebe PR vindo da dev (release) ou de hotfix/*.
+  origem-main:
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confere a branch de origem
+        env:
+          ORIGEM: ${{ github.head_ref }}
+        run: |
+          case "$ORIGEM" in
+            dev|hotfix/*) echo "Origem permitida: $ORIGEM" ;;
+            *) echo "::error::PR para a main só pode vir da dev (release) ou de hotfix/*. Abra o PR para a dev." && exit 1 ;;
+          esac
+
   # Regra de processo: mudança em packages/contratos/ exige a label `contrato` no PR
   # (e 2 aprovações, conferidas por quem faz o merge; ver CONTRIBUTING.md).
   rotulo-contrato:
@@ -164,7 +178,7 @@ jobs:
   # Resultado único para a proteção da branch: nucleo e gitleaks precisam passar; os outros não podem falhar.
   ci-verde:
     if: always()
-    needs: [nucleo, pacotes, gitleaks, docs, rotulo-contrato]
+    needs: [nucleo, pacotes, gitleaks, docs, rotulo-contrato, origem-main]
     runs-on: ubuntu-latest
     steps:
       - name: Confere os resultados

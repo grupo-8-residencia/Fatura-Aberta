@@ -7,7 +7,7 @@ A versão completa, com exemplos, está em <https://grupo-8-residencia.github.io
 1. **Fatura real, segredo, token e `.env` nunca entram no Git.** Use dados sintéticos ou anonimizados e o `.env.example`.
 2. **Não invente** dados de pesquisa, números de resultado ou normas. Use `TODO:`.
 3. **Linguagem de evidência:** nada de "ilegal" nem estimativa de restituição.
-4. **Sem push direto na `main`.** Todo trabalho entra por PR.
+4. **Sem push direto na `main` nem na `dev`.** Todo trabalho entra por PR.
 
 ## Commits
 
@@ -21,9 +21,20 @@ Exemplos: `feat(motor): checagem do ICMS`, `fix(extracao): trata layout novo`, `
 
 Tipos: `feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `ci`, `perf`.
 
-## Branches
+## Fluxo de branches (gitflow)
 
-`tipo/numero-da-issue-descricao`, por exemplo `feat/12-motor-icms`.
+O diagrama do fluxo está em <https://grupo-8-residencia.github.io/Fatura-Aberta/contribuir/>.
+
+| Branch | Para quê | Sai de | Volta por PR para |
+|---|---|---|---|
+| `main` | Estável e publicado (o site de documentação sai daqui) | | só recebe `dev` ou `hotfix/*` |
+| `dev` | Integração do trabalho da sprint. **Branch padrão do repositório** | | `main` (release) |
+| `tipo/numero-da-issue-descricao` | Uma issue (ex.: `feat/12-motor-icms`) | `dev` | `dev` (squash) |
+| `hotfix/numero-da-issue-descricao` | Correção urgente em algo já na `main` | `main` | `main` e depois `main` → `dev` |
+
+- **Release:** no fim de cada sprint, depois do gate, um PR `dev` → `main` com o título `release: S2`, **merge commit** (sem squash) e, depois do merge, a tag `sprint-2`.
+- **`Closes #12`** fecha a issue quando o PR entra na `dev`, porque ela é a branch padrão.
+- **Nunca há push direto** em `main` nem em `dev`. O CI recusa PR para a `main` que não venha da `dev` ou de `hotfix/*`.
 
 ## Pull requests
 

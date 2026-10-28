@@ -98,10 +98,10 @@ def test_toda_issue_tem_frente_milestone_e_criterios(plano: gs.Plano) -> None:
         assert f"fa-id: {issue.id}" in issue.corpo
 
 
-def test_a_confirmar_nao_vira_assignee(plano: gs.Plano) -> None:
+def test_a_confirmar_nunca_vira_assignee(plano: gs.Plano) -> None:
     por_id = {i.id: i for i in plano.issues}
-    assert por_id["S1-01"].assignees == ()  # F1 = Natalia (A_CONFIRMAR)
-    assert por_id["S1-04"].assignees == ("pedrohpsantos",)  # Natalia + Pedro
+    assert por_id["S1-01"].assignees == ("NatyEvelin",)  # F1 = Natalia
+    assert por_id["S1-04"].assignees == ("NatyEvelin", "pedrohpsantos")  # Natalia + Pedro
     assert por_id["S1-08"].assignees == ("TalitaaNunes",)
     assert gs.A_CONFIRMAR not in {a for i in plano.issues for a in i.assignees}
 
@@ -228,11 +228,24 @@ def test_issues_do_pacote_de_definicao(plano: gs.Plano) -> None:
     pacote = [i for i in plano.issues if i.id in {f"S1-{n}" for n in range(12, 25)}]
     assert len(pacote) == 13
     assert all(i.sprint == "S1" and i.frente == "transversal" for i in pacote)
-    # Cada seção tem dono; as pessoas sem usuário confirmado (Natalia, Luiz) ficam sem assignee.
+    # Cada seção tem dono.
     por_id = {i.id: i for i in pacote}
-    assert por_id["S1-12"].assignees == ()  # Natalia
-    assert por_id["S1-21"].assignees == ()  # Luiz
+    assert por_id["S1-12"].assignees == ("NatyEvelin",)  # Natalia
+    assert por_id["S1-21"].assignees == ("luizoryone",)  # Luiz
     assert por_id["S1-14"].assignees == ("mariadenis",)
     assert por_id["S1-16"].assignees == ("TalitaaNunes",)
     assert por_id["S1-17"].assignees == ("RaissaOliveira19",)
     assert por_id["S1-20"].assignees == ("pedrohpsantos",)
+
+
+def test_issue_sem_usuario_confirmado_fica_sem_assignee(tmp_path: Any) -> None:
+    for nome in ("sprints.yaml", "issues.yaml"):
+        (tmp_path / nome).write_text((gs.PLANEJAMENTO / nome).read_text(encoding="utf-8"))
+    texto = (tmp_path / "issues.yaml").read_text(encoding="utf-8")
+    (tmp_path / "issues.yaml").write_text(
+        texto.replace("Natalia: NatyEvelin", "Natalia: A_CONFIRMAR")
+    )
+    plano = gs.carregar_plano(tmp_path)
+    por_id = {i.id: i for i in plano.issues}
+    assert por_id["S1-01"].assignees == ()
+    assert por_id["S1-04"].assignees == ("pedrohpsantos",)

@@ -3,14 +3,14 @@
 #
 # Regras:
 # - `responsaveis` é opcional; se ausente, vale o responsável da frente.
-# - Quem está com GitHub `A_CONFIRMAR` fica sem assignee até alguém preencher `equipe` abaixo.
+# - Quem estiver com GitHub `A_CONFIRMAR` em `equipe` fica sem assignee até alguém preencher.
 # - O id (S1-01 ...) é gravado como marcador invisível no corpo da issue e garante idempotência.
 # - O script NÃO reescreve o corpo de issues existentes (para não apagar checklists marcados).
 
 equipe:
   Pedro: pedrohpsantos
-  Natalia: A_CONFIRMAR
-  Luiz: A_CONFIRMAR
+  Natalia: NatyEvelin
+  Luiz: luizoryone
   Talita: TalitaaNunes
   Maria Eduarda: mariadenis
   Raissa: RaissaOliveira19

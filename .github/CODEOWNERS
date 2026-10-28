@@ -1,34 +1,28 @@
 # Responsável + par de revisão por pasta (ver docs/frentes/index.md).
-# Regra da main: PR obrigatório com 1 aprovação de code owner. Em packages/contratos/ a regra do
-# projeto é de 2 aprovações (ver CONTRIBUTING.md); o GitHub só aplica 1 por repositório.
-#
-# A_CONFIRMAR: os usuários do GitHub de Natalia (F1) e Luiz (F2) ainda não foram informados.
-# Quando chegarem, troque os comentários "# A_CONFIRMAR" abaixo por @usuario. Enquanto isso, as
-# pastas sem owner válido caem na regra padrão (@pedrohpsantos, Tech Lead). Não escreva
-# @A_CONFIRMAR aqui: usuário inexistente invalida a linha.
+# Regra: PR obrigatório com 1 aprovação de code owner (ruleset das branches `main` e `dev`).
+# Em packages/contratos/ a regra do projeto é de 2 aprovações (ver CONTRIBUTING.md); o GitHub
+# só aplica 1 por repositório, então a segunda é conferida por quem faz o merge.
 
 # Padrão: Tech Lead
 *                                  @pedrohpsantos
 
-# Contratos compartilhados: Pedro, Talita, Maria Eduarda e Luiz (A_CONFIRMAR)
-/packages/contratos/               @pedrohpsantos @TalitaaNunes @mariadenis
+# Contratos compartilhados: Pedro, Talita, Maria Eduarda e Luiz
+/packages/contratos/               @pedrohpsantos @TalitaaNunes @mariadenis @luizoryone
 
-# F1: Natalia (A_CONFIRMAR), par Talita
-/docs/produto/                     @TalitaaNunes
-/docs/conformidade/                @TalitaaNunes
-# A_CONFIRMAR: incluir Natalia nas linhas de F1 acima
+# F1: Natalia, par Talita
+/docs/produto/                     @NatyEvelin @TalitaaNunes
+/docs/conformidade/                @NatyEvelin @TalitaaNunes
 
-# F2: Luiz (A_CONFIRMAR), par Natalia (A_CONFIRMAR)
-# /packages/rag/                   @luiz-A_CONFIRMAR @natalia-A_CONFIRMAR
-# /dados/normas/                   @luiz-A_CONFIRMAR @natalia-A_CONFIRMAR
+# F2: Luiz, par Natalia
+/packages/rag/                     @luizoryone @NatyEvelin
+/dados/normas/                     @luizoryone @NatyEvelin
 
 # F3: Talita, par Pedro
 /packages/motor/                   @TalitaaNunes @pedrohpsantos
 /dados/tarifas/                    @TalitaaNunes @pedrohpsantos
 
-# F4: Maria Eduarda, par Luiz (A_CONFIRMAR)
-/packages/extracao/                @mariadenis
-# A_CONFIRMAR: incluir Luiz na linha de F4 acima
+# F4: Maria Eduarda, par Luiz
+/packages/extracao/                @mariadenis @luizoryone
 
 # F5: Pedro, par Raissa
 /packages/agentes/                 @pedrohpsantos @RaissaOliveira19

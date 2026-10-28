@@ -19,12 +19,12 @@ docs(conformidade): preenche RIPD
 
 ## Branches
 
-`tipo/numero-da-issue-descricao`, por exemplo `feat/12-motor-icms`.
+`tipo/numero-da-issue-descricao`, por exemplo `feat/12-motor-icms`, sempre criadas a partir da `dev`. Correções urgentes: `hotfix/numero-da-issue-descricao`, a partir da `main`. Veja o [fluxo gitflow](index.md).
 
 ## Pull requests
 
 - Pequenos e focados.
-- Fecham a issue: `Closes #12`.
+- Apontam para a `dev` e fecham a issue: `Closes #12`.
 - Revisão do par da frente. Um code owner aprova.
 - `packages/contratos/`: **2 aprovações**.
 

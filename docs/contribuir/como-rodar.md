@@ -11,6 +11,7 @@
 ```bash
 git clone https://github.com/grupo-8-residencia/Fatura-Aberta.git
 cd Fatura-Aberta
+git switch dev   # branch padrão: o trabalho parte e volta por ela
 uv sync
 uv run pre-commit install
 ```
