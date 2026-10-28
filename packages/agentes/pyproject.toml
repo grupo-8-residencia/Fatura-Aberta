@@ -2,7 +2,7 @@
 name = "fa-agentes"
 version = "0.1.0"
 description = "Agentes (F5): Analista Normativo e Auditor."
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.15"
 dependencies = ["fa-contratos"]
 
 [tool.uv.sources]
