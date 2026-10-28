@@ -30,6 +30,6 @@ O **Fatura Aberta** verifica faturas de energia elétrica residencial (grupo B1)
 
 ## Páginas desta seção
 
-- [Personas](definicao/personas.md)
+- [Personas](personas.md)
 - [Lean Inception](lean-inception.md)
 - [Critérios de aceite](criterios-aceite.md)

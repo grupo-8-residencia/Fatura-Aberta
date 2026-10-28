@@ -1,11 +1,13 @@
-# Personas
+## Personas
+
+<!-- Responsável: Maria Eduarda · Par de revisão: Luiz · Issue S1-15 · Limite: até 120 palavras por persona -->
 
 Personas fictícias: nomes e histórias foram inventados e não representam nenhuma pessoa real entrevistada.
 
 !!! warning "Todas as personas são hipóteses"
     As entrevistas da Sprint 1 (issue #2) ainda não foram sintetizadas. Quando a síntese sair, cada persona será confirmada, ajustada ou descartada, e a marcação abaixo passa a dizer "baseada em entrevista".
 
-## Persona 1 — Dona Celina, aposentada
+### Persona 1 — Dona Celina, aposentada
 
 **Origem:** hipótese.
 
@@ -15,7 +17,7 @@ Personas fictícias: nomes e histórias foram inventados e não representam nenh
 - **Como confere hoje:** olha só o valor total e a data de vencimento. Quando estranha, pede ajuda a um neto.
 - **O que espera do cartão de decisão:** uma resposta curta dizendo se a conta confere, em linguagem simples, e o que fazer se não conferir.
 
-## Persona 2 — Rafael, estudante que divide apartamento
+### Persona 2 — Rafael, estudante que divide apartamento
 
 **Origem:** hipótese.
 
@@ -25,7 +27,7 @@ Personas fictícias: nomes e histórias foram inventados e não representam nenh
 - **Como confere hoje:** compara o valor com o mês anterior no aplicativo da distribuidora.
 - **O que espera do cartão de decisão:** ver a checagem das leituras e do consumo, item por item, e poder compartilhar o resultado.
 
-## Persona 3 — Márcia, consumidora que já reclamou
+### Persona 3 — Márcia, consumidora que já reclamou
 
 **Origem:** hipótese.
 
@@ -35,6 +37,6 @@ Personas fictícias: nomes e histórias foram inventados e não representam nenh
 - **Como confere hoje:** refaz as contas numa planilha e procura as resoluções da ANEEL na internet.
 - **O que espera do cartão de decisão:** a citação exata da norma, com vigência, e uma minuta de pedido de esclarecimento em linguagem de evidência.
 
-## Fontes
+### Fontes
 
-TODO: citar a síntese anonimizada das entrevistas (issue #2) quando existir.
+Nenhuma por enquanto. A síntese anonimizada das entrevistas (issue #2) será citada aqui quando existir.
