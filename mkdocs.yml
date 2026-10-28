@@ -88,7 +88,6 @@ nav:
       - Personas: produto/personas.md
       - Lean Inception: produto/lean-inception.md
       - Critérios de aceite: produto/criterios-aceite.md
-      - Stakeholders: produto/definicao/stakeholders.md
   - Arquitetura:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
