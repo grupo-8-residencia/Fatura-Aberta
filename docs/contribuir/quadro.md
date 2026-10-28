@@ -16,7 +16,7 @@ O planejamento vive no GitHub Project **[Fatura Aberta](https://github.com/orgs/
 - **Tabela:** todas as issues, para filtrar por frente, sprint ou pessoa.
 
 !!! info "As views são criadas na interface"
-    O GitHub não permite criar views por API, então elas são configuradas uma vez, no navegador. O passo a passo está nas notas do PR de criação do quadro e abaixo.
+    O GitHub não permite criar views por API, então elas são configuradas uma vez, no navegador. O passo a passo está logo abaixo.
 
 ### Como configurar (uma vez, por quem administra a org)
 
