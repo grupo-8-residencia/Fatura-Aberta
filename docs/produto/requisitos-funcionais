@@ -1,0 +1,83 @@
+# Requisitos Funcionais — Fatura Aberta
+
+**Projeto:** Fatura Aberta — Residência em Inteligência Artificial  
+**Sprint de documentação:** S1  
+**Responsável:** Talita  
+**Revisor:** Pedro  
+**Status:** Proposta para revisão
+
+## 1. Objetivo
+
+Este documento estabelece os requisitos funcionais do Fatura Aberta, sistema de apoio à análise de faturas de energia elétrica, com foco na identificação de inconsistências, rastreabilidade das evidências e apresentação de resultados compreensíveis ao usuário.
+
+O sistema deverá distinguir três níveis de evidência:
+
+- **Nível A:** verificações determinísticas realizadas com os dados presentes na própria fatura, passíveis de emissão automática.
+- **Nível B:** verificações comparativas com fontes tarifárias oficiais, versionadas e identificadas.
+- **Nível C:** análises que dependem de interpretação normativa ou informações complementares, sem conclusão automática definitiva.
+
+A classificação dos achados deverá refletir a suficiência e a confiabilidade das evidências disponíveis, sem atribuir automaticamente ilegalidade às cobranças.
+
+## 2. Classificação de prioridade
+
+Os requisitos utilizam a metodologia MoSCoW:
+
+- **Must Have (M):** indispensável ao funcionamento e à segurança do produto.
+- **Should Have (S):** importante para a qualidade e a confiabilidade da solução.
+- **Could Have (C):** desejável, sujeito à disponibilidade técnica.
+- **Won't Have (W):** fora do escopo da versão considerada.
+
+As sprints indicadas representam a previsão de implementação e deverão ser confirmadas com o planejamento do grupo.
+
+## 3. Requisitos funcionais
+
+| ID | Requisito funcional | Prioridade | Evidência | Sprint | Critério de aceite verificável |
+|---|---|---|---|---|---|
+| RF-01 | O sistema deve permitir o envio de faturas de energia elétrica em formato PDF. | M | Transversal | S2 | Um PDF válido é aceito e encaminhado ao processamento; arquivos inválidos geram mensagem de erro. |
+| RF-02 | O sistema deve permitir o envio de fotografias de faturas em formatos de imagem suportados. | M | Transversal | S2 | Uma imagem válida é recebida e encaminhada à extração; formato incompatível é rejeitado. |
+| RF-03 | O sistema deve extrair e apresentar os campos necessários à análise, permitindo sua confirmação ou correção pelo usuário. | M | Transversal | S2 | Campos extraídos são exibidos e alterações confirmadas são utilizadas nas verificações posteriores. |
+| RF-04 | O sistema deve verificar a consistência entre leituras anterior e atual, consumo registrado e unidade de medida. | M | A | S2 | Casos sintéticos com leituras consistentes são aprovados e divergências conhecidas são identificadas. |
+| RF-05 | O sistema deve verificar a consistência das somas e dos totais apresentados na fatura, considerando regras de arredondamento definidas. | M | A | S2 | Casos corretos não geram alerta; diferenças acima da tolerância documentada são identificadas. |
+| RF-06 | O sistema deve verificar a consistência aritmética das linhas de cobrança com os respectivos valores, quantidades e preços unitários. | M | A | S2 | Linhas válidas são aprovadas e erros aritméticos sintéticos são identificados. |
+| RF-07 | O sistema deve conferir o cálculo do ICMS utilizando a alíquota e os valores de referência impressos na fatura, quando suficientes. | M | A | S2 | O cálculo é reproduzido nos casos aplicáveis; dados insuficientes resultam em abstenção. |
+| RF-08 | O sistema deve verificar a parcela de consumo de até 80 kWh nos casos em que a regra definida para essa checagem seja aplicável. | M | A | S2 | Casos sintéticos elegíveis são calculados corretamente e casos não elegíveis não geram achados indevidos. |
+| RF-09 | O sistema deve comparar os componentes tarifários TUSD e TE com a tabela oficial da ANEEL correspondente à distribuidora, subgrupo, modalidade e vigência. | M | B | S3 | A comparação utiliza uma versão identificada da tabela; divergências são apresentadas com valores e fonte. |
+| RF-10 | O sistema deve verificar a bandeira tarifária aplicada na fatura em relação às informações oficiais correspondentes ao período de referência. | M | B | S3 | Casos com bandeira compatível não geram divergência; incompatibilidades são identificadas com referência temporal e fonte. |
+| RF-11 | O sistema deve registrar e apresentar a fonte, a data de obtenção e a vigência dos dados oficiais utilizados nas verificações de nível B. | M | B | S3 | Todo achado de nível B contém referência à fonte e à versão dos dados utilizados. |
+| RF-12 | O sistema deve associar às análises normativas de nível C a identificação do ato normativo, dispositivo aplicável e vigência. | M | C | A definir | Toda análise normativa apresentada contém esses três elementos ou informa que a referência não foi confirmada. |
+| RF-13 | O sistema deve abster-se de emitir conclusão quando os dados, as referências ou a aplicabilidade da regra forem insuficientes. | M | A, B, C | S2–S3 | Casos de teste com informação insuficiente não geram afirmação conclusiva e apresentam justificativa da abstenção. |
+| RF-14 | O sistema deve apresentar um cartão de decisão contendo o resultado da análise, nível de evidência, justificativa e referências utilizadas. | M | A, B, C | S3 | O cartão apresenta os campos definidos e diferencia achados, ausência de divergência e abstenção. |
+| RF-15 | O sistema deve utilizar linguagem baseada em evidências, evitando afirmações categóricas de ilegalidade ou estimativas de restituição não fundamentadas. | M | A, B, C | S2–S3 | Testes de conteúdo verificam a ausência de expressões proibidas e a utilização de formulações compatíveis com o nível de evidência. |
+
+## 4. Regras de apresentação e interpretação
+
+Os resultados deverão distinguir inconsistências aritméticas, divergências em relação a fontes oficiais e situações que demandam avaliação complementar.
+
+Nas verificações de nível A, os achados poderão ser emitidos automaticamente quando os dados forem suficientes e a regra determinística for satisfeita.
+
+Nas verificações de nível B, o sistema deverá informar que o valor identificado **“diverge da tabela oficial que conseguimos obter”**, indicando a fonte, a data e a vigência da referência utilizada.
+
+Nas verificações de nível C, a existência de uma referência normativa não será suficiente, isoladamente, para concluir pela irregularidade de uma cobrança. A interpretação dependerá da aplicabilidade do dispositivo e da suficiência das evidências.
+
+Em todos os níveis, o sistema deverá evitar afirmações como “cobrança ilegal” e não deverá apresentar valores de restituição como direitos comprovados.
+
+## 5. Critérios gerais de qualidade
+
+A implementação dos requisitos deverá observar os seguintes critérios:
+
+1. As verificações determinísticas deverão possuir testes unitários com entradas e resultados esperados documentados.
+2. O motor de nível A deverá apresentar zero falso alarme no conjunto de faturas corretas definido para o gate da Sprint 2.
+3. O benchmark público deverá utilizar faturas sintéticas e erros rotulados, sem dados pessoais.
+4. As fontes oficiais deverão ser identificáveis e versionadas para permitir a reprodução das comparações.
+5. Os resultados deverão preservar a distinção entre evidência observada, interpretação e conclusão.
+6. Alterações nas regras ou nas fontes de referência deverão permitir identificar a versão utilizada na análise.
+
+## 6. Dependências e validação
+
+A implementação depende da definição dos contratos de dados, da qualidade da extração dos campos, da disponibilidade das tabelas tarifárias oficiais e da validação das regras aplicáveis.
+
+A Frente F3 será responsável pelo desenvolvimento e pelos testes das verificações dos níveis A e B, conforme o planejamento das Sprints 2 e 3. Os requisitos transversais e os relacionados ao nível C exigirão alinhamento com as demais frentes.
+
+**Pontos para validação pelo grupo:** cronograma do nível C, responsáveis pelos requisitos transversais, tolerâncias numéricas, regras de aplicabilidade da parcela de até 80 kWh e formato final do cartão de decisão.
+
+---
