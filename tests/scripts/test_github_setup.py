@@ -164,9 +164,13 @@ def test_label_com_cor_diferente_e_atualizada(plano: gs.Plano) -> None:
 
 def test_inicio_que_nao_e_segunda_e_rejeitado(tmp_path: Any) -> None:
     for nome in ("sprints.yaml", "issues.yaml"):
-        (tmp_path / nome).write_text((gs.PLANEJAMENTO / nome).read_text(encoding="utf-8"))
+        (tmp_path / nome).write_text(
+            (gs.PLANEJAMENTO / nome).read_text(encoding="utf-8"), encoding="utf-8"
+        )
     texto = (tmp_path / "sprints.yaml").read_text(encoding="utf-8")
-    (tmp_path / "sprints.yaml").write_text(texto.replace("2026-10-26", "2026-10-27"))
+    (tmp_path / "sprints.yaml").write_text(
+        texto.replace("2026-10-26", "2026-10-27"), encoding="utf-8"
+    )
     with pytest.raises(ValueError, match="segunda-feira"):
         gs.carregar_plano(tmp_path)
 
@@ -241,10 +245,12 @@ def test_issues_do_pacote_de_definicao(plano: gs.Plano) -> None:
 
 def test_issue_sem_usuario_confirmado_fica_sem_assignee(tmp_path: Any) -> None:
     for nome in ("sprints.yaml", "issues.yaml"):
-        (tmp_path / nome).write_text((gs.PLANEJAMENTO / nome).read_text(encoding="utf-8"))
+        (tmp_path / nome).write_text(
+            (gs.PLANEJAMENTO / nome).read_text(encoding="utf-8"), encoding="utf-8"
+        )
     texto = (tmp_path / "issues.yaml").read_text(encoding="utf-8")
     (tmp_path / "issues.yaml").write_text(
-        texto.replace("Natalia: NatyEvelin", "Natalia: A_CONFIRMAR")
+        texto.replace("Natalia: NatyEvelin", "Natalia: A_CONFIRMAR"), encoding="utf-8"
     )
     plano = gs.carregar_plano(tmp_path)
     por_id = {i.id: i for i in plano.issues}
