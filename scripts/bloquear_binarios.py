@@ -2,7 +2,7 @@
 """Hook de pre-commit: bloqueia PDF e imagens fora das pastas permitidas.
 
 Fatura real tem nome, endereço e número da instalação e nunca pode entrar no Git.
-Arquivos `*.pdf`, `*.jpg`, `*.jpeg`, `*.png` e `*.heic` só podem existir em:
+PDF e imagens (ver `EXTENSOES_BLOQUEADAS`) só podem existir em:
     - docs/assets/                 (capturas de tela e figuras da documentação)
     - dados/benchmark/sinteticas/  (faturas sintéticas geradas pelo projeto)
 """
@@ -12,7 +12,19 @@ from __future__ import annotations
 import sys
 from pathlib import PurePosixPath
 
-EXTENSOES_BLOQUEADAS = {".pdf", ".jpg", ".jpeg", ".png", ".heic"}
+EXTENSOES_BLOQUEADAS = {
+    ".pdf",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".heic",
+    ".heif",
+    ".webp",
+    ".bmp",
+    ".tif",
+    ".tiff",
+    ".gif",
+}
 PASTAS_PERMITIDAS = ("docs/assets/", "dados/benchmark/sinteticas/")
 
 

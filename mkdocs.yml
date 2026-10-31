@@ -10,6 +10,7 @@ strict: true
 # Templates ficam no repositório, mas não viram páginas do site.
 exclude_docs: |
   _templates/
+  produto/definicao/
 
 theme:
   name: material
@@ -65,6 +66,9 @@ markdown_extensions:
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.snippets:
+      base_path: ['.']
+      check_paths: true
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -88,6 +92,7 @@ nav:
       - Personas: produto/personas.md
       - Lean Inception: produto/lean-inception.md
       - Critérios de aceite: produto/criterios-aceite.md
+      - Pacote de definição: produto/pacote-de-definicao.md
   - Arquitetura:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
@@ -123,4 +128,5 @@ nav:
   - Contribuir:
       - contribuir/index.md
       - Convenções: contribuir/convencoes.md
+      - Quadro e roadmap: contribuir/quadro.md
       - Como rodar: contribuir/como-rodar.md

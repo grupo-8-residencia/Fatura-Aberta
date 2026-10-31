@@ -43,11 +43,11 @@ scripts/    automação (GitHub, geração de páginas, hooks)
 
 > **Fatura real nunca entra no Git.** Ela contém nome, endereço e número da instalação. No repositório só entram faturas sintéticas ou anonimizadas.
 
-Um hook de pre-commit bloqueia `*.pdf`, `*.jpg`, `*.jpeg`, `*.png` e `*.heic` fora de `docs/assets/` e de `dados/benchmark/sinteticas/`, e o gitleaks procura segredos em todo commit e PR. Nunca commite `.env`: use o `.env.example`.
+Um hook de pre-commit bloqueia PDF e imagens fora de `docs/assets/` e de `dados/benchmark/sinteticas/` (o CI repete a checagem em todo PR), e o gitleaks procura segredos em todo commit e PR. Nunca commite `.env`: use o `.env.example`.
 
 ## Contribuir
 
-Leia o [CONTRIBUTING.md](CONTRIBUTING.md). Em resumo: branch `tipo/numero-da-issue-descricao`, Conventional Commits em português, PR pequeno que fecha a issue, revisão do par da frente.
+Acompanhe o trabalho no [quadro e roadmap](https://github.com/orgs/grupo-8-residencia/projects/1). Leia o [CONTRIBUTING.md](CONTRIBUTING.md). Em resumo (gitflow): branch `tipo/numero-da-issue-descricao` criada a partir da `dev`, Conventional Commits em português, PR pequeno para a `dev` que fecha a issue, revisão do par da frente. A `main` só recebe releases da `dev`.
 
 ## Licença
 

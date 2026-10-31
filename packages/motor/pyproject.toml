@@ -2,7 +2,7 @@
 name = "fa-motor"
 version = "0.1.0"
 description = "Motor de regras e evidências (F3): checagens determinísticas de nível A e de nível B."
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.15"
 dependencies = ["fa-contratos"]
 
 [tool.uv.sources]

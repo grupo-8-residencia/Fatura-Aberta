@@ -2,7 +2,7 @@
 name = "fa-rag"
 version = "0.1.0"
 description = "Conhecimento e RAG (F2): corpus normativo, chunking por dispositivo, índice híbrido e busca com citação."
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.15"
 dependencies = ["fa-contratos"]
 
 [tool.uv.sources]
