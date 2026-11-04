@@ -6,7 +6,8 @@ services:
       context: ..
       dockerfile: infra/Dockerfile.api
     ports:
-      - "8000:8000"
+      # Só a própria máquina acessa a API; troque para "8000:8000" se precisar expor na rede.
+      - "127.0.0.1:8000:8000"
     env_file:
       - path: ../.env
         required: false

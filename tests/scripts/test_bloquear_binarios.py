@@ -11,6 +11,10 @@ import pytest
         "packages/extracao/tests/foto.heic",
         "./docs/fatura.jpeg",
         "docs/assets2/x.png",
+        "dados/golden-set/foto.webp",
+        "foto.TIFF",
+        "scan.bmp",
+        "animacao.gif",
     ],
 )
 def test_bloqueia_binarios_fora_das_pastas_permitidas(caminho: str) -> None:
