@@ -1,0 +1,10 @@
+{
+  "fonte": "ANEEL — Luz na Tarifa / Base de Dados das Tarifas das Distribuidoras de Energia Elétrica",
+  "url": "https://portalrelatorios.aneel.gov.br/luznatarifa/basestarifas",
+  "data_download": "2026-10-29",
+  "arquivo": "aneel_neoenergia_brasilia_b1_2026.xlsx",
+  "sha256": "38f66a3d805f317b6f9ec39c831af90da28f864acc77800f8c88d4ec130c16e4",
+  "formato": "XLSX exportado pelo Power BI; dados resumidos",
+  "filtros": "Sigla Neoenergia Brasília; Subgrupo B1; Modalidade Convencional; Classe Residencial; Ano 2026",
+  "observacoes": "Exportação fornecida pela responsável; verificar filtros e integridade em nova exportação. REH e vigência contidas em linhas."
+}
