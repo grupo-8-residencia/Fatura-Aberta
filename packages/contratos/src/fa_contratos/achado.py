@@ -2,8 +2,9 @@
 
 from decimal import Decimal
 from enum import StrEnum
+from typing import Self
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from fa_contratos.base import ModeloBase
 from fa_contratos.citacao import Citacao
@@ -34,3 +35,11 @@ class Achado(ModeloBase):
     abstencao: bool = Field(
         default=False, description="Verdadeiro quando o sistema se abstém de concluir."
     )
+
+    @model_validator(mode="after")
+    def _nivel_b_exige_citacao_oficial(self) -> Self:
+        if self.nivel == Nivel.B and not self.abstencao and not self.citacoes:
+            raise ValueError(
+                "Achados de nível B sem abstenção exigem ao menos uma citação da tabela oficial"
+            )
+        return self
