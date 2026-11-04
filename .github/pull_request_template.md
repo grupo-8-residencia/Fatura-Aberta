@@ -1,3 +1,5 @@
+> Este PR aponta para a `dev` (gitflow). Só releases (`dev` → `main`) e hotfixes apontam para a `main`.
+
 ## O que muda
 
 <!-- Uma ou duas frases. -->
