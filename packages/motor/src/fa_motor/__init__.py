@@ -17,19 +17,32 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
     achados: list[Achado] = []
     if fatura.leitura_anterior is not None and fatura.leitura_atual is not None:
         consumo_calculado = fatura.leitura_atual - fatura.leitura_anterior
-        achados.append(
-            Achado(
-                item="Consumo medido",
-                nivel=Nivel.A,
-                descricao=(
-                    "A diferença entre as leituras confere com o consumo informado."
-                    if consumo_calculado == fatura.consumo_kwh
-                    else "A diferença entre as leituras não confere com o consumo informado."
-                ),
-                valor_esperado=consumo_calculado,
-                valor_cobrado=fatura.consumo_kwh,
+        if consumo_calculado < 0:
+            achados.append(
+                Achado(
+                    item="Consumo medido",
+                    nivel=Nivel.A,
+                    descricao=(
+                        "As leituras estão em ordem decrescente; a conferência de consumo "
+                        "foi interrompida para evitar uma conclusão incorreta."
+                    ),
+                    abstencao=True,
+                )
             )
-        )
+        else:
+            achados.append(
+                Achado(
+                    item="Consumo medido",
+                    nivel=Nivel.A,
+                    descricao=(
+                        "A diferença entre as leituras confere com o consumo informado."
+                        if consumo_calculado == fatura.consumo_kwh
+                        else "A diferença entre as leituras não confere com o consumo informado."
+                    ),
+                    valor_esperado=consumo_calculado,
+                    valor_cobrado=fatura.consumo_kwh,
+                )
+            )
     if fatura.itens:
         soma_itens = sum((item.valor for item in fatura.itens), start=Decimal("0"))
         achados.append(
