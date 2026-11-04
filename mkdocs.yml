@@ -119,6 +119,8 @@ nav:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
       - Resultados: avaliacao/resultados.md
+  - Operação:
+      - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
   - Sprints:
       - sprints/index.md
       - "S1 — Definição e delimitação": sprints/s1.md
