@@ -40,8 +40,8 @@ async def _executar_agentes(
     except TimeoutError:
         logger.warning("agentes excederam o tempo limite")
         return [], "A análise adicional não respondeu a tempo; os achados A seguem disponíveis."
-    except Exception:
-        logger.exception("agentes indisponíveis")
+    except Exception as erro:
+        logger.warning("agentes indisponíveis: %s", type(erro).__name__)
         return [], "A análise adicional está indisponível; os achados A seguem disponíveis."
 
 
