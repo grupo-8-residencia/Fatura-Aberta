@@ -5,8 +5,8 @@
 
 | Rodada | Sprint | Baselines | Resultado | Link |
 |---|---|---|---|---|
-| recall@5 em 30 perguntas | S2 | RAG | TODO | TODO |
-| LLM × RAG | S3 | B2, B3 | TODO | TODO |
-| Agentes | S4 | B4, B5 | TODO | TODO |
-| Campos-chave em 40 fotos | S5 | extração | TODO | TODO |
-| Rodada final | S7 | B1–B5 | TODO | TODO |
+| recall@5 em 30 perguntas | S2 | RAG | Aguardando execução da S2 | — |
+| LLM × RAG | S3 | B2, B3 | Aguardando execução da S3 | — |
+| Agentes | S4 | B4, B5 | Aguardando execução da S4 | — |
+| Campos-chave em 40 fotos | S5 | extração | Aguardando execução da S5 | — |
+| Rodada final | S7 | B1–B5 | Aguardando execução da S7 | — |
