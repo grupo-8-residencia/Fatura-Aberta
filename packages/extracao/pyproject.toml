@@ -3,7 +3,10 @@ name = "fa-extracao"
 version = "0.1.0"
 description = "Extração documental e multimodal (F4): PDF e foto da fatura para o contrato Fatura."
 requires-python = ">=3.12,<3.15"
-dependencies = ["fa-contratos"]
+dependencies = [
+    "fa-contratos",
+    "pypdf>=5",
+]
 
 [tool.uv.sources]
 fa-contratos = { workspace = true }
