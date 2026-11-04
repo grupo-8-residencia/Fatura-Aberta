@@ -4,11 +4,11 @@
 
 | ID | Requisito | Meta / como medir |
 |---|---|---|
-| **RNF-01** | Privacidade e LGPD: mascarar dados pessoais (nome, endereço, nº da instalação) antes de qualquer modelo externo; processamento local quando possível; retenção mínima. | Auditoria de dados enviados; RIPD aprovado (issue S1-03). Retenção zero: o arquivo é apagado ao fim da análise. |
-| **RNF-02** | Fatura real nunca entra no Git; benchmark público só com faturas sintéticas. | Hook de pré-commit bloqueia PDF/imagem; verificação no CI (já implementado). |
-| **RNF-03** | Segurança contra injeção de prompt via documento ou imagem (OWASP Top 10 para LLM). | Taxa de sucesso do ataque < 5% em 10 faturas maliciosas (hipótese H-G, S5). |
-| **RNF-04** | Transparência e auditabilidade: toda saída tem nível, fonte, data/vigência e trilha (agentes, trechos usados). | 100% dos itens do cartão com nível; 100% dos achados B com fonte e data. |
-| **RNF-05** | Reprodutibilidade: versões de modelo, dados e prompts fixadas; Docker Compose; CI com testes. | Execução limpa a partir do repositório; resultados do benchmark reproduzíveis com semente fixa. |
-| **RNF-06** | Desempenho: tempo máximo de análise por fatura. | p95 ≤ 60 s para PDF digital e ≤ 120 s para foto; medir na S2 e revisar. |
-| **RNF-07** | Disponibilidade e custo: demonstração estável, com plano offline; VLM local sem custo de API por consulta. | ≥ 95% durante demonstração e estudo com usuários; custo de API por consulta = R$ 0 (VLM local). |
-| **RNF-08** | Acessibilidade e linguagem simples (persona Dona Celina). | WCAG 2.1 nível AA nas telas principais e texto em linguagem simples; teste de legibilidade com usuários na S7. |
+| **RNF-01** | Privacidade e LGPD: anonimizar nome, endereço, instalação e CPF antes de modelos; retenção zero. | RIPD aprovado (`S1-03`); arquivo descartado após análise. |
+| **RNF-02** | Fatura real nunca entra no Git; benchmark público 100% sintético. | Pre-commit e CI bloqueiam PDFs/imagens reais. |
+| **RNF-03** | Segurança contra injeção de prompt via documento/imagem (OWASP LLM). | Sucesso do ataque < 5% em 10 faturas maliciosas (S5). |
+| **RNF-04** | Transparência: toda saída traz nível, fonte, vigência e trilha de agentes. | 100% dos itens com nível; 100% do nível B com fonte/data. |
+| **RNF-05** | Reprodutibilidade: modelos, dados e prompts fixados; Docker e CI. | Benchmark reproduzível com semente fixa. |
+| **RNF-06** | Desempenho: latência máxima de análise por fatura. | p95 ≤ 60 s (PDF) e ≤ 120 s (foto); medir na S2. |
+| **RNF-07** | Disponibilidade e custo: demo estável e VLM local sem custo por consulta. | Disponibilidade ≥ 95% na demo/estudo; custo API = R$ 0. |
+| **RNF-08** | Acessibilidade e linguagem simples (persona Dona Celina). | WCAG 2.1 AA nas telas principais; teste na S7. |
