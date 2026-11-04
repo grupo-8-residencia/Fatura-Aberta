@@ -161,3 +161,76 @@
   -webkit-mask-image: var(--md-admonition-icon--nivel-c);
   mask-image: var(--md-admonition-icon--nivel-c);
 }
+
+/* ------------------------------------------------------------------ Impressão (PDF de 3 a 5 páginas) */
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm 12mm;
+  }
+
+  .md-header,
+  .md-tabs,
+  .md-sidebar,
+  .md-footer,
+  .md-source,
+  .md-top,
+  .md-content__button,
+  pre.mermaid {
+    display: none !important;
+  }
+
+  .md-main__inner,
+  .md-content,
+  .md-content__inner {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .md-typeset {
+    font-size: 7.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .md-typeset h1 {
+    font-size: 13pt !important;
+    margin: 0 0 0.3em 0 !important;
+  }
+
+  .md-typeset h2 {
+    font-size: 10pt !important;
+    margin: 0.6em 0 0.2em 0 !important;
+  }
+
+  .md-typeset h3 {
+    font-size: 8.5pt !important;
+    margin: 0.4em 0 0.15em 0 !important;
+  }
+
+  .md-typeset p,
+  .md-typeset ul,
+  .md-typeset ol,
+  .md-typeset blockquote {
+    margin: 0.2em 0 !important;
+  }
+
+  .md-typeset .admonition,
+  .md-typeset details {
+    margin: 0.25em 0 !important;
+    padding: 0.2em 0.5em !important;
+    font-size: 7.2pt !important;
+  }
+
+  .md-typeset table:not([class]) {
+    font-size: 6.8pt !important;
+    margin: 0.25em 0 !important;
+    width: 100% !important;
+  }
+
+  .md-typeset table:not([class]) th,
+  .md-typeset table:not([class]) td {
+    padding: 0.18em 0.35em !important;
+    line-height: 1.18 !important;
+  }
+}
