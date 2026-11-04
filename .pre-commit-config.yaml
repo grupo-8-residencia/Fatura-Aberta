@@ -31,11 +31,11 @@ repos:
         name: Bloquear PDF e imagens fora de docs/assets/ e dados/benchmark/sinteticas/
         entry: python scripts/bloquear_binarios.py
         language: python
-        files: '(?i)\.(pdf|jpe?g|png|heic)$'
+        files: '(?i)\.(pdf|jpe?g|png|heic|heif|webp|bmp|tiff?|gif)$'
         exclude: '^(docs/assets/|dados/benchmark/sinteticas/)'
-      - id: mypy-contratos
-        name: mypy (packages/contratos)
-        entry: uv run mypy packages/contratos
+      - id: mypy
+        name: mypy (strict, repositório inteiro)
+        entry: uv run mypy
         language: system
         pass_filenames: false
-        files: '^packages/contratos/'
+        types: [python]
