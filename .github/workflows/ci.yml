@@ -39,6 +39,7 @@ jobs:
     if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     outputs:
+      web: ${{ steps.filtro.outputs.web }}
       docs: ${{ steps.filtro.outputs.docs }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -48,6 +49,8 @@ jobs:
         id: filtro
         with:
           filters: |
+            web:
+              - 'apps/web/**'
             docs:
               - 'docs/**'
               - 'mkdocs.yml'
@@ -153,6 +156,44 @@ jobs:
 
       - name: Auditoria de vulnerabilidades Python
         run: uv run pip-audit --progress-spinner off
+
+  # --------------------------------------------------
+  # Frontend Next.js
+  # Só executa quando apps/web/ foi alterado.
+  # --------------------------------------------------
+  frontend:
+    needs: mudancas
+    if: >
+      github.event_name != 'pull_request_review' &&
+      needs.mudancas.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Instala dependências determinísticas
+        working-directory: apps/web
+        run: npm ci
+
+      - name: ESLint
+        working-directory: apps/web
+        run: npm run lint
+
+      - name: Build Next.js
+        working-directory: apps/web
+        run: npm run build
+
+      - name: Build da imagem de produção
+        working-directory: apps/web
+        run: |
+          DOCKER_BUILDKIT=1 docker build \
+            --file Dockerfile \
+            --tag fatura-aberta-web:ci \
+            .
 
   # --------------------------------------------------
   # Documentação
@@ -355,6 +396,7 @@ jobs:
     needs:
       - mudancas
       - qualidade-python
+      - frontend
       - docs
       - gitleaks
       - origem-main
