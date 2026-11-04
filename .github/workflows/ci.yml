@@ -2,18 +2,26 @@ name: CI
 
 on:
   pull_request:
-    # `edited` reavalia o PR quando a branch de destino muda (regra de origem da main).
-    # `labeled`/`unlabeled` refazem o check `rotulo-contrato`: ele lê as labels do evento, então
-    # adicionar a label depois e só rodar de novo o job (re-run) reaproveita o evento antigo.
-    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - edited
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
   push:
     branches: [main, dev]
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 env:
@@ -23,120 +31,189 @@ env:
   GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
 
 jobs:
-  # Descobre quais pastas mudaram para rodar só o necessário.
+  # --------------------------------------------------
+  # Descobre os componentes que precisam de validação.
+  # A qualidade Python é executada incondicionalmente.
+  # --------------------------------------------------
   mudancas:
+    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     outputs:
-      pacotes: ${{ steps.matriz.outputs.pacotes }}
+      web: ${{ steps.filtro.outputs.web }}
       docs: ${{ steps.filtro.outputs.docs }}
-      contratos: ${{ steps.filtro.outputs.contratos }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
-        id: filtro
-        with:
-          filters: |
-            comum: &comum
-              - 'packages/contratos/**'
-              - 'pyproject.toml'
-              - 'uv.lock'
-              - '.github/workflows/ci.yml'
-            rag:
-              - *comum
-              - 'packages/rag/**'
-            motor:
-              - *comum
-              - 'packages/motor/**'
-            extracao:
-              - *comum
-              - 'packages/extracao/**'
-            agentes:
-              - *comum
-              - 'packages/agentes/**'
-            api:
-              - *comum
-              - 'apps/api/**'
-            contratos:
-              - 'packages/contratos/**'
-            docs:
-              - 'docs/**'
-              - 'mkdocs.yml'
-      - id: matriz
-        name: Monta a matriz de pacotes que mudaram
-        env:
-          MUDANCAS: ${{ steps.filtro.outputs.changes }}
-        run: |
-          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum" and . != "contratos")]')
-          echo "pacotes=${pacotes}" >> "$GITHUB_OUTPUT"
-
-  # Roda sempre: contratos, scripts e um teste ponta a ponta mínimo.
-  nucleo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
-        with:
-          version: ${{ env.UV_VERSION }}
-          enable-cache: true
-      - run: uv sync --all-packages --locked
-      - run: uv run ruff check .
-      - run: uv run ruff format --check .
-      - run: uv run mypy
-      - name: Bloqueia PDF e imagens fora das pastas permitidas (LGPD)
-        run: git ls-files -z | xargs -0 uv run python scripts/bloquear_binarios.py
-      - name: Testes de contratos, scripts e ponta a ponta mínimo
-        run: uv run pytest packages/contratos tests
-
-  # Cada pacote roda só os próprios testes (e todos, se contratos ou a configuração raiz mudarem).
-  pacotes:
-    needs: mudancas
-    if: needs.mudancas.outputs.pacotes != '[]'
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        pacote: ${{ fromJSON(needs.mudancas.outputs.pacotes) }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
-        with:
-          version: ${{ env.UV_VERSION }}
-          enable-cache: true
-      - run: uv sync --all-packages --locked
-      - name: Testes do pacote ${{ matrix.pacote }}
-        env:
-          PACOTE: ${{ matrix.pacote }}
-        run: |
-          if [ "$PACOTE" = "api" ]; then pasta=apps/api; else pasta="packages/$PACOTE"; fi
-          uv run pytest "$pasta"
-
-  # Roda em todo PR e em todo push na main.
-  gitleaks:
-    runs-on: ubuntu-latest
+      api_image: ${{ steps.filtro.outputs.api_image }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
-      - name: Instala o gitleaks (versão fixa, com checagem de SHA-256)
-        run: |
-          curl -sSfL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
-          tar -xzf gitleaks.tar.gz gitleaks
-      - name: Procura segredos
-        env:
-          EVENTO: ${{ github.event_name }}
-          BASE: ${{ github.base_ref }}
-        run: |
-          if [ "$EVENTO" = "pull_request" ]; then
-            ./gitleaks git --verbose --redact --log-opts="origin/${BASE}..HEAD"
-          else
-            ./gitleaks git --verbose --redact
-          fi
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
+        id: filtro
+        with:
+          filters: |
+            web:
+              - 'apps/web/**'
+            docs:
+              - 'docs/**'
+              - 'mkdocs.yml'
+              - 'pyproject.toml'
+              - 'uv.lock'
+            api_image:
+              - 'infra/**'
+              - '.dockerignore'
+              - 'compose.yaml'
+              - 'pyproject.toml'
+              - 'uv.lock'
+              - 'apps/api/**'
+              - 'packages/**'
 
-  # Só quando docs/ (ou mkdocs.yml) mudar.
+  # --------------------------------------------------
+  # Qualidade Python: sempre executada em PR e push.
+  # --------------------------------------------------
+  qualidade-python:
+    if: github.event_name != 'pull_request_review'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+
+      - name: Instala o workspace completo
+        run: uv sync --all-packages --locked
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Ruff format
+        run: uv run ruff format --check .
+
+      # O pyproject.toml já configura o Mypy para packages, apps, scripts e tests.
+      - name: Mypy completo
+        run: uv run mypy
+
+      - name: Valida YAML
+        run: uv run pre-commit run check-yaml --all-files
+
+      - name: Valida TOML
+        run: uv run pre-commit run check-toml --all-files
+
+      # Confere o contrato atual de configuração do ambiente.
+      # Não inventa segredos que ainda não são consumidos pela API.
+      - name: Valida .env.example
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          path = Path(".env.example")
+          if not path.is_file():
+              raise SystemExit("Arquivo .env.example inexistente.")
+
+          values = {}
+          for number, raw in enumerate(path.read_text().splitlines(), 1):
+              line = raw.strip()
+              if not line or line.startswith("#"):
+                  continue
+              if "=" not in line:
+                  raise SystemExit(
+                      f"Linha {number}: formato inválido em .env.example"
+                  )
+              key, value = line.split("=", 1)
+              key = key.strip()
+              value = value.strip()
+
+              if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", key):
+                  raise SystemExit(
+                      f"Linha {number}: nome de variável inválido: {key}"
+                  )
+              if key in values:
+                  raise SystemExit(
+                      f"Linha {number}: variável duplicada: {key}"
+                  )
+              values[key] = value
+
+          required = {"FA_API_HOST", "FA_API_PORT"}
+          missing = required - values.keys()
+          if missing:
+              raise SystemExit(
+                  f"Variáveis ausentes no .env.example: {sorted(missing)}"
+              )
+
+          if not values["FA_API_HOST"]:
+              raise SystemExit("FA_API_HOST não pode ser vazio.")
+
+          try:
+              port = int(values["FA_API_PORT"])
+          except ValueError as exc:
+              raise SystemExit("FA_API_PORT precisa ser numérico.") from exc
+
+          if not 1 <= port <= 65535:
+              raise SystemExit("FA_API_PORT fora da faixa válida.")
+
+          print("Contrato de .env.example válido.")
+          PY
+
+      # Barreira server-side: analisa todos os arquivos rastreados pelo Git.
+      - name: Bloqueia PDF e imagens reais
+        run: |
+          git ls-files -z | xargs -0 -r uv run python scripts/bloquear_binarios.py
+
+      - name: Testes completos do monorepo
+        run: uv run pytest
+
+      - name: Auditoria de vulnerabilidades Python
+        run: uv run pip-audit --progress-spinner off
+
+  # --------------------------------------------------
+  # Frontend Next.js
+  # Só executa quando apps/web/ foi alterado.
+  # --------------------------------------------------
+  frontend:
+    needs: mudancas
+    if: >
+      github.event_name != 'pull_request_review' &&
+      needs.mudancas.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Instala dependências determinísticas
+        working-directory: apps/web
+        run: npm ci
+
+      - name: ESLint
+        working-directory: apps/web
+        run: npm run lint
+
+      - name: Build Next.js
+        working-directory: apps/web
+        run: npm run build
+
+      - name: Build da imagem de produção
+        working-directory: apps/web
+        run: |
+          DOCKER_BUILDKIT=1 docker build \
+            --file Dockerfile \
+            --tag fatura-aberta-web:ci \
+            .
+
+  # --------------------------------------------------
+  # Documentação
+  # O deploy na main continua sob responsabilidade de docs.yml.
+  # --------------------------------------------------
   docs:
     needs: mudancas
-    if: needs.mudancas.outputs.docs == 'true'
+    if: >
+      github.event_name != 'pull_request_review' &&
+      needs.mudancas.outputs.docs == 'true' &&
+      (github.event_name == 'pull_request' || github.ref == 'refs/heads/dev')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -145,58 +222,264 @@ jobs:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run mkdocs build --strict
+      - name: Build rigoroso da documentação
+        run: uv run mkdocs build --strict
 
-  # Gitflow: a main só recebe PR vindo da dev (release) ou de hotfix/*.
-  origem-main:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+  # --------------------------------------------------
+  # Build da imagem da API
+  # --------------------------------------------------
+  imagem-api:
+    needs: mudancas
+    if: >
+      github.event_name != 'pull_request_review' &&
+      needs.mudancas.outputs.api_image == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Confere a branch de origem
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Build da imagem Docker
+        run: |
+          DOCKER_BUILDKIT=1 docker build \
+            --pull \
+            --file infra/Dockerfile.api \
+            --tag fatura-aberta-api:ci \
+            .
+
+      - name: Valida /saude e execucao nao-root no container
+        run: |
+          set -euo pipefail
+          docker run -d --name fa-api-ci -p 127.0.0.1:8000:8000 --env-file .env.example fatura-aberta-api:ci
+          trap 'docker rm -f fa-api-ci >/dev/null 2>&1 || true' EXIT
+          docker exec fa-api-ci id | grep -q "uid=10001(aplicacao)"
+          for _ in $(seq 1 15); do
+            if curl -fsS http://127.0.0.1:8000/saude | jq -e '.status == "ok"' >/dev/null; then
+              curl -fsS http://127.0.0.1:8000/saude
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs fa-api-ci
+          exit 1
+
+  # --------------------------------------------------
+  # Proteção de segredos
+  # --------------------------------------------------
+  gitleaks:
+    if: github.event_name != 'pull_request_review'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Instala Gitleaks
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz gitleaks
+      - name: Procura segredos
+        env:
+          EVENTO: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENTO" = "pull_request" ]; then
+            ./gitleaks git \
+              --verbose \
+              --redact \
+              --log-opts="origin/${BASE}..HEAD"
+          else
+            ./gitleaks git --verbose --redact
+          fi
+
+  # Exige duas aprovações reais em mudanças contratuais.
+  # É um status check independente de ci-verde.
+  contratos-aprovacoes:
+    name: contratos-aprovacoes
+    if: >
+      github.event_name == 'pull_request' ||
+      github.event_name == 'pull_request_review'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPOSITORY: ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+    steps:
+      - name: Consulta o estado atual do PR e suas revisões
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PULL_JSON="$(
+            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}"
+          )"
+
+          FILES_JSON="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100"
+          )"
+
+          REVIEWS_JSON="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100"
+          )"
+
+          export PULL_JSON FILES_JSON REVIEWS_JSON
+
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          def flatten(value):
+              if not isinstance(value, list):
+                  return []
+              result = []
+              for item in value:
+                  if isinstance(item, list):
+                      result.extend(item)
+                  elif isinstance(item, dict):
+                      result.append(item)
+              return result
+
+          pull = json.loads(os.environ["PULL_JSON"])
+          files = flatten(json.loads(os.environ["FILES_JSON"]))
+          reviews = flatten(json.loads(os.environ["REVIEWS_JSON"]))
+
+          contracts_changed = any(
+              str(item.get("filename", "")).startswith("packages/contratos/")
+              or str(item.get("previous_filename", "")).startswith(
+                  "packages/contratos/"
+              )
+              for item in files
+          )
+
+          if not contracts_changed:
+              print("Nenhuma alteração em packages/contratos/.")
+              sys.exit(0)
+
+          author = os.environ["PR_AUTHOR"].lower()
+          head_sha = pull["head"]["sha"]
+
+          latest_reviews = {}
+
+          for review in reviews:
+              user = review.get("user") or {}
+              login = (user.get("login") or "").lower()
+              submitted_at = review.get("submitted_at")
+
+              if not login or not submitted_at:
+                  continue
+
+              if login == author:
+                  continue
+
+              if user.get("type") == "Bot" or login.endswith("[bot]"):
+                  continue
+
+              current = latest_reviews.get(login)
+              if current is None or submitted_at >= current["submitted_at"]:
+                  latest_reviews[login] = review
+
+          approved = {
+              login
+              for login, review in latest_reviews.items()
+              if review.get("state") == "APPROVED"
+              and review.get("commit_id") == head_sha
+              and not review.get("dismissed_at")
+          }
+
+          print(f"Aprovações válidas encontradas: {len(approved)}")
+
+          if len(approved) < 2:
+              print(
+                  "::error::Alterações em packages/contratos/ exigem "
+                  "duas aprovações humanas distintas no HEAD atual."
+              )
+              sys.exit(1)
+
+          print("Duas aprovações válidas encontradas.")
+          PY
+
+  # --------------------------------------------------
+  # Política Gitflow: main só recebe dev ou hotfix/*.
+  # --------------------------------------------------
+  origem-main:
+    if: >
+      github.event_name == 'pull_request' &&
+      github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Valida branch de origem
         env:
           ORIGEM: ${{ github.head_ref }}
         run: |
           case "$ORIGEM" in
-            dev|hotfix/*) echo "Origem permitida: $ORIGEM" ;;
-            *) echo "::error::PR para a main só pode vir da dev (release) ou de hotfix/*. Abra o PR para a dev." && exit 1 ;;
+            dev|hotfix/*)
+              echo "Origem permitida: $ORIGEM"
+              ;;
+            *)
+              echo "::error::PR para main deve vir de dev ou hotfix/*."
+              exit 1
+              ;;
           esac
 
-  # Regra de processo: mudança em packages/contratos/ exige a label `contrato` no PR
-  # (e 2 aprovações, conferidas por quem faz o merge; ver CONTRIBUTING.md).
-  rotulo-contrato:
-    needs: mudancas
-    if: github.event_name == 'pull_request' && needs.mudancas.outputs.contratos == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Confere a label `contrato`
-        env:
-          ROTULOS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
-        run: |
-          if echo "$ROTULOS" | jq -e 'index("contrato")' > /dev/null; then
-            echo "Label contrato presente. Lembrete: este PR exige 2 aprovações."
-          else
-            echo "::error::Este PR altera packages/contratos/ e precisa da label 'contrato' (exige 2 aprovações)."
-            exit 1
-          fi
-
-  # Resultado único para a proteção da branch: nucleo e gitleaks precisam passar; os outros não podem falhar.
+  # --------------------------------------------------
+  # Resultado da CI convencional.
+  # Não inclui contratos-aprovacoes porque esse check
+  # precisa ser reavaliado independentemente das revisões.
+  # --------------------------------------------------
   ci-verde:
-    if: always()
-    needs: [nucleo, pacotes, gitleaks, docs, rotulo-contrato, origem-main]
+    name: ci-verde
+    if: always() && github.event_name != 'pull_request_review'
+    needs:
+      - mudancas
+      - qualidade-python
+      - frontend
+      - docs
+      - imagem-api
+      - gitleaks
+      - origem-main
     runs-on: ubuntu-latest
     steps:
-      - name: Confere os resultados
+      - name: Confere o resultado dos jobs
         env:
           NEEDS: ${{ toJSON(needs) }}
         run: |
-          echo "$NEEDS"
-          # nucleo e gitleaks rodam sempre e precisam ter passado (pulado não vale).
-          for obrigatorio in nucleo gitleaks; do
-            if [ "$(echo "$NEEDS" | jq -r ".$obrigatorio.result")" != "success" ]; then
-              echo "::error::O job $obrigatorio não passou." && exit 1
-            fi
-          done
-          # Os demais podem ser pulados, mas não podem falhar nem ser cancelados.
-          if echo "$NEEDS" | jq -e 'map(select(.result == "failure" or .result == "cancelled")) | length > 0' > /dev/null; then
-            echo "::error::Algum job falhou." && exit 1
-          fi
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          needs = json.loads(os.environ["NEEDS"])
+
+          required = [
+              "qualidade-python",
+              "gitleaks",
+          ]
+
+          missing = [
+              name
+              for name in required
+              if needs[name]["result"] != "success"
+          ]
+
+          failed = [
+              name
+              for name, result in needs.items()
+              if result["result"] in ("failure", "cancelled")
+          ]
+
+          if missing or failed:
+              print(f"Jobs obrigatórios não aprovados: {missing}")
+              print(f"Jobs com falha ou cancelamento: {failed}")
+              sys.exit(1)
+
+          print("CI verde. Jobs condicionais podem ter sido ignorados.")
+          PY
