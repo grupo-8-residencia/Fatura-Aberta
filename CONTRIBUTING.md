@@ -41,17 +41,17 @@ O diagrama do fluxo está em <https://grupo-8-residencia.github.io/Fatura-Aberta
 - Pequenos, focados, e que fecham a issue: `Closes #12`.
 - O **par de revisão** da frente revisa; um **code owner** precisa aprovar (ver `.github/CODEOWNERS` e a tabela em `docs/frentes/`).
 - O CI precisa estar verde: lint, `mypy`, bloqueio de PDF e imagens, testes por pasta, gitleaks e, quando `docs/` muda, `mkdocs build --strict`.
-- PR que altera `packages/contratos/` sem a label `contrato` falha no CI.
+- PR que altera `packages/contratos/` exige o status check `contratos-aprovacoes`, que verifica duas aprovações humanas distintas no commit `HEAD` atual.
 
 ### Mudanças em `packages/contratos/`
 
 Os contratos são o idioma comum entre as frentes. Por isso:
 
-- Use a label `contrato` na issue e no PR.
-- **Exigem 2 aprovações.**
+- Use a label `contrato` na issue e no PR para classificação.
+- **Exigem 2 aprovações humanas distintas no `HEAD` atual** (excluindo o autor do PR e contas de automação).
 - Os revisores esperados são Pedro, Talita, Maria Eduarda e Luiz.
 
-> **Por que está aqui?** A proteção de branch do GitHub aplica **um único número de aprovações para o repositório inteiro** (configuramos 1 aprovação de code owner). Não existe regra de aprovações por pasta. A segunda aprovação em `packages/contratos/` é portanto uma regra **de processo**, garantida por duas coisas: o `CODEOWNERS` pede revisão desses quatro responsáveis e **quem faz o merge confere que há 2 aprovações**. O PR template tem um item para isso, e o CI falha se o PR mexer em `contratos` sem a label `contrato`.
+> **Como é garantido tecnicamente?** A proteção de branch do GitHub aplica 1 aprovação global de `CODEOWNERS`, e o status check independente `contratos-aprovacoes` consulta a API do GitHub a cada sincronização de PR ou evento de revisão (`pull_request_review`), garantindo que alterações em `packages/contratos/` só passem com ao menos 2 aprovações humanas distintas e vigentes no commit `HEAD` atual.
 
 ## Antes de abrir o PR
 

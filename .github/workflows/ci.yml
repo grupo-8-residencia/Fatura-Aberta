@@ -2,18 +2,26 @@ name: CI
 
 on:
   pull_request:
-    # `edited` reavalia o PR quando a branch de destino muda (regra de origem da main).
-    # `labeled`/`unlabeled` refazem o check `rotulo-contrato`: ele lê as labels do evento, então
-    # adicionar a label depois e só rodar de novo o job (re-run) reaproveita o evento antigo.
-    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - edited
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
   push:
     branches: [main, dev]
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 env:
@@ -25,11 +33,11 @@ env:
 jobs:
   # Descobre quais pastas mudaram para rodar só o necessário.
   mudancas:
+    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     outputs:
       pacotes: ${{ steps.matriz.outputs.pacotes }}
       docs: ${{ steps.filtro.outputs.docs }}
-      contratos: ${{ steps.filtro.outputs.contratos }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
@@ -56,8 +64,6 @@ jobs:
             api:
               - *comum
               - 'apps/api/**'
-            contratos:
-              - 'packages/contratos/**'
             docs:
               - 'docs/**'
               - 'mkdocs.yml'
@@ -66,11 +72,12 @@ jobs:
         env:
           MUDANCAS: ${{ steps.filtro.outputs.changes }}
         run: |
-          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum" and . != "contratos")]')
+          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum")]')
           echo "pacotes=${pacotes}" >> "$GITHUB_OUTPUT"
 
   # Roda sempre: contratos, scripts e um teste ponta a ponta mínimo.
   nucleo:
+    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -90,7 +97,7 @@ jobs:
   # Cada pacote roda só os próprios testes (e todos, se contratos ou a configuração raiz mudarem).
   pacotes:
     needs: mudancas
-    if: needs.mudancas.outputs.pacotes != '[]'
+    if: github.event_name != 'pull_request_review' && needs.mudancas.outputs.pacotes != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -112,6 +119,7 @@ jobs:
 
   # Roda em todo PR e em todo push na main.
   gitleaks:
+    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -136,7 +144,7 @@ jobs:
   # Só quando docs/ (ou mkdocs.yml) mudar.
   docs:
     needs: mudancas
-    if: needs.mudancas.outputs.docs == 'true'
+    if: github.event_name != 'pull_request_review' && needs.mudancas.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -146,6 +154,119 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       - run: uv run mkdocs build --strict
+
+  # Exige duas aprovações reais em mudanças contratuais.
+  # É um status check independente de ci-verde.
+  contratos-aprovacoes:
+    name: contratos-aprovacoes
+    if: >
+      github.event_name == 'pull_request' ||
+      github.event_name == 'pull_request_review'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPOSITORY: ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+    steps:
+      - name: Consulta o estado atual do PR e suas revisões
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PULL_JSON="$(
+            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}"
+          )"
+
+          FILES_JSON="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100"
+          )"
+
+          REVIEWS_JSON="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100"
+          )"
+
+          export PULL_JSON FILES_JSON REVIEWS_JSON
+
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          def flatten(value):
+              if not isinstance(value, list):
+                  return []
+              result = []
+              for item in value:
+                  if isinstance(item, list):
+                      result.extend(item)
+                  elif isinstance(item, dict):
+                      result.append(item)
+              return result
+
+          pull = json.loads(os.environ["PULL_JSON"])
+          files = flatten(json.loads(os.environ["FILES_JSON"]))
+          reviews = flatten(json.loads(os.environ["REVIEWS_JSON"]))
+
+          contracts_changed = any(
+              str(item.get("filename", "")).startswith("packages/contratos/")
+              or str(item.get("previous_filename", "")).startswith(
+                  "packages/contratos/"
+              )
+              for item in files
+          )
+
+          if not contracts_changed:
+              print("Nenhuma alteração em packages/contratos/.")
+              sys.exit(0)
+
+          author = os.environ["PR_AUTHOR"].lower()
+          head_sha = pull["head"]["sha"]
+
+          latest_reviews = {}
+
+          for review in reviews:
+              user = review.get("user") or {}
+              login = (user.get("login") or "").lower()
+              submitted_at = review.get("submitted_at")
+
+              if not login or not submitted_at:
+                  continue
+
+              if login == author:
+                  continue
+
+              if user.get("type") == "Bot" or login.endswith("[bot]"):
+                  continue
+
+              current = latest_reviews.get(login)
+              if current is None or submitted_at >= current["submitted_at"]:
+                  latest_reviews[login] = review
+
+          approved = {
+              login
+              for login, review in latest_reviews.items()
+              if review.get("state") == "APPROVED"
+              and review.get("commit_id") == head_sha
+              and not review.get("dismissed_at")
+          }
+
+          print(f"Aprovações válidas encontradas: {len(approved)}")
+
+          if len(approved) < 2:
+              print(
+                  "::error::Alterações em packages/contratos/ exigem "
+                  "duas aprovações humanas distintas no HEAD atual."
+              )
+              sys.exit(1)
+
+          print("Duas aprovações válidas encontradas.")
+          PY
 
   # Gitflow: a main só recebe PR vindo da dev (release) ou de hotfix/*.
   origem-main:
@@ -161,28 +282,13 @@ jobs:
             *) echo "::error::PR para a main só pode vir da dev (release) ou de hotfix/*. Abra o PR para a dev." && exit 1 ;;
           esac
 
-  # Regra de processo: mudança em packages/contratos/ exige a label `contrato` no PR
-  # (e 2 aprovações, conferidas por quem faz o merge; ver CONTRIBUTING.md).
-  rotulo-contrato:
-    needs: mudancas
-    if: github.event_name == 'pull_request' && needs.mudancas.outputs.contratos == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Confere a label `contrato`
-        env:
-          ROTULOS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
-        run: |
-          if echo "$ROTULOS" | jq -e 'index("contrato")' > /dev/null; then
-            echo "Label contrato presente. Lembrete: este PR exige 2 aprovações."
-          else
-            echo "::error::Este PR altera packages/contratos/ e precisa da label 'contrato' (exige 2 aprovações)."
-            exit 1
-          fi
-
-  # Resultado único para a proteção da branch: nucleo e gitleaks precisam passar; os outros não podem falhar.
+  # Resultado da CI convencional.
+  # Não inclui contratos-aprovacoes porque esse check
+  # precisa ser reavaliado independentemente das revisões.
   ci-verde:
-    if: always()
-    needs: [nucleo, pacotes, gitleaks, docs, rotulo-contrato, origem-main]
+    name: ci-verde
+    if: always() && github.event_name != 'pull_request_review'
+    needs: [nucleo, pacotes, gitleaks, docs, origem-main]
     runs-on: ubuntu-latest
     steps:
       - name: Confere os resultados
