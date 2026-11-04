@@ -7,6 +7,15 @@ from fa_contratos.achado import Achado, Nivel
 from fa_contratos.citacao import Citacao
 from fa_contratos.fatura import Fatura, ItemFatura
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
+CONTRATO_VERSAO = "contratos-v1"
 
-__all__ = ["Achado", "Citacao", "Fatura", "ItemFatura", "Nivel", "__version__"]
+__all__ = [
+    "CONTRATO_VERSAO",
+    "Achado",
+    "Citacao",
+    "Fatura",
+    "ItemFatura",
+    "Nivel",
+    "__version__",
+]

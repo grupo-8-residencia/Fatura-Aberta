@@ -2,17 +2,15 @@
 
 <!-- Responsável: Natalia · Par de revisão: Talita · Issue S1-12 · Limite: até 200 palavras -->
 
-O **Fatura Aberta** é uma plataforma aberta, transparente e auditável desenvolvida para a verificação automatizada de faturas de energia elétrica de consumidores residenciais (**Grupo B1**) atendidos pela **Neoenergia Brasília** no Distrito Federal. O sistema processa documentos em formato digital (PDF nativo) ou capturas de imagem (fotografias de faturas impressas), gerando um painel estruturado de tomada de decisão. A ferramenta analisa a conformidade de cada item faturado em relação à regulamentação vigente e às tabelas tarifárias homologadas, acompanhada pela citação explícita do dispositivo legal, ato normativo e período de vigência aplicável. As análises são categorizadas por três níveis formais de evidência:
+O **Fatura Aberta** é uma plataforma aberta e auditável para verificação automatizada de faturas de energia elétrica residenciais (**Grupo B1**) da **Neoenergia Brasília** no Distrito Federal. O sistema recebe PDFs nativos ou fotos de faturas impressas e gera um cartão de decisão que confronta cada item com as normas vigentes e tabelas homologadas pela ANEEL, citando ato, dispositivo e vigência em três níveis de evidência:
 
 !!! nivel-a "Nível A (Checagem Determinística)"
-    Validação matemática e lógica direta com base nos dados contidos na própria fatura (histórico de leitura, consumo medido, somatório de itens e alíquota de ICMS impressa). É o único nível emitido de forma automatizada pelo motor de regras.
+    Validação matemática direta com os dados impressos na própria fatura (leituras, consumo, somatório de itens e alíquota de ICMS). Único nível emitido automaticamente pelo motor de regras.
 
 !!! nivel-b "Nível B (Confronto Tarifário Oficial)"
-    Identificação de divergências em relação às tabelas homologadas pela ANEEL. A resposta é contextualizada com base na base tarifária recuperada na data do processamento, indicando a fonte e a versão de referência.
+    Comparação com as tabelas homologadas pela ANEEL na data do processamento, informando fonte, data e versão de referência.
 
 !!! nivel-c "Nível C (Análise Contextual e Assistida)"
-    Identificação de inconsistências regulatórias complexas não confirmadas automaticamente. Nesses casos, o sistema formula minuta padronizada para requerimento de esclarecimentos perante a distribuidora e orienta o encaminhamento aos órgãos de proteção ao consumidor (Procon-DF ou Defensoria Pública).
+    Indícios regulatórios não confirmáveis apenas pela fatura; gera minuta neutra de pedido de esclarecimento à distribuidora e orienta busca ao Procon-DF ou à Defensoria Pública.
 
-**Visão Arquitetural e Estratégia:** A solução atua estritamente como um sistema de apoio à decisão operacional, mantendo a deliberação final sob responsabilidade do usuário. A arquitetura cumpre integralmente as diretrizes de transparência técnica, rastreabilidade normativa, registro rigoroso de decisões de projeto via ADRs, matriz formal de riscos, avaliação estatística rigorosa e acoplamento exclusivo a fontes de dados oficiais.
-
-**Delimitação de Escopo:** O escopo do produto é restrito ao segmento residencial Grupo B1 da Neoenergia Brasília. O diferencial técnico fundamenta-se na auditabilidade pontual (código aberto, rastreabilidade regulatória e publicação transparente de métricas de falso-positivo). Estão formalmente excluídos do escopo inicial: faturas de água e saneamento (Caesb), atendimento ao Grupo A de alta tensão, unidades com geração distribuída (GD) e serviços de telecomunicações.
+**Estratégia e escopo:** Sistema de apoio à decisão sob deliberação final do usuário, com código aberto, rastreabilidade normativa, ADRs, matriz de riscos e avaliação estatística. Excluem-se do escopo inicial: água/saneamento (Caesb), alta tensão (Grupo A), geração distribuída (GD) e telecomunicações.

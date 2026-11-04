@@ -29,7 +29,7 @@ gitGraph
 3. Faça commits pequenos no padrão [Conventional Commits em português](convencoes.md).
 4. Abra um **PR pequeno para a `dev`** que fecha a issue (`Closes #12`, que funciona porque a `dev` é a branch padrão).
 5. O **par de revisão** da frente revisa. Um code owner precisa aprovar e o CI precisa estar verde.
-6. Mudou `packages/contratos/`? Use a label `contrato`: exige **2 aprovações**.
+6. Mudou `packages/contratos/`? Use a label `contrato` para classificação: o status check obrigatório `contratos-aprovacoes` exige **2 aprovações humanas distintas no `HEAD` atual**.
 7. Merge com **squash** na `dev`. Nunca há push direto na `dev` nem na `main`.
 
 ### Release (fim da sprint)
@@ -42,6 +42,7 @@ Depois do gate, abra um PR `dev` → `main` com o título `release: S2`. Use **m
 uv run ruff check . && uv run ruff format --check .
 uv run mypy
 uv run pytest
+uv run pip-audit --progress-spinner off
 uv run pre-commit run --all-files
 ```
 

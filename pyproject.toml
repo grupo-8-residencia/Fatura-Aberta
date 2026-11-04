@@ -35,8 +35,10 @@ dev = [
     "pre-commit>=3.8",
     "pytest>=8.3",
     "pyyaml>=6.0",
+    "reportlab>=4",
     "ruff>=0.6",
     "types-pyyaml>=6.0",
+    "types-reportlab>=5.1.0.20261104",
 ]
 docs = [
     "mkdocs>=1.6,<2",
