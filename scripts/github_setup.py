@@ -77,6 +77,7 @@ class Plano:
     milestones: list[Milestone] = field(default_factory=list)
     issues: list[Issue] = field(default_factory=list)
     projeto: dict[str, Any] = field(default_factory=dict)
+    sprint_datas: dict[str, tuple[date, date]] = field(default_factory=dict)
 
 
 # --------------------------------------------------------------------------- leitura do plano
@@ -141,6 +142,10 @@ def carregar_plano(pasta: Path = PLANEJAMENTO, repositorio: str | None = None) -
         titulos[sprint["codigo"]] = titulo
         descricao = f"Entregável: {sprint['entregavel']}\nGate: {sprint['gate']}"
         plano.milestones.append(Milestone(titulo, descricao, sexta_da_sprint(inicio, indice)))
+        plano.sprint_datas[sprint["codigo"]] = (
+            sexta_da_sprint(inicio, indice) - timedelta(days=4),
+            sexta_da_sprint(inicio, indice),
+        )
 
     # Issues.
     equipe: dict[str, str] = backlog["equipe"]
@@ -437,22 +442,30 @@ mutation($campo: ID!, $opcoes: [ProjectV2SingleSelectFieldOptionInput!]!) {
 }
 """
 
+_CORES_STATUS = ["GRAY", "BLUE", "YELLOW", "GREEN"]
+
 
 def sincronizar_projeto(
     plano: Plano, executor: Executor, issues: list[dict[str, Any]], aplicar: bool, log: Log
 ) -> None:
-    """Cria o GitHub Project "Fatura Aberta" com campos Status, Frente e Sprint.
+    """Cria o GitHub Project "Fatura Aberta": campos, issues e datas para quadro e roadmap.
 
-    EXPERIMENTAL: depende do escopo `project` (`gh auth refresh -s project`) e ainda não foi
-    exercitado contra o GitHub real; por isso só roda com --projeto e confirmação do time.
+    Campos: Status (A fazer, Em andamento, Em revisão, Feito), Frente, Sprint e as datas
+    Início e Entrega (a segunda e a sexta da sprint), que alimentam a view de Roadmap.
+    As views em si (Quadro e Roadmap) o GitHub não deixa criar por API: ver docs/contribuir/.
+
+    Idempotente: reaproveita o projeto, os campos e os itens; o Status só é preenchido em item
+    que ainda não tem Status, para não devolver ao "A fazer" o que o time já moveu.
+    Requer o escopo `project` (`gh auth refresh -s project`).
     """
     titulo = plano.projeto.get("titulo", "Fatura Aberta")
     status = list(plano.projeto.get("status", ["A fazer", "Em andamento", "Em revisão", "Feito"]))
     frentes = sorted({i.frente for i in plano.issues})
     sprints = sorted({i.sprint for i in plano.issues})
-    dono = plano.repositorio.split("/")[0]
+    dono, nome_repo = plano.repositorio.split("/")
     log(f"[projeto]    '{titulo}' em {dono}: Status {status}, Frente {frentes}, Sprint {sprints}")
-    log(f"[projeto]    adicionaria {len(plano.issues)} issues e preencheria Status/Frente/Sprint")
+    log("[projeto]    campos de data: Início e Entrega (por sprint), para o Roadmap")
+    log(f"[projeto]    adicionaria {len(plano.issues)} issues e preencheria todos os campos")
     if not aplicar:
         return
 
@@ -465,13 +478,17 @@ def sincronizar_projeto(
             executor(["project", "create", "--owner", dono, "--title", titulo, "--format", "json"])
         )
     numero = str(projeto["number"])
+    executor(["project", "link", numero, "--owner", dono, "--repo", nome_repo])
 
     def campos() -> dict[str, dict[str, Any]]:
         saida = executor(["project", "field-list", numero, "--owner", dono, "--format", "json"])
         return {c["name"]: c for c in json.loads(saida)["fields"]}
 
     por_nome = campos()
-    opcoes_status = [{"name": n, "color": "GRAY", "description": ""} for n in status]
+    opcoes_status = [
+        {"name": n, "color": _CORES_STATUS[k % len(_CORES_STATUS)], "description": ""}
+        for k, n in enumerate(status)
+    ]
     nomes_atuais = [o["name"] for o in por_nome["Status"].get("options", [])]
     if nomes_atuais != status:
         variaveis = {"campo": por_nome["Status"]["id"], "opcoes": opcoes_status}
@@ -483,11 +500,30 @@ def sincronizar_projeto(
                 ["project", "field-create", numero, "--owner", dono, "--name", nome,
                  "--data-type", "SINGLE_SELECT", "--single-select-options", ",".join(valores)]
             )  # fmt: skip
+    for nome in ("Início", "Entrega"):
+        if nome not in por_nome:
+            executor(
+                ["project", "field-create", numero, "--owner", dono, "--name", nome,
+                 "--data-type", "DATE"]
+            )  # fmt: skip
     por_nome = campos()
 
     def opcao(campo: str, nome: str) -> tuple[str, str]:
         achada = next(o for o in por_nome[campo]["options"] if o["name"] == nome)
         return por_nome[campo]["id"], achada["id"]
+
+    def editar(item_id: str, campo: str, **valor: str) -> None:
+        args = ["project", "item-edit", "--id", item_id, "--project-id", projeto["id"],
+                "--field-id", por_nome[campo]["id"]]  # fmt: skip
+        for chave, conteudo in valor.items():
+            args += [f"--{chave}", conteudo]
+        executor(args)
+
+    itens = json.loads(
+        executor(["project", "item-list", numero, "--owner", dono, "--format", "json",
+                  "--limit", "500"])
+    ).get("items", [])  # fmt: skip
+    por_url = {(i.get("content") or {}).get("url"): i for i in itens}
 
     por_titulo = {i["title"]: i for i in issues}
     for issue in plano.issues:
@@ -495,17 +531,23 @@ def sincronizar_projeto(
         if existente is None:
             log(f"[projeto]    pulando {issue.id}: issue ainda não existe no GitHub")
             continue
-        item = json.loads(
-            executor(["project", "item-add", numero, "--owner", dono,
-                      "--url", existente["url"], "--format", "json"])
-        )  # fmt: skip
-        for campo, valor in (("Status", status[0]), ("Frente", issue.frente),
-                             ("Sprint", issue.sprint)):  # fmt: skip
-            id_campo, id_opcao = opcao(campo, valor)
-            executor(
-                ["project", "item-edit", "--id", item["id"], "--project-id", projeto["id"],
-                 "--field-id", id_campo, "--single-select-option-id", id_opcao]
+        item = por_url.get(existente["url"])
+        if item is None:
+            item = json.loads(
+                executor(["project", "item-add", numero, "--owner", dono,
+                          "--url", existente["url"], "--format", "json"])
             )  # fmt: skip
+            item = {**item, "status": None}
+        if not item.get("status"):
+            _, id_opcao = opcao("Status", status[0])
+            editar(item["id"], "Status", **{"single-select-option-id": id_opcao})
+        _, id_opcao = opcao("Frente", issue.frente)
+        editar(item["id"], "Frente", **{"single-select-option-id": id_opcao})
+        _, id_opcao = opcao("Sprint", issue.sprint)
+        editar(item["id"], "Sprint", **{"single-select-option-id": id_opcao})
+        inicio, entrega = plano.sprint_datas[issue.sprint]
+        editar(item["id"], "Início", date=inicio.isoformat())
+        editar(item["id"], "Entrega", date=entrega.isoformat())
 
 
 # --------------------------------------------------------------------------- linha de comando
