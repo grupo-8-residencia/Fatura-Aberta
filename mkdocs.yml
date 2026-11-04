@@ -112,6 +112,8 @@ nav:
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
       - Política de dados: conformidade/politica-de-dados.md
+  - Segurança:
+      - Injeção por imagem: seguranca/injecao-por-imagem.md
   - Avaliação:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
