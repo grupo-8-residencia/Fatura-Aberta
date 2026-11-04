@@ -6,7 +6,15 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from fa_contratos import Achado, Citacao, Fatura, ItemFatura, Nivel
+from fa_contratos import (
+    CONTRATO_VERSAO,
+    Achado,
+    Citacao,
+    Fatura,
+    ItemFatura,
+    Nivel,
+    __version__,
+)
 
 
 def citacao_sintetica() -> Citacao:
@@ -137,3 +145,39 @@ def test_modelos_sao_imutaveis() -> None:
     achado = Achado(item="x", nivel=Nivel.A, descricao="y")
     with pytest.raises(ValidationError):
         achado.item = "z"  # type: ignore[misc]
+
+
+def test_versao_congelada_contratos_v1() -> None:
+    assert __version__ == "1.0.0"
+    assert CONTRATO_VERSAO == "contratos-v1"
+
+
+def test_achado_nivel_b_exige_citacao_da_tabela_oficial() -> None:
+    with pytest.raises(ValidationError):
+        Achado(
+            item="Tarifa TE",
+            nivel=Nivel.B,
+            descricao="Tarifa impressa diverge da tabela oficial da ANEEL.",
+            valor_esperado=Decimal("0.32"),
+            valor_cobrado=Decimal("0.39"),
+        )
+
+
+def test_achado_nivel_b_aceita_citacao_ou_abstencao() -> None:
+    com_citacao = Achado(
+        item="Tarifa TE",
+        nivel=Nivel.B,
+        descricao="Tarifa impressa diverge da tabela oficial da ANEEL obtida.",
+        valor_esperado=Decimal("0.32"),
+        valor_cobrado=Decimal("0.39"),
+        citacoes=[citacao_sintetica()],
+    )
+    assert len(com_citacao.citacoes) == 1
+
+    com_abstencao = Achado(
+        item="Tarifa TE",
+        nivel=Nivel.B,
+        descricao="Tabela oficial da ANEEL indisponível para a vigência.",
+        abstencao=True,
+    )
+    assert com_abstencao.abstencao is True
