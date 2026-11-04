@@ -8,4 +8,4 @@
 
 **Justificativa e candidatas descartadas:** Escolhida por ser aberta, conectar transparência tarifária à *Qualidade de Vida* e exigir evidência auditável. Descartaram-se: *(i)* *"É possível detectar erros na conta de luz com IA?"* (fechada/binária); *(ii)* *"Como automatizar petições contra a distribuidora?"* (viola a fronteira jurídica); e *(iii)* *"Qual modelo extrai melhor PDFs de energia?"* (restrita à técnica, sem foco no cidadão).
 
-**Decisão do time:** Definida em reunião de 29/10/2026 (Luiz, Maria Eduarda, Natália, Pedro, Raissa e Talita). Fontes de referência (31/10/2026): resoluções e tabelas B1 da ANEEL, ACP nº 0741927-22.2026.8.07.0001 (MPDFT), Consumidor.gov.br e legislação do ICMS-DF.
+**Decisão do time:** Definida em consenso pela equipe na Sprint 1 (outubro/2026). Fontes de referência (31/10/2026): resoluções e tabelas B1 da ANEEL, ACP nº 0741927-22.2026.8.07.0001 (MPDFT), Consumidor.gov.br e legislação do ICMS-DF.

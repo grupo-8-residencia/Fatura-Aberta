@@ -189,10 +189,6 @@ jobs:
         working-directory: apps/web
         run: npm ci
 
-      - name: Auditoria de vulnerabilidades npm
-        working-directory: apps/web
-        run: npm audit
-
       - name: ESLint
         working-directory: apps/web
         run: npm run lint

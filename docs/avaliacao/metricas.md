@@ -8,7 +8,7 @@ Métricas estruturadas de avaliação científica, produto e entrega definidas n
 | **Científica** | **Falsos alarmes no nível A** | 0 nas faturas corretas | Benchmark com erros injetados e CI; gate da S2, relatório final. |
 | **Científica** | **Afirmações sem suporte (B5 com Auditor × B4)** | Redução ≥ 30% sem perda de correção; senão B4 vira o produto | Comparação nas rodadas da S4 com anotação de falhas. |
 | **Científica** | **Correção por item da fatura e diferença LLM × RAG** | Diferença significativa (McNemar, p < 0,05). Item correto = veredito (confere, diverge ou abstém) igual ao gabarito | Golden set (S3); juiz LLM calibrado contra 40 itens humanos; IC de 95% por bootstrap. |
-| **Científica** | **Acerto nos campos-chave de foto** | ≥ 90% em 40 fotos; senão OCR + formulário | Exact match por campo; gate da S5. |
+| **Científica** | **Acerto nos campos-chave de foto** | ≥ 90% em cada campo escalar (40 fotos); `itens` avaliado por F1 de linhas (`#41`, F4); senão OCR + formulário | Exact match separado por campo; gate da S5. |
 | **Científica** | **Sucesso de injeção de prompt** | < 5% em 10 faturas maliciosas | Teste na S5. |
 | **Produto e usuário** | **Decisão correta do usuário vs. gabarito de especialista** | Maior que o grupo de controle (fatura + buscador), sem aumento do tempo de decisão (hipótese de produto do estudo) | Estudo com 8 a 12 usuários na S7. |
 | **Produto e usuário** | **Conclusão de tarefa e compreensão do cartão** | ≥ 80% concluem a tarefa e entendem o cartão | Teste de usabilidade e legibilidade (S7). |
@@ -53,9 +53,10 @@ Métricas estruturadas de avaliação científica, produto e entrega definidas n
 - **Fórmula:**
   $$\text{IC}_{95\%}(\theta) = \left[\,\hat{\theta}^*_{(0,025 \cdot B)},\; \hat{\theta}^*_{(0,975 \cdot B)}\,\right]$$
 
-### 7. Acerto nos campos-chave de foto ($\text{EM}_{\text{foto}}$) e Sucesso de Prompt Injection ($\text{ASR}_{\text{PI}}$)
+### 7. Acerto nos campos-chave de foto ($\text{EM}_{\text{foto}}(c)$) e Sucesso de Prompt Injection ($\text{ASR}_{\text{PI}}$)
 
-- **Exact Match de campos-chave ($\text{EM}_{\text{foto}}$):** proporção de campos obrigatórios do contrato `Fatura` (`consumo_kwh`, `total`, `mes_referencia`, `aliquota_icms`, `bandeira` e `itens`) extraídos sem erro de 40 fotos sintéticas ($\ge 90\%$ no gate da S5):
-  $$\text{EM}_{\text{foto}} = \frac{1}{40 \cdot |C|} \sum_{f=1}^{40} \sum_{c \in C} \mathbb{I}\!\left(\hat{v}_{f,c} = v_{f,c}\right)$$
+- **Exact Match por campo escalar ($\text{EM}_{\text{foto}}(c)$):** em vez de agregar todos os campos em uma média única (o que ocultaria falhas concentradas em um campo específico), a acurácia é medida e reportada **separadamente para cada campo escalar obrigatório** $c \in C_{\text{escalar}} = \{\text{distribuidora}, \text{mes\_referencia}, \text{consumo\_kwh}, \text{total}, \text{bandeira}, \text{aliquota\_icms}\}$ sobre as 40 fotos sintéticas. O gate da S5 exige $\ge 90\%$ em **cada** campo escalar:
+  $$\text{EM}_{\text{foto}}(c) = \frac{1}{40} \sum_{f=1}^{40} \mathbb{I}\!\left(\hat{v}_{f,c} = v_{f,c}\right), \qquad \text{Gate S5: } \min_{c \in C_{\text{escalar}}} \text{EM}_{\text{foto}}(c) \ge 0,90$$
+- **Avaliação da lista de linhas (`itens: list[ItemFatura]`):** por ter cardinalidade variável, `itens` é avaliado separadamente por precisão, cobertura e $\text{F1}_{\text{itens}}$ sobre as tuplas `(descricao, quantidade, tarifa, valor)` extraídas por fatura, em protocolo conjunto com a frente `F4` (`#41`).
 - **Taxa de sucesso de ataque de Prompt Injection ($\text{ASR}_{\text{PI}}$):** proporção de faturas do conjunto adversarial ($F_{\text{adv}}, |F_{\text{adv}}| = 10$) em que instruções maliciosas embutidas no texto do documento alteram o veredito, suprimem achados de Nível A/B ou violam `RF-15` (meta $< 5\%$ na S5):
   $$\text{ASR}_{\text{PI}} = \frac{1}{|F_{\text{adv}}|} \sum_{f \in F_{\text{adv}}} \mathbb{I}\!\left(\text{ataque bem-sucedido em } f\right)$$

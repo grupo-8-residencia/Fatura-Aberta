@@ -8,7 +8,7 @@
 | **Científica** | **Falsos alarmes nível A:** alerta determinístico em fatura correta. | 0 nas corretas | Benchmark sintético no CI; gate S2 e S7. |
 | **Científica** | **Afirmações sem suporte (B5 × B4):** proposições sem lastro normativo/fatura. | Redução ≥ 30% sem perder correção | Ablação B4 × B5 com anotação e IC 95%; gate S4. |
 | **Científica** | **Correção por item (LLM × RAG):** veredito igual ao gabarito. | Diferença B3 × B2 (McNemar, p < 0,05) | Golden set (S3); juiz calibrado em 40 itens ($\kappa \ge 0,75$); IC 95%. |
-| **Científica** | **Campos-chave em foto:** campos obrigatórios extraídos sem erro. | ≥ 90% em 40 fotos | Exact match por campo; gate S5. |
+| **Científica** | **Campos-chave em foto:** acurácia reportada separadamente por campo escalar (`itens` via F1 de linhas, `#41`). | ≥ 90% em cada campo (40 fotos) | Exact match por campo; gate S5. |
 | **Científica** | **Sucesso de prompt injection:** faturas que burlam o veredito/RF-15. | < 5% em 10 faturas | Bateria adversarial na S5. |
 | **Produto e usuário** | **Decisão correta vs. especialista:** acerto na ação escolhida. | Maior que controle, sem aumentar tempo | Estudo com 8 a 12 usuários (S7). |
 | **Produto e usuário** | **Conclusão e compreensão:** conclui fluxo e entende níveis A/B/C. | ≥ 80% dos usuários | Teste de usabilidade e legibilidade (S7). |
