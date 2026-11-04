@@ -1,0 +1,97 @@
+name: Sincronização do backlog
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: planejamento-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ==================================================
+  # DRY-RUN PARA PULL REQUESTS
+  # ==================================================
+  dry-run:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.12.19"
+          enable-cache: true
+
+      # Instala somente o grupo de automação/dev.
+      # O script precisa de PyYAML, não das dependências da aplicação.
+      - name: Instala dependências do script
+        run: uv sync --locked --only-group dev
+
+      - name: Valida autenticação GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh auth status
+
+      - name: Simula sincronização
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          uv run --no-sync python scripts/github_setup.py --dry-run | tee dry-run.log
+          if grep -q "AVISO: não consegui ler o GitHub" dry-run.log; then
+            echo "::error::O dry-run não conseguiu consultar o estado real do GitHub."
+            exit 1
+          fi
+
+  # ==================================================
+  # APLICAÇÃO APÓS MERGE NA MAIN
+  # ==================================================
+  apply:
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.12.19"
+          enable-cache: true
+
+      - name: Instala dependências do script
+        run: uv sync --locked --only-group dev
+
+      - name: Valida autenticação GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh auth status
+
+      - name: Aplica sincronização do backlog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          uv run --no-sync python scripts/github_setup.py --aplicar
