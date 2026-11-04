@@ -31,120 +31,139 @@ env:
   GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
 
 jobs:
-  # Descobre quais pastas mudaram para rodar só o necessário.
+  # --------------------------------------------------
+  # Descobre os componentes que precisam de validação.
+  # A qualidade Python é executada incondicionalmente.
+  # --------------------------------------------------
   mudancas:
     if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     outputs:
-      pacotes: ${{ steps.matriz.outputs.pacotes }}
       docs: ${{ steps.filtro.outputs.docs }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
-        id: filtro
-        with:
-          filters: |
-            comum: &comum
-              - 'packages/contratos/**'
-              - 'pyproject.toml'
-              - 'uv.lock'
-              - '.github/workflows/ci.yml'
-            rag:
-              - *comum
-              - 'packages/rag/**'
-            motor:
-              - *comum
-              - 'packages/motor/**'
-            extracao:
-              - *comum
-              - 'packages/extracao/**'
-            agentes:
-              - *comum
-              - 'packages/agentes/**'
-            api:
-              - *comum
-              - 'apps/api/**'
-            docs:
-              - 'docs/**'
-              - 'mkdocs.yml'
-      - id: matriz
-        name: Monta a matriz de pacotes que mudaram
-        env:
-          MUDANCAS: ${{ steps.filtro.outputs.changes }}
-        run: |
-          pacotes=$(echo "$MUDANCAS" | jq -c '[.[] | select(. != "docs" and . != "comum")]')
-          echo "pacotes=${pacotes}" >> "$GITHUB_OUTPUT"
-
-  # Roda sempre: contratos, scripts e um teste ponta a ponta mínimo.
-  nucleo:
-    if: github.event_name != 'pull_request_review'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
-        with:
-          version: ${{ env.UV_VERSION }}
-          enable-cache: true
-      - run: uv sync --all-packages --locked
-      - run: uv run ruff check .
-      - run: uv run ruff format --check .
-      - run: uv run mypy
-      - name: Bloqueia PDF e imagens fora das pastas permitidas (LGPD)
-        run: git ls-files -z | xargs -0 uv run python scripts/bloquear_binarios.py
-      - name: Testes de contratos, scripts e ponta a ponta mínimo
-        run: uv run pytest packages/contratos tests
-
-  # Cada pacote roda só os próprios testes (e todos, se contratos ou a configuração raiz mudarem).
-  pacotes:
-    needs: mudancas
-    if: github.event_name != 'pull_request_review' && needs.mudancas.outputs.pacotes != '[]'
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        pacote: ${{ fromJSON(needs.mudancas.outputs.pacotes) }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
-        with:
-          version: ${{ env.UV_VERSION }}
-          enable-cache: true
-      - run: uv sync --all-packages --locked
-      - name: Testes do pacote ${{ matrix.pacote }}
-        env:
-          PACOTE: ${{ matrix.pacote }}
-        run: |
-          if [ "$PACOTE" = "api" ]; then pasta=apps/api; else pasta="packages/$PACOTE"; fi
-          uv run pytest "$pasta"
-
-  # Roda em todo PR e em todo push na main.
-  gitleaks:
-    if: github.event_name != 'pull_request_review'
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
-      - name: Instala o gitleaks (versão fixa, com checagem de SHA-256)
-        run: |
-          curl -sSfL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
-          tar -xzf gitleaks.tar.gz gitleaks
-      - name: Procura segredos
-        env:
-          EVENTO: ${{ github.event_name }}
-          BASE: ${{ github.base_ref }}
-        run: |
-          if [ "$EVENTO" = "pull_request" ]; then
-            ./gitleaks git --verbose --redact --log-opts="origin/${BASE}..HEAD"
-          else
-            ./gitleaks git --verbose --redact
-          fi
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
+        id: filtro
+        with:
+          filters: |
+            docs:
+              - 'docs/**'
+              - 'mkdocs.yml'
+              - 'pyproject.toml'
+              - 'uv.lock'
 
-  # Só quando docs/ (ou mkdocs.yml) mudar.
+  # --------------------------------------------------
+  # Qualidade Python: sempre executada em PR e push.
+  # --------------------------------------------------
+  qualidade-python:
+    if: github.event_name != 'pull_request_review'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+
+      - name: Instala o workspace completo
+        run: uv sync --all-packages --locked
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Ruff format
+        run: uv run ruff format --check .
+
+      # O pyproject.toml já configura o Mypy para packages, apps, scripts e tests.
+      - name: Mypy completo
+        run: uv run mypy
+
+      - name: Valida YAML
+        run: uv run pre-commit run check-yaml --all-files
+
+      - name: Valida TOML
+        run: uv run pre-commit run check-toml --all-files
+
+      # Confere o contrato atual de configuração do ambiente.
+      # Não inventa segredos que ainda não são consumidos pela API.
+      - name: Valida .env.example
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          path = Path(".env.example")
+          if not path.is_file():
+              raise SystemExit("Arquivo .env.example inexistente.")
+
+          values = {}
+          for number, raw in enumerate(path.read_text().splitlines(), 1):
+              line = raw.strip()
+              if not line or line.startswith("#"):
+                  continue
+              if "=" not in line:
+                  raise SystemExit(
+                      f"Linha {number}: formato inválido em .env.example"
+                  )
+              key, value = line.split("=", 1)
+              key = key.strip()
+              value = value.strip()
+
+              if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", key):
+                  raise SystemExit(
+                      f"Linha {number}: nome de variável inválido: {key}"
+                  )
+              if key in values:
+                  raise SystemExit(
+                      f"Linha {number}: variável duplicada: {key}"
+                  )
+              values[key] = value
+
+          required = {"FA_API_HOST", "FA_API_PORT"}
+          missing = required - values.keys()
+          if missing:
+              raise SystemExit(
+                  f"Variáveis ausentes no .env.example: {sorted(missing)}"
+              )
+
+          if not values["FA_API_HOST"]:
+              raise SystemExit("FA_API_HOST não pode ser vazio.")
+
+          try:
+              port = int(values["FA_API_PORT"])
+          except ValueError as exc:
+              raise SystemExit("FA_API_PORT precisa ser numérico.") from exc
+
+          if not 1 <= port <= 65535:
+              raise SystemExit("FA_API_PORT fora da faixa válida.")
+
+          print("Contrato de .env.example válido.")
+          PY
+
+      # Barreira server-side: analisa todos os arquivos rastreados pelo Git.
+      - name: Bloqueia PDF e imagens reais
+        run: |
+          git ls-files -z | xargs -0 -r uv run python scripts/bloquear_binarios.py
+
+      - name: Testes completos do monorepo
+        run: uv run pytest
+
+      - name: Auditoria de vulnerabilidades Python
+        run: uv run pip-audit --progress-spinner off
+
+  # --------------------------------------------------
+  # Documentação
+  # O deploy na main continua sob responsabilidade de docs.yml.
+  # --------------------------------------------------
   docs:
     needs: mudancas
-    if: github.event_name != 'pull_request_review' && needs.mudancas.outputs.docs == 'true'
+    if: >
+      github.event_name != 'pull_request_review' &&
+      needs.mudancas.outputs.docs == 'true' &&
+      (github.event_name == 'pull_request' || github.ref == 'refs/heads/dev')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -153,7 +172,41 @@ jobs:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run mkdocs build --strict
+      - name: Build rigoroso da documentação
+        run: uv run mkdocs build --strict
+
+  # --------------------------------------------------
+  # Proteção de segredos
+  # --------------------------------------------------
+  gitleaks:
+    if: github.event_name != 'pull_request_review'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Instala Gitleaks
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz gitleaks
+      - name: Procura segredos
+        env:
+          EVENTO: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENTO" = "pull_request" ]; then
+            ./gitleaks git \
+              --verbose \
+              --redact \
+              --log-opts="origin/${BASE}..HEAD"
+          else
+            ./gitleaks git --verbose --redact
+          fi
 
   # Exige duas aprovações reais em mudanças contratuais.
   # É um status check independente de ci-verde.
@@ -268,41 +321,77 @@ jobs:
           print("Duas aprovações válidas encontradas.")
           PY
 
-  # Gitflow: a main só recebe PR vindo da dev (release) ou de hotfix/*.
+  # --------------------------------------------------
+  # Política Gitflow: main só recebe dev ou hotfix/*.
+  # --------------------------------------------------
   origem-main:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    if: >
+      github.event_name == 'pull_request' &&
+      github.base_ref == 'main'
     runs-on: ubuntu-latest
     steps:
-      - name: Confere a branch de origem
+      - name: Valida branch de origem
         env:
           ORIGEM: ${{ github.head_ref }}
         run: |
           case "$ORIGEM" in
-            dev|hotfix/*) echo "Origem permitida: $ORIGEM" ;;
-            *) echo "::error::PR para a main só pode vir da dev (release) ou de hotfix/*. Abra o PR para a dev." && exit 1 ;;
+            dev|hotfix/*)
+              echo "Origem permitida: $ORIGEM"
+              ;;
+            *)
+              echo "::error::PR para main deve vir de dev ou hotfix/*."
+              exit 1
+              ;;
           esac
 
+  # --------------------------------------------------
   # Resultado da CI convencional.
   # Não inclui contratos-aprovacoes porque esse check
   # precisa ser reavaliado independentemente das revisões.
+  # --------------------------------------------------
   ci-verde:
     name: ci-verde
     if: always() && github.event_name != 'pull_request_review'
-    needs: [nucleo, pacotes, gitleaks, docs, origem-main]
+    needs:
+      - mudancas
+      - qualidade-python
+      - docs
+      - gitleaks
+      - origem-main
     runs-on: ubuntu-latest
     steps:
-      - name: Confere os resultados
+      - name: Confere o resultado dos jobs
         env:
           NEEDS: ${{ toJSON(needs) }}
         run: |
-          echo "$NEEDS"
-          # nucleo e gitleaks rodam sempre e precisam ter passado (pulado não vale).
-          for obrigatorio in nucleo gitleaks; do
-            if [ "$(echo "$NEEDS" | jq -r ".$obrigatorio.result")" != "success" ]; then
-              echo "::error::O job $obrigatorio não passou." && exit 1
-            fi
-          done
-          # Os demais podem ser pulados, mas não podem falhar nem ser cancelados.
-          if echo "$NEEDS" | jq -e 'map(select(.result == "failure" or .result == "cancelled")) | length > 0' > /dev/null; then
-            echo "::error::Algum job falhou." && exit 1
-          fi
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          needs = json.loads(os.environ["NEEDS"])
+
+          required = [
+              "qualidade-python",
+              "gitleaks",
+          ]
+
+          missing = [
+              name
+              for name in required
+              if needs[name]["result"] != "success"
+          ]
+
+          failed = [
+              name
+              for name, result in needs.items()
+              if result["result"] in ("failure", "cancelled")
+          ]
+
+          if missing or failed:
+              print(f"Jobs obrigatórios não aprovados: {missing}")
+              print(f"Jobs com falha ou cancelamento: {failed}")
+              sys.exit(1)
+
+          print("CI verde. Jobs condicionais podem ter sido ignorados.")
+          PY
