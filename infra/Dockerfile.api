@@ -80,9 +80,13 @@ RUN groupadd --system --gid 10001 aplicacao \
 COPY --from=builder --chown=aplicacao:aplicacao \
   /opt/venv /opt/venv
 
-# Somente os pacotes necessários para a API.
+# Os pacotes locais são instalações editáveis do workspace e precisam estar no runtime.
+COPY --from=builder --chown=aplicacao:aplicacao \
+  /app/packages/agentes /app/packages/agentes
 COPY --from=builder --chown=aplicacao:aplicacao \
   /app/packages/contratos /app/packages/contratos
+COPY --from=builder --chown=aplicacao:aplicacao \
+  /app/packages/motor /app/packages/motor
 COPY --from=builder --chown=aplicacao:aplicacao \
   /app/apps/api /app/apps/api
 

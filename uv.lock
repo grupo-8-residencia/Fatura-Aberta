@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12, <3.15"
 
 [manifest]
@@ -342,6 +342,7 @@ version = "0.1.0"
 source = { editable = "apps/api" }
 dependencies = [
     { name = "fa-contratos" },
+    { name = "fa-motor" },
     { name = "fastapi" },
     { name = "uvicorn" },
 ]
@@ -349,6 +350,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "fa-contratos", editable = "packages/contratos" },
+    { name = "fa-motor", editable = "packages/motor" },
     { name = "fastapi", specifier = ">=0.115" },
     { name = "uvicorn", specifier = ">=0.30" },
 ]
@@ -422,6 +424,7 @@ wheels = [
 name = "fatura-aberta"
 version = "0.1.0"
 source = { virtual = "." }
+default-groups = ["dev", "docs"]
 dependencies = [
     { name = "fa-agentes" },
     { name = "fa-api" },
