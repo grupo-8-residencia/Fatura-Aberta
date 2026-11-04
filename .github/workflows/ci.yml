@@ -8,11 +8,6 @@ on:
       - reopened
       - ready_for_review
       - edited
-  pull_request_review:
-    types:
-      - submitted
-      - edited
-      - dismissed
   push:
     branches: [main, dev]
 
@@ -31,47 +26,9 @@ env:
 
 jobs:
   # --------------------------------------------------
-  # Descobre os componentes que precisam de validação.
-  # A qualidade Python é executada incondicionalmente.
-  # --------------------------------------------------
-  mudancas:
-    if: github.event_name != 'pull_request_review'
-    runs-on: ubuntu-latest
-    outputs:
-      web: ${{ steps.filtro.outputs.web }}
-      docs: ${{ steps.filtro.outputs.docs }}
-      api_image: ${{ steps.filtro.outputs.api_image }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          fetch-depth: 0
-      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
-        id: filtro
-        with:
-          filters: |
-            web:
-              - 'apps/web/**'
-              - '.github/workflows/ci.yml'
-            docs:
-              - 'docs/**'
-              - 'mkdocs.yml'
-              - 'pyproject.toml'
-              - 'uv.lock'
-            api_image:
-              - 'infra/**'
-              - '.dockerignore'
-              - 'compose.yaml'
-              - 'pyproject.toml'
-              - 'uv.lock'
-              - 'apps/api/**'
-              - 'packages/**'
-              - '.github/workflows/ci.yml'
-
-  # --------------------------------------------------
   # Qualidade Python: sempre executada em PR e push.
   # --------------------------------------------------
   qualidade-python:
-    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -168,14 +125,9 @@ jobs:
         run: uv run pip-audit --progress-spinner off
 
   # --------------------------------------------------
-  # Frontend Next.js
-  # Só executa quando apps/web/ foi alterado.
+  # Frontend Next.js: sempre executado em PR e push.
   # --------------------------------------------------
   frontend:
-    needs: mudancas
-    if: >
-      github.event_name != 'pull_request_review' &&
-      needs.mudancas.outputs.web == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -227,15 +179,10 @@ jobs:
           exit 1
 
   # --------------------------------------------------
-  # Documentação
-  # O deploy na main continua sob responsabilidade de docs.yml.
+  # Documentação: sempre executada em PR e push.
+  # O deploy no GitHub Pages a partir da main fica em docs.yml.
   # --------------------------------------------------
   docs:
-    needs: mudancas
-    if: >
-      github.event_name != 'pull_request_review' &&
-      needs.mudancas.outputs.docs == 'true' &&
-      (github.event_name == 'pull_request' || github.ref == 'refs/heads/dev')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -248,13 +195,9 @@ jobs:
         run: uv run mkdocs build --strict
 
   # --------------------------------------------------
-  # Build da imagem da API
+  # Build da imagem da API: sempre executado em PR e push.
   # --------------------------------------------------
   imagem-api:
-    needs: mudancas
-    if: >
-      github.event_name != 'pull_request_review' &&
-      needs.mudancas.outputs.api_image == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -288,7 +231,6 @@ jobs:
   # Proteção de segredos
   # --------------------------------------------------
   gitleaks:
-    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -321,9 +263,6 @@ jobs:
   # É um status check independente de ci-verde.
   contratos-aprovacoes:
     name: contratos-aprovacoes
-    if: >
-      github.event_name == 'pull_request' ||
-      github.event_name == 'pull_request_review'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -338,6 +277,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          if [ -z "${PR_NUMBER:-}" ]; then
+            echo "Evento push sem PR associado: verificação de aprovações de PR concluída."
+            exit 0
+          fi
 
           PULL_JSON="$(
             gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}"
@@ -434,15 +378,18 @@ jobs:
   # Política Gitflow: main só recebe dev ou hotfix/*.
   # --------------------------------------------------
   origem-main:
-    if: >
-      github.event_name == 'pull_request' &&
-      github.base_ref == 'main'
     runs-on: ubuntu-latest
     steps:
       - name: Valida branch de origem
         env:
+          EVENTO: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
           ORIGEM: ${{ github.head_ref }}
         run: |
+          if [ "$EVENTO" != "pull_request" ] || [ "$BASE" != "main" ]; then
+            echo "Política origem-main aplicável apenas a PRs destinados à main (evento=$EVENTO, base=${BASE:-N/A})."
+            exit 0
+          fi
           case "$ORIGEM" in
             dev|hotfix/*)
               echo "Origem permitida: $ORIGEM"
@@ -460,9 +407,8 @@ jobs:
   # --------------------------------------------------
   ci-verde:
     name: ci-verde
-    if: always() && github.event_name != 'pull_request_review'
+    if: always()
     needs:
-      - mudancas
       - qualidade-python
       - frontend
       - docs
@@ -484,7 +430,11 @@ jobs:
 
           required = [
               "qualidade-python",
+              "frontend",
+              "docs",
+              "imagem-api",
               "gitleaks",
+              "origem-main",
           ]
 
           missing = [
@@ -493,16 +443,9 @@ jobs:
               if needs[name]["result"] != "success"
           ]
 
-          failed = [
-              name
-              for name, result in needs.items()
-              if result["result"] in ("failure", "cancelled")
-          ]
-
-          if missing or failed:
+          if missing:
               print(f"Jobs obrigatórios não aprovados: {missing}")
-              print(f"Jobs com falha ou cancelamento: {failed}")
               sys.exit(1)
 
-          print("CI verde. Jobs condicionais podem ter sido ignorados.")
+          print("CI verde. Todos os jobs obrigatórios foram executados e aprovados.")
           PY
