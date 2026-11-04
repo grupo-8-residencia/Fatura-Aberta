@@ -41,6 +41,7 @@ jobs:
     outputs:
       web: ${{ steps.filtro.outputs.web }}
       docs: ${{ steps.filtro.outputs.docs }}
+      api_image: ${{ steps.filtro.outputs.api_image }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -56,6 +57,14 @@ jobs:
               - 'mkdocs.yml'
               - 'pyproject.toml'
               - 'uv.lock'
+            api_image:
+              - 'infra/**'
+              - '.dockerignore'
+              - 'compose.yaml'
+              - 'pyproject.toml'
+              - 'uv.lock'
+              - 'apps/api/**'
+              - 'packages/**'
 
   # --------------------------------------------------
   # Qualidade Python: sempre executada em PR e push.
@@ -215,6 +224,42 @@ jobs:
       - run: uv sync --locked
       - name: Build rigoroso da documentação
         run: uv run mkdocs build --strict
+
+  # --------------------------------------------------
+  # Build da imagem da API
+  # --------------------------------------------------
+  imagem-api:
+    needs: mudancas
+    if: >
+      github.event_name != 'pull_request_review' &&
+      needs.mudancas.outputs.api_image == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Build da imagem Docker
+        run: |
+          DOCKER_BUILDKIT=1 docker build \
+            --pull \
+            --file infra/Dockerfile.api \
+            --tag fatura-aberta-api:ci \
+            .
+
+      - name: Valida /saude e execucao nao-root no container
+        run: |
+          set -euo pipefail
+          docker run -d --name fa-api-ci -p 127.0.0.1:8000:8000 --env-file .env.example fatura-aberta-api:ci
+          trap 'docker rm -f fa-api-ci >/dev/null 2>&1 || true' EXIT
+          docker exec fa-api-ci id | grep -q "uid=10001(aplicacao)"
+          for _ in $(seq 1 15); do
+            if curl -fsS http://127.0.0.1:8000/saude | jq -e '.status == "ok"' >/dev/null; then
+              curl -fsS http://127.0.0.1:8000/saude
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs fa-api-ci
+          exit 1
 
   # --------------------------------------------------
   # Proteção de segredos
@@ -398,6 +443,7 @@ jobs:
       - qualidade-python
       - frontend
       - docs
+      - imagem-api
       - gitleaks
       - origem-main
     runs-on: ubuntu-latest

@@ -1,25 +1,94 @@
-# API do Fatura Aberta (F6). Construído a partir da raiz do repositório:
-#   docker build -f infra/Dockerfile.api -t fatura-aberta-api .
-FROM python:3.12-slim
+# syntax=docker/dockerfile:1.7
 
-COPY --from=ghcr.io/astral-sh/uv:0.12.19 /uv /usr/local/bin/uv
+# ==================================================
+# BUILDER
+# ==================================================
+FROM python:3.12-slim AS builder
+
+COPY --from=ghcr.io/astral-sh/uv:0.12.19 /uv /uvx /bin/
 
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
-    PYTHONUNBUFFERED=1
+    UV_PROJECT_ENVIRONMENT=/opt/venv \
+    PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
-# Só o que a API precisa; o resto do monorepo fica de fora (ver .dockerignore).
+# --------------------------------------------------
+# Primeiro: somente os manifests e o lockfile.
+# Mantém o cache de dependências quando o código muda.
+# --------------------------------------------------
 COPY pyproject.toml uv.lock ./
-COPY packages ./packages
-COPY apps/api ./apps/api
 
-RUN uv sync --locked --no-dev --no-default-groups --package fa-api
+# Manifests de todos os membros do workspace.
+COPY packages/agentes/pyproject.toml ./packages/agentes/pyproject.toml
+COPY packages/contratos/pyproject.toml ./packages/contratos/pyproject.toml
+COPY packages/extracao/pyproject.toml ./packages/extracao/pyproject.toml
+COPY packages/motor/pyproject.toml ./packages/motor/pyproject.toml
+COPY packages/rag/pyproject.toml ./packages/rag/pyproject.toml
+COPY apps/api/pyproject.toml ./apps/api/pyproject.toml
 
-# Processo sem privilégios.
-RUN useradd --system --create-home aplicacao
+# Instala dependências de terceiros sem instalar
+# os pacotes do workspace nesta primeira etapa.
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync \
+      --locked \
+      --no-dev \
+      --no-default-groups \
+      --package fa-api \
+      --no-install-workspace
+
+# --------------------------------------------------
+# Código-fonte: copiado somente depois da resolução
+# e instalação das dependências externas.
+# --------------------------------------------------
+COPY packages/ ./packages/
+COPY apps/api/ ./apps/api/
+
+# Instala a API e os pacotes locais de que ela depende.
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync \
+      --locked \
+      --no-dev \
+      --no-default-groups \
+      --package fa-api
+
+# ==================================================
+# RUNTIME
+# ==================================================
+FROM python:3.12-slim AS runtime
+
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    FA_API_HOST=0.0.0.0 \
+    FA_API_PORT=8000
+
+WORKDIR /app
+
+# Usuário sem privilégios.
+RUN groupadd --system --gid 10001 aplicacao \
+    && useradd \
+      --system \
+      --uid 10001 \
+      --gid aplicacao \
+      --create-home \
+      --home-dir /home/aplicacao \
+      aplicacao
+
+# Ambiente Python instalado no builder.
+COPY --from=builder --chown=aplicacao:aplicacao \
+  /opt/venv /opt/venv
+
+# Somente os pacotes necessários para a API.
+COPY --from=builder --chown=aplicacao:aplicacao \
+  /app/packages/contratos /app/packages/contratos
+COPY --from=builder --chown=aplicacao:aplicacao \
+  /app/apps/api /app/apps/api
+
 USER aplicacao
 
 EXPOSE 8000
-CMD ["/app/.venv/bin/uvicorn", "fa_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Consome as variáveis configuradas no .env.
+CMD [ "sh", "-c", "exec uvicorn fa_api.main:app --host \"${FA_API_HOST:-0.0.0.0}\" --port \"${FA_API_PORT:-8000}\"" ]
