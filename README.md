@@ -1,5 +1,8 @@
 # Fatura Aberta
 
+[![CI](https://github.com/grupo-8-residencia/Fatura-Aberta/actions/workflows/ci.yml/badge.svg)](https://github.com/grupo-8-residencia/Fatura-Aberta/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Verificador **aberto e auditável** de faturas de energia elétrica residencial (grupo B1) da Neoenergia Brasília (DF). O usuário envia a fatura (PDF ou foto) e recebe um cartão de decisão que mostra, item por item, se a cobrança confere com as regras e tarifas vigentes, com a citação exata da norma (ato, artigo ou inciso, vigência).
 
 📖 **Documentação:** <https://grupo-8-residencia.github.io/Fatura-Aberta/>
@@ -23,7 +26,7 @@ uv sync                      # instala o workspace (Python 3.12)
 uv run pytest                # testes
 uv run pre-commit install    # ativa os hooks (ruff, gitleaks, bloqueio de binários)
 uv run mkdocs serve          # documentação em http://127.0.0.1:8000/Fatura-Aberta/
-docker compose up --build    # API em http://localhost:8000/saude
+docker compose -f infra/docker-compose.yml up --build  # API em http://localhost:8000/saude
 ```
 
 ## Estrutura
@@ -51,4 +54,7 @@ Acompanhe o trabalho no [quadro e roadmap](https://github.com/orgs/grupo-8-resid
 
 ## Licença
 
-TODO: decisão do time (prevista no checklist final da Sprint 7).
+Distribuído sob a licença **MIT** (`Copyright (c) 2026 Fatura Aberta Contributors`). Veja o arquivo [LICENSE](LICENSE) para o texto integral.
+
+- As bibliotecas e pacotes de terceiros declarados em `uv.lock` e `apps/web/package-lock.json` permanecem regidos por suas respectivas licenças originais de código aberto.
+- Os textos normativos e resoluções oficiais (ANEEL, PRODIST e legislação tributária do DF) referenciados ou indexados em `dados/` constituem atos públicos oficiais e não são objeto de apropriação autoral.

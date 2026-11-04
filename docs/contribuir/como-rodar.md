@@ -30,7 +30,17 @@ uv run pre-commit install
     uv run ruff check .
     uv run ruff format .
     uv run mypy
+    uv run pip-audit --progress-spinner off
     uv run pre-commit run --all-files
+    ```
+
+=== "Web (Next.js)"
+
+    ```bash
+    cd apps/web
+    npm ci
+    npm run lint
+    npm run build
     ```
 
 === "Documentação"
@@ -55,4 +65,4 @@ uv run python scripts/github_setup.py             # dry-run
 uv run python scripts/github_setup.py --aplicar   # cria labels, milestones e issues
 ```
 
-Precisa do [GitHub CLI](https://cli.github.com/) autenticado (`gh auth login`).
+Precisa do [GitHub CLI](https://cli.github.com/) autenticado (`gh auth login`). No GitHub Actions, o workflow `.github/workflows/planejamento-sync.yml` executa automaticamente `--dry-run` em Pull Requests e `--aplicar` após merge na `main`.

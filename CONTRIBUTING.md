@@ -59,6 +59,7 @@ Os contratos são o idioma comum entre as frentes. Por isso:
 uv run ruff check . && uv run ruff format --check .
 uv run mypy
 uv run pytest
+uv run pip-audit --progress-spinner off
 uv run pre-commit run --all-files
 uv run mkdocs build --strict   # se mexeu em docs/
 ```
