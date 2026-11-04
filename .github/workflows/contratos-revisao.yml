@@ -1,0 +1,122 @@
+name: Aprovações de Contratos
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: contratos-revisao-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  contratos-aprovacoes:
+    name: contratos-aprovacoes
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPOSITORY: ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+    steps:
+      - name: Consulta o estado atual do PR e suas revisões
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PULL_JSON="$(
+            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}"
+          )"
+
+          FILES_JSON="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100"
+          )"
+
+          REVIEWS_JSON="$(
+            gh api --paginate --slurp \
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100"
+          )"
+
+          export PULL_JSON FILES_JSON REVIEWS_JSON
+
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          def flatten(value):
+              if not isinstance(value, list):
+                  return []
+              result = []
+              for item in value:
+                  if isinstance(item, list):
+                      result.extend(item)
+                  elif isinstance(item, dict):
+                      result.append(item)
+              return result
+
+          pull = json.loads(os.environ["PULL_JSON"])
+          files = flatten(json.loads(os.environ["FILES_JSON"]))
+          reviews = flatten(json.loads(os.environ["REVIEWS_JSON"]))
+
+          contracts_changed = any(
+              str(item.get("filename", "")).startswith("packages/contratos/")
+              or str(item.get("previous_filename", "")).startswith(
+                  "packages/contratos/"
+              )
+              for item in files
+          )
+
+          if not contracts_changed:
+              print("Nenhuma alteração em packages/contratos/.")
+              sys.exit(0)
+
+          author = os.environ["PR_AUTHOR"].lower()
+          head_sha = pull["head"]["sha"]
+
+          latest_reviews = {}
+
+          for review in reviews:
+              user = review.get("user") or {}
+              login = (user.get("login") or "").lower()
+              submitted_at = review.get("submitted_at")
+
+              if not login or not submitted_at:
+                  continue
+
+              if login == author:
+                  continue
+
+              if user.get("type") == "Bot" or login.endswith("[bot]"):
+                  continue
+
+              current = latest_reviews.get(login)
+              if current is None or submitted_at >= current["submitted_at"]:
+                  latest_reviews[login] = review
+
+          approved = {
+              login
+              for login, review in latest_reviews.items()
+              if review.get("state") == "APPROVED"
+              and review.get("commit_id") == head_sha
+              and not review.get("dismissed_at")
+          }
+
+          print(f"Aprovações válidas encontradas: {len(approved)}")
+
+          if len(approved) < 2:
+              print(
+                  "::error::Alterações em packages/contratos/ exigem "
+                  "duas aprovações humanas distintas no HEAD atual."
+              )
+              sys.exit(1)
+
+          print("Duas aprovações válidas encontradas.")
+          PY
