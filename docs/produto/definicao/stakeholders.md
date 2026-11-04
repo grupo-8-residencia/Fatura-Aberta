@@ -4,17 +4,17 @@
 
 *Matriz executiva de partes interessadas e estratégias de engajamento técnico (Mapeamento: Interesse [I] / Influência [Inf]):*
 
-| Stakeholder | I / Inf | O que ganha ou perde | Como engajar |
+| Stakeholder | I / Inf | Ganho ou perda | Engajamento |
 |---|---|---|---|
-| **Consumidores residenciais B1 (DF)** | Alta / Baixa | Ganham clareza e um caminho para pedir esclarecimento; perdem tempo se houver falso alarme. | Entrevistas, estudo com usuários, linguagem simples. |
-| **Neoenergia Brasília** | Alta / Alta | Pode receber mais pedidos de esclarecimento; ganha quando chegam fundamentados e sem acusação. | Linguagem de evidência; contato formal após validar o escopo (S2). |
-| **ANEEL** | Média / Alta | Define as tabelas e normas verificadas; ganha uma ferramenta aberta que as usa. | Fontes oficiais com vigência e citação por dispositivo. |
-| **Procon-DF** | Média / Média | Pode receber casos mais organizados. | Encaminhamento do usuário; apresentação do projeto após a S6. |
-| **Defensoria Pública do DF** | Média / Média | Mesmo ganho, para quem precisa de assistência jurídica. | Encaminhamento; nenhuma estratégia jurídica no produto. |
-| **Idec** | Alta / Média | Ganha ferramenta aberta alinhada à defesa do consumidor (interesse a confirmar). | Divulgação do benchmark e do código. |
-| **Docente de Direito** | Média / Alta | Delimita a fronteira entre informação e consultoria jurídica. | Parecer consultivo informal. |
-| **Professores / coordenação do programa** | Alta / Alta | Avaliam entregas e gates de cada sprint. | Entregas de sprint, documentação, demonstrações. |
-| **Time Fatura Aberta** | Alta / Alta | Aprende e entrega; risco de assumir escopo demais. | Cerimônias, revisão em par, gates Go/No-Go/Pivot. |
+| **Consumidores B1 (DF)** | Alta / Baixa | Ganham clareza; perdem tempo se houver falso alarme. | Entrevistas, estudo e linguagem simples. |
+| **Neoenergia Brasília** | Alta / Alta | Recebe pedidos fundamentados e sem acusação. | Linguagem de evidência; contato após S2. |
+| **ANEEL** | Média / Alta | Ferramenta aberta usa suas tabelas e normas. | Fontes oficiais com vigência e dispositivo. |
+| **Procon-DF** | Média / Média | Recebe demandas mais organizadas. | Encaminhamento; apresentação após S6. |
+| **Defensoria Pública-DF** | Média / Média | Triagem factual para assistência jurídica. | Encaminhamento; sem tese jurídica no app. |
+| **Idec** | Alta / Média | Ferramenta aberta alinhada ao consumidor. | Divulgação do benchmark e código. |
+| **Docente de Direito** | Média / Alta | Delimita fronteira informacional vs. jurídica. | Parecer consultivo informal (S1). |
+| **Coordenação / docentes** | Alta / Alta | Avaliam entregas e gates de cada sprint. | Sprints, documentação e demos. |
+| **Time Fatura Aberta** | Alta / Alta | Aprende e entrega; risco de escopo excessivo. | Cerimônias, revisão em par e gates. |
 
 ### Matriz interesse × influência
 
@@ -40,6 +40,6 @@ quadrantChart
 
 ### Diretrizes de Engajamento por Quadrante
 
-1. **Gestão Ativa (Alto I / Alta Inf):** Coordenação do programa, equipe interna de engenharia, Neoenergia Brasília e Idec.
-2. **Manutenção de Satisfação (Médio I / Alta Inf):** ANEEL e Docentes de Direito (orientação normativa).
-3. **Monitoramento e Escuta (Alto I / Baixa Inf):** Consumidores residenciais Grupo B1, cujas demandas orientam o design de interface e a clareza da linguagem. O elevado impacto institucional da concessionária reforça a premissa de emitir relatórios estritamente neutros e baseados em evidências técnicas.
+1. **Gerenciar de perto (Alto I / Alta Inf):** Coordenação do programa, time Fatura Aberta, Neoenergia Brasília e Idec.
+2. **Manter satisfeito (Médio I / Alta Inf):** ANEEL e Docente de Direito (fronteira normativa).
+3. **Manter informado (Alto I / Baixa Inf):** Consumidores B1, cujas dores guiam a interface simples e relatórios neutros baseados em evidência.
