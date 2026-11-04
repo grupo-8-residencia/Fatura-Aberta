@@ -1,20 +1,29 @@
 # Personas
 
-!!! info "Em construção"
-    As personas saem das entrevistas e da Lean Inception da Sprint 1. Até lá, nada aqui é conclusão de pesquisa.
+Perfis de uso de referência para balizar os requisitos de interface, extração e saída do Fatura Aberta:
 
-## Persona 1
+| Persona | Contexto e dor | O que espera do cartão de decisão |
+|---|---|---|
+| **Dona Celina, 68 anos, aposentada (Ceilândia)** | Mora sozinha com renda fixa. A fatura subiu sem mudança de hábitos; não entende “bandeira” e “ICMS”. Olha só o total e o vencimento e pede ajuda a um neto. | Resposta curta e em linguagem simples: a conta confere ou não, e o que fazer se não conferir. |
+| **Rafael, 24 anos, estudante (Asa Norte)** | Divide o apartamento; a fatura está no nome dele. O consumo oscila e ele não sabe se é uso ou erro de leitura. Compara com o mês anterior no aplicativo da distribuidora. | Checagem de leituras e consumo item por item, com resultado compartilhável com os colegas. |
+| **Márcia, 45 anos, servidora pública (Taguatinga)** | Já reclamou no Procon-DF. Refaz contas em planilha e procura resoluções da ANEEL; não sabe qual regra vale para qual item. | Citação exata da norma com vigência e minuta de pedido de esclarecimento em linguagem de evidência. |
 
-TODO: nome fictício, contexto, objetivo, dor com a fatura e o que esperaria do cartão de decisão.
+## Detalhamento dos perfis
 
-## Persona 2
+### Persona 1 — Dona Celina, 68 anos, aposentada (Ceilândia)
 
-TODO.
+- **Contexto:** mora sozinha em Ceilândia e vive de aposentadoria com renda fixa.
+- **Dor:** a fatura subiu sem mudança de hábitos; não compreende termos técnicos como “bandeira” e “ICMS”. Hoje olha apenas o valor total e o vencimento e pede auxílio a um neto quando estranha o valor.
+- **O que espera do cartão de decisão:** resposta curta e em linguagem simples indicando se a conta confere ou não, e o que fazer caso não confira (orientando também o requisito não funcional de acessibilidade e linguagem simples — `RNF-08`).
 
-## Persona 3
+### Persona 2 — Rafael, 24 anos, estudante (Asa Norte)
 
-TODO.
+- **Contexto:** divide apartamento na Asa Norte com colegas; a fatura de energia está no nome dele.
+- **Dor:** o consumo oscila entre os meses e ele não sabe se decorre de uso real ou erro de leitura. Compara com o mês anterior no aplicativo da distribuidora.
+- **O que espera do cartão de decisão:** checagem de leituras e consumo item por item, com resultado claro e compartilhável com os colegas de apartamento.
 
-## Fontes
+### Persona 3 — Márcia, 45 anos, servidora pública (Taguatinga)
 
-TODO: citar a síntese anonimizada das entrevistas (6 a 8) quando existir.
+- **Contexto:** mora em Taguatinga e já registrou reclamação no Procon-DF.
+- **Dor:** refaz contas em planilha e procura resoluções da ANEEL por conta própria, mas tem dificuldade em identificar qual regra e vigência se aplicam a cada item faturado.
+- **O que espera do cartão de decisão:** citação exata da norma com ato, dispositivo e vigência, além de minuta padronizada de pedido de esclarecimento em linguagem de evidência.

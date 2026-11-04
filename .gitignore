@@ -21,6 +21,8 @@ build/
 # Node (esqueleto do web)
 node_modules/
 .next/
+next-env.d.ts
+*.tsbuildinfo
 
 # Sistema operacional / editores
 .DS_Store
