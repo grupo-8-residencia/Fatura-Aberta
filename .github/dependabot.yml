@@ -10,3 +10,6 @@ updates:
     target-branch: dev
     schedule:
       interval: weekly
+    # Pacotes internos do workspace (fa-api existe no PyPI público e quebrava a resolução do uv lock).
+    ignore:
+      - dependency-name: "fa-*"
