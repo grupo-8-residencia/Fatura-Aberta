@@ -44,11 +44,7 @@ def _obter_texto(item: Any) -> str:
 
 
 def _tokenizar(texto: str) -> set[str]:
-    return {
-        token
-        for token in re.findall(r"[a-z0-9çãõáéíóúàêâîôûü]+", texto.lower())
-        if token
-    }
+    return {token for token in re.findall(r"[a-z0-9çãõáéíóúàêâîôûü]+", texto.lower()) if token}
 
 
 def filtra_vigentes(corpus: Sequence[Any], data: date) -> list[Any]:
