@@ -16,6 +16,12 @@ def test_saude_responde_ok() -> None:
     assert resposta.json()["status"] == "ok"
 
 
+def test_metricas_nao_expoem_dados_da_fatura() -> None:
+    resposta = TestClient(app).get("/metricas")
+    assert resposta.status_code == 200
+    assert set(resposta.json()) == {"requisicoes_analisadas", "duracao_media_segundos"}
+
+
 def test_analisar_devolve_achados_nivel_a_sem_cache() -> None:
     resposta = TestClient(app).post(
         "/analisar",
