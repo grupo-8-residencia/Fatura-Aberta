@@ -39,6 +39,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - navigation.indexes
     - navigation.top
     - navigation.footer
     - search.suggest
@@ -112,10 +113,14 @@ nav:
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
       - Política de dados: conformidade/politica-de-dados.md
+  - Segurança:
+      - Injeção por imagem: seguranca/injecao-por-imagem.md
   - Avaliação:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
       - Resultados: avaliacao/resultados.md
+  - Operação:
+      - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
   - Sprints:
       - sprints/index.md
       - "S1 — Definição e delimitação": sprints/s1.md
