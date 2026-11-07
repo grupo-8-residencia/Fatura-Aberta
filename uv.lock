@@ -341,6 +341,7 @@ name = "fa-api"
 version = "0.1.0"
 source = { editable = "apps/api" }
 dependencies = [
+    { name = "fa-agentes" },
     { name = "fa-contratos" },
     { name = "fa-motor" },
     { name = "fastapi" },
@@ -349,6 +350,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "fa-agentes", editable = "packages/agentes" },
     { name = "fa-contratos", editable = "packages/contratos" },
     { name = "fa-motor", editable = "packages/motor" },
     { name = "fastapi", specifier = ">=0.115" },

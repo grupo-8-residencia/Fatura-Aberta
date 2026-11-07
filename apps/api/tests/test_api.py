@@ -1,6 +1,13 @@
+import asyncio
+from datetime import date
+from decimal import Decimal
+
+import pytest
 from fastapi.testclient import TestClient
 
-from fa_api.main import app
+import fa_api.main as api_main
+from fa_api.main import _executar_agentes, app
+from fa_contratos import Achado, Fatura, ItemFatura
 
 
 def test_saude_responde_ok() -> None:
@@ -28,3 +35,44 @@ def test_analisar_devolve_achados_nivel_a_sem_cache() -> None:
         "Consumo medido",
         "Total da fatura",
     }
+
+
+def test_falha_dos_agentes_preserva_analise_deterministica() -> None:
+    async def falhar(_: Fatura) -> list[Achado]:
+        raise RuntimeError("serviço indisponível")
+
+    fatura = Fatura(
+        distribuidora="Distribuidora Sintética",
+        mes_referencia=date(2026, 3, 1),
+        leitura_anterior=Decimal("100"),
+        leitura_atual=Decimal("150"),
+        consumo_kwh=Decimal("50"),
+        itens=[ItemFatura(descricao="Energia", valor=Decimal("40"))],
+        total=Decimal("40"),
+    )
+
+    adicionais, aviso = asyncio.run(_executar_agentes(fatura, falhar))
+
+    assert adicionais == []
+    assert aviso == "A análise adicional está indisponível; os achados A seguem disponíveis."
+
+
+def test_timeout_dos_agentes_preserva_analise_deterministica(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    async def demorar(_: Fatura) -> list[Achado]:
+        await asyncio.sleep(0.01)
+        return []
+
+    monkeypatch.setattr(api_main, "TEMPO_MAXIMO_AGENTES_SEGUNDOS", 0.001)
+    fatura = Fatura(
+        distribuidora="Distribuidora Sintética",
+        mes_referencia=date(2026, 3, 1),
+        consumo_kwh=Decimal("50"),
+        total=Decimal("40"),
+    )
+
+    adicionais, aviso = asyncio.run(_executar_agentes(fatura, demorar))
+
+    assert adicionais == []
+    assert aviso == "A análise adicional não respondeu a tempo; os achados A seguem disponíveis."
