@@ -28,8 +28,12 @@ para a documentação. Não use faturas reais neste teste.
 
 **Evidência local (09/11/2026):** uma requisição válida e uma inválida com
 marcador fictício retornaram HTTP 200 e 422. A inspeção dos logs do contêiner
-mostrou método, caminho e status, sem o marcador ou corpo. A revisão dos logs
-do provedor continua pendente.
+mostrou método, caminho e status, sem o marcador ou corpo.
+
+**Evidência pública (09/11/2026):** as mesmas duas requisições retornaram
+HTTP 200 e 422. Em **Application logs** da API no Render, a busca pelo marcador
+fictício no intervalo de uma hora retornou "No matching logs". As entradas
+correspondentes mostraram método, caminho e status, sem corpo da requisição.
 
 ## Teste de carga leve
 
@@ -54,8 +58,12 @@ precisa do aceite da equipe antes de encerrar a issue.
 
 **Evidência local (09/11/2026):** com API e interface em Docker Compose,
 100/100 respostas HTTP 200, 5 requisições simultâneas, p95 de 7 ms em
-`127.0.0.1`. A interface e `/saude` responderam HTTP 200. A medição pública
-continua pendente.
+`127.0.0.1`. A interface e `/saude` responderam HTTP 200.
+
+**Evidência pública (09/11/2026):** 100/100 respostas HTTP 200, 5
+requisições simultâneas, p95 de 523 ms na API do Render, após a aplicação
+estar ativa. O formulário público retornou o cartão de decisão com dados
+sintéticos. A meta proposta foi atingida; falta o aceite da equipe.
 
 ## Publicação externa (Render)
 
@@ -77,7 +85,12 @@ são vinculadas a `127.0.0.1` e o build da interface aponta para a API local.
 Não o use como configuração de deploy público. Configure segredos somente no
 painel do provedor, nunca em `NEXT_PUBLIC_*` nem no Git.
 
-**URLs públicas:** pendentes de criação dos serviços.
+**URLs públicas:** [interface](https://fatura-aberta-web-s6.onrender.com/) e
+[API](https://fatura-aberta-api-s6.onrender.com/saude). Os dois serviços estão
+no plano gratuito e podem hibernar após inatividade, atrasando a primeira
+requisição. Foram publicados a partir da branch `codex/44-public-deploy`, com
+deploy automático desligado. Depois do merge do PR, altere a branch dos
+serviços para `dev`, faça o deploy dessa versão e repita as verificações.
 
 ### Rollback
 
