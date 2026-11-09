@@ -643,5 +643,91 @@
     "conferido_em": "2026-11-09",
     "fonte_conferencia": "Texto compilado em www2.camara.leg.br/legin/fed/lei/1990/lei-8078-11-setembro-1990-365086-normaatualizada-pl.html (o portal do Planalto bloqueia acesso automatizado)",
     "observacoes": "Vigência: 180 dias após a publicação de 12/09/1990 (art. 118 do CDC), ou seja, 11/03/1991."
+  },
+  {
+    "id": "df7888-art-1",
+    "titulo": "Objeto: direitos dos contribuintes da CIP no Distrito Federal",
+    "texto": "Art. 1º Esta Lei estabelece os direitos dos usuários do serviço de iluminação pública e dos contribuintes da Contribuição de Iluminação Pública – CIP no Distrito Federal, com vistas à garantia de segurança, eficiência, transparência e participação social na prestação deste serviço público essencial.",
+    "citacao": {
+      "ato": "Lei Distrital nº 7.888/2026 (Lei de Defesa dos Usuários do Serviço de Iluminação Pública)",
+      "dispositivo": "art. 1º, caput",
+      "vigencia_inicio": "2026-05-11",
+      "vigencia_fim": null,
+      "url": "https://www.sinj.df.gov.br/sinj/Norma/d6b624398a9d4a128427d5961faaef54/Lei_7888_06_05_2026.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "CIP",
+      "COSIP",
+      "iluminação pública",
+      "contribuinte"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
+    "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
+  },
+  {
+    "id": "df7888-art-2-iii",
+    "titulo": "Definição de contribuinte da CIP",
+    "texto": "III – contribuinte da CIP: pessoa física ou jurídica que figure como titular de unidade consumidora de energia elétrica sujeita à cobrança da Contribuição de Iluminação Pública no Distrito Federal;",
+    "citacao": {
+      "ato": "Lei Distrital nº 7.888/2026 (Lei de Defesa dos Usuários do Serviço de Iluminação Pública)",
+      "dispositivo": "art. 2º, inciso III",
+      "vigencia_inicio": "2026-05-11",
+      "vigencia_fim": null,
+      "url": "https://www.sinj.df.gov.br/sinj/Norma/d6b624398a9d4a128427d5961faaef54/Lei_7888_06_05_2026.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "CIP",
+      "COSIP",
+      "contribuinte",
+      "unidade consumidora"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
+    "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
+  },
+  {
+    "id": "df7888-art-4",
+    "titulo": "Direitos do contribuinte da CIP: informação, revisão e restituição",
+    "texto": "Art. 4º São direitos dos contribuintes da Contribuição de Iluminação Pública – CIP no Distrito Federal:\nI – obter, mediante solicitação ou acesso a sistema eletrônico oficial, as seguintes informações relativas à arrecadação e aplicação dos recursos da CIP:\na) valores arrecadados mensalmente, por faixa de consumo de energia elétrica;\nb) arrecadação total por região administrativa do Distrito Federal;\nc) demonstrativo dos investimentos e manutenções realizados em cada região administrativa, com descrição dos serviços e valores empenhados;\nII – ser informado sobre a metodologia de cálculo da CIP, bem como sobre os critérios de reajuste e os dispositivos legais que regulam sua cobrança;\nIII – ter direito à revisão dos lançamentos da CIP em caso de erro, duplicidade ou inconsistência de cobrança;\nIV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.",
+    "citacao": {
+      "ato": "Lei Distrital nº 7.888/2026 (Lei de Defesa dos Usuários do Serviço de Iluminação Pública)",
+      "dispositivo": "art. 4º, caput e incisos I a IV",
+      "vigencia_inicio": "2026-05-11",
+      "vigencia_fim": null,
+      "url": "https://www.sinj.df.gov.br/sinj/Norma/d6b624398a9d4a128427d5961faaef54/Lei_7888_06_05_2026.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "CIP",
+      "COSIP",
+      "revisão",
+      "restituição",
+      "cobrança indevida",
+      "duplicidade"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
+    "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
   }
 ]
