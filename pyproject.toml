@@ -47,7 +47,7 @@ docs = [
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
-pythonpath = ["scripts"]
+pythonpath = ["scripts", "avaliacao"]
 testpaths = [
     "packages",
     "apps",
@@ -69,7 +69,7 @@ known-first-party = ["fa_contratos", "fa_rag", "fa_motor", "fa_extracao", "fa_ag
 quote-style = "double"
 
 [tool.mypy]
-files = ["packages", "apps", "scripts", "tests"]
+files = ["packages", "apps", "scripts", "avaliacao", "tests"]
 python_version = "3.12"
 plugins = ["pydantic.mypy"]
 strict = true
