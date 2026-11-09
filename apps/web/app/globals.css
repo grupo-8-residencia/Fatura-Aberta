@@ -20,6 +20,7 @@ body {
 }
 .topbar,
 .hero,
+.public-warning,
 .workspace,
 .results {
   width: min(1100px, calc(100% - 48px));
@@ -113,6 +114,16 @@ body {
   gap: 20px;
   color: #d8e9e1;
   font-size: 12px;
+}
+.public-warning {
+  margin: 24px auto 0;
+  padding: 15px 18px;
+  border: 1px solid #e7c184;
+  border-radius: 12px;
+  background: #fff5e5;
+  color: #63410e;
+  font-size: 14px;
+  line-height: 1.5;
 }
 .hero-card {
   z-index: 1;
