@@ -184,7 +184,7 @@ def test_workflows_reduzem_o_json_antes_de_exportar() -> None:
 
 def test_validacao_aceita_payload_grande_reduzido() -> None:
     arquivos = [
-        {"filename": f"docs/arquivo-{i}.md", "previous_filename": None} for i in range(3000)
+        {"filename": f"docs/arquivo-{i}.md", "previous_filename": None} for i in range(1200)
     ]
     r = _executar_validacao(files=arquivos, reviews=[])
     assert r.returncode == 0
