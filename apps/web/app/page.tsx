@@ -78,17 +78,18 @@ export default function Home() {
         <a className="brand" href="#inicio">
           <span className="brand-mark">F</span>Fatura <strong>Aberta</strong>
         </a>
-        <span className="secure"><i /> Sessão privada</span>
+        <span className="secure"><i /> Demonstração pública</span>
       </header>
       <section className="hero" id="inicio">
         <div>
           <p className="eyebrow">CONFERÊNCIA TRANSPARENTE DE ENERGIA</p>
           <h1>Entenda sua fatura,<br /><em>item por item.</em></h1>
           <p className="hero-copy">Verificações reproduzíveis, linguagem clara e evidências que você pode acompanhar.</p>
-          <div className="trust"><span>✓ Sem aconselhamento jurídico</span><span>✓ Dados não são armazenados</span></div>
+          <div className="trust"><span>✓ Sem aconselhamento jurídico</span><span>✓ Use apenas dados fictícios</span></div>
         </div>
         <aside className="hero-card"><b>✓</b><div><strong>Como funciona</strong><p>Você informa e confirma os valores antes de qualquer análise.</p></div></aside>
       </section>
+      <p className="public-warning" role="note"><strong>Use apenas dados sintéticos.</strong> Os valores digitados são enviados à API configurada para esta demonstração, hospedada no Render na versão pública. Não digite dados pessoais nem selecione uma fatura real.</p>
       <nav className="steps" aria-label="Etapas"><span className="done"><b>1</b>Enviar</span><i /><span className="done"><b>2</b>Confirmar</span><i /><span className={resultado ? "done" : ""}><b>3</b>Resultado</span></nav>
       <section className="workspace">
         <form className="analysis-card" onSubmit={analisar} aria-label="Informar dados da fatura">
@@ -98,7 +99,7 @@ export default function Home() {
             <input className="hidden" id="arquivo" type="file" accept="application/pdf,image/*" onChange={selecionarArquivo} />
           </section>
           <section className="data-section">
-            <div className="section-title"><b>02</b><div><h2>Informe os dados da fatura</h2><p>Use os valores exibidos na sua conta para uma conferência matemática.</p></div></div>
+            <div className="section-title"><b>02</b><div><h2>Informe os dados da fatura</h2><p>Para testar a conferência, preencha somente valores fictícios.</p></div></div>
             <div className="fields">
               <label>Distribuidora<input value={distribuidora} onChange={(event) => setDistribuidora(event.target.value)} required /></label>
               <label>Mês de referência<input type="month" value={mesReferencia} onChange={(event) => setMesReferencia(event.target.value)} required /></label>

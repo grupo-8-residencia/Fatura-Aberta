@@ -1,13 +1,13 @@
-"""Exercita a API local com dados sintéticos, sem persistir faturas."""
+"""Mede carga leve da API com uma fatura inteiramente sintética."""
 
+import argparse
 import json
 from concurrent.futures import ThreadPoolExecutor
-from statistics import quantiles
+from math import ceil
 from time import perf_counter
+from urllib.error import HTTPError
+from urllib.parse import urlparse
 from urllib.request import Request, urlopen
-
-URL = "http://127.0.0.1:8000/analisar"
-REQUISICOES = 20
 
 CORPO = {
     "distribuidora": "Distribuidora Sintética",
@@ -20,28 +20,62 @@ CORPO = {
 }
 
 
-def executar_requisicao(_: int) -> tuple[int, float]:
+def executar_requisicao(url: str, timeout_segundos: float) -> tuple[int | None, float]:
     inicio = perf_counter()
     requisicao = Request(
-        URL,
+        url,
         data=json.dumps(CORPO).encode(),
         headers={"content-type": "application/json"},
         method="POST",
     )
-    with urlopen(requisicao, timeout=10) as resposta:  # noqa: S310 -- URL local fixa
-        return resposta.status, perf_counter() - inicio
+    try:
+        with urlopen(requisicao, timeout=timeout_segundos) as resposta:  # noqa: S310 -- URL do operador
+            codigo = resposta.status
+            resposta.read()
+    except HTTPError as erro:
+        codigo = erro.code
+    except OSError:
+        codigo = None
+    return codigo, perf_counter() - inicio
 
 
-def main() -> None:
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        resultados = list(executor.map(executar_requisicao, range(REQUISICOES)))
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--url", default="http://127.0.0.1:8000", help="URL base da API")
+    parser.add_argument("--requisicoes", type=int, default=100)
+    parser.add_argument("--concorrencia", type=int, default=5)
+    parser.add_argument("--p95-max-ms", type=float, default=2000)
+    parser.add_argument("--timeout-segundos", type=float, default=20)
+    args = parser.parse_args(argv)
+    if urlparse(args.url).scheme not in {"http", "https"}:
+        parser.error("a URL deve começar com http:// ou https://")
+    if (
+        args.requisicoes < 1
+        or args.concorrencia < 1
+        or args.p95_max_ms <= 0
+        or args.timeout_segundos <= 0
+    ):
+        parser.error("requisições, concorrência, p95 e timeout devem ser positivos")
+
+    url = f"{args.url.rstrip('/')}/analisar"
+    with ThreadPoolExecutor(max_workers=args.concorrencia) as executor:
+        resultados = list(
+            executor.map(
+                lambda alvo: executar_requisicao(alvo, args.timeout_segundos),
+                [url] * args.requisicoes,
+            )
+        )
 
     codigos, duracoes = zip(*resultados, strict=True)
     sucesso = sum(codigo == 200 for codigo in codigos)
-    p95 = quantiles(duracoes, n=20)[18]
-    print(f"Requisições: {REQUISICOES}; sucesso: {sucesso}/{REQUISICOES}")
-    print(f"Latência média: {sum(duracoes) / len(duracoes):.3f}s; p95: {p95:.3f}s")
+    p95_ms = sorted(duracoes)[ceil(0.95 * len(duracoes)) - 1] * 1000
+    aprovado = sucesso == args.requisicoes and p95_ms <= args.p95_max_ms
+    print(f"Requisições: {args.requisicoes}; simultâneas: {args.concorrencia}")
+    print(f"Sucesso: {sucesso}/{args.requisicoes}; p95: {p95_ms:.0f} ms")
+    estado = "aprovada" if aprovado else "não atingida"
+    print(f"Meta: 100% de sucesso e p95 ≤ {args.p95_max_ms:.0f} ms — {estado}")
+    return 0 if aprovado else 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
