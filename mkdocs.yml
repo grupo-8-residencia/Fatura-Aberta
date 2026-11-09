@@ -95,6 +95,7 @@ nav:
       - Lean Inception: produto/lean-inception.md
       - Critérios de aceite: produto/criterios-aceite.md
       - Pacote de definição: produto/pacote-de-definicao.md
+      - Coleta de faturas: produto/coleta-faturas.md
   - Arquitetura:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
@@ -115,11 +116,15 @@ nav:
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
       - Política de dados: conformidade/politica-de-dados.md
+  - Segurança:
+      - Injeção por imagem: seguranca/injecao-por-imagem.md
   - Avaliação:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
       - Golden set: avaliacao/golden-set.md
       - Resultados: avaliacao/resultados.md
+  - Operação:
+      - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
   - Sprints:
       - sprints/index.md
       - "S1 — Definição e delimitação": sprints/s1.md

@@ -821,7 +821,7 @@ issues:
     criterios:
       - Falha dos agentes não derruba os achados de nível A
       - Teste ponta a ponta passando no CI
-      - "Timeout máximo por análise: TODO (definir com a F5)"
+      - "Timeout máximo por análise: 15 segundos (TEMPO_MAXIMO_AGENTES_SEGUNDOS em apps/api)"
 
   # ------------------------------------------------------------------ S5
   - id: S5-01
@@ -871,7 +871,7 @@ issues:
       - Rodar contra o pipeline de extração e os agentes
       - Registrar os resultados e as mitigações
     criterios:
-      - "Conjunto de ataques versionado (número de casos: TODO)"
+      - "Conjunto de ataques versionado (3 casos sintéticos em dados/benchmark/sinteticas/ataques-injecao/)"
       - Resultados documentados em `docs/`
       - Cada falha com mitigação implementada ou risco aceito registrado
 
@@ -918,7 +918,7 @@ issues:
     contexto: >-
       Gate da S6: 5 cenários ponta a ponta passando e CI verde.
     tarefas:
-      - "Definir os 5 cenários (TODO: com F1 e F3)"
+      - "Definir os 5 cenários (implementados em tests/e2e/test_cinco_cenarios.py)"
       - Automatizar no CI
     criterios:
       - 5 cenários ponta a ponta passando no CI
