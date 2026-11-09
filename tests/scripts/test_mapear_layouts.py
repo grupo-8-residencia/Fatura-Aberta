@@ -50,3 +50,53 @@ def test_resumo_nao_contem_valores() -> None:
     assert "| total | 1/1 |" in texto
     for valor in ("MARIA", "142,75", "06/2026"):
         assert valor not in texto
+
+
+def test_mascarar_nao_preserva_nome_sem_rotulo() -> None:
+    texto = "JOAO DA SILVA\nRua das Flores 10\nLeitura atual 150\nConsumo kWh 150\n"
+
+    mascarado = ml.mascarar(texto)
+
+    for dado in ("JOAO", "SILVA", "Flores"):
+        assert dado not in mascarado
+    assert "Leitura atual" in mascarado
+    assert "Consumo kWh" in mascarado
+    # a largura é preservada, então as colunas continuam servindo para estudar o layout
+    assert [len(a) for a in mascarado.splitlines()] == [len(b) for b in texto.splitlines()]
+
+
+def test_mascarar_trata_o_rotulo_pessoal_na_primeira_linha_da_pagina() -> None:
+    mascarado = ml.mascarar("Total 10,00\f" + "Nome Maria Silva\nTotal 20,00")
+
+    assert "Maria" not in mascarado
+    assert mascarado.count("\f") == 1
+
+
+def test_data_pertence_ao_rotulo_de_referencia_em_colunas() -> None:
+    texto = "Vencimento    Referência\n05/2026       04/2026\n"
+
+    assert ml.mes_referencia(texto) == date(2026, 4, 1)
+    assert ml.layout_de(ml.mes_referencia(texto)) == "anterior"
+
+
+def test_data_na_mesma_linha_e_com_rotulo_invertido() -> None:
+    assert ml.mes_referencia("Referência 04/2026   Vencimento 05/2026") == date(2026, 4, 1)
+    assert ml.mes_referencia("Referência    Vencimento\n04/2026       05/2026") == date(2026, 4, 1)
+
+
+def test_posicoes_do_resumo_batem_com_o_esqueleto() -> None:
+    texto = "Nome\nMaria Silva\nTOTAL A PAGAR   10,00\n"
+
+    esqueleto = ml.mascarar(texto)
+    mapa = ml.localizar_rotulos(esqueleto)
+
+    linha_no_arquivo = next(
+        n for n, linha in enumerate(esqueleto.splitlines(), start=1) if "TOTAL" in linha
+    )
+    assert [p.linha for p in mapa["total"]] == [linha_no_arquivo]
+
+
+def test_distribuidora_aparece_no_mapa() -> None:
+    mapa = ml.localizar_rotulos("Distribuidora: Neoenergia Brasilia\n")
+
+    assert "distribuidora" in mapa

@@ -4,13 +4,15 @@
 Lê os PDFs de `faturas-reais/` (fora do Git), separa as faturas pelo layout (corte em
 maio/2026) e grava em `faturas-reais/mapa/`:
 
-    - um esqueleto mascarado de cada fatura (`<layout>/fatura-NN.txt`): dígitos viram 9 e as
-      linhas com rótulo pessoal perdem o valor, para estudar a posição de cada campo;
-    - `resumo.md`: em que página, linha e coluna cada rótulo aparece, por layout.
+    - um esqueleto mascarado de cada fatura (`<layout>/fatura-NN.txt`): só os rótulos candidatos
+      ficam legíveis; dígitos viram 9, as demais letras viram x (a largura é preservada) e as
+      linhas com rótulo pessoal perdem o valor. Assim, nome ou endereço sem rótulo (ex.: no
+      cabeçalho) também não aparecem;
+    - `resumo.md`: em que página, linha e coluna cada rótulo aparece, por layout. As posições
+      são calculadas sobre o próprio esqueleto, então batem com o arquivo gerado.
 
-PRIVACIDADE: o esqueleto ainda pode ter nome ou endereço sem rótulo (ex.: no cabeçalho).
-A saída fica em `faturas-reais/`, que o `.gitignore` exclui. Para `docs/frentes/f4.md` só vão
-rótulos e posições, nunca trechos do esqueleto.
+PRIVACIDADE: a saída fica em `faturas-reais/`, que o `.gitignore` exclui. Para
+`docs/frentes/f4.md` só vão rótulos e posições, nunca trechos do esqueleto.
 
 Uso:
     uv run python scripts/mapear_layouts.py [pasta_das_faturas] [pasta_de_saida]
@@ -34,6 +36,7 @@ from fa_extracao.layouts import CORTE_NOVO_LAYOUT
 ROTULOS: dict[str, re.Pattern[str]] = {
     campo: re.compile(padrao, re.IGNORECASE)
     for campo, padrao in {
+        "distribuidora": r"distribuidora|concession[aá]ria|neoenergia",
         "mes_referencia": r"refer[eê]ncia|m[eê]s/ano",
         "leitura_anterior": r"leitura anterior|anterior",
         "leitura_atual": r"leitura atual|atual",
@@ -60,15 +63,30 @@ class Posicao:
     coluna: int
 
 
+def _data(achado: re.Match[str]) -> date:
+    return date(int(achado.group(2)), int(achado.group(1)), 1)
+
+
 def mes_referencia(texto: str) -> date | None:
-    """Primeiro MM/AAAA na linha do rótulo de referência ou logo abaixo dele."""
+    """MM/AAAA que pertence ao rótulo de referência.
+
+    Na mesma linha, vale a primeira data depois do rótulo. Se não houver, olha as duas linhas
+    seguintes e escolhe a data cuja coluna está mais perto da coluna do rótulo, para não
+    confundir com a data de outra coluna (ex.: `Vencimento   Referência` sobre `05/2026   04/2026`).
+    """
     linhas = texto.splitlines()
     for i, linha in enumerate(linhas):
-        if _REFERENCIA.search(linha):
-            for candidata in linhas[i : i + 3]:
-                achado = _MES_ANO.search(candidata)
-                if achado:
-                    return date(int(achado.group(2)), int(achado.group(1)), 1)
+        rotulo = _REFERENCIA.search(linha)
+        if rotulo is None:
+            continue
+        na_linha = _MES_ANO.search(linha, rotulo.end())
+        if na_linha:
+            return _data(na_linha)
+        candidatas = [
+            achado for abaixo in linhas[i + 1 : i + 3] for achado in _MES_ANO.finditer(abaixo)
+        ]
+        if candidatas:
+            return _data(min(candidatas, key=lambda a: abs(a.start() - rotulo.start())))
     return None
 
 
@@ -78,9 +96,31 @@ def layout_de(mes: date | None) -> str:
     return "posterior" if mes >= CORTE_NOVO_LAYOUT else "anterior"
 
 
+def _mascarar_linha(linha: str) -> str:
+    """Dígitos viram 9; letras fora dos rótulos candidatos viram x. A largura não muda."""
+    protegido = [False] * len(linha)
+    for padrao in ROTULOS.values():
+        for achado in padrao.finditer(linha):
+            protegido[achado.start() : achado.end()] = [True] * (achado.end() - achado.start())
+    saida = []
+    for i, caractere in enumerate(linha):
+        if caractere.isdigit():
+            saida.append("9")
+        elif caractere.isalpha() and not protegido[i]:
+            saida.append("x")
+        else:
+            saida.append(caractere)
+    return "".join(saida)
+
+
 def mascarar(texto: str) -> str:
-    """Remove linhas com rótulo pessoal, CPF, CNPJ e e-mail, e troca todo dígito por 9."""
-    return re.sub(r"\d", "9", anonimizar(texto))
+    """Esqueleto sem dado pessoal: tira linhas com rótulo pessoal, CPF, CNPJ e e-mail, e mantém
+    legíveis só os rótulos candidatos. Cada página é tratada à parte (form feed), para o rótulo
+    da primeira linha de uma página não escapar e para a anonimização não juntar páginas."""
+    paginas = [anonimizar(pagina) for pagina in texto.split("\f")]
+    return "\f".join(
+        "\n".join(_mascarar_linha(linha) for linha in pagina.split("\n")) for pagina in paginas
+    )
 
 
 def localizar_rotulos(texto: str) -> dict[str, list[Posicao]]:
@@ -147,8 +187,9 @@ def main(argv: list[str]) -> int:
         layout = layout_de(mes_referencia(texto))
         destino = saida / layout / f"fatura-{i:02d}.txt"
         destino.parent.mkdir(parents=True, exist_ok=True)
-        destino.write_text(mascarar(texto), encoding="utf-8")
-        mapas[layout].append(localizar_rotulos(texto))
+        esqueleto = mascarar(texto)
+        destino.write_text(esqueleto, encoding="utf-8")
+        mapas[layout].append(localizar_rotulos(esqueleto))
 
     (saida / "resumo.md").write_text(resumo(mapas), encoding="utf-8")
     contagem = ", ".join(f"{layout}: {len(f)}" for layout, f in sorted(mapas.items()))
