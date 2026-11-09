@@ -31,8 +31,9 @@ B2 erra e o B3 acerta, 0 no sentido contrário; χ² com correção de Edwards =
 - **Falha dos dois baselines:** nas 8 perguntas de CIP/COSIP (fora do corpus), ambos se abstêm em só 3.
   Nas outras 5 a síntese cita um dispositivo da REN ANEEL 1.000/2021 que não responde à pergunta. O
   limiar de abstenção (0,30) é grosseiro e precisa ser calibrado.
-- **Item de vigência que o B3 erra (1 de 12):** o filtro de vigência remove a REN, mas um chunk do CDC
-  atinge o limiar e é citado.
+- **Item de vigência que o B3 erra (1 de 12, GS-Q119):** o filtro remove a REN, mas o CDC, art. 42,
+  parágrafo único (devolução em dobro), vigorava em 2021 e é citado. A citação é defensável; o
+  gabarito pediu abstenção porque a pergunta fala da resolução da ANEEL. Vale revisar esse item.
 - **Dois itens normativos erram nos dois baselines** (92 de 94): o artigo canônico não ficou no top-5.
 
 ### Definição de acerto
