@@ -7,6 +7,9 @@ from typing import Any
 import github_setup as gs
 import pytest
 
+# 51 issues dos pacotes S1 a S7 + S3-05 a S3-08 + S4-05 e S4-06 (adicionadas em 09/11/2026).
+TOTAL_ISSUES = 57
+
 
 class GitHubFalso:
     """Implementa a interface `GitHub` guardando o estado em dicionários."""
@@ -79,7 +82,7 @@ def plano() -> gs.Plano:
 def test_plano_tem_o_tamanho_esperado(plano: gs.Plano) -> None:
     assert len(plano.milestones) == 7
     assert len(plano.labels) == 19  # 7 de frente + 12 fixas
-    assert len(plano.issues) == 51
+    assert len(plano.issues) == TOTAL_ISSUES
 
 
 def test_milestones_vencem_nas_sextas_a_partir_de_26_10_2026(plano: gs.Plano) -> None:
@@ -118,7 +121,7 @@ def test_dry_run_nao_escreve_nada(plano: gs.Plano) -> None:
     linhas: list[str] = []
     resumo = gs.sincronizar(plano, gh, aplicar=False, log=linhas.append)
     assert gh.escritas == 0
-    assert resumo["issues"].criados == 51
+    assert resumo["issues"].criados == TOTAL_ISSUES
     assert any("issue S1-01" in linha for linha in linhas)
 
 
@@ -127,13 +130,13 @@ def test_aplicar_cria_e_segunda_rodada_nao_duplica(plano: gs.Plano) -> None:
     gs.sincronizar(plano, gh, aplicar=True, log=lambda _: None)
     assert len(gh.labels) == 19
     assert len(gh.milestones) == 7
-    assert len(gh.issues) == 51
+    assert len(gh.issues) == TOTAL_ISSUES
 
     escritas_antes = gh.escritas
     resumo = gs.sincronizar(plano, gh, aplicar=True, log=lambda _: None)
     assert gh.escritas == escritas_antes
     assert all(r.criados == 0 and r.atualizados == 0 for r in resumo.values())
-    assert len(gh.issues) == 51
+    assert len(gh.issues) == TOTAL_ISSUES
 
 
 def test_issue_existente_pelo_titulo_nao_duplica_e_corpo_nao_e_reescrito(
@@ -146,7 +149,7 @@ def test_issue_existente_pelo_titulo_nao_duplica_e_corpo_nao_e_reescrito(
          "labels": [], "milestone": None, "assignees": []}
     )  # fmt: skip
     gs.sincronizar(plano, gh, aplicar=True, log=lambda _: None)
-    assert len(gh.issues) == 51
+    assert len(gh.issues) == TOTAL_ISSUES
     editada = next(i for i in gh.issues if i["number"] == 7)
     assert editada["body"] == "corpo editado à mão"
     assert set(primeira.labels) <= set(editada["labels"])
@@ -215,7 +218,7 @@ def test_main_dry_run_sem_gh_nao_quebra(
     saida = capsys.readouterr().out
     assert "DRY-RUN" in saida
     assert "AVISO" in saida
-    assert "criar=51" in saida
+    assert f"criar={TOTAL_ISSUES}" in saida
 
 
 def test_main_aplicar_sem_gh_falha_com_erro(
@@ -321,8 +324,8 @@ def test_projeto_cria_campos_itens_e_datas(plano: gs.Plano) -> None:
     criados = {c[c.index("--name") + 1] for c in falso.comandos("project", "field-create")}
     assert criados == {"Frente", "Sprint", "Início", "Entrega"}
     assert falso.comandos("project", "link")[0][-2:] == ["--repo", "Fatura-Aberta"]
-    assert len(falso.comandos("project", "item-add")) == 51
-    assert len(falso.comandos("project", "item-edit")) == 51 * 5
+    assert len(falso.comandos("project", "item-add")) == TOTAL_ISSUES
+    assert len(falso.comandos("project", "item-edit")) == TOTAL_ISSUES * 5
     datas = {
         c[c.index("--date") + 1] for c in falso.comandos("project", "item-edit") if "--date" in c
     }
@@ -342,4 +345,4 @@ def test_projeto_segunda_rodada_nao_reseta_status(plano: gs.Plano) -> None:
     gs.sincronizar_projeto(plano, falso, issues, aplicar=True, log=lambda _: None)
     assert falso.comandos("project", "item-add") == []
     # Sem o Status: Frente, Sprint, Início e Entrega = 4 edições por item.
-    assert len(falso.comandos("project", "item-edit")) == 51 * 4
+    assert len(falso.comandos("project", "item-edit")) == TOTAL_ISSUES * 4
