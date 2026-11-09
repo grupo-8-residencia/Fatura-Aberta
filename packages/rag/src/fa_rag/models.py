@@ -19,6 +19,7 @@ class DocumentoNormativo:
     citacao: Citacao | Any
     subgrupos: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()
+    observacoes: str = ""
 
     def vigente_em(self, dia: date) -> bool:
         return bool(self.citacao.vigente_em(dia))
