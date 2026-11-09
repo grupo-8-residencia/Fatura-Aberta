@@ -11,6 +11,7 @@ strict: true
 exclude_docs: |
   _templates/
   produto/definicao/
+  material_didatico*
 
 theme:
   name: material
@@ -97,6 +98,7 @@ nav:
   - Arquitetura:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
+      - RAG normativo: arquitetura/rag.md
       - Decisões (ADRs):
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
