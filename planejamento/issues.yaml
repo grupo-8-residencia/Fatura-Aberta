@@ -755,6 +755,80 @@ issues:
       - recall@5 re-medido e comparado com o da S2
       - Testes do pacote `rag` passando no CI
 
+  - id: S3-05
+    titulo: Configurar o LLM do experimento (provedor, modelo versionado, temperatura 0)
+    sprint: S3
+    frente: F5
+    labels: [tipo:infra, prioridade:alta]
+    contexto: >-
+      O B1 (LLM sem RAG), o juiz LLM, os agentes e a rodada final exigem um LLM, e hoje não há
+      nenhum configurado. O protocolo pede temperatura 0 e versão do modelo gravada no cabeçalho
+      de cada rodada. Sem isso, a S3 só mede a recuperação.
+    tarefas:
+      - Escolher o provedor e o modelo, com versão fixa, e registrar a decisão em uma ADR
+      - Ler a credencial por variável de ambiente, nunca do repositório
+      - Gravar modelo, versão, temperatura e hash do golden set no cabeçalho do JSON de cada rodada
+      - Criar um cliente falso para o CI rodar sem chave e sem rede
+    criterios:
+      - Uma rodada com o LLM é reproduzível por comando único
+      - Nenhuma credencial no repositório nem no histórico
+      - O CI passa sem chave de API
+
+  - id: S3-06
+    titulo: Conferir o PRODIST Módulo 8 e a REH de tarifas e completar o corpus
+    sprint: S3
+    frente: F2
+    labels: [tipo:pesquisa, prioridade:media]
+    contexto: >-
+      O corpus tem 28 dispositivos conferidos (REN ANEEL 1.000/2021, CDC e Lei Distrital 7.888/2026).
+      O PRODIST Módulo 8 (DIC, FIC e DMIC) e a resolução homologatória de tarifas ficaram `A verificar`
+      e fora do índice. A REH 3.316/2024 citada no planejamento não foi confirmada como ato da
+      Neoenergia Brasília; as encontradas foram 3.276/2023, 3.406/2024 e 3.614/2026.
+    tarefas:
+      - Obter o texto oficial do PRODIST Módulo 8 e transcrever os dispositivos sobre DIC, FIC e DMIC
+      - Confirmar qual REH da Neoenergia Brasília está vigente e transcrever os dispositivos de tarifa e bandeira
+      - Registrar URL oficial, vigência e conferência de cada item em `dados/normas/corpus_b1.json`
+      - Atualizar `dados/normas/README.md`
+    criterios:
+      - Cada item novo tem URL oficial, vigência e `conferido = "sim"`
+      - Itens que não puderem ser conferidos continuam fora do índice
+      - Testes do pacote `rag` passando no CI
+
+  - id: S3-07
+    titulo: Calibrar o limiar de abstenção com divisão entre calibração e teste
+    sprint: S3
+    frente: F2
+    labels: [tipo:experimento, prioridade:media]
+    contexto: >-
+      Desdobramento da S3-04. Com o limiar de 0,30, a síntese só se abstém corretamente em 11 das 17
+      perguntas em que isso é esperado, e nas 5 perguntas de CIP que a lei não responde ela cita a
+      própria lei. Um limiar menor melhora o F1, mas foi escolhido sobre os mesmos dados da avaliação.
+    tarefas:
+      - Dividir o golden set em calibração e teste, com semente fixa
+      - Escolher o limiar na calibração
+      - Medir precisão, recall e F1 da abstenção no teste, com intervalo de confiança
+      - Tratar perguntas do mesmo assunto que o dispositivo não responde
+    criterios:
+      - O limiar é escolhido sem usar o conjunto de teste
+      - Resultado com IC de 95% em `docs/avaliacao/resultados.md`
+      - Testes passando no CI
+
+  - id: S3-08
+    titulo: Registrar a fonte das constantes do motor (ICMS máximo e limite de 80 kWh)
+    sprint: S3
+    frente: F3
+    labels: [tipo:pesquisa, prioridade:media]
+    contexto: >-
+      O motor usa `ALIQUOTA_ICMS_MAXIMA_B1 = 0,25` e `LIMITE_PARCELA_ATE_80_KWH = 80` sem citar a
+      norma de onde vêm. Regra do projeto: o que vira regra precisa de fonte e data.
+    tarefas:
+      - Localizar a norma ou o ato de cada constante
+      - Citar a fonte e a data no código e em `docs/frentes/f3.md`
+      - Se não houver fonte, marcar a constante como parâmetro do projeto
+    criterios:
+      - Cada constante tem fonte e data, ou está marcada como parâmetro do projeto
+      - Testes do pacote `motor` passando no CI
+
   # ------------------------------------------------------------------ S4
   - id: S4-01
     titulo: Implementar os agentes Analista Normativo e Auditor (B5)
@@ -822,6 +896,40 @@ issues:
       - Falha dos agentes não derruba os achados de nível A
       - Teste ponta a ponta passando no CI
       - "Timeout máximo por análise: 15 segundos (TEMPO_MAXIMO_AGENTES_SEGUNDOS em apps/api)"
+
+  - id: S4-05
+    titulo: Avaliar um embedder semântico pt-BR contra o hashing
+    sprint: S4
+    frente: F2
+    labels: [tipo:experimento, prioridade:media]
+    contexto: >-
+      O extrator padrão (hashing) só captura sobreposição de palavras. O protocolo `Embedder` já
+      aceita um modelo multilíngue pt-BR sem mudar o resto do pacote, mas nenhum foi medido.
+    tarefas:
+      - Escolher um modelo multilíngue com licença compatível
+      - Implementá-lo pelo protocolo `Embedder`, sem dependência no CI padrão
+      - Medir com `avaliacao/metricas_recuperacao.py` e reportar custo e latência
+    criterios:
+      - Comparação com o hashing em recall@k, MRR, nDCG e latência, com IC de 95%
+      - O CI padrão continua offline
+      - Decisão de adotar ou não documentada
+
+  - id: S4-06
+    titulo: Automatizar a conversão de PDFs de normas em texto limpo
+    sprint: S4
+    frente: F4
+    labels: [tipo:feature, prioridade:media]
+    contexto: >-
+      A coleta e a limpeza do texto das normas hoje são manuais e conferidas por pessoa. Uma
+      conversão local reduz o esforço de ampliar o corpus.
+    tarefas:
+      - Criar um script local que converte o PDF da norma em texto
+      - Remover cabeçalhos, rodapés e notas de redação
+      - Gerar uma saída que a conferência manual do corpus possa aproveitar
+    criterios:
+      - O texto gerado confere com os dispositivos já conferidos do corpus
+      - Nenhum PDF entra no Git
+      - Testes passando no CI
 
   # ------------------------------------------------------------------ S5
   - id: S5-01
