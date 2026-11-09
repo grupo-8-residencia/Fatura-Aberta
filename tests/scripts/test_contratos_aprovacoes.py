@@ -171,3 +171,20 @@ def test_aprovacao_posteriormente_descartada_falha() -> None:
     )
     assert resultado.returncode == 1
     assert "Aprovações válidas encontradas: 1" in resultado.stdout
+
+
+def test_workflows_reduzem_o_json_antes_de_exportar() -> None:
+    """PRs grandes estouravam o limite de argumento ("Argument list too long") ao exportar o
+    JSON completo (com os diffs) como variável de ambiente."""
+    for nome in ("ci.yml", "contratos-revisao.yml"):
+        texto = (RAIZ / ".github" / "workflows" / nome).read_text(encoding="utf-8")
+        assert texto.count("| jq -c") == 3, nome
+        assert "{filename, previous_filename}" in texto, nome
+
+
+def test_validacao_aceita_payload_grande_reduzido() -> None:
+    arquivos = [
+        {"filename": f"docs/arquivo-{i}.md", "previous_filename": None} for i in range(3000)
+    ]
+    r = _executar_validacao(files=arquivos, reviews=[])
+    assert r.returncode == 0
