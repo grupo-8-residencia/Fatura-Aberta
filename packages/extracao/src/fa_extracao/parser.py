@@ -15,58 +15,69 @@ from fa_extracao.pdf import extrair_texto
 
 log = logging.getLogger(__name__)
 
-_ITEM = re.compile(r"^\s*(.+?)\s+(-?[\d.]+,\d{2})\s*$")
+_NUMERO = r"\d[\d.]*,\d+-?"
+# Linha de item: descrição, unidade opcional e só números depois (crédito termina em "-").
+_LINHA_ITEM = re.compile(
+    rf"(?im)^[ \t]*(?P<desc>[A-Za-zÀ-ÿ][^\n]*?)[ \t]+(?P<unid>kWh)?[ \t]*"
+    rf"(?P<nums>(?:{_NUMERO}[ \t]*)+)$"
+)
+# Linhas que têm só números mas não são itens da fatura (tributos e totais).
+_NAO_ITENS = {"pis", "cofins", "icms", "total", "total a pagar", "total da fatura"}
 
 
 def _decimal(bruto: str) -> Decimal:
-    """Converte número no formato brasileiro (1.234,56) em `Decimal`."""
+    """Converte número no formato brasileiro (1.234,56 ou 0,88-) em `Decimal`."""
+    negativo = bruto.endswith("-")
     try:
-        return Decimal(bruto.replace(".", "").replace(",", "."))
+        valor = Decimal(bruto.rstrip("-").replace(".", "").replace(",", "."))
     except InvalidOperation as erro:
         raise ErroExtracao("Número em formato inválido.") from erro
+    return -valor if negativo else valor
 
 
 def _mes_referencia(texto: str) -> date:
     achado = MES_REFERENCIA.search(texto)
     if achado is None:
         raise ErroExtracao("Mês de referência não encontrado.")
-    mes, ano = achado.group(1).split("/")
     try:
-        return date(int(ano), int(mes), 1)
+        return date(int(achado.group(2)), int(achado.group(1)), 1)
     except ValueError as erro:
         raise ErroExtracao("Mês de referência inválido.") from erro
 
 
-def _campo(layout: Layout, nome: str, texto: str) -> str | None:
-    achado = getattr(layout, nome).search(texto)
-    return achado.group(1).strip() if achado else None
-
-
-def _obrigatorio(layout: Layout, nome: str, texto: str) -> str:
-    valor = _campo(layout, nome, texto)
-    if valor is None:
+def _obrigatorio(padrao: re.Pattern[str], nome: str, texto: str) -> str:
+    achado = padrao.search(texto)
+    if achado is None:
         raise ErroExtracao(f"Campo obrigatório não encontrado: {nome}.")
-    return valor
+    return achado.group(1).strip()
 
 
-def _opcional_decimal(layout: Layout, nome: str, texto: str) -> Decimal | None:
-    valor = _campo(layout, nome, texto)
-    return None if valor is None else _decimal(valor)
-
-
-def _itens(layout: Layout, texto: str) -> list[ItemFatura]:
-    inicio = layout.inicio_itens.search(texto)
-    if inicio is None:
-        return []
-    resto = texto[inicio.end() :]
-    fim = layout.fim_itens.search(resto)
-    bloco = resto[: fim.start()] if fim else resto
+def _itens(texto: str) -> list[ItemFatura]:
     itens = []
-    for linha in bloco.splitlines():
-        achado = _ITEM.match(linha)
-        if achado:
-            itens.append(ItemFatura(descricao=achado.group(1), valor=_decimal(achado.group(2))))
+    for achado in _LINHA_ITEM.finditer(texto):
+        descricao = " ".join(achado["desc"].split())
+        if descricao.lower() in _NAO_ITENS:
+            continue
+        numeros = re.findall(_NUMERO, achado["nums"])
+        if achado["unid"] and len(numeros) >= 3:
+            quantidade, tarifa, valor = (_decimal(n) for n in numeros[:3])
+            itens.append(
+                ItemFatura(
+                    descricao=descricao,
+                    quantidade=quantidade,
+                    unidade="kWh",
+                    tarifa=tarifa,
+                    valor=valor,
+                )
+            )
+        elif not achado["unid"]:
+            itens.append(ItemFatura(descricao=descricao, valor=_decimal(numeros[0])))
     return itens
+
+
+def _bandeira(layout: Layout, texto: str) -> str | None:
+    achado = layout.bandeira.search(texto) or layout.bandeira_item.search(texto)
+    return achado.group(1).capitalize() if achado else None
 
 
 def parse_texto(texto: str) -> Fatura:
@@ -74,18 +85,27 @@ def parse_texto(texto: str) -> Fatura:
     mes = _mes_referencia(texto)
     layout = escolher_layout(mes)
 
-    aliquota = _opcional_decimal(layout, "aliquota_icms", texto)
+    if layout.distribuidora.search(texto) is None:
+        raise ErroExtracao("Distribuidora fora do escopo (Neoenergia Brasília) ou não encontrada.")
+    if _obrigatorio(layout.grupo, "grupo_tarifario", texto).upper() != "B1":
+        raise ErroExtracao("Grupo tarifário fora do escopo (B1).")
+
+    medidores = list(layout.medidor.finditer(texto))
+    if not medidores:
+        raise ErroExtracao("Campo obrigatório não encontrado: leituras do medidor.")
+    aliquota = layout.aliquota_icms.search(texto)
+
     try:
         fatura = Fatura(
-            distribuidora=_obrigatorio(layout, "distribuidora", texto),
+            distribuidora="Neoenergia Brasília",
             mes_referencia=mes,
-            leitura_anterior=_opcional_decimal(layout, "leitura_anterior", texto),
-            leitura_atual=_opcional_decimal(layout, "leitura_atual", texto),
-            consumo_kwh=_decimal(_obrigatorio(layout, "consumo_kwh", texto)),
-            bandeira=_campo(layout, "bandeira", texto),
-            aliquota_icms=None if aliquota is None else aliquota / 100,
-            itens=_itens(layout, texto),
-            total=_decimal(_obrigatorio(layout, "total", texto)),
+            leitura_anterior=_decimal(medidores[0].group(1)),
+            leitura_atual=_decimal(medidores[0].group(2)),
+            consumo_kwh=sum((_decimal(m.group(4)) for m in medidores), start=Decimal(0)),
+            bandeira=_bandeira(layout, texto),
+            aliquota_icms=None if aliquota is None else _decimal(aliquota.group(1)) / 100,
+            itens=_itens(texto),
+            total=_decimal(_obrigatorio(layout.total, "total", texto)),
         )
     except ValidationError as erro:
         # Não propaga `erro`: a mensagem do Pydantic repete o valor recebido.
