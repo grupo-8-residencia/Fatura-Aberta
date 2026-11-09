@@ -12,4 +12,39 @@ O projeto prevê que a análise das faturas no produto seja realizada no disposi
 
 A coleta das 15 faturas e sua organização no Google Drive foram concluídas. Permanecem como etapas de conferência a vinculação individual dos consentimentos às respectivas faturas, a confirmação das permissões de acesso à pasta e a definição da data de exclusão dos arquivos.
 
-Esse trabalho contribui para a preparação dos testes com documentos reais e para a organização das evidências do projeto, considerando os cuidados necessários com a privacidade dos voluntários.[controle_faturas_fatura_aberta_publico (1).xlsx](https://github.com/user-attachments/files/34492292/controle_faturas_fatura_aberta_publico.1.xlsx)
+Esse trabalho contribui para a preparação dos testes com documentos reais e para a organização das evidências do projeto, considerando os cuidados necessários com a privacidade dos voluntários.
+
+## Controle compartilhável de faturas (sem dados pessoais)
+
+> Os arquivos originais e os termos de consentimento permanecem em pasta privada no Google Drive, fora do repositório.
+
+| Código | Fatura recebida | No Drive privado | Consentimento vinculado | Termo conferido | Acesso restrito | Exclusão confirmada | Observações (sem dados pessoais) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| F001 a F015 | Sim (15/15) | Sim (15/15) | A verificar | A verificar | A verificar | Não (0/15) | — |
+
+Os identificadores vão de F001 a F015. A situação é a mesma para as 15 faturas.
+
+**TODO:**
+
+- [ ] Vincular individualmente os termos de consentimento às faturas F001 a F015.
+- [ ] Conferir os termos e confirmar, ou auditar, as permissões de acesso restrito à pasta do Google Drive.
+- [ ] Definir e registrar a data limite para a exclusão definitiva das faturas reais, no Drive e nas cópias locais de quem as baixar para testar.
+- [ ] Registrar o formato de cada fatura (PDF com texto selecionável, foto ou digitalização), sem dados pessoais.
+
+## Pesquisa de consumidores: síntese agregada
+
+> Pesquisa anônima. Ela não substitui nem comprova o termo de consentimento individual para uso das faturas.
+
+| Indicador | Resultado |
+| :--- | :---: |
+| Questionários informados | 19 |
+| Distrito Federal | 14 |
+| Entorno do DF | 5 |
+| Recebem conta impressa | 15 |
+| Recebem PDF por e-mail ou app | 1 |
+| Consultam app ou site | 3 |
+| Usariam o aplicativo: sim | 16 |
+| Usariam o aplicativo: não | 2 |
+| Usariam o aplicativo: talvez | 1 |
+
+Com 19 respostas não é possível generalizar. Ainda assim, 15 dos 19 respondentes recebem a conta impressa, o que sugere que a leitura de foto pode pesar mais do que a de PDF.

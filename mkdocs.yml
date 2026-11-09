@@ -95,6 +95,7 @@ nav:
       - Lean Inception: produto/lean-inception.md
       - Critérios de aceite: produto/criterios-aceite.md
       - Pacote de definição: produto/pacote-de-definicao.md
+      - Coleta de faturas: produto/coleta-faturas.md
   - Arquitetura:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
