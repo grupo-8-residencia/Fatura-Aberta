@@ -5,7 +5,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 from math import ceil
 from time import perf_counter
-from urllib.error import HTTPError, URLError
+from urllib.error import HTTPError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
@@ -20,7 +20,7 @@ CORPO = {
 }
 
 
-def executar_requisicao(url: str) -> tuple[int | None, float]:
+def executar_requisicao(url: str, timeout_segundos: float) -> tuple[int | None, float]:
     inicio = perf_counter()
     requisicao = Request(
         url,
@@ -29,11 +29,12 @@ def executar_requisicao(url: str) -> tuple[int | None, float]:
         method="POST",
     )
     try:
-        with urlopen(requisicao, timeout=20) as resposta:  # noqa: S310 -- URL do operador
+        with urlopen(requisicao, timeout=timeout_segundos) as resposta:  # noqa: S310 -- URL do operador
             codigo = resposta.status
+            resposta.read()
     except HTTPError as erro:
         codigo = erro.code
-    except URLError:
+    except OSError:
         codigo = None
     return codigo, perf_counter() - inicio
 
@@ -44,15 +45,26 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--requisicoes", type=int, default=100)
     parser.add_argument("--concorrencia", type=int, default=5)
     parser.add_argument("--p95-max-ms", type=float, default=2000)
+    parser.add_argument("--timeout-segundos", type=float, default=20)
     args = parser.parse_args(argv)
     if urlparse(args.url).scheme not in {"http", "https"}:
         parser.error("a URL deve começar com http:// ou https://")
-    if args.requisicoes < 1 or args.concorrencia < 1 or args.p95_max_ms <= 0:
-        parser.error("requisições, concorrência e limite de p95 devem ser positivos")
+    if (
+        args.requisicoes < 1
+        or args.concorrencia < 1
+        or args.p95_max_ms <= 0
+        or args.timeout_segundos <= 0
+    ):
+        parser.error("requisições, concorrência, p95 e timeout devem ser positivos")
 
     url = f"{args.url.rstrip('/')}/analisar"
     with ThreadPoolExecutor(max_workers=args.concorrencia) as executor:
-        resultados = list(executor.map(executar_requisicao, [url] * args.requisicoes))
+        resultados = list(
+            executor.map(
+                lambda alvo: executar_requisicao(alvo, args.timeout_segundos),
+                [url] * args.requisicoes,
+            )
+        )
 
     codigos, duracoes = zip(*resultados, strict=True)
     sucesso = sum(codigo == 200 for codigo in codigos)

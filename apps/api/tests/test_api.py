@@ -24,7 +24,21 @@ def test_origens_publicas_configuradas_sem_coringa(monkeypatch: pytest.MonkeyPat
         "https://fatura.example",
         "https://outra.example",
     ]
-    monkeypatch.setenv("FA_CORS_ORIGINS", "*")
+
+
+@pytest.mark.parametrize(
+    "origem",
+    [
+        "*",
+        "http://fatura.example",
+        "https://fatura.example/caminho",
+        "https://usuario:senha@fatura.example",
+    ],
+)
+def test_origens_publicas_invalidas_sao_rejeitadas(
+    monkeypatch: pytest.MonkeyPatch, origem: str
+) -> None:
+    monkeypatch.setenv("FA_CORS_ORIGINS", origem)
     with pytest.raises(ValueError, match="HTTPS exatas"):
         api_main.origens_permitidas()
 

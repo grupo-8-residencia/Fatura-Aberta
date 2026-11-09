@@ -52,6 +52,15 @@ Ele não usa dados reais. Para medir o serviço público, rode:
 uv run python scripts/teste_carga_leve.py --url https://URL-DA-API
 ```
 
+No plano gratuito do Render, após um período sem tráfego, faça também uma
+requisição isolada e anote sua duração antes do teste acima. Essa primeira
+requisição pode incluir o tempo de inicialização do serviço e não entra no p95
+da meta para a aplicação já ativa.
+
+```bash
+uv run python scripts/teste_carga_leve.py --url https://URL-DA-API --requisicoes 1 --concorrencia 1 --timeout-segundos 120 --p95-max-ms 120000
+```
+
 Documente a data, a URL, a quantidade de requisições, a concorrência, a taxa de
 sucesso e o p95. A execução local não substitui a medição pública. A meta acima
 precisa do aceite da equipe antes de encerrar a issue.
@@ -65,6 +74,12 @@ requisições simultâneas, p95 de 523 ms na API do Render, após a aplicação
 estar ativa. O formulário público retornou o cartão de decisão com dados
 sintéticos. A meta proposta foi atingida; falta o aceite da equipe.
 
+**Medição adicional (09/11/2026):** a primeira requisição isolada após um
+período sem tráfego manual respondeu HTTP 200 em 15.658 ms. Não foi verificado
+no painel se a instância havia hibernado, portanto esse tempo não deve ser
+tratado como tempo de inicialização confirmado. Em seguida, com o serviço
+ativo, 100/100 respostas HTTP 200 e p95 de 777 ms com 5 simultâneas.
+
 ## Publicação externa (Render)
 
 1. A partir da `dev` atual, crie um **Web Service Docker** para a API com
@@ -76,19 +91,23 @@ sintéticos. A meta proposta foi atingida; falta o aceite da equipe.
 3. Anote a URL HTTPS da interface. Na API, configure `FA_CORS_ORIGINS` com essa
    origem exata, sem caminho (por exemplo, `https://minha-interface.onrender.com`),
    e faça novo deploy da API. Não use `*`. A interface deve ser reconstruída se
-   `NEXT_PUBLIC_API_URL` mudar.
+   `NEXT_PUBLIC_API_URL` mudar. Se `FA_CORS_ORIGINS` contiver HTTP, caminho,
+   credenciais ou outra origem inválida, a API não inicia e registra
+   `ValueError: FA_CORS_ORIGINS deve conter apenas origens HTTPS exatas`.
 4. Confirme `GET /saude`, abra a interface e envie uma fatura sintética pelo
    formulário. Depois execute o teste de carga e a revisão de logs acima.
 
 O `infra/docker-compose.yml` é apenas para desenvolvimento local: suas portas
 são vinculadas a `127.0.0.1` e o build da interface aponta para a API local.
-Não o use como configuração de deploy público. Configure segredos somente no
-painel do provedor, nunca em `NEXT_PUBLIC_*` nem no Git.
+Não o use como configuração de deploy público. Na demonstração pública, use
+apenas dados sintéticos: os valores digitados são enviados à API no Render.
+Configure segredos somente no painel do provedor, nunca em `NEXT_PUBLIC_*`
+nem no Git.
 
 **URLs públicas:** [interface](https://fatura-aberta-web-s6.onrender.com/) e
 [API](https://fatura-aberta-api-s6.onrender.com/saude). Os dois serviços estão
 no plano gratuito e podem hibernar após inatividade, atrasando a primeira
-requisição. Foram publicados a partir da branch `codex/44-public-deploy`, com
+requisição. Foram publicados a partir da branch `feat/44-public-deploy`, com
 deploy automático desligado. Depois do merge do PR, altere a branch dos
 serviços para `dev`, faça o deploy dessa versão e repita as verificações.
 
