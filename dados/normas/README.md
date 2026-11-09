@@ -1,48 +1,42 @@
-# Inventário do corpus normativo
+# Corpus normativo
 
-> Este diretório centraliza o corpus inicial da frente F2. Todas as fontes abaixo devem ser tratadas como normas públicas, rastreáveis e com vigência registrada.
+`corpus_b1.json` reúne **dispositivos** de normas públicas, transcritos e conferidos, para o Grupo B1
+da Neoenergia Brasília. É a única fonte que entra no índice do RAG (`packages/rag`).
 
-## Fonte 1 — REN ANEEL nº 1.000/2021
+## Campos de cada item
 
-- Tipo: resolução regulatória
-- Título: Resolução Normativa da ANEEL nº 1.000/2021
-- URL oficial: https://www2.aneel.gov.br/cedoc/ren20211000.html
-- Observação: define a estrutura tarifária e a classificação de grupos e subgrupos relevantes ao contexto B1.
-- Vigência: vigente conforme publicação e atualizações posteriores; confirmar datas específicas por dispositivo.
+`id`, `titulo`, `texto` (transcrição literal), `citacao` (`ato`, `dispositivo`, `vigencia_inicio`,
+`vigencia_fim`, `url`), `subgrupos`, `tags`, `conferido` (`"sim"` ou `"A verificar"`), `conferido_em`,
+`fonte_conferencia` e `observacoes`. `vigencia_fim` vazio significa em vigor.
 
-## Fonte 2 — PRODIST
+## O que está no corpus (25 itens, conferidos em 09/11/2026)
 
-- Tipo: módulo regulatório
-- Título: Procedimentos de Distribuição do Sistema Elétrico (PRODIST)
-- URL oficial: https://www.gov.br/aneel/pt-br/assuntos/geracao-distribuicao-e-transmissao/distribuicao/prodist
-- Observação: material de referência para regras operacionais e procedimentos de distribuição.
-- Vigência: em vigor na data atual; TODO: confirmar vigência por módulo e dispositivo específico.
+- **REN ANEEL nº 1.000/2021** (vigência a partir de 03/01/2022): arts. 177, 260, 281, 285, 289, 290,
+  307, 322, 323, 324, 327, 337, 338, 342, 343, 347, 356, 357, 358, 360 e 361. Texto consolidado em
+  `www2.aneel.gov.br/cedoc/ren20211000.html`.
+- **Lei nº 8.078/1990 (CDC)** (vigência a partir de 11/03/1991): art. 6º (incisos VI, VIII e X),
+  art. 39 (incisos V e VI), art. 42 (caput) e art. 42, parágrafo único. Texto conferido na Câmara dos
+  Deputados, porque o Planalto bloqueia acesso automatizado.
 
-## Fonte 3 — Lei nº 8.078/1990 (Código de Defesa do Consumidor)
+A numeração dos artigos foi verificada no texto oficial. Alguns artigos citados em planejamentos
+anteriores não correspondem ao tema esperado (por exemplo, o art. 140 trata do encerramento
+contratual, não da fatura). Os temas estão em: fatura (art. 327), vencimento (arts. 337 e 338),
+cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorreto e devolução em dobro
+(arts. 323 e 324).
 
-- Tipo: lei federal
-- Título: Lei do Código de Defesa do Consumidor
-- URL oficial: https://www.planalto.gov.br/ccivil_03/leis/l8078.htm
-- Observação: base geral de direitos do consumidor, informa a fronteira jurídica e as regras de boa-fé e proteção ao consumidor.
-- Vigência: desde 1990, sem termo de vigência final identificado.
+## Pendentes (`A verificar`, fora do índice)
 
-## Fonte 4 — Lei Distrital nº 7.919/2026
+| Fonte | Situação |
+|---|---|
+| PRODIST Módulo 8 (qualidade do fornecimento, DIC/FIC/DMIC) | TODO: obter a redação vigente do módulo e transcrever os dispositivos |
+| Resolução Homologatória ANEEL nº 3.316/2024 | TODO: não foi confirmada como ato da Neoenergia Brasília. As REHs encontradas para a distribuidora são 3.276/2023, 3.406/2024 e 3.614/2026 |
+| Lei Distrital nº 7.919/2026 | A lei existe (DODF de 13/07/2026), mas trata de **protesto de débitos de serviços públicos**, não de CIP/COSIP. TODO: identificar a lei distrital de iluminação pública (a busca apontou a Lei nº 7.888/2026 no SINJ-DF) e conferir o texto |
+| REN 1.000/2021, art. 179 e art. 291 (tarifa social) | Redação alterada pela REN ANEEL 1.147/2025; TODO: confirmar a data de início da nova redação |
+| Lei nº 12.212/2010 (tarifa social) | TODO: conferir |
 
-- Tipo: lei local
-- Título: Lei Distrital nº 7.919/2026
-- URL oficial: TODO — confirmar URL oficial e data de publicação no portal da Câmara Legislativa do DF
-- Observação: contexto regulatório local relevante ao projeto, a confirmar conforme versão oficial.
-- Vigência: TODO — confirmar publicação e vigência exata.
+## Regras
 
-## Regras de uso
-
-1. Nenhuma fonte deve entrar sem URL oficial e rastreável.
-2. Vigência deve ser registrada por dispositivo, quando houver diferença entre normas ou artigos.
-3. Se a vigência não puder ser confirmada, registrar `TODO` e não inventar data.
-4. O corpus deve permanecer em dados públicos, sintéticos e auditáveis.
-
-## Próxima etapa
-
-- transformar este inventário em entradas estruturadas para o pacote RAG;
-- registrar cada norma no primeiro índice do RAG;
-- validar filtros por vigência e busca com citação.
+1. Nenhuma fonte entra sem URL oficial e vigência registrada.
+2. Se a vigência ou o texto não puderem ser confirmados, o item fica `"A verificar"`. Não inventar.
+3. O texto é transcrição literal. Omissões de parágrafos ficam registradas em `observacoes`.
+4. Só dados públicos, sem dado pessoal.

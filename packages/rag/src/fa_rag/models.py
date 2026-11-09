@@ -17,6 +17,7 @@ class DocumentoNormativo:
     citacao: Any
     subgrupos: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()
+    observacoes: str = ""
 
     def vigente_em(self, dia: date) -> bool:
         return bool(self.citacao.vigente_em(dia))
@@ -28,3 +29,5 @@ class ResultadoBusca:
 
     documento: DocumentoNormativo
     score: float
+    score_vetorial: float = 0.0
+    score_lexico: float = 0.0
