@@ -7,6 +7,19 @@ consultam tarifa externa nem emitem conclusão jurídica.
 from decimal import ROUND_HALF_UP, Decimal
 
 from fa_contratos import Achado, Fatura, Nivel
+from fa_motor.gerador import (
+    CAMINHO_PADRAO_SINTETICAS,
+    PASTA_SINTETICAS,
+    QUANTIDADE_PADRAO,
+    SEMENTE_PADRAO,
+    TIPOS_ERRO_NIVEL_A,
+    RegistroSintetico,
+    TipoErroNivelA,
+    gerar_conjunto_sintetico_v0,
+    gerar_fatura_sintetica_valida,
+    gravar_conjunto_sintetico_v0,
+    injetar_erro_nivel_a,
+)
 
 __version__ = "0.1.0"
 FRENTE = "F3"
@@ -434,9 +447,20 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
 
 
 __all__ = [
+    "CAMINHO_PADRAO_SINTETICAS",
     "FRENTE",
+    "PASTA_SINTETICAS",
+    "QUANTIDADE_PADRAO",
+    "RegistroSintetico",
+    "SEMENTE_PADRAO",
+    "TIPOS_ERRO_NIVEL_A",
+    "TipoErroNivelA",
     "analisar_nivel_a",
     "checar_icms",
     "checar_linhas",
     "checar_parcela_ate_80_kwh",
+    "gerar_conjunto_sintetico_v0",
+    "gerar_fatura_sintetica_valida",
+    "gravar_conjunto_sintetico_v0",
+    "injetar_erro_nivel_a",
 ]
