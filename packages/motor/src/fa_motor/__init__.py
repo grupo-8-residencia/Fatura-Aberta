@@ -20,6 +20,21 @@ from fa_motor.gerador import (
     gravar_conjunto_sintetico_v0,
     injetar_erro_nivel_a,
 )
+from fa_motor.nivel_b import (
+    CAMINHO_PADRAO_PROVENIENCIA,
+    PASTA_TARIFAS,
+    VALORES_BANDEIRA_ANEEL_KWH,
+    LinhaTarifaAneel,
+    ProvenienciaTarifas,
+    TabelaTarifasVersionada,
+    analisar_nivel_b,
+    carregar_tabela_tarifas_versionada,
+    checar_bandeira,
+    checar_tusd_te,
+    construir_citacao_proveniencia,
+    construir_citacao_tabela,
+    obter_tarifa_aplicacao_b1,
+)
 
 __version__ = "0.1.0"
 FRENTE = "F3"
@@ -447,20 +462,33 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
 
 
 __all__ = [
+    "CAMINHO_PADRAO_PROVENIENCIA",
     "CAMINHO_PADRAO_SINTETICAS",
     "FRENTE",
+    "LinhaTarifaAneel",
     "PASTA_SINTETICAS",
+    "PASTA_TARIFAS",
+    "ProvenienciaTarifas",
     "QUANTIDADE_PADRAO",
     "RegistroSintetico",
     "SEMENTE_PADRAO",
     "TIPOS_ERRO_NIVEL_A",
+    "TabelaTarifasVersionada",
     "TipoErroNivelA",
+    "VALORES_BANDEIRA_ANEEL_KWH",
     "analisar_nivel_a",
+    "analisar_nivel_b",
+    "carregar_tabela_tarifas_versionada",
+    "checar_bandeira",
     "checar_icms",
     "checar_linhas",
     "checar_parcela_ate_80_kwh",
+    "checar_tusd_te",
+    "construir_citacao_proveniencia",
+    "construir_citacao_tabela",
     "gerar_conjunto_sintetico_v0",
     "gerar_fatura_sintetica_valida",
     "gravar_conjunto_sintetico_v0",
     "injetar_erro_nivel_a",
+    "obter_tarifa_aplicacao_b1",
 ]
