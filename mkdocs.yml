@@ -118,6 +118,7 @@ nav:
   - Avaliação:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
+      - Golden set: avaliacao/golden-set.md
       - Resultados: avaliacao/resultados.md
   - Sprints:
       - sprints/index.md
