@@ -29,11 +29,11 @@ Para conferir a integridade: `.venv/bin/python scripts/gerar_golden_set.py --ver
 Cada pergunta traz `data_referencia`, `citacao_canonica` (ids do corpus), `resposta_esperada`,
 `abstencao_esperada` e `tipo`:
 
-- `normativa` (94): o corpus cobre o tema.
+- `normativa` (97): o corpus cobre o tema.
 - `vigencia` (12): a data é anterior à entrada em vigor da REN ANEEL 1.000/2021 (03/01/2022), então a
   resposta esperada é a abstenção. Servem para separar B2 de B3.
-- `fora_do_corpus` (8): perguntas sobre CIP/COSIP, cuja lei distrital ainda não foi conferida. A
-  resposta esperada é a abstenção.
+- `fora_do_corpus` (5): perguntas sobre CIP/COSIP que a Lei Distrital 7.888/2026 não responde (valor,
+  alíquota, multa por atraso da CIP). A resposta esperada é a abstenção.
 - `lacuna` (6): o corpus cobre só parte do tema (parágrafos não transcritos). A resposta esperada
   marca o `TODO:` e exige que o sistema não afirme além do texto.
 
@@ -53,8 +53,8 @@ incorreto, item duplicado e alíquota de ICMS incoerente. O gabarito vem da cons
 
 - Revisão humana pendente em todos os itens. Seis pessoas anotando 30 itens cobrem 180 dos 320; o
   restante fica com o gabarito de construção. TODO: decidir sobre uma segunda rodada.
-- 112 das 120 perguntas dependem de um corpus de 25 dispositivos; PRODIST, REH de tarifas e lei
-  distrital de iluminação pública estão pendentes.
+- As perguntas dependem de um corpus de 28 dispositivos (REN 1.000/2021, CDC e Lei Distrital
+  7.888/2026); PRODIST e a REH de tarifas estão pendentes.
 - As faturas não têm layout de PDF nem foto; servem às checagens do nível A, não à extração.
 - Nenhuma fatura real, dado pessoal ou segredo faz parte do conjunto.
 

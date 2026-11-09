@@ -20,6 +20,20 @@ flowchart TD
 
 ## Pipeline de ingestão, ponta a ponta
 
+```mermaid
+flowchart LR
+    A["1. Coleta<br/>texto consolidado oficial<br/>(ANEEL, Câmara, SINJ-DF)"] --> B["2. Limpeza<br/>remove notas de redação,<br/>links e dispositivos revogados"]
+    B --> C["3. Conferência<br/>literalidade, URL oficial,<br/>vigência (conferido = sim)"]
+    C --> D["4. Chunking<br/>caput, §, parágrafo único, inciso"]
+    D --> E["5. Embedding<br/>vetor L2-normalizado"]
+    E --> F["6. Indexação<br/>IndiceHibrido em memória"]
+    C -. "não conferido" .-> X["Fora do índice<br/>(A verificar)"]
+```
+
+A coleta e a limpeza hoje são manuais e conferidas por pessoa; o resultado é o `corpus_b1.json`, que
+é a entrada reproduzível do restante do pipeline. TODO: conversão automática de PDFs de normas em
+texto limpo (etapa 1 e 2), prevista para a frente F4.
+
 1. **Curadoria.** Cada dispositivo é transcrito do texto oficial e conferido. O item guarda `id`,
    `titulo`, `texto`, `citacao` (`ato`, `dispositivo`, `vigencia_inicio`, `vigencia_fim`, `url`),
    `subgrupos`, `tags`, `conferido`, `conferido_em` e `fonte_conferencia`. Itens que não foram
@@ -90,8 +104,8 @@ usa “ilegal” e nunca calcula valor de ressarcimento.
 
 ## Limitações conhecidas
 
-- O corpus tem apenas dispositivos conferidos: REN ANEEL nº 1.000/2021 e CDC. PRODIST Módulo 8, a
-  Resolução Homologatória de tarifas e a lei distrital de iluminação pública estão em
+- O corpus tem apenas dispositivos conferidos: REN ANEEL nº 1.000/2021, CDC e Lei Distrital nº
+  7.888/2026 (iluminação pública). PRODIST Módulo 8 e a Resolução Homologatória de tarifas estão em
   [`dados/normas/README.md`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/dados/normas/README.md)
   como `A verificar`.
 - A data `vigencia_inicio` é a da entrada em vigor do ato. Dispositivos alterados depois têm a nota

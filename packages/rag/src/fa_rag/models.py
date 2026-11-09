@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Any
 
+from fa_contratos import Citacao
+
 
 @dataclass(frozen=True, slots=True)
 class DocumentoNormativo:
@@ -14,7 +16,7 @@ class DocumentoNormativo:
     id: str
     titulo: str
     texto: str
-    citacao: Any
+    citacao: Citacao | Any
     subgrupos: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()
     observacoes: str = ""
@@ -23,11 +25,14 @@ class DocumentoNormativo:
         return bool(self.citacao.vigente_em(dia))
 
 
+ChunkNormativo = DocumentoNormativo
+
+
 @dataclass(frozen=True, slots=True)
 class ResultadoBusca:
-    """Resultado da busca com score de relevância."""
+    """Resultado da busca com score de relevância e decomposição híbrida."""
 
-    documento: DocumentoNormativo
+    documento: DocumentoNormativo | Any
     score: float
-    score_vetorial: float = 0.0
     score_lexico: float = 0.0
+    score_vetorial: float = 0.0
