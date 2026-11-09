@@ -1,0 +1,733 @@
+[
+  {
+    "id": "ren1000-art-177",
+    "titulo": "Subclasses residencial baixa renda (tarifa social): critérios",
+    "texto": "Art. 177. Para a classificação nas subclasses residencial baixa renda, com fundamento na Lei nº 12.212, de 20 de janeiro de 2010, a unidade consumidora deve ser utilizada por:\nI - família inscrita no Cadastro Único para Programas Sociais do Governo Federal – CadÚnico com renda familiar mensal por pessoa menor ou igual a meio salário-mínimo nacional;\nII - idosos com 65 anos ou mais ou pessoas com deficiência, que recebam o Benefício de Prestação Continuada da Assistência Social – BPC, nos termos dos arts. 20 e 21 da Lei nº 8.742, de 7 de dezembro de 1993; ou\nIII - família inscrita no CadÚnico que possua:\na) renda mensal menor ou igual a três salários-mínimos; e\nb) portador de doença ou deficiência (física, motora, auditiva, visual, intelectual e múltipla) cujo tratamento, procedimento médico ou terapêutico requeira o uso continuado de aparelhos, equipamentos ou instrumentos que, para o seu funcionamento, demandem consumo de energia elétrica.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 177, caput e incisos I a III",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "tarifa social",
+      "baixa renda",
+      "classificação"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "Caput e incisos I–III. Os parágrafos do art. 177 foram alterados pela REN ANEEL 1.147/2025 e não foram transcritos."
+  },
+  {
+    "id": "ren1000-art-260",
+    "titulo": "Intervalo de leitura do grupo B",
+    "texto": "Art. 260. A leitura do sistema de medição para o grupo B deve ser realizada em intervalos de aproximadamente 30 dias, observados o mínimo de 27 e o máximo de 33 dias, de acordo com o calendário de leitura.\n§ 1º Para o primeiro faturamento, ou no caso de remanejamento de rota ou reprogramação do calendário, as leituras podem ser realizadas em intervalos de no mínimo 15 e no máximo 47 dias.\n§ 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 260",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "leitura",
+      "ciclo",
+      "medição"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-281",
+    "titulo": "Faturamento mensal",
+    "texto": "Art. 281. A distribuidora deve faturar o consumidor e demais usuários mensalmente.\nParágrafo único. É vedado mais de um faturamento no mesmo mês civil, exceto nas situações dispostas nesta Resolução.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 281",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "faturamento",
+      "ciclo"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-285",
+    "titulo": "Leitura fora do intervalo de 27 a 33 dias",
+    "texto": "Art. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exceções dispostas nesta Resolução, a distribuidora deve faturar de acordo com as seguintes disposições:\nI - não atingido o limite mínimo de 27 dias: faturar o consumo medido, vedada a aplicação do custo de disponibilidade; e\nII - ultrapassado o limite máximo de 33 dias: proporcionalizar o consumo registrado pelo número máximo de dias permitido, ajustando a leitura atual ao consumo resultante.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 285",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "leitura",
+      "faturamento",
+      "proporcionalização"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-289",
+    "titulo": "Faturamento com impedimento de acesso para leitura",
+    "texto": "Art. 289. Ocorrendo impedimento de acesso para fins de leitura, a distribuidora deve faturar, observado o § 1º do art. 288:\nI - demanda ativa: valor contratado, caso aplicável, ou a média aritmética dos valores faturados nos 12 últimos ciclos de faturamento; e\nII - demais grandezas elétricas: médias aritméticas dos valores faturados nos 12 últimos ciclos de faturamento.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 289",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "estimativa",
+      "média",
+      "impedimento de acesso",
+      "leitura"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-290",
+    "titulo": "Faturamento do grupo B: maior valor entre consumo e custo de disponibilidade",
+    "texto": "Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:\nI - consumo de energia elétrica ativa; ou\nII - custo de disponibilidade disposto no art. 291.\n§ 1º Não se aplica o custo de disponibilidade no faturamento de unidades consumidoras:\nI - da classe iluminação pública;\nII - atendidas por meio de sistemas isolados do tipo SIGFI ou MIGDI; e\nIII - enquadradas na modalidade de pré-pagamento.\n§ 2º A diferença resultante na aplicação do custo de disponibilidade não é passível de futura compensação.\n§ 3º A distribuidora deve aplicar o benefício tarifário no custo de disponibilidade para unidade consumidora classificada nas subclasses residencial baixa renda.\n§ 4º No caso da tarifa branca, o custo de disponibilidade deve ser calculado com a tarifa da modalidade tarifária convencional.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 290, caput e §§ 1º a 4º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "custo de disponibilidade",
+      "faturamento",
+      "tarifa social"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "§ 5º (SCEE, incluído pela REN ANEEL 1.059/2023) não transcrito."
+  },
+  {
+    "id": "ren1000-art-307",
+    "titulo": "Aplicação das bandeiras tarifárias",
+    "texto": "Art. 307. A distribuidora deve aplicar as bandeiras tarifárias sobre o consumo faturado da unidade consumidora, utilizando uma tarifa proporcional aos dias de vigência de cada bandeira.\n§ 1º No caso de unidade consumidora com medição apropriada, a distribuidora deve faturar aplicando a tarifa correspondente sobre o consumo faturado de energia elétrica nos dias de vigência de cada bandeira tarifária.\n§ 3º As bandeiras tarifárias não se aplicam às unidades consumidoras conectadas em Sistemas Isolados.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 307, caput e §§ 1º e 3º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "bandeira tarifária",
+      "proporcionalidade"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "§ 2º (redação da REN ANEEL 1.059/2023, SCEE) não transcrito. O texto não trata da incidência de bandeira sobre a tarifa social: ver a regra específica antes de concluir."
+  },
+  {
+    "id": "ren1000-art-322",
+    "titulo": "Faturamento na suspensão do fornecimento",
+    "texto": "Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:\nI - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e\nII - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 322, caput e incisos I e II",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "suspensão",
+      "custo de disponibilidade",
+      "religação"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-323",
+    "titulo": "Faturamento incorreto: cobrança a menor e devolução em dobro",
+    "texto": "Art. 323. A distribuidora, no caso de faturar valores incorretos, não apresentar fatura ou faturar sem utilizar a leitura do sistema de medição nos casos em que não haja previsão nesta Resolução, sem prejuízo das penalidades cabíveis, deve observar os seguintes procedimentos:\nI - faturamento a menor ou ausência de faturamento: cobrar do consumidor e demais usuários as quantias não recebidas, limitando-se aos últimos 3 ciclos de faturamento imediatamente anteriores ao ciclo vigente; e\nII - faturamento a maior: devolver ao consumidor e demais usuários, até o segundo ciclo de faturamento posterior à constatação, as quantias recebidas indevidamente nos últimos 60 ciclos de faturamento imediatamente anteriores à constatação.\n§ 1º No caso do inciso I do caput, a distribuidora deve parcelar o pagamento em número de parcelas igual ao dobro do período em que ocorreu o erro ou a ausência de faturamento, ou, por solicitação do consumidor e demais usuários, em número menor de parcelas, incluindo as parcelas nas faturas de energia elétrica subsequentes.\n§ 2º No caso do inciso II do caput, a distribuidora deve devolver de acordo com as seguintes disposições:\nI - a quantia recebida indevidamente deve ser devolvida em dobro, independentemente de dolo ou culpa da distribuidora, salvo hipótese do § 3º;\nII - o valor do inciso I deste parágrafo deve ser atualizado pelo Índice Nacional de Preços ao Consumidor Amplo – IPCA; e\nIII - devem ser calculados e acrescidos os juros de mora à razão de 1% ao mês pro rata die sobre o valor atualizado obtido do inciso II deste parágrafo.\n§ 3º A devolução prevista no inciso I do § 2º deve ser simples caso a distribuidora comprove que o faturamento a maior foi causado por motivo atribuível:\nI - exclusivamente ao consumidor ou demais usuários, em que deve ser observado o art. 324; ou\nII - a terceiro, desde que satisfeitas as seguintes condições:\na) a distribuidora demonstre que adotou as medidas cabíveis para mitigar a possibilidade de faturamento a maior;\nb) o terceiro não preste ou tenha prestado serviços à distribuidora ou ao grupo empresarial de que a distribuidora faça parte; e\nc) o terceiro não tenha contrato de atividades acessórias ou atípicas com a distribuidora.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 323, caput, incisos I e II e §§ 1º a 3º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "devolução em dobro",
+      "faturamento incorreto",
+      "cobrança indevida",
+      "estimativa"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "Os efeitos do prazo de 60 ciclos do inciso II estão suspensos pelo DSP ANEEL 2.006/2024. Verificar a situação atual antes de usar o prazo."
+  },
+  {
+    "id": "ren1000-art-324",
+    "titulo": "Faturamento incorreto por motivo atribuível ao consumidor",
+    "texto": "Art. 324. A distribuidora deve observar os seguintes procedimentos no caso de, por motivo atribuível ao consumidor e demais usuários, faturar valores incorretos ou faturar sem utilizar a leitura do sistema de medição:\nI - faturamento a maior: devolver ao consumidor e demais usuários as quantias recebidas indevidamente, no ciclo de faturamento posterior à constatação, correspondentes ao período faturado incorretamente; e\nII - faturamento a menor: cobrar do consumidor e demais usuários as quantias não recebidas.\n§ 1º As quantias a serem recebidas ou devolvidas devem ser atualizadas monetariamente pelo Índice Nacional de Preços ao Consumidor Amplo – IPCA.\n§ 2º Os prazos para cobrança ou devolução são de até 36 ciclos, exceto nos casos de impedimento de acesso para fins de leitura, quando a cobrança em caso de faturamento a menor está limitada aos últimos 3 ciclos de faturamento imediatamente anteriores ao ciclo vigente.\n§ 3º O consumidor e demais usuários não têm direito à devolução de diferenças pagas a maior quando caracterizado pela distribuidora que houve declaração falsa sobre a natureza da atividade desenvolvida ou a finalidade real da utilização da energia elétrica.\n§ 4º No caso do § 3º, a distribuidora deve informar ao consumidor e demais usuários, por escrito, a avaliação realizada e o direito de reclamação.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 324",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "faturamento incorreto",
+      "atualização IPCA",
+      "prazo de 36 ciclos"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-327",
+    "titulo": "Conteúdo mínimo da fatura de energia elétrica",
+    "texto": "Art. 327. A fatura de energia elétrica deve conter, de forma clara e objetiva e observadas as disposições do Módulo 11 do PRODIST, as seguintes informações:\nI - identificação do consumidor e demais usuários;\nII - identificação da unidade consumidora ou demais instalações;\nIII - valor total devido e data de vencimento;\nIV - grandezas medidas e faturadas;\nV - tarifas aplicadas;\nVI - valores adicionais a serem cobrados quando da aplicação das bandeiras tarifárias, caso aplicável;\nVII - valores relativos aos produtos, serviços e atividades prestados;\nVIII - histórico de consumo, caso aplicável;\nIX - impostos e contribuições incidentes; e\nX - código para pagamento e linha numérica digitável ou, caso aplicável, mensagem indicativa de que o pagamento será realizado por meio de débito automático.\nXI - código de resposta rápida do PIX, quando solicitado pelo consumidor e demais usuários.\n§ 2º A distribuidora deve discriminar na fatura os valores da energia faturada na modalidade tarifária horária branca por posto tarifário, informando a tarifa aplicada.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 327, caput, incisos I a XI e § 2º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "fatura",
+      "conteúdo",
+      "bandeira tarifária",
+      "tarifas"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "§§ 1º e 3º (códigos de pagamento) não transcritos."
+  },
+  {
+    "id": "ren1000-art-337",
+    "titulo": "Prazo mínimo para vencimento da fatura",
+    "texto": "Art. 337. O prazo para vencimento da fatura, contado da data da apresentação, deve ser de pelo menos:\nI - 10 dias úteis: para unidade consumidora enquadrada nas classes poder público, iluminação pública e serviço público; e\nII - 5 dias úteis: nas demais situações.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 337",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "vencimento",
+      "prazo",
+      "fatura"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-338",
+    "titulo": "Datas de vencimento oferecidas ao consumidor",
+    "texto": "Art. 338. A distribuidora deve oferecer pelo menos seis datas de vencimento da fatura para escolha do consumidor e demais usuários, distribuídas uniformemente em intervalos regulares ao longo do mês.\n§ 1º O oferecimento disposto no caput deve ser realizado na solicitação da conexão, na alteração de titularidade ou sempre que solicitado.\n§ 2º A data de vencimento da fatura somente pode ser modificada em um intervalo maior ou igual a 12 meses, com autorização prévia do consumidor e demais usuários.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 338",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "vencimento",
+      "fatura"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-342",
+    "titulo": "Duplicidade no pagamento de faturas",
+    "texto": "Art. 342. Constatada a duplicidade no pagamento de faturas, a distribuidora deve devolver ao consumidor e demais usuários o valor pago indevidamente, por meio de crédito na fatura subsequente à constatação.\n§ 1º A distribuidora deve utilizar meios que possibilitem a constatação automática de pagamentos em duplicidade.\n§ 2º Caso o valor a compensar seja maior que o valor da fatura, o crédito restante deve ser compensado nos ciclos de faturamento subsequentes.\n§ 3º A devolução disposta no caput deve ser efetuada, a critério do consumidor e demais usuários, por meio de crédito na conta corrente indicada pelo consumidor e demais usuários, cheque nominal ou ordem de pagamento.\n§ 4º O valor a ser devolvido deve ser atualizado pelo Índice Nacional de Preços ao Consumidor Amplo – IPCA da data do pagamento até a data da devolução, desde que transcorrido mais de um ciclo de faturamento da constatação do pagamento em duplicidade.\n§ 5º Caso haja alteração de titularidade, o valor deve ser devolvido ao titular à época da duplicidade no pagamento.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 342, caput e §§ 1º a 5º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "pagamento em duplicidade",
+      "devolução",
+      "IPCA"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-343",
+    "titulo": "Multa, atualização e juros por atraso no pagamento",
+    "texto": "Art. 343. No caso de atraso no pagamento da fatura, a distribuidora pode cobrar multa, atualização monetária pelo Índice Nacional de Preços ao Consumidor Amplo – IPCA e juros de mora de 1% ao mês calculados pro rata die.\n§ 1º A cobrança de multa pode ser realizada no percentual de até 2%.\n§ 3º Caso o vencimento da fatura tenha ocorrido em sábado, domingo ou feriado e o pagamento tenha sido feito no primeiro dia útil subsequente, não se configura atraso, sendo vedada a aplicação do disposto neste artigo.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 343, caput e §§ 1º e 3º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "multa",
+      "juros",
+      "atraso",
+      "CIP"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "§ 2º (parcelas excluídas, inclui a contribuição de iluminação pública) teve várias redações e não foi transcrito."
+  },
+  {
+    "id": "ren1000-art-347",
+    "titulo": "Prazo para cobrança de faturas em atraso",
+    "texto": "Art. 347. O prazo para cobrança de faturas em atraso é de até 60 meses.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 347",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "cobrança",
+      "prazo",
+      "prescrição"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-356",
+    "titulo": "Hipóteses de suspensão por inadimplemento",
+    "texto": "Art. 356. A suspensão do fornecimento de energia elétrica de unidade consumidora por inadimplemento, precedida da notificação do art. 360, ocorre nos seguintes casos:\nI - não pagamento da fatura da prestação do serviço público de distribuição de energia elétrica;\nII - não pagamento de serviços cobráveis;\nIII - descumprimento das obrigações relacionadas ao oferecimento de garantias, de que trata o art. 345; ou\nIV - não pagamento de prejuízos causados nas instalações da distribuidora cuja responsabilidade tenha sido imputada ao consumidor, desde que vinculados à prestação do serviço público de energia elétrica.\n§ 2º Caso não efetue a suspensão do fornecimento após a notificação, a distribuidora deve incluir em destaque nas faturas subsequentes a informação sobre a possibilidade da suspensão durante o prazo estabelecido no art. 357.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 356, caput, incisos I a IV e § 2º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "suspensão",
+      "corte",
+      "inadimplemento",
+      "notificação"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": "§ 1º (redação da REN ANEEL 1.057/2023) não transcrito."
+  },
+  {
+    "id": "ren1000-art-357",
+    "titulo": "Limite de 90 dias para a suspensão",
+    "texto": "Art. 357. É vedada a suspensão do fornecimento após o decurso do prazo de 90 dias, contado da data da fatura vencida e não paga, sendo permitida depois desse prazo apenas se ficar comprovado que o impedimento da sua execução decorreu de determinação judicial ou outro motivo justificável.\nParágrafo único. Na situação de impedimento de execução disposta no caput, a contagem do prazo deve ser suspensa pelo período do impedimento.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 357",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "suspensão",
+      "corte",
+      "prazo de 90 dias"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-358",
+    "titulo": "Suspensão de unidade de baixa renda: intervalo de 30 dias",
+    "texto": "Art. 358. A suspensão por inadimplemento para a unidade consumidora classificada nas subclasses residencial baixa renda deve ocorrer com intervalo de pelo menos 30 dias entre a data de vencimento da fatura e a data da efetiva suspensão.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 358",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "suspensão",
+      "corte",
+      "tarifa social",
+      "baixa renda"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-360",
+    "titulo": "Notificação prévia da suspensão do fornecimento",
+    "texto": "Art. 360. A notificação ao consumidor e demais usuários sobre a suspensão do fornecimento de energia elétrica deve conter:\nI - o dia a partir do qual poderá ser realizada a suspensão do fornecimento, exceto no caso de suspensão imediata;\nII - o prazo para o encerramento das relações contratuais, conforme art. 140;\nIII - a informação da cobrança do custo de disponibilidade, conforme art. 322; e\nIV - no caso de impedimento de acesso para fins de leitura, as informações do inciso IV do art. 278.\n§ 1º A notificação deve ser realizada com antecedência de pelo menos:\nI - 3 dias úteis: por razões de ordem técnica ou de segurança; ou\nII - 15 dias: nos casos de inadimplemento.\n§ 2º A critério da distribuidora, a notificação pode ser:\nI - escrita, específica e com entrega comprovada; ou\nII - impressa em destaque na fatura.\n§ 3º A notificação escrita, específica e com entrega comprovada é obrigatória para:\nI - serviço público ou essencial à população e que seja prejudicado com a suspensão do fornecimento, com a notificação devendo ser feita ao poder público competente;\nII - unidade consumidora em que existam pessoas usuárias de equipamentos de autonomia limitada, vitais à preservação da vida humana e dependentes de energia elétrica, desde que tenha sido cadastrada previamente junto à distribuidora; e\nIII - suspensão imediata do fornecimento decorrente da caracterização de situação emergencial.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 360, caput, incisos I a IV e §§ 1º a 3º",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "notificação",
+      "suspensão",
+      "corte",
+      "aviso prévio",
+      "15 dias"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "ren1000-art-361",
+    "titulo": "Suspensão indevida",
+    "texto": "Art. 361. A suspensão do fornecimento de energia elétrica é considerada indevida se:\nI - o pagamento da fatura tiver sido realizado até a data limite contida na notificação para suspensão do fornecimento; ou\nI -A - o pagamento da fatura tiver sido realizado por meio de código de resposta rápida do PIX antes da execução da suspensão do fornecimento; ou\nII - a suspensão for efetuada sem observar o disposto nesta Resolução.",
+    "citacao": {
+      "ato": "REN ANEEL nº 1.000/2021",
+      "dispositivo": "art. 361, caput e incisos I, I-A e II",
+      "vigencia_inicio": "2022-01-03",
+      "vigencia_fim": null,
+      "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "suspensão indevida",
+      "corte",
+      "notificação"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto consolidado em www2.aneel.gov.br/cedoc/ren20211000.html",
+    "observacoes": null
+  },
+  {
+    "id": "cdc-art-6",
+    "titulo": "Direitos básicos do consumidor (reparação, defesa, serviço público adequado)",
+    "texto": "VI - a efetiva prevenção e reparação de danos patrimoniais e morais, individuais, coletivos e difusos;\nVIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;\nX - a adequada e eficaz prestação dos serviços públicos em geral.",
+    "citacao": {
+      "ato": "Lei nº 8.078/1990 (Código de Defesa do Consumidor)",
+      "dispositivo": "art. 6º, incisos VI, VIII e X",
+      "vigencia_inicio": "1991-03-11",
+      "vigencia_fim": null,
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "direitos básicos",
+      "serviço público",
+      "inversão do ônus da prova"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www2.camara.leg.br/legin/fed/lei/1990/lei-8078-11-setembro-1990-365086-normaatualizada-pl.html (o portal do Planalto bloqueia acesso automatizado)",
+    "observacoes": "Vigência: 180 dias após a publicação de 12/09/1990 (art. 118 do CDC), ou seja, 11/03/1991. Incisos transcritos: VI, VIII e X."
+  },
+  {
+    "id": "cdc-art-39",
+    "titulo": "Práticas abusivas: vantagem excessiva e serviço sem orçamento",
+    "texto": "V - exigir do consumidor vantagem manifestamente excessiva;\nVI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;",
+    "citacao": {
+      "ato": "Lei nº 8.078/1990 (Código de Defesa do Consumidor)",
+      "dispositivo": "art. 39, incisos V e VI",
+      "vigencia_inicio": "1991-03-11",
+      "vigencia_fim": null,
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "práticas abusivas",
+      "vantagem excessiva"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www2.camara.leg.br/legin/fed/lei/1990/lei-8078-11-setembro-1990-365086-normaatualizada-pl.html (o portal do Planalto bloqueia acesso automatizado)",
+    "observacoes": "Vigência: 180 dias após a publicação de 12/09/1990 (art. 118 do CDC), ou seja, 11/03/1991. O caput foi alterado pela Lei 8.884/1994; apenas incisos V e VI transcritos."
+  },
+  {
+    "id": "cdc-art-42",
+    "titulo": "Cobrança de débitos sem constrangimento",
+    "texto": "Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",
+    "citacao": {
+      "ato": "Lei nº 8.078/1990 (Código de Defesa do Consumidor)",
+      "dispositivo": "art. 42, caput",
+      "vigencia_inicio": "1991-03-11",
+      "vigencia_fim": null,
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "cobrança",
+      "constrangimento"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www2.camara.leg.br/legin/fed/lei/1990/lei-8078-11-setembro-1990-365086-normaatualizada-pl.html (o portal do Planalto bloqueia acesso automatizado)",
+    "observacoes": "Vigência: 180 dias após a publicação de 12/09/1990 (art. 118 do CDC), ou seja, 11/03/1991."
+  },
+  {
+    "id": "cdc-art-42-pu",
+    "titulo": "Repetição do indébito em dobro",
+    "texto": "O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",
+    "citacao": {
+      "ato": "Lei nº 8.078/1990 (Código de Defesa do Consumidor)",
+      "dispositivo": "art. 42, parágrafo único",
+      "vigencia_inicio": "1991-03-11",
+      "vigencia_fim": null,
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "devolução em dobro",
+      "cobrança indevida",
+      "repetição do indébito"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www2.camara.leg.br/legin/fed/lei/1990/lei-8078-11-setembro-1990-365086-normaatualizada-pl.html (o portal do Planalto bloqueia acesso automatizado)",
+    "observacoes": "Vigência: 180 dias após a publicação de 12/09/1990 (art. 118 do CDC), ou seja, 11/03/1991."
+  },
+  {
+    "id": "df7888-art-1",
+    "titulo": "Objeto: direitos dos contribuintes da CIP no Distrito Federal",
+    "texto": "Art. 1º Esta Lei estabelece os direitos dos usuários do serviço de iluminação pública e dos contribuintes da Contribuição de Iluminação Pública – CIP no Distrito Federal, com vistas à garantia de segurança, eficiência, transparência e participação social na prestação deste serviço público essencial.",
+    "citacao": {
+      "ato": "Lei Distrital nº 7.888/2026 (Lei de Defesa dos Usuários do Serviço de Iluminação Pública)",
+      "dispositivo": "art. 1º, caput",
+      "vigencia_inicio": "2026-05-11",
+      "vigencia_fim": null,
+      "url": "https://www.sinj.df.gov.br/sinj/Norma/d6b624398a9d4a128427d5961faaef54/Lei_7888_06_05_2026.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "CIP",
+      "COSIP",
+      "iluminação pública",
+      "contribuinte"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
+    "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
+  },
+  {
+    "id": "df7888-art-2-iii",
+    "titulo": "Definição de contribuinte da CIP",
+    "texto": "III – contribuinte da CIP: pessoa física ou jurídica que figure como titular de unidade consumidora de energia elétrica sujeita à cobrança da Contribuição de Iluminação Pública no Distrito Federal;",
+    "citacao": {
+      "ato": "Lei Distrital nº 7.888/2026 (Lei de Defesa dos Usuários do Serviço de Iluminação Pública)",
+      "dispositivo": "art. 2º, inciso III",
+      "vigencia_inicio": "2026-05-11",
+      "vigencia_fim": null,
+      "url": "https://www.sinj.df.gov.br/sinj/Norma/d6b624398a9d4a128427d5961faaef54/Lei_7888_06_05_2026.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "CIP",
+      "COSIP",
+      "contribuinte",
+      "unidade consumidora"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
+    "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
+  },
+  {
+    "id": "df7888-art-4",
+    "titulo": "Direitos do contribuinte da CIP: informação, revisão e restituição",
+    "texto": "Art. 4º São direitos dos contribuintes da Contribuição de Iluminação Pública – CIP no Distrito Federal:\nI – obter, mediante solicitação ou acesso a sistema eletrônico oficial, as seguintes informações relativas à arrecadação e aplicação dos recursos da CIP:\na) valores arrecadados mensalmente, por faixa de consumo de energia elétrica;\nb) arrecadação total por região administrativa do Distrito Federal;\nc) demonstrativo dos investimentos e manutenções realizados em cada região administrativa, com descrição dos serviços e valores empenhados;\nII – ser informado sobre a metodologia de cálculo da CIP, bem como sobre os critérios de reajuste e os dispositivos legais que regulam sua cobrança;\nIII – ter direito à revisão dos lançamentos da CIP em caso de erro, duplicidade ou inconsistência de cobrança;\nIV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.",
+    "citacao": {
+      "ato": "Lei Distrital nº 7.888/2026 (Lei de Defesa dos Usuários do Serviço de Iluminação Pública)",
+      "dispositivo": "art. 4º, caput e incisos I a IV",
+      "vigencia_inicio": "2026-05-11",
+      "vigencia_fim": null,
+      "url": "https://www.sinj.df.gov.br/sinj/Norma/d6b624398a9d4a128427d5961faaef54/Lei_7888_06_05_2026.html"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "CIP",
+      "COSIP",
+      "revisão",
+      "restituição",
+      "cobrança indevida",
+      "duplicidade"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-09",
+    "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
+    "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
+  }
+]
