@@ -16,6 +16,19 @@ def test_saude_responde_ok() -> None:
     assert resposta.json()["status"] == "ok"
 
 
+def test_origens_publicas_configuradas_sem_coringa(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("FA_CORS_ORIGINS", " https://fatura.example/ , https://outra.example ")
+    assert api_main.origens_permitidas() == [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://fatura.example",
+        "https://outra.example",
+    ]
+    monkeypatch.setenv("FA_CORS_ORIGINS", "*")
+    with pytest.raises(ValueError, match="HTTPS exatas"):
+        api_main.origens_permitidas()
+
+
 def test_metricas_nao_expoem_dados_da_fatura() -> None:
     resposta = TestClient(app).get("/metricas")
     assert resposta.status_code == 200
