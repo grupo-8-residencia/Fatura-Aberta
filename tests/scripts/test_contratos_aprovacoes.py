@@ -175,11 +175,13 @@ def test_aprovacao_posteriormente_descartada_falha() -> None:
 
 def test_workflows_reduzem_o_json_antes_de_exportar() -> None:
     """PRs grandes estouravam o limite de argumento ("Argument list too long") ao exportar o
-    JSON completo (com os diffs) como variável de ambiente."""
+    JSON completo (com os diffs) como variável de ambiente. Cada variável precisa passar por jq."""
     for nome in ("ci.yml", "contratos-revisao.yml"):
         texto = (RAIZ / ".github" / "workflows" / nome).read_text(encoding="utf-8")
-        assert texto.count("| jq -c") == 3, nome
-        assert "{filename, previous_filename}" in texto, nome
+        for variavel in ("PULL_JSON", "FILES_JSON", "REVIEWS_JSON"):
+            atribuicao = re.search(rf'{variavel}="\$\((.*?)\n\s*\)"', texto, flags=re.DOTALL)
+            assert atribuicao is not None, f"{nome}: {variavel} não encontrada"
+            assert "jq " in atribuicao.group(1), f"{nome}: {variavel} sem redução por jq"
 
 
 def test_validacao_aceita_payload_grande_reduzido() -> None:

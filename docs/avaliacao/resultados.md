@@ -6,6 +6,8 @@
     As perguntas foram escritas a partir do próprio texto dos dispositivos, então o recall@5 está
     provavelmente otimista. Os números abaixo são reais e reprodutíveis, mas não são o resultado final.
 
+    **Status do golden set:** os hashes foram congelados (`checksums.sha256`) antes desta rodada, mas as 120 perguntas ainda não tiveram revisão humana. A regra de `dados/README.md` (conjuntos do experimento são congelados antes das rodadas) foi cumprida quanto ao hash, não quanto à revisão. Se a revisão alterar perguntas, será preciso refazer o congelamento e a rodada. Trate os resultados como **preliminares**.
+
 ## S3: B1, B2 e B3
 
 Intervalos de confiança de 95% por bootstrap (B = 10.000, semente 20261109). Fonte:
@@ -20,7 +22,7 @@ gerado por `.venv/bin/python avaliacao/rodar_b2_b3.py`.
 
 **B3 − B2 no acerto por item:** +0,083 (IC 95% [0,042; 0,133]). **McNemar pareado:** 10 itens em que o
 B2 erra e o B3 acerta, 0 no sentido contrário; χ² com correção de Edwards = 8,1, p = 0,0044
-(p exato binomial = 0,0020). A diferença é significativa a 5%.
+(p exato binomial = 0,0020). A diferença é significativa a 5%, **mas esse p-valor só vale para este golden set, em que a vantagem do B3 vem dos 12 itens de vigência incluídos de propósito (ver abaixo). Não deve ser citado sem essa limitação.**
 
 ### O que o resultado mostra e o que não mostra
 
