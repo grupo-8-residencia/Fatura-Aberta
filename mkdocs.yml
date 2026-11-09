@@ -12,6 +12,7 @@ exclude_docs: |
   _templates/
   produto/definicao/
   material_didatico*
+  material_ditatico*
 
 theme:
   name: material

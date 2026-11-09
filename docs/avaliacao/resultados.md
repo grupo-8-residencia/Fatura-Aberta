@@ -8,6 +8,17 @@
 
     **Status do golden set:** os hashes foram congelados (`checksums.sha256`) antes desta rodada, mas as 120 perguntas ainda não tiveram revisão humana. A regra de `dados/README.md` (conjuntos do experimento são congelados antes das rodadas) foi cumprida quanto ao hash, não quanto à revisão. Se a revisão alterar perguntas, será preciso refazer o congelamento e a rodada. Trate os resultados como **preliminares**.
 
+## S2: Gate de Recall@5 da Norma Vigente (F2)
+
+Medição oficial do Gate da Sprint S2 sobre 30 perguntas com versão-gabarito do golden set (`dados/golden-set/perguntas.jsonl`).
+Intervalo de confiança de 95% por bootstrap (B = 10.000, semente 20261109). Fonte:
+[`avaliacao/resultados/s2-recall-gate.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-recall-gate.json),
+gerado por `uv run python avaliacao/medir_recall_s2.py`.
+
+| Métrica de Gate | Meta da Sprint S2 | Resultado Obtido [IC 95%] | Status |
+|---|---|---|---|
+| **recall@5 da norma vigente (n = 30)** | ≥ 0,70 | **0,967 [0,900; 1,000]** (29 acertos em 30) | **APROVADO (GO)** |
+
 ## S3: B1, B2 e B3
 
 Intervalos de confiança de 95% por bootstrap (B = 10.000, semente 20261109). Fonte:

@@ -1,0 +1,1247 @@
+{
+  "sprint": "S2",
+  "frente": "F2",
+  "n_perguntas": 30,
+  "acertos": 29,
+  "meta_gate": 0.7,
+  "passou_gate": true,
+  "recall_at_5": {
+    "estimativa": 0.9667,
+    "ic95_inferior": 0.9,
+    "ic95_superior": 1.0,
+    "formatado": "0.967 [0.900; 1.000]"
+  },
+  "detalhes": [
+    {
+      "id": "GS-Q001",
+      "categoria": "tarifas_b1",
+      "pergunta": "Quem pode ser classificado na subclasse residencial baixa renda (tarifa social)?",
+      "esperado": [
+        "ren1000-art-177"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.6522,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.6504,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.6078,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.1631,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.1533,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q002",
+      "categoria": "tarifas_b1",
+      "pergunta": "Qual a renda máxima por pessoa para a família do CadÚnico entrar na tarifa social?",
+      "esperado": [
+        "ren1000-art-177"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.5672,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.2697,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.269,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.1897,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::caput",
+          "dispositivo": "art. 307, caput",
+          "score": 0.1497,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q003",
+      "categoria": "tarifas_b1",
+      "pergunta": "Idoso que recebe BPC tem direito à subclasse baixa renda?",
+      "esperado": [
+        "ren1000-art-177"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.6409,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.3649,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.3227,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-6::inc-vi",
+          "dispositivo": "art. 6º, inciso VI",
+          "score": 0.1903,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.1338,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q004",
+      "categoria": "tarifas_b1",
+      "pergunta": "Família com renda de até três salários-mínimos pode ter tarifa social?",
+      "esperado": [
+        "ren1000-art-177"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.734,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.3099,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.3077,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.3077,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.1778,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q005",
+      "categoria": "tarifas_b1",
+      "pergunta": "Como é calculada a fatura do grupo B quando o consumo é muito baixo?",
+      "esperado": [
+        "ren1000-art-290"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-290::p4",
+          "dispositivo": "art. 290, § 4º",
+          "score": 0.4218,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.3052,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::p2",
+          "dispositivo": "art. 323, § 2º",
+          "score": 0.2965,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-343::caput",
+          "dispositivo": "art. 343, caput",
+          "score": 0.2903,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::p2",
+          "dispositivo": "art. 260, § 2º",
+          "score": 0.2672,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q006",
+      "categoria": "tarifas_b1",
+      "pergunta": "A diferença cobrada pelo custo de disponibilidade pode ser compensada depois?",
+      "esperado": [
+        "ren1000-art-290"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-290::p2",
+          "dispositivo": "art. 290, § 2º",
+          "score": 0.5762,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.3049,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.2794,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.2635,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.2396,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q007",
+      "categoria": "tarifas_b1",
+      "pergunta": "O custo de disponibilidade vale para iluminação pública?",
+      "esperado": [
+        "ren1000-art-290"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-290::p1",
+          "dispositivo": "art. 290, § 1º",
+          "score": 0.5505,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.4332,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-1",
+          "dispositivo": "art. 1º, caput",
+          "score": 0.42,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-2-iii::inc-iii",
+          "dispositivo": "art. 2º, inciso III",
+          "score": 0.3596,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.325,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q008",
+      "categoria": "tarifas_b1",
+      "pergunta": "Unidade de baixa renda tem desconto no custo de disponibilidade?",
+      "esperado": [
+        "ren1000-art-290"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.6004,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.4571,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.4138,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.3461,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.2452,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q009",
+      "categoria": "tarifas_b1",
+      "pergunta": "Na tarifa branca, com qual tarifa se calcula o custo de disponibilidade?",
+      "esperado": [
+        "ren1000-art-290"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-290::p4",
+          "dispositivo": "art. 290, § 4º",
+          "score": 0.83,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.4403,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.2928,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.2779,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.2738,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q010",
+      "categoria": "tarifas_b1",
+      "pergunta": "A fatura precisa mostrar as tarifas aplicadas?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.3907,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.3418,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.3399,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-289",
+          "dispositivo": "art. 289",
+          "score": 0.2172,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.1931,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q011",
+      "categoria": "tarifas_b1",
+      "pergunta": "Que informações mínimas a fatura de energia deve trazer?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.4905,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::p2",
+          "dispositivo": "art. 260, § 2º",
+          "score": 0.3538,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.3149,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.2936,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.2815,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q012",
+      "categoria": "tarifas_b1",
+      "pergunta": "A fatura deve discriminar a tarifa branca por posto tarifário?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.8205,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p4",
+          "dispositivo": "art. 290, § 4º",
+          "score": 0.4083,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.2992,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.1857,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.1643,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q013",
+      "categoria": "tarifas_b1",
+      "pergunta": "A fatura precisa informar impostos e contribuições?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.5333,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.3198,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.3127,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::p4",
+          "dispositivo": "art. 324, § 4º",
+          "score": 0.2499,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::p2",
+          "dispositivo": "art. 260, § 2º",
+          "score": 0.2473,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q014",
+      "categoria": "tarifas_b1",
+      "pergunta": "O valor da bandeira precisa aparecer na fatura?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.3213,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.2687,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.2666,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2557,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.2537,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q015",
+      "categoria": "tarifas_b1",
+      "pergunta": "Onde fica o código para pagar a fatura?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.2167,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.2147,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-289",
+          "dispositivo": "art. 289",
+          "score": 0.1901,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.1762,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42-pu",
+          "dispositivo": "art. 42, parágrafo único",
+          "score": 0.1724,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q016",
+      "categoria": "tarifas_b1",
+      "pergunta": "Quais valores de produtos e serviços aparecem na fatura?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.4846,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.3266,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.2674,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-289",
+          "dispositivo": "art. 289",
+          "score": 0.2562,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.2532,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q017",
+      "categoria": "bandeiras",
+      "pergunta": "Como a bandeira tarifária é aplicada na fatura?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.8055,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.7916,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.4702,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-289",
+          "dispositivo": "art. 289",
+          "score": 0.2941,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-343::p3",
+          "dispositivo": "art. 343, § 3º",
+          "score": 0.2737,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q018",
+      "categoria": "bandeiras",
+      "pergunta": "Se a bandeira mudou no meio do ciclo, como é cobrada?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.4061,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::p2",
+          "dispositivo": "art. 324, § 2º",
+          "score": 0.2568,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.2332,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.2231,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2107,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q019",
+      "categoria": "bandeiras",
+      "pergunta": "A bandeira tarifária vale em sistemas isolados?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-307::p3",
+          "dispositivo": "art. 307, § 3º",
+          "score": 0.6311,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p1",
+          "dispositivo": "art. 290, § 1º",
+          "score": 0.3631,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.3203,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.1669,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.1632,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q020",
+      "categoria": "bandeiras",
+      "pergunta": "A cobrança de bandeira é proporcional aos dias?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-307::caput",
+          "dispositivo": "art. 307, caput",
+          "score": 0.6528,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.3913,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.3198,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.2656,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::caput",
+          "dispositivo": "art. 357, caput",
+          "score": 0.1952,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q021",
+      "categoria": "bandeiras",
+      "pergunta": "Em que consumo incide a bandeira tarifária?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.6925,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::caput",
+          "dispositivo": "art. 307, caput",
+          "score": 0.5405,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p4",
+          "dispositivo": "art. 290, § 4º",
+          "score": 0.2773,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2451,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.1982,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q022",
+      "categoria": "bandeiras",
+      "pergunta": "A fatura precisa destacar o valor adicional da bandeira?",
+      "esperado": [
+        "ren1000-art-327"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.4135,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.2499,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p2",
+          "dispositivo": "art. 360, § 2º",
+          "score": 0.22,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-356::p2",
+          "dispositivo": "art. 356, § 2º",
+          "score": 0.196,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.1897,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q023",
+      "categoria": "bandeiras",
+      "pergunta": "A bandeira tarifária é aplicada na tarifa social?",
+      "esperado": [
+        "ren1000-art-307",
+        "ren1000-art-177"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-307::p3",
+          "dispositivo": "art. 307, § 3º",
+          "score": 0.675,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.6154,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.5113,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.3839,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.3288,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q024",
+      "categoria": "bandeiras",
+      "pergunta": "Como é calculada a bandeira vermelha em dias diferentes do mês?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-323::p2",
+          "dispositivo": "art. 323, § 2º",
+          "score": 0.3008,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::caput",
+          "dispositivo": "art. 307, caput",
+          "score": 0.2841,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-343::caput",
+          "dispositivo": "art. 343, caput",
+          "score": 0.2625,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-281::pu",
+          "dispositivo": "art. 281, parágrafo único",
+          "score": 0.1969,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p2",
+          "dispositivo": "art. 290, § 2º",
+          "score": 0.1938,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q025",
+      "categoria": "bandeiras",
+      "pergunta": "Existe regra de bandeira para unidades com medição apropriada?",
+      "esperado": [
+        "ren1000-art-307"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.4697,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p3",
+          "dispositivo": "art. 360, § 3º",
+          "score": 0.265,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2364,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.2149,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-6::inc-viii",
+          "dispositivo": "art. 6º, inciso VIII",
+          "score": 0.1872,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q026",
+      "categoria": "medicao_estimada",
+      "pergunta": "De quanto em quanto tempo o medidor do grupo B deve ser lido?",
+      "esperado": [
+        "ren1000-art-260"
+      ],
+      "recuperou": false,
+      "top5": [
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.3633,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::p3",
+          "dispositivo": "art. 323, § 3º",
+          "score": 0.2325,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::p1",
+          "dispositivo": "art. 324, § 1º",
+          "score": 0.1967,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.1628,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.1565,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q027",
+      "categoria": "medicao_estimada",
+      "pergunta": "Quando a leitura pode ter intervalo de 15 a 47 dias?",
+      "esperado": [
+        "ren1000-art-260"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-260::p1",
+          "dispositivo": "art. 260, § 1º",
+          "score": 0.7348,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.4185,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.3296,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.265,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-289",
+          "dispositivo": "art. 289",
+          "score": 0.164,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q028",
+      "categoria": "medicao_estimada",
+      "pergunta": "A distribuidora deve avisar a mudança do calendário de leitura?",
+      "esperado": [
+        "ren1000-art-260"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-260::p1",
+          "dispositivo": "art. 260, § 1º",
+          "score": 0.3199,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.2044,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-289",
+          "dispositivo": "art. 289",
+          "score": 0.2008,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.1874,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.1726,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q029",
+      "categoria": "medicao_estimada",
+      "pergunta": "E se a leitura for feita antes de 27 dias?",
+      "esperado": [
+        "ren1000-art-285"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.3574,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::caput",
+          "dispositivo": "art. 260, caput",
+          "score": 0.3551,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.269,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-6::inc-viii",
+          "dispositivo": "art. 6º, inciso VIII",
+          "score": 0.2337,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p3",
+          "dispositivo": "art. 360, § 3º",
+          "score": 0.2291,
+          "vigente": true
+        }
+      ]
+    },
+    {
+      "id": "GS-Q030",
+      "categoria": "medicao_estimada",
+      "pergunta": "E se a leitura passar de 33 dias?",
+      "esperado": [
+        "ren1000-art-285"
+      ],
+      "recuperou": true,
+      "top5": [
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.4935,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::caput",
+          "dispositivo": "art. 260, caput",
+          "score": 0.4856,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.2211,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::p2",
+          "dispositivo": "art. 324, § 2º",
+          "score": 0.1815,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::pu",
+          "dispositivo": "art. 357, parágrafo único",
+          "score": 0.1576,
+          "vigente": true
+        }
+      ]
+    }
+  ]
+}

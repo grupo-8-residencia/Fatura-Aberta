@@ -135,3 +135,13 @@ def test_metricas_ampliadas_batem_com_o_arquivo_versionado() -> None:
     for chave in ("ranking", "ablacao_alpha", "abstencao_por_limiar", "fundamentacao"):
         assert r[chave] == versionado[chave]
     assert r["fundamentacao"]["citacoes_vigentes"]["estimativa"] == 1.0
+
+
+def test_gate_s2_recall_em_30_perguntas() -> None:
+    import medir_recall_s2 as mr_s2
+
+    resultado = mr_s2.medir_recall_s2(n_perguntas=30)
+    assert resultado["n_perguntas"] == 30
+    assert resultado["acertos"] >= 21  # >= 70% de 30
+    assert resultado["recall_at_5"]["estimativa"] >= 0.70
+    assert resultado["passou_gate"] is True
