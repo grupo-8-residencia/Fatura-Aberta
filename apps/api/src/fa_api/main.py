@@ -2,9 +2,11 @@
 
 import asyncio
 import logging
+import os
 from collections.abc import Awaitable, Callable
 from threading import Lock
 from time import perf_counter
+from urllib.parse import urlsplit
 
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -49,10 +51,33 @@ class RespostaAnalise(BaseModel):
     aviso: str | None = None
 
 
+def origens_permitidas() -> list[str]:
+    """Inclui a origem pública configurada sem liberar origens arbitrárias."""
+    locais = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    publicas = []
+    for valor in os.getenv("FA_CORS_ORIGINS", "").split(","):
+        origem = valor.strip().rstrip("/")
+        if not origem:
+            continue
+        partes = urlsplit(origem)
+        if (
+            partes.scheme != "https"
+            or not partes.hostname
+            or partes.username
+            or partes.password
+            or partes.path
+            or partes.query
+            or partes.fragment
+        ):
+            raise ValueError("FA_CORS_ORIGINS deve conter apenas origens HTTPS exatas")
+        publicas.append(origem)
+    return [*locais, *publicas]
+
+
 app = FastAPI(title="Fatura Aberta - API", version=__version__)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=origens_permitidas(),
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["content-type"],
