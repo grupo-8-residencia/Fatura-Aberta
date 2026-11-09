@@ -47,6 +47,7 @@ O verificador de saída (`RF-15`, a ser implementado nas Sprints 2 e 3) deverá 
 
 ## Diretrizes internas propostas para validação jurídica (`S1-04`)
 
+- **Roteiro e ficha de registro:** [roteiro-parecer-juridico.md](roteiro-parecer-juridico.md) (preparado; conversa ainda não realizada).
 - **Status:** Diretrizes internas **propostas** pelas frentes `F1` e `F5`, **pendentes de validação em conversa com docente de Direito** (issue `#4` / `S1-04`).
 - **Escopo da consulta a realizar:** Delimitação entre sistema informativo de transparência tarifária e atividade privativa de consultoria e assessoria jurídica (Lei nº 8.906/1994 — Estatuto da Advocacia e a OAB, art. 1º, II).
 - **Pontos submetidos à validação:**

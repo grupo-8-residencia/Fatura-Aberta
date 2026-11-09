@@ -112,6 +112,7 @@ nav:
       - conformidade/index.md
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
+      - Roteiro do parecer jurídico: conformidade/roteiro-parecer-juridico.md
       - Política de dados: conformidade/politica-de-dados.md
   - Segurança:
       - Injeção por imagem: seguranca/injecao-por-imagem.md
