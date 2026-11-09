@@ -99,3 +99,39 @@ def test_rodada_b2_b3_e_reprodutivel_e_b3_nao_viola_vigencia() -> None:
     assert not iguais
     versionado = json.loads(rb.SAIDA_PADRAO.read_text(encoding="utf-8"))
     assert versionado["metricas"] == r["metricas"]
+
+
+def test_metricas_de_ranking_valores_conhecidos() -> None:
+    import math as m
+
+    import metricas_recuperacao as mr
+
+    rk = [["a", "b", "c"], ["x", "a", "c"], ["x", "y", "z"]]
+    can = [{"a"}, {"a"}, {"a"}]
+    r = mr.metricas_ranking(rk, can)
+    assert r["hit@1"]["estimativa"] == pytest.approx(1 / 3)
+    assert r["hit@3"]["estimativa"] == pytest.approx(2 / 3)
+    assert r["MRR"]["estimativa"] == pytest.approx((1 + 1 / 2 + 0) / 3)
+    assert r["nDCG@5"]["estimativa"] == pytest.approx((1 + 1 / m.log2(3) + 0) / 3)
+    assert r["precisao@5"]["estimativa"] == pytest.approx((1 / 5 + 1 / 5 + 0) / 3)
+
+
+def test_metricas_de_abstencao_valores_conhecidos() -> None:
+    import metricas_recuperacao as mr
+
+    m = mr.metricas_abstencao([True, True, False, False], [True, False, True, False])
+    assert (m["vp"], m["fp"], m["fn"]) == (1, 1, 1)
+    assert m["precisao"] == pytest.approx(0.5) and m["recall"] == pytest.approx(0.5)
+    assert m["f1"] == pytest.approx(0.5) and m["acuracia"] == pytest.approx(0.5)
+    zero = mr.metricas_abstencao([False, False], [False, False])
+    assert zero["f1"] == 0.0
+
+
+def test_metricas_ampliadas_batem_com_o_arquivo_versionado() -> None:
+    import metricas_recuperacao as mr
+
+    r = mr.rodar()
+    versionado = json.loads(mr.SAIDA.read_text(encoding="utf-8"))
+    for chave in ("ranking", "ablacao_alpha", "abstencao_por_limiar", "fundamentacao"):
+        assert r[chave] == versionado[chave]
+    assert r["fundamentacao"]["citacoes_vigentes"]["estimativa"] == 1.0
