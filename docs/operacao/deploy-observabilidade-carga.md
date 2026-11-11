@@ -35,6 +35,12 @@ HTTP 200 e 422. Em **Application logs** da API no Render, a busca pelo marcador
 fictício no intervalo de uma hora retornou "No matching logs". As entradas
 correspondentes mostraram método, caminho e status, sem corpo da requisição.
 
+**Revisão após publicação da `dev` (11/11/2026, 08:54 BRT):** uma requisição
+válida e outra inválida com marcador sintético retornaram HTTP 200 e 422.
+Em **Application logs** da API no Render, a busca pelo marcador no intervalo
+de uma hora retornou "No matching logs". As entradas correspondentes exibiram
+método, caminho e status, sem o corpo das requisições.
+
 ## Teste de carga leve
 
 Com a API em execução, rode:
@@ -44,7 +50,7 @@ uv run python scripts/teste_carga_leve.py
 ```
 
 O comando faz 100 requisições sintéticas a `POST /analisar`, com 5 simultâneas.
-A meta proposta para a S6 é **100% de respostas HTTP 200 e p95 ≤ 2.000 ms**,
+A meta aceita para a S6 é **100% de respostas HTTP 200 e p95 ≤ 2.000 ms**,
 com a aplicação já ativa. O comando sai com erro se a meta não for atingida.
 Ele não usa dados reais. Para medir o serviço público, rode:
 
@@ -62,8 +68,10 @@ uv run python scripts/teste_carga_leve.py --url https://URL-DA-API --requisicoes
 ```
 
 Documente a data, a URL, a quantidade de requisições, a concorrência, a taxa de
-sucesso e o p95. A execução local não substitui a medição pública. A meta acima
-precisa do aceite da equipe antes de encerrar a issue.
+sucesso e o p95. A execução local não substitui a medição pública. O aceite
+da meta foi registrado pela responsável da frente F6 na
+[issue #44](https://github.com/grupo-8-residencia/Fatura-Aberta/issues/44#issuecomment-6795360157)
+em 11/11/2026.
 
 **Evidência local (09/11/2026):** com API e interface em Docker Compose,
 100/100 respostas HTTP 200, 5 requisições simultâneas, p95 de 7 ms em
@@ -72,13 +80,19 @@ precisa do aceite da equipe antes de encerrar a issue.
 **Evidência pública (09/11/2026):** 100/100 respostas HTTP 200, 5
 requisições simultâneas, p95 de 523 ms na API do Render, após a aplicação
 estar ativa. O formulário público retornou o cartão de decisão com dados
-sintéticos. A meta proposta foi atingida; falta o aceite da equipe.
+sintéticos. A meta proposta foi atingida e posteriormente aceita.
 
 **Medição adicional (09/11/2026):** a primeira requisição isolada após um
 período sem tráfego manual respondeu HTTP 200 em 15.658 ms. Não foi verificado
 no painel se a instância havia hibernado, portanto esse tempo não deve ser
 tratado como tempo de inicialização confirmado. Em seguida, com o serviço
 ativo, 100/100 respostas HTTP 200 e p95 de 777 ms com 5 simultâneas.
+
+**Validação da `dev` publicada (11/11/2026, 08:53 BRT):** na API pública,
+100/100 respostas HTTP 200, 5 requisições simultâneas e p95 de 578 ms,
+com a aplicação ativa. A interface e `GET /saude` responderam HTTP 200;
+o formulário com valores sintéticos exibiu o cartão de decisão. O preflight
+CORS autorizou a origem da interface e rejeitou uma origem não configurada.
 
 ## Publicação externa (Render)
 
@@ -107,9 +121,9 @@ nem no Git.
 **URLs públicas:** [interface](https://fatura-aberta-web-s6.onrender.com/) e
 [API](https://fatura-aberta-api-s6.onrender.com/saude). Os dois serviços estão
 no plano gratuito e podem hibernar após inatividade, atrasando a primeira
-requisição. Foram publicados a partir da branch `feat/44-public-deploy`, com
-deploy automático desligado. Depois do merge do PR, altere a branch dos
-serviços para `dev`, faça o deploy dessa versão e repita as verificações.
+requisição. Em 11/11/2026, os dois serviços passaram a usar a branch `dev`,
+com deploy manual do commit `f9e4135`; ambos ficaram com status **Live** no
+Render. O deploy automático permanece desligado.
 
 ### Rollback
 
