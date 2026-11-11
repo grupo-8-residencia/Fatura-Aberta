@@ -38,6 +38,36 @@ cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorr
 | REN 1.000/2021, art. 179 e art. 291 (tarifa social) | Redação alterada pela REN ANEEL 1.147/2025; TODO: confirmar a data de início da nova redação |
 | Lei nº 12.212/2010 (tarifa social) | TODO: conferir |
 
+## Manifesto de atos e conversor (F4)
+
+`manifesto_atos.json` é o inventário dos atos normativos candidatos ao corpus: nome, vigência,
+URL oficial, `status` (`ok`, `a_confirmar` ou `excluido`), origem e observações. Um ato `excluido`
+não conta (por exemplo, o Decreto 8.426/2015 trata de PIS/COFINS sobre receitas financeiras, não da
+fatura). `status = ok` significa ato e vigência conferidos; o resto precisa de conferência.
+
+`scripts/converter_norma.py` transforma o texto de uma norma em itens candidatos, sem alterar o
+`corpus_b1.json`:
+
+```bash
+# um ato (HTML ou PDF, por URL ou arquivo)
+uv run python scripts/converter_norma.py --arquivo norma.pdf --url-oficial https://... \
+    --ato "REN ANEEL nº 1.000/2021" --prefixo ren1000 --vigencia-inicio 2022-01-03 --artigos 327,343
+
+# todos os atos do manifesto que tiverem arquivo em normas_baixadas/
+uv run python scripts/converter_norma.py --manifesto dados/normas/manifesto_atos.json
+```
+
+- Os servidores da ANEEL e do Planalto bloqueiam acesso automatizado: baixe a norma no navegador e
+  salve em `normas_baixadas/<prefixo>.pdf` (ou `.html`). Essa pasta e `candidatos/` (a saída) estão no
+  `.gitignore`, porque **PDF não entra no Git**.
+- Todo item sai com `conferido = "A verificar"` e `titulo = "A PREENCHER"`; o índice o ignora até
+  uma pessoa comparar com o texto oficial, preencher `titulo` e `tags` e marcar `"sim"`.
+- A limpeza tira cabeçalhos, rodapés, numeração de página e as notas de redação. As notas removidas
+  vão para `observacoes`, porque indicam quando o dispositivo mudou; trechos revogados ou vetados
+  ficam no texto e são sinalizados.
+- Limites: só captura artigos (`Art. N`), não anexos nem tabelas de tarifa; PDF escaneado, sem texto,
+  não funciona; o nome de quem assina a norma pode ficar no fim do último artigo.
+
 ## Regras
 
 1. Nenhuma fonte entra sem URL oficial e vigência registrada.
