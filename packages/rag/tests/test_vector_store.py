@@ -283,3 +283,58 @@ def test_indice_duravel_recalcula_se_o_texto_dimensao_ou_arquivo_mudou(tmp_path:
     arq.write_text("não é json", encoding="utf-8")
     ok = IndiceHibrido(docs2, arquivo_vetores=arq)
     assert len(ok.documentos) == 2 and json.loads(arq.read_text(encoding="utf-8"))["dim"] == 384
+
+
+def test_recuperacao_termos_leigos_e_sinonimos() -> None:
+    ix = IndiceHibrido.do_corpus()
+    hoje = date(2026, 11, 9)
+    casos = {
+        "de quanto em quanto tempo o medidor é lido no grupo B?": "art. 260",
+        "paguei a conta de energia duas vezes": "art. 342",
+        "corte por falta de pagamento sem avisar antes": "art. 360",
+        "onde fica o código para pagar a fatura?": "art. 327",
+    }
+    for consulta, artigo in casos.items():
+        top = ix.buscar(consulta, data_referencia=hoje, top_k=5, um_por_dispositivo=True)
+        assert any(r.documento.citacao.dispositivo.startswith(artigo) for r in top), consulta
+        resp = responder(top)
+        assert not resp.abstencao, consulta
+
+
+def test_escopo_negativo_e_entidades_induzem_abstencao() -> None:
+    ix = IndiceHibrido.do_corpus()
+    hoje = date(2026, 11, 9)
+    for consulta in (
+        "a taxa de iluminação sofre multa por atraso?",
+        "a CIP/COSIP entra no cálculo da multa da fatura?",
+    ):
+        top = ix.buscar(consulta, data_referencia=hoje, top_k=5, um_por_dispositivo=True)
+        assert responder(top).abstencao, consulta
+
+    valida = ix.buscar(
+        "posso pedir revisão da CIP por cobrança em duplicidade?",
+        data_referencia=hoje,
+        top_k=5,
+        um_por_dispositivo=True,
+    )
+    resp = responder(valida)
+    assert not resp.abstencao
+    assert any("7.888/2026" in c.ato for c in resp.citacoes)
+
+
+def test_chunkar_dispositivo_preserva_nao_cobre() -> None:
+    doc = DocumentoNormativo(
+        id="df7888-teste",
+        titulo="Direitos da CIP",
+        texto="Art. 1º Direitos.\n§ 1º Revisão garantida.",
+        citacao=Citacao(
+            ato="Lei Teste",
+            dispositivo="art. 1º",
+            vigencia_inicio=date(2026, 1, 1),
+            url="https://exemplo.test/lei",
+        ),
+        nao_cobre=("aliquota", "multa"),
+    )
+    chunks = chunkar_dispositivo(doc)
+    assert len(chunks) == 2
+    assert all(chunk.nao_cobre == ("aliquota", "multa") for chunk in chunks)
