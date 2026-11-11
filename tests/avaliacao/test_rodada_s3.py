@@ -152,3 +152,44 @@ def test_metricas_incluem_ic_mcnemar_e_deteccao_por_tipo(faturas: list[dict[str,
     mc = m["mcnemar"]["B3_vs_B2"]
     assert mc["n10_primeiro_acerta_segundo_erra"] == 0
     assert mc["n01_primeiro_erra_segundo_acerta"] == 200 and mc["significativo_5pct"]
+
+
+def test_cita_dispositivo_reconhece_ato_e_artigo_em_texto_livre() -> None:
+    assert rs.cita_dispositivo("REN ANEEL 1.000/2021, art. 323, § 2º", {"ren1000-art-323"})
+    assert rs.cita_dispositivo("Resolução Normativa 1000, artigo 360", {"ren1000-art-360"})
+    assert rs.cita_dispositivo("CDC art. 42, parágrafo único", {"cdc-art-42-pu"})
+    assert rs.cita_dispositivo("Lei Distrital 7.888/2026, art. 4º", {"df7888-art-4"})
+    assert not rs.cita_dispositivo("REN 1.000/2021, art. 324", {"ren1000-art-323"})  # outro artigo
+    assert not rs.cita_dispositivo("art. 323 do Código Civil", {"ren1000-art-323"})  # outro ato
+    assert not rs.cita_dispositivo("sem citação", {"ren1000-art-323"})
+
+
+def test_llm_puro_nao_recebe_dispositivos_e_cita_de_memoria(
+    perguntas: list[dict[str, Any]],
+) -> None:
+    normativa = next(p for p in perguntas if p["tipo"] == "normativa")
+    cliente = ClienteFalso(
+        resposta=json.dumps(
+            {
+                "analise": "",
+                "resposta": "ok",
+                "abstencao": False,
+                "citacoes": ["REN ANEEL 1.000/2021, art. 999"],
+            }
+        )
+    )
+    r = rs.rodar_llm_puro_perguntas(cliente, [normativa], _silencio)[0]
+    assert "DISPOSITIVOS" not in cliente.chamadas[0][1]
+    assert r["baseline"] == "LLM" and r["acerto"] is False and r["cita_algo_errado"] is True
+
+
+def test_rag_extrativo_nao_usa_llm_e_se_abstem_fora_do_corpus(
+    indice: IndiceHibrido, perguntas: list[dict[str, Any]]
+) -> None:
+    r = rs.rodar_rag_extrativo_perguntas(indice, perguntas)
+    assert len(r) == 120 and all(i["baseline"] == "RAG" and i["valido"] for i in r)
+    assert all(not i["linguagem"] for i in r)
+    normativas = [i for i in r if i["tipo"] == "normativa"]
+    assert sum(i["acerto"] for i in normativas) / len(normativas) > 0.7
+    m = rs.metricas_perguntas({"RAG": r})
+    assert m["RAG"]["n"] == 120 and m["RAG"]["respostas_invalidas"] == 0

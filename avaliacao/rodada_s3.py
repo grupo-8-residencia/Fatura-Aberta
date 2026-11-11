@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import threading
 import time
@@ -38,7 +39,7 @@ from estatistica import B_PADRAO, SEMENTE_PADRAO, bootstrap_ic, mcnemar  # noqa:
 from fa_agentes import ClienteLLM, criar_cliente, metadados_rodada, verificar_linguagem  # noqa: E402
 from fa_contratos import Achado, Fatura, ItemFatura  # noqa: E402
 from fa_motor import analisar_nivel_a  # noqa: E402
-from fa_rag import IndiceHibrido  # noqa: E402
+from fa_rag import IndiceHibrido, carregar_corpus, responder  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[1]
 GOLDEN = RAIZ / "dados" / "golden-set"
@@ -71,6 +72,21 @@ SISTEMA_PERGUNTA = (
     "pergunta, use abstencao = true, deixe a resposta vazia e não cite nada. Use linguagem de "
     "evidência: nunca diga que algo é ilegal, nunca estime restituição ou ressarcimento e nunca "
     "oriente ação judicial. Raciocine em 'analise' (até 3 linhas) e responda em até 3 frases."
+)
+
+SISTEMA_PERGUNTA_PURO = (
+    "Você responde perguntas sobre a regulação de energia elétrica residencial (grupo B1, "
+    "Distrito Federal) a partir do que você sabe, SEM consultar documentos. Em 'citacoes' "
+    "indique a norma e o dispositivo em que se apoia (por exemplo, 'REN ANEEL 1.000/2021, "
+    "art. 323'). Se você não sabe ou não tem como confirmar, use abstencao = true, deixe a "
+    "resposta vazia e não cite nada. Use linguagem de evidência: nunca diga que algo é ilegal, "
+    "nunca estime restituição ou ressarcimento e nunca oriente ação judicial. Raciocine em "
+    "'analise' (até 3 linhas) e responda em até 3 frases."
+)
+SISTEMA_FATURA_PURO = (
+    SISTEMA_FATURA
+    + " Não há dispositivos fornecidos nem resultados de motor: use só os números da fatura e "
+    "deixe 'citacoes' vazio."
 )
 SISTEMA_JUIZ = (
     "Você é um auditor. Receba a evidência e a saída de um sistema. Decomponha a saída em "
@@ -383,6 +399,138 @@ def rodar_llm_perguntas(
     return _paralelo(perguntas, uma, paralelo, progresso, f"{baseline} pergunta")
 
 
+# --------------------------------------------------------------------------- testes extras
+
+_CHAVES_ATO = {
+    "ren1000": r"1\.?000|\bREN\b",
+    "cdc": r"8\.?078|\bCDC\b|Defesa do Consumidor",
+    "df7888": r"7\.?888",
+}
+_DOCS_CORPUS: dict[str, Any] = {}
+
+
+def cita_dispositivo(texto: str, canonicos: set[str]) -> bool:
+    """Diz se uma citação livre (ex.: 'REN 1.000/2021, art. 323') aponta para um artigo canônico."""
+    if not _DOCS_CORPUS:
+        _DOCS_CORPUS.update({d.id: d for d in carregar_corpus()})
+    for cid in canonicos:
+        doc = _DOCS_CORPUS.get(cid)
+        if doc is None:
+            continue
+        num = re.search(r"art\.\s*(\d+)", str(doc.citacao.dispositivo))
+        chave = _CHAVES_ATO.get(cid.split("-")[0])
+        if (
+            num
+            and chave
+            and re.search(rf"art(?:igo|\.)?\s*{num.group(1)}(?!\d)", texto, re.I)
+            and re.search(chave, texto, re.I)
+        ):
+            return True
+    return False
+
+
+def rodar_llm_puro_perguntas(
+    cliente: ClienteLLM, perguntas: Sequence[dict[str, Any]],
+    progresso: Callable[[str], None], paralelo: int = 1,
+) -> list[dict[str, Any]]:  # fmt: skip
+    """Teste 1: LLM sem RAG. Cita de memória; o acerto exige apontar o artigo canônico."""
+
+    def uma(p: dict[str, Any]) -> dict[str, Any]:
+        prompt = f"DATA DE REFERÊNCIA: {p['data_referencia']}\nPERGUNTA: {p['pergunta']}\n"
+        res = _chamar(cliente, SISTEMA_PERGUNTA_PURO, prompt, ESQUEMA_PERGUNTA)
+        item: dict[str, Any] = {"id": p["id"], "baseline": "LLM", "tipo": p["tipo"], **res}
+        vazio: dict[str, Any] = {
+            "abstencao": None, "citacoes": [], "acerto": False, "citacoes_inventadas": [],
+            "citacoes_fora_de_vigencia": [], "linguagem": [], "cita_algo_errado": False,
+        }  # fmt: skip
+        if not res["valido"]:
+            return item | vazio
+        d = res["dados"]
+        abst = bool(d.get("abstencao"))
+        cit = [str(c) for c in d.get("citacoes", [])]
+        canon = set(p["citacao_canonica"])
+        acertou_cit = any(cita_dispositivo(c, canon) for c in cit)
+        acerto = abst if p["abstencao_esperada"] else ((not abst) and acertou_cit)
+        return item | {
+            "abstencao": abst,
+            "citacoes": cit,
+            "acerto": acerto,
+            "citacoes_inventadas": [],
+            "citacoes_fora_de_vigencia": [],
+            "linguagem": [x.termo for x in verificar_linguagem(str(d.get("resposta", "")))],
+            "cita_algo_errado": (not abst) and bool(cit) and not acertou_cit,
+        }
+
+    return _paralelo(perguntas, uma, paralelo, progresso, "LLM puro pergunta")
+
+
+def rodar_llm_puro_faturas(
+    cliente: ClienteLLM, faturas: Sequence[dict[str, Any]],
+    progresso: Callable[[str], None], paralelo: int = 1,
+) -> list[dict[str, Any]]:  # fmt: skip
+    """Teste 1 nas faturas: LLM só com os números da fatura, sem RAG e sem motor."""
+
+    def uma(r: dict[str, Any]) -> dict[str, Any]:
+        res = _chamar(cliente, SISTEMA_FATURA_PURO, f"FATURA\n{texto_fatura(r)}\n", ESQUEMA_FATURA)
+        item: dict[str, Any] = {
+            "id": r["id"], "baseline": "LLM", "anomalia": r["anomalia_injetada"],
+            "contexto_ids": [], **res,
+        }  # fmt: skip
+        if not res["valido"]:
+            return item | {
+                "veredito": "invalido", "acerto": False, "linguagem": [], "citacoes_inventadas": [],
+            }  # fmt: skip
+        achados = [a for a in res["dados"].get("achados", []) if isinstance(a, dict)]
+        vereditos = [a.get("veredito") for a in achados]
+        if "diverge_A" in vereditos:
+            v = "diverge_A"
+        elif any(x == "confere" for x in vereditos):
+            v = "confere"
+        else:
+            v = "abstem"
+        textos = " ".join(str(a.get("descricao", "")) for a in achados)
+        return item | {
+            "veredito": v,
+            "acerto": v == r["gabarito_fatura"],
+            "linguagem": [x.termo for x in verificar_linguagem(textos)],
+            "citacoes_inventadas": [],
+        }
+
+    return _paralelo(faturas, uma, paralelo, progresso, "LLM puro fatura")
+
+
+def rodar_rag_extrativo_perguntas(
+    indice: IndiceHibrido, perguntas: Sequence[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Teste 2: RAG sem LLM. Filtra a vigência, recupera e responde só com trechos literais."""
+    saida = []
+    for p in perguntas:
+        data = date.fromisoformat(p["data_referencia"])
+        t0 = time.perf_counter()
+        top = indice.buscar(
+            p["pergunta"], data_referencia=data, top_k=TOP_K, um_por_dispositivo=True
+        )
+        r = responder(top)
+        citados = {_artigo(i) for i in r.ids_fontes}
+        canon = set(p["citacao_canonica"])
+        acerto = (
+            r.abstencao
+            if p["abstencao_esperada"]
+            else ((not r.abstencao) and bool(citados & canon))
+        )
+        saida.append(
+            {
+                "id": p["id"], "baseline": "RAG", "tipo": p["tipo"], "valido": True,
+                "abstencao": r.abstencao, "citacoes": list(r.ids_fontes), "acerto": acerto,
+                "citacoes_inventadas": [], "citacoes_fora_de_vigencia": [],
+                "linguagem": [x.termo for x in verificar_linguagem(r.texto)],
+                "duracao_s": round(time.perf_counter() - t0, 4), "do_cache": False,
+                "recuperou_canonico": bool({_artigo(x.documento.id) for x in top} & canon),
+            }
+        )  # fmt: skip
+    return saida
+
+
 # --------------------------------------------------------------------------- métricas
 
 
@@ -531,7 +679,7 @@ def _gravar(dados: dict[str, Any], caminho: Path) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
-        "--etapa", choices=["b1", "faturas", "perguntas", "juiz", "tudo"], default="tudo"
+        "--etapa", choices=["b1", "faturas", "perguntas", "juiz", "tudo", "extra"], default="tudo"
     )
     ap.add_argument("--limite", type=int, default=None, help="só os N primeiros itens (teste)")
     ap.add_argument("--saida", type=Path, default=SAIDA)
@@ -568,6 +716,15 @@ def main(argv: list[str] | None = None) -> int:
         for b in ("B2", "B3"):
             dados["faturas"][b] = rodar_llm_faturas(gerador, indice, faturas, b, say, args.paralelo)
             _gravar(dados, saida)
+    if args.etapa == "extra":
+        dados.setdefault("perguntas", {})
+        dados.setdefault("faturas", {})
+        dados["perguntas"]["RAG"] = rodar_rag_extrativo_perguntas(indice, perguntas)
+        say(f"RAG extrativo: {sum(i['acerto'] for i in dados['perguntas']['RAG'])} acertos")
+        dados["perguntas"]["LLM"] = rodar_llm_puro_perguntas(gerador, perguntas, say, args.paralelo)
+        _gravar(dados, saida)
+        dados["faturas"]["LLM"] = rodar_llm_puro_faturas(gerador, faturas, say, args.paralelo)
+        _gravar(dados, saida)
     if args.etapa in ("juiz", "tudo") and CSV_JUIZ.exists():
         linhas = ler_csv(CSV_JUIZ)
         b3 = {
