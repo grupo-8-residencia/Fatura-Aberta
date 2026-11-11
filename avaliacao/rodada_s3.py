@@ -55,13 +55,14 @@ SISTEMA_FATURA = (
     "Você confere faturas de energia elétrica residencial (grupo B1) da Neoenergia Brasília. "
     "Use linguagem de evidência: descreva o que os números mostram. Nunca diga que algo é ilegal, "
     "nunca estime restituição ou ressarcimento e nunca oriente ação judicial. Confira com os dados "
-    "da fatura e com os dispositivos fornecidos; cite os ids dos dispositivos que usar. Se não "
-    "puder concluir sobre um item, use o veredito 'abstem'. Faça as contas passo a passo no campo "
-    "'analise' (curta, até 8 linhas) ANTES de emitir os vereditos. Confira: "
-    "(1) leitura atual menos leitura anterior "
-    "contra o consumo informado; (2) quantidade vezes tarifa contra o valor de cada linha; "
-    "(3) a soma das linhas contra o total; (4) a alíquota de ICMS informada. Use 'diverge_A' só "
-    "quando a divergência estiver nos próprios números da fatura."
+    "da fatura e com os dispositivos fornecidos. Faça as contas no campo 'analise' (até 5 linhas) "
+    "ANTES dos vereditos. Confira: (1) leitura atual menos leitura anterior contra o consumo "
+    "informado; (2) quantidade vezes tarifa contra o valor de cada linha; (3) a soma das linhas "
+    "contra o total; (4) a alíquota de ICMS informada. Em 'achados' liste SOMENTE os itens com "
+    "divergência ('diverge_A') ou que você não consegue conferir ('abstem'), cada um com uma frase "
+    "curta; se tudo confere, liste um único achado com item 'Fatura' e veredito 'confere'. Cite em "
+    "'citacoes' apenas ids de dispositivos fornecidos que você realmente usou (pode ser "
+    "vazio). Use 'diverge_A' só quando a divergência estiver nos próprios números da fatura."
 )
 SISTEMA_PERGUNTA = (
     "Você responde perguntas sobre a regulação de energia elétrica residencial (grupo B1, Distrito "
@@ -69,7 +70,7 @@ SISTEMA_PERGUNTA = (
     "sustentam a resposta. Se os dispositivos não cobrirem a pergunta, ou não valerem na data da "
     "pergunta, use abstencao = true, deixe a resposta vazia e não cite nada. Use linguagem de "
     "evidência: nunca diga que algo é ilegal, nunca estime restituição ou ressarcimento e nunca "
-    "oriente ação judicial. Raciocine em 'analise' (curta, até 5 linhas) antes de responder."
+    "oriente ação judicial. Raciocine em 'analise' (até 3 linhas) e responda em até 3 frases."
 )
 SISTEMA_JUIZ = (
     "Você é um auditor. Receba a evidência e a saída de um sistema. Decomponha a saída em "
@@ -556,16 +557,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.etapa in ("b1", "faturas", "tudo"):
         dados.setdefault("faturas", {})["B1"] = rodar_b1(faturas)
         say(f"B1: {sum(i['acerto'] for i in dados['faturas']['B1'])}/{len(faturas)} faturas certas")
-    if args.etapa in ("faturas", "tudo"):
-        for b in ("B2", "B3"):
-            dados["faturas"][b] = rodar_llm_faturas(gerador, indice, faturas, b, say, args.paralelo)
-            _gravar(dados, saida)
     if args.etapa in ("perguntas", "tudo"):
         dados.setdefault("perguntas", {})
         for b in ("B2", "B3"):
             dados["perguntas"][b] = rodar_llm_perguntas(
                 gerador, indice, perguntas, b, say, args.paralelo
             )
+            _gravar(dados, saida)
+    if args.etapa in ("faturas", "tudo"):
+        for b in ("B2", "B3"):
+            dados["faturas"][b] = rodar_llm_faturas(gerador, indice, faturas, b, say, args.paralelo)
             _gravar(dados, saida)
     if args.etapa in ("juiz", "tudo") and CSV_JUIZ.exists():
         linhas = ler_csv(CSV_JUIZ)

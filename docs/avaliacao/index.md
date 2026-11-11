@@ -31,7 +31,7 @@ flowchart LR
 
 - Todas as métricas agregadas são reportadas com **intervalo de confiança de 95% via bootstrap não-paramétrico por percentil**:
   - **Unidade de reamostragem:** fatura (para métricas de cartão/achado, $N=200$) ou pergunta (para métricas de recuperação RAG, $N=120$), preservando a correlação intra-fatura entre itens.
-  - **Número de reamostragens:** $B = 10.000$ amostras com reposição e semente pseudoaleatória fixa (`seed = 42`) para reprodutibilidade exata.
+  - **Número de reamostragens:** $B = 10.000$ amostras com reposição e semente pseudoaleatória fixa (`20261109`, gravada no JSON de cada rodada) para reprodutibilidade exata. A semente de amostragem do LLM é `42` (temperatura 0).
   - **Limites do IC 95%:** percentis empíricos $\theta^*_{(0,025)}$ e $\theta^*_{(0,975)}$ da distribuição bootstrap $\hat{\theta}^*_1, \dots, \hat{\theta}^*_{10.000}$.
 - Para comparações pareadas de proporções binárias no mesmo conjunto (como `B3 vs. B2` em S3 e `B5 vs. B4` em S4), aplica-se adicionalmente o **teste exato/qui-quadrado de McNemar** com nível de significância $\alpha = 0,05$.
 
