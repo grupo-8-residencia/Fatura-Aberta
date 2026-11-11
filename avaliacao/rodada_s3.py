@@ -684,11 +684,23 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--limite", type=int, default=None, help="só os N primeiros itens (teste)")
     ap.add_argument("--saida", type=Path, default=SAIDA)
     ap.add_argument("--paralelo", type=int, default=3, help="chamadas simultâneas ao LLM")
+    ap.add_argument(
+        "--limite-faturas-llm",
+        type=int,
+        default=None,
+        help="chamadas de LLM só nas N primeiras faturas e nas dos itens do juiz",
+    )
     args = ap.parse_args(argv)
     saida = args.saida
 
     faturas = ler_jsonl(GOLDEN / "faturas_sinteticas.jsonl")[: args.limite]
     perguntas = ler_jsonl(GOLDEN / "perguntas.jsonl")[: args.limite]
+    faturas_llm = faturas
+    if args.limite_faturas_llm is not None:
+        ids_juiz = {r["item_id"] for r in ler_csv(CSV_JUIZ)} if CSV_JUIZ.exists() else set()
+        faturas_llm = faturas[: args.limite_faturas_llm] + [
+            f for f in faturas[args.limite_faturas_llm :] if f["id"] in ids_juiz
+        ]
     indice = IndiceHibrido.do_corpus()
     gerador = criar_cliente("gerador", cache_dir=CACHE)
     juiz = criar_cliente("juiz", cache_dir=CACHE)
@@ -701,10 +713,13 @@ def main(argv: list[str] | None = None) -> int:
         {"gerador": gerador, "juiz": juiz}, checksums=GOLDEN / "checksums.sha256", raiz=RAIZ
     )
     dados["cabecalho"]["limite"] = args.limite
+    dados["cabecalho"]["faturas_llm"] = len(faturas_llm)
 
     if args.etapa in ("b1", "faturas", "tudo"):
-        dados.setdefault("faturas", {})["B1"] = rodar_b1(faturas)
-        say(f"B1: {sum(i['acerto'] for i in dados['faturas']['B1'])}/{len(faturas)} faturas certas")
+        dados.setdefault("faturas", {})["B1"] = rodar_b1(faturas_llm)
+        dados["b1_200_faturas"] = rodar_b1(faturas)
+        n_ok = sum(i["acerto"] for i in dados["faturas"]["B1"])
+        say(f"B1: {n_ok}/{len(faturas_llm)} faturas certas")
     if args.etapa in ("perguntas", "tudo"):
         dados.setdefault("perguntas", {})
         for b in ("B2", "B3"):
@@ -714,7 +729,9 @@ def main(argv: list[str] | None = None) -> int:
             _gravar(dados, saida)
     if args.etapa in ("faturas", "tudo"):
         for b in ("B2", "B3"):
-            dados["faturas"][b] = rodar_llm_faturas(gerador, indice, faturas, b, say, args.paralelo)
+            dados["faturas"][b] = rodar_llm_faturas(
+                gerador, indice, faturas_llm, b, say, args.paralelo
+            )
             _gravar(dados, saida)
     if args.etapa == "extra":
         dados.setdefault("perguntas", {})
@@ -723,7 +740,7 @@ def main(argv: list[str] | None = None) -> int:
         say(f"RAG extrativo: {sum(i['acerto'] for i in dados['perguntas']['RAG'])} acertos")
         dados["perguntas"]["LLM"] = rodar_llm_puro_perguntas(gerador, perguntas, say, args.paralelo)
         _gravar(dados, saida)
-        dados["faturas"]["LLM"] = rodar_llm_puro_faturas(gerador, faturas, say, args.paralelo)
+        dados["faturas"]["LLM"] = rodar_llm_puro_faturas(gerador, faturas_llm, say, args.paralelo)
         _gravar(dados, saida)
     if args.etapa in ("juiz", "tudo") and CSV_JUIZ.exists():
         linhas = ler_csv(CSV_JUIZ)
