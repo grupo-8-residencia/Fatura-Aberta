@@ -12,7 +12,7 @@ TEXTO_ABSTENCAO = (
     "Não encontrei no corpus normativo um dispositivo vigente que cubra esta pergunta. "
     "O sistema não responde sem fonte; consulte a distribuidora ou a ANEEL."
 )
-LIMIAR_PADRAO = 0.30
+LIMIAR_PADRAO = 0.25
 
 
 @dataclass(frozen=True, slots=True)
