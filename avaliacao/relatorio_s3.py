@@ -129,7 +129,15 @@ def escolher(tabela: dict[str, Any], candidatos: tuple[str, ...]) -> dict[str, A
     }
 
 
-def comparar(principal: dict[str, Any], extra: dict[str, Any]) -> dict[str, Any]:
+def cobertura_de(principal: Path, extra: Path | None) -> dict[str, Any]:
+    from auditar_cobertura import auditar, carregar, ids_esperados
+
+    return auditar(carregar(principal, extra), ids_esperados())
+
+
+def comparar(
+    principal: dict[str, Any], extra: dict[str, Any], cobertura: dict[str, Any] | None = None
+) -> dict[str, Any]:
     pergs: dict[str, list[dict[str, Any]]] = {
         **principal.get("perguntas", {}),
         **extra.get("perguntas", {}),
@@ -139,6 +147,7 @@ def comparar(principal: dict[str, Any], extra: dict[str, Any]) -> dict[str, Any]
         **extra.get("faturas", {}),
     }
     tp, tf = tabela_perguntas(pergs), tabela_faturas(fats)
+    completo = bool(cobertura and cobertura.get("completo"))
     return {
         "cabecalho": principal.get("cabecalho"),
         "perguntas": tp,
@@ -149,7 +158,14 @@ def comparar(principal: dict[str, Any], extra: dict[str, Any]) -> dict[str, Any]
         "mcnemar_faturas": pares(fats, [("LLM", "B2"), ("B2", "B3"), ("LLM", "B3"), ("B1", "B3")]),
         "escolha_perguntas": escolher(tp, ORDEM_PERGUNTAS),
         "escolha_faturas": escolher(tf, ORDEM_FATURAS),
-        "juiz": principal.get("juiz_calibracao"),
+        "cobertura": cobertura,
+        "completo": completo,
+        # Sem os 5 conjuntos completos, os números acima são parciais e não geram recomendação.
+        "recomendacao_final": (
+            {"perguntas": escolher(tp, ORDEM_PERGUNTAS), "faturas": escolher(tf, ORDEM_FATURAS)}
+            if completo
+            else None
+        ),
     }
 
 
@@ -161,7 +177,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     principal = json.loads(args.principal.read_text(encoding="utf-8"))
     extra = json.loads(args.extra.read_text(encoding="utf-8")) if args.extra.exists() else {}
-    r = comparar(principal, extra)
+    r = comparar(principal, extra, cobertura_de(args.principal, args.extra))
     args.saida.write_text(json.dumps(r, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     for nome, ordem in (("perguntas", ORDEM_PERGUNTAS), ("faturas", ORDEM_FATURAS)):
         print(f"\n{nome}:")
@@ -175,7 +191,9 @@ def main(argv: list[str] | None = None) -> int:
                     f"inválidas={t['invalidas']}  {t['latencia_media_s']}s"
                 )
         print("  escolha:", r[f"escolha_{nome}"])
-    return 0
+    if not r["completo"]:
+        print("\nCOBERTURA INCOMPLETA: sem recomendação final (veja s3-cobertura.json).")
+    return 0 if r["completo"] else 1
 
 
 if __name__ == "__main__":

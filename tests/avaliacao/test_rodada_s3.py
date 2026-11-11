@@ -354,3 +354,15 @@ def test_gravar_privado_nao_apaga_veredito_ja_guardado(tmp_path: Any) -> None:
     rs.gravar_privado_juiz({"J1": {"veredito_juiz": "suportada", "proposicoes_juiz": ""}}, arq)
     rs.gravar_privado_juiz({"J1": {"veredito_juiz": "", "proposicoes_juiz": ""}}, arq)
     assert json.loads(arq.read_text())["J1"]["veredito_juiz"] == "suportada"
+
+
+def test_sem_cobertura_completa_nao_ha_recomendacao_final() -> None:
+    import relatorio_s3 as rel
+
+    principal = {"perguntas": {"B2": [{"id": "Q1", "tipo": "n", "acerto": True}]}, "faturas": {}}
+    parcial = rel.comparar(principal, {}, {"completo": False})
+    assert parcial["recomendacao_final"] is None and parcial["completo"] is False
+    sem_dado = rel.comparar(principal, {}, None)
+    assert sem_dado["recomendacao_final"] is None
+    cheio = rel.comparar(principal, {}, {"completo": True})
+    assert cheio["recomendacao_final"]["perguntas"]["escolhido"] == "B2"
