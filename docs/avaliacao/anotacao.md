@@ -79,37 +79,29 @@ os CSV, então só faça isso antes da distribuição.
 
 ## Anotar pela página (recomendado)
 
-Em vez de planilha, o time pode responder numa página privada de anotação (código em
-`avaliacao/anotacao/pagina.html`). Ela tem três filas: os 30 itens do golden set, 20 perguntas para
-revisar e, quando a rodada S3 terminar, os itens de calibração do juiz.
+Em vez de planilha, o time pode responder numa página de anotação, sem login e sem banco
+(`avaliacao/anotacao/pagina.html`, gerada por `avaliacao/anotacao/construir_pagina.py`). Ela tem três
+filas: os 30 itens do golden set, 20 perguntas para revisar e, quando a rodada S3 terminar, os itens de
+calibração do juiz.
 
-- **Acesso:** a página é compartilhada pelo dono (Pedro) como Contributor. Cada pessoa escolhe seu
-  usuário do GitHub na primeira visita; a escolha fica ligada à conta e um nome já escolhido aparece
-  bloqueado. É autodeclaração: o Pedro confere os nomes antes de consolidar.
-- **Salvamento:** automático, em uma área privada de cada pessoa. Nada precisa ser baixado.
-- **Enviar:** o botão "Enviar respostas" copia suas respostas para a pasta de entregas, que só o dono e
-  editores leem. Pode enviar de novo até a rodada ser fechada.
-- **Juiz às cegas:** a página mostra só a saída do sistema e a evidência. O veredito do juiz automático
-  e a resposta da outra pessoa ficam fora da página até as 80 decisões estarem travadas.
+- **Acesso:** qualquer pessoa com o link. Escolha seu usuário do GitHub; os itens carregados são só os seus.
+- **Salvamento:** automático, no navegador. Limpar os dados do navegador apaga as respostas, então entregue
+  antes.
+- **Entregar:** o botão **Copiar minhas respostas** gera um texto JSON. Cole numa mensagem para o Pedro
+  (ou salve como `respostas-<usuario>.json`).
+- **Juiz às cegas:** a página mostra só a saída do sistema e a evidência. O veredito do juiz automático e
+  a resposta da outra pessoa não entram no HTML.
 - **Revisão das 120 perguntas:** 20 por pessoa, sorteadas com semente fixa
   (`dados/golden-set/anotacoes/distribuicao-revisao.json`), sem repetição.
 
-### Se a sua conta só consegue ler a página
+### Dos arquivos para o repositório
 
-Quem está fora da organização do dono abre a página como leitor e não grava no banco. A página detecta
-isso, salva as respostas no próprio navegador e troca o botão por **Baixar minhas respostas**. Mande o
-arquivo `respostas-<usuario>.json` ao Pedro. O importador aceita esses arquivos individuais junto com o
-export do banco: `scripts/importar_anotacoes.py respostas-*.json`.
-
-### Do banco para o repositório
-
-1. O dono exporta as entregas do banco para um JSON (formato no cabeçalho de
-   `scripts/importar_anotacoes.py`).
-2. Simular (não grava nada): `.venv/bin/python scripts/importar_anotacoes.py export.json`
+1. Salve cada entrega como um arquivo `respostas-<usuario>.json`.
+2. Simular (não grava nada): `.venv/bin/python scripts/importar_anotacoes.py respostas-*.json`
 3. Gravar nos CSV, com backup e registro em `importacoes.jsonl`:
-   `.venv/bin/python scripts/importar_anotacoes.py export.json --aplicar`
+   `.venv/bin/python scripts/importar_anotacoes.py respostas-*.json --aplicar`
 4. Rodar `scripts/consolidar_anotacoes.py` (golden set) e `avaliacao/calibrar_juiz.py` (juiz).
 
-O importador recusa a entrada inteira se houver id fora do que foi atribuído, resposta fora do formato,
-"não" sem correção e justificativa, ou conflito com uma anotação já gravada. Reaplicar o mesmo JSON não
-muda nada.
+O importador recusa tudo se houver id fora do que foi atribuído, resposta fora do formato, "não" sem
+correção e justificativa, ou conflito com uma anotação já gravada. Reaplicar os mesmos arquivos não muda
+nada. A identidade é a que a pessoa escolheu na página: o Pedro confere os nomes antes de consolidar.

@@ -1,0 +1,341 @@
+<title>Anotação do Golden Set</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: coluna única de leitura, uma ficha por vez, barra de itens no topo e progresso do time no rodapé. */
+:root {
+  --bg: #f2f4f6;
+  --panel: #ffffff;
+  --ink: #15212c;
+  --muted: #5b6b79;
+  --line: #d5dce2;
+  --accent: #1b5fd1;
+  --accent-ink: #ffffff;
+  --ok: #1f7a4d;
+  --ok-bg: #e3f3ea;
+  --warn: #8a5a00;
+  --warn-bg: #fdf0d2;
+  --bad: #b3261e;
+  --bad-bg: #fbe4e1;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10171e; --panel: #19232c; --ink: #e6ecf1; --muted: #93a3b1; --line: #2c3a46;
+    --accent: #6ea1ff; --accent-ink: #0c1a2e; --ok: #6fd0a0; --ok-bg: #16382a;
+    --warn: #f1c25b; --warn-bg: #3a2e12; --bad: #ff8f87; --bad-bg: #3d1c19; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10171e; --panel: #19232c; --ink: #e6ecf1; --muted: #93a3b1; --line: #2c3a46;
+  --accent: #6ea1ff; --accent-ink: #0c1a2e; --ok: #6fd0a0; --ok-bg: #16382a;
+  --warn: #f1c25b; --warn-bg: #3a2e12; --bad: #ff8f87; --bad-bg: #3d1c19; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+h1 { font-size: 22px; line-height: 1.25; margin: 0; text-wrap: balance; }
+h2 { font-size: 16px; margin: 0; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); font-size: 13px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.eyebrow { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+header { display: flex; flex-direction: column; gap: 6px; }
+button { font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 9px 14px; min-height: 40px; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pessoas { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.pessoas button { text-align: left; display: flex; flex-direction: column; gap: 2px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tab { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; flex: 1 1 160px; }
+.tab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tab .n { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.barra { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.barra > i { display: block; height: 100%; background: var(--ok); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { min-height: 32px; padding: 4px 9px; font-family: var(--mono); font-size: 12px; border-radius: 6px; }
+.chip.feito { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+.chip.parcial { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.chip.atual { outline: 2px solid var(--accent); outline-offset: 1px; }
+.texto { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+.campo { display: flex; flex-direction: column; gap: 4px; }
+.campo label, .legend { font-weight: 600; font-size: 13px; }
+textarea { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-height: 84px; resize: vertical; width: 100%; }
+.opcoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.opcoes button { flex: 1 1 140px; }
+.opcoes button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.nav { display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.estado { font-size: 13px; padding: 6px 10px; border-radius: 6px; }
+.estado.ok { background: var(--ok-bg); color: var(--ok); }
+.estado.erro { background: var(--bad-bg); color: var(--bad); }
+.estado.aviso { background: var(--warn-bg); color: var(--warn); }
+.regras { font-size: 13.5px; }
+.regras summary { cursor: pointer; font-weight: 600; }
+.regras ul { margin: 8px 0 0; padding-left: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.rolagem { overflow-x: auto; }
+@media (prefers-reduced-motion: no-preference) { .barra > i { transition: width .25s; } }
+</style>
+
+<main>
+  <header>
+    <span class="eyebrow">Fatura Aberta · issues #32 e #33</span>
+    <h1>Anotação do Golden Set</h1>
+    <p class="muted">Você confere o que o conjunto propõe e responde. Nada aqui é preenchido por IA. Não escreva dados pessoais nem cole faturas reais. Não precisa de login.</p>
+  </header>
+
+  <div id="aviso" class="estado aviso" hidden></div>
+
+  <section id="escolha" class="panel">
+    <h2>Quem é você?</h2>
+    <p class="muted">Escolha seu usuário do GitHub. Suas respostas ficam salvas neste navegador. No fim, você copia o texto e manda ao Pedro.</p>
+    <div id="pessoas" class="pessoas"></div>
+  </section>
+
+  <section id="trabalho" hidden>
+    <div class="panel">
+      <div class="nav">
+        <div><span class="eyebrow">Anotador</span><div id="quem" class="mono"></div></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div id="salvo" class="estado ok" role="status" aria-live="polite">Pronto</div>
+          <button id="trocar" type="button">Trocar de usuário</button>
+        </div>
+      </div>
+      <div id="tabs" class="tabs" role="tablist"></div>
+    </div>
+
+    <details class="panel regras" id="regras">
+      <summary>Como responder</summary>
+      <ul id="regras-lista"></ul>
+    </details>
+
+    <div class="panel">
+      <div id="chips" class="chips"></div>
+      <div id="ficha"></div>
+      <div class="nav">
+        <button id="ant" type="button">Anterior</button>
+        <span id="pos" class="muted mono"></span>
+        <button id="prox" type="button">Próximo</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Entregar ao Pedro</h2>
+      <p class="muted">As respostas ficam só neste navegador (se limpar os dados do navegador, perde). Quando terminar, clique em copiar, cole numa mensagem para o Pedro no Teams ou salve como <span class="mono">respostas-<span id="nome-arq">usuario</span>.json</span>. Dá para copiar de novo se mudar algo.</p>
+      <div class="nav">
+        <button id="copiar" class="primary" type="button">Copiar minhas respostas</button>
+        <span id="copiado" class="muted"></span>
+      </div>
+      <textarea id="copia" readonly aria-label="Respostas em texto" style="min-height:120px" hidden></textarea>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var DADOS = __DADOS__;
+  var VERSAO = "__VERSAO__";
+  var PESSOAS = Object.keys(DADOS);
+  var FILAS = [
+    { id: "golden", nome: "Golden set" },
+    { id: "revisao", nome: "Revisão de perguntas" },
+    { id: "juiz", nome: "Calibração do juiz" }
+  ];
+  var REGRAS = {
+    golden: [
+      "O gabarito é uma proposta. Diga se concorda (sim) ou não.",
+      "Se não concordar, escreva a correção e a justificativa. Cite o dispositivo ou a conta.",
+      "Pergunta: a resposta bate com o dispositivo citado? A citação é a certa? A abstenção faz sentido?",
+      "Fatura: confira leituras, consumo, itens, total e ICMS (as tarifas são inventadas, não compare com a sua conta).",
+      "Use linguagem de evidência. Não use 'ilegal' nem 'fraude'. Em dúvida, escreva 'precisa de confirmação'."
+    ],
+    revisao: [
+      "Leia a pergunta, a data de referência, a resposta esperada e a citação canônica.",
+      "Confira clareza, resposta, dispositivo, vigência na data e se a abstenção esperada faz sentido.",
+      "Se não concordar, escreva o que muda e por quê."
+    ],
+    juiz: [
+      "Leia a saída do sistema e a evidência (dispositivos e números disponíveis).",
+      "Marque 'suportada' se cada afirmação factual ou normativa da saída tem suporte na evidência.",
+      "Basta uma afirmação relevante sem suporte para marcar 'sem suporte'.",
+      "Você não vê a opinião do juiz automático nem a de outra pessoa. Decida sozinho."
+    ]
+  };
+
+  var github = null, fila = "golden", idx = 0, itens = { golden: [], revisao: [], juiz: [] };
+  var respostas = { golden: {}, revisao: {}, juiz: {} };
+  var memoria = {}; /* se o armazenamento do navegador falhar */
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, kids) {
+    var e = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === "class") e.className = attrs[k]; else if (k === "text") e.textContent = attrs[k]; else e.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { e.appendChild(c); });
+    return e;
+  }
+  function ler(chave) {
+    try { var v = window.localStorage.getItem("anot3:" + chave); if (v !== null) return v; } catch (e) { /* sem armazenamento */ }
+    return memoria[chave] || null;
+  }
+  function gravar(chave, valor) {
+    memoria[chave] = valor;
+    try { window.localStorage.setItem("anot3:" + chave, valor); return true; } catch (e) { return false; }
+  }
+  function remover(chave) { delete memoria[chave]; try { window.localStorage.removeItem("anot3:" + chave); } catch (e) { /* ok */ } }
+  function estadoSalvo(cls, txt) { var s = $("salvo"); s.className = "estado " + cls; s.textContent = txt; }
+
+  function situacao(f, r) {
+    if (!r) return "vazio";
+    if (f === "juiz") return r.veredito ? "feito" : "vazio";
+    if (!r.concorda) return (r.comentario || r.correcao) ? "parcial" : "vazio";
+    if (r.concorda === "não") return (r.correcao && r.correcao.trim() && r.comentario && r.comentario.trim()) ? "feito" : "parcial";
+    return "feito";
+  }
+  function contar(f) { var n = 0; itens[f].forEach(function (it) { if (situacao(f, respostas[f][it.id]) === "feito") n++; }); return n; }
+
+  function mostrarEscolha() {
+    var box = $("pessoas"); box.textContent = "";
+    PESSOAS.forEach(function (p) {
+      var b = el("button", { type: "button" }, [el("span", { class: "mono", text: p }), el("span", { class: "muted", text: "escolher" })]);
+      b.addEventListener("click", function () { gravar("github", p); abrir(p); });
+      box.appendChild(b);
+    });
+    $("escolha").hidden = false; $("trabalho").hidden = true;
+  }
+
+  function abrir(p) {
+    github = p;
+    var d = DADOS[p];
+    itens = { golden: d.golden || [], revisao: d.revisao || [], juiz: d.juiz || [] };
+    respostas = { golden: {}, revisao: {}, juiz: {} };
+    try {
+      var salvo = JSON.parse(ler("respostas:" + p) || "null");
+      if (salvo) { respostas.golden = salvo.golden || {}; respostas.revisao = salvo.revisao || {}; respostas.juiz = salvo.juiz || {}; }
+    } catch (e) { /* começa vazio */ }
+    $("quem").textContent = p; $("nome-arq").textContent = p;
+    $("escolha").hidden = true; $("trabalho").hidden = false; $("copia").hidden = true; $("copiado").textContent = "";
+    selecionar(itens.golden.length ? "golden" : "revisao");
+  }
+
+  function desenharTabs() {
+    var t = $("tabs"); t.textContent = "";
+    FILAS.forEach(function (f) {
+      var total = itens[f.id].length, feitos = contar(f.id);
+      var b = el("button", { type: "button", class: "tab", role: "tab", "aria-selected": String(f.id === fila) }, [
+        el("strong", { text: f.nome }),
+        el("span", { class: "n", text: total ? feitos + " de " + total : "ainda sem itens" }),
+        el("span", { class: "barra" }, [el("i", { style: "width:" + (total ? Math.round(100 * feitos / total) : 0) + "%" })])
+      ]);
+      b.disabled = !total;
+      b.addEventListener("click", function () { selecionar(f.id); });
+      t.appendChild(b);
+    });
+  }
+  function selecionar(f) {
+    fila = f; idx = 0;
+    var primeiro = itens[f].findIndex(function (it) { return situacao(f, respostas[f][it.id]) !== "feito"; });
+    if (primeiro > 0) idx = primeiro;
+    var ul = $("regras-lista"); ul.textContent = "";
+    REGRAS[f].forEach(function (r) { ul.appendChild(el("li", { text: r })); });
+    desenharTabs(); desenharChips(); desenharFicha();
+  }
+  function desenharChips() {
+    var c = $("chips"); c.textContent = "";
+    itens[fila].forEach(function (it, i) {
+      var st = situacao(fila, respostas[fila][it.id]);
+      var b = el("button", { type: "button", class: "chip " + (st === "feito" ? "feito" : st === "parcial" ? "parcial" : "") + (i === idx ? " atual" : ""), text: String(i + 1), "aria-label": "Item " + (i + 1) + ", " + st });
+      b.addEventListener("click", function () { idx = i; desenharChips(); desenharFicha(); });
+      c.appendChild(b);
+    });
+  }
+  function bloco(rotulo, texto) { return el("div", { class: "campo" }, [el("span", { class: "legend", text: rotulo }), el("div", { class: "texto", text: texto || "(vazio)" })]); }
+  function campoTexto(chave, rotulo, valor, itemId) {
+    var id = "c-" + chave;
+    var ta = el("textarea", { id: id, maxlength: "2000" }); ta.value = valor || "";
+    ta.addEventListener("input", function () { var o = {}; o[chave] = ta.value; guardar(itemId, o, true); });
+    return el("div", { class: "campo" }, [el("label", { for: id, text: rotulo }), ta]);
+  }
+  function desenharFicha() {
+    var box = $("ficha"); box.textContent = "";
+    var lista = itens[fila];
+    if (!lista.length) { box.appendChild(el("p", { class: "muted", text: "Nenhum item nesta fila ainda. Os itens do juiz aparecem numa próxima versão da página." })); $("pos").textContent = ""; $("ant").disabled = $("prox").disabled = true; return; }
+    var it = lista[idx], r = respostas[fila][it.id] || {};
+    box.appendChild(el("div", { class: "nav" }, [el("span", { class: "mono", text: it.id }), el("span", { class: "muted", text: it.tipo || it.categoria || "" })]));
+    var corpo = el("div", { style: "display:flex;flex-direction:column;gap:12px;margin-top:10px" });
+    if (fila === "golden") { corpo.appendChild(bloco("Enunciado", it.enunciado)); corpo.appendChild(bloco("Gabarito proposto", it.gabarito_proposto)); }
+    else if (fila === "revisao") {
+      corpo.appendChild(bloco("Pergunta", it.pergunta)); corpo.appendChild(bloco("Data de referência", it.data_referencia));
+      corpo.appendChild(bloco("Resposta esperada", it.resposta_esperada)); corpo.appendChild(bloco("Citação canônica", it.citacao_canonica || "(nenhuma)"));
+      corpo.appendChild(bloco("Abstenção esperada", it.abstencao_esperada));
+    } else { corpo.appendChild(bloco("Saída do sistema", it.saida_do_sistema)); corpo.appendChild(bloco("Evidência disponível", it.evidencia)); }
+    if (fila === "juiz") {
+      var op = el("div", { class: "opcoes", role: "group", "aria-label": "Veredito" });
+      [["suportada", "Suportada"], ["sem_suporte", "Sem suporte"]].forEach(function (p) {
+        var b = el("button", { type: "button", "aria-pressed": String(r.veredito === p[0]), text: p[1] });
+        b.addEventListener("click", function () { guardar(it.id, { veredito: p[0] }); });
+        op.appendChild(b);
+      });
+      corpo.appendChild(el("div", { class: "campo" }, [el("span", { class: "legend", text: "Seu veredito" }), op]));
+      corpo.appendChild(campoTexto("comentario", "Comentário (opcional)", r.comentario, it.id));
+    } else {
+      var op2 = el("div", { class: "opcoes", role: "group", "aria-label": "Concordância" });
+      [["sim", "Concordo"], ["não", "Não concordo"]].forEach(function (p) {
+        var b = el("button", { type: "button", "aria-pressed": String(r.concorda === p[0]), text: p[1] });
+        b.addEventListener("click", function () { guardar(it.id, { concorda: p[0] }); });
+        op2.appendChild(b);
+      });
+      corpo.appendChild(el("div", { class: "campo" }, [el("span", { class: "legend", text: "Sua resposta" }), op2]));
+      if (r.concorda === "não") corpo.appendChild(campoTexto("correcao", "Correção (obrigatória)", r.correcao, it.id));
+      corpo.appendChild(campoTexto("comentario", r.concorda === "não" ? "Justificativa (obrigatória)" : "Comentário (opcional)", r.comentario, it.id));
+    }
+    box.appendChild(corpo);
+    $("pos").textContent = (idx + 1) + " de " + lista.length;
+    $("ant").disabled = idx === 0; $("prox").disabled = idx === lista.length - 1;
+  }
+
+  function guardar(itemId, parte, semRedesenhar) {
+    var r = respostas[fila][itemId] || {};
+    Object.keys(parte).forEach(function (k) { r[k] = parte[k]; });
+    if (fila !== "juiz" && r.concorda === "sim") delete r.correcao;
+    r.em = new Date().toISOString();
+    respostas[fila][itemId] = r;
+    var ok = gravar("respostas:" + github, JSON.stringify(respostas));
+    estadoSalvo(ok ? "ok" : "aviso", ok ? "Salvo neste navegador" : "Sem armazenamento: copie antes de fechar");
+    if (!semRedesenhar) desenharFicha();
+    desenharChips(); desenharTabs();
+  }
+
+  function pacote() {
+    return JSON.stringify({ esquema_versao: 1, github: github, golden: respostas.golden, revisao: respostas.revisao, juiz: respostas.juiz, enviado_em: new Date().toISOString(), versao_pagina: VERSAO });
+  }
+  function copiar() {
+    var texto = pacote(), ta = $("copia");
+    ta.hidden = false; ta.value = texto;
+    var pronto = function () { $("copiado").textContent = "Copiado. Cole numa mensagem para o Pedro."; };
+    var manual = function () { ta.focus(); ta.select(); $("copiado").textContent = "Selecione e copie o texto abaixo, depois cole numa mensagem para o Pedro."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(pronto, manual); else manual();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    $("ant").addEventListener("click", function () { if (idx > 0) { idx--; desenharChips(); desenharFicha(); } });
+    $("prox").addEventListener("click", function () { if (idx < itens[fila].length - 1) { idx++; desenharChips(); desenharFicha(); } });
+    $("copiar").addEventListener("click", copiar);
+    $("trocar").addEventListener("click", function () { remover("github"); mostrarEscolha(); });
+    var g = ler("github");
+    if (g && DADOS[g]) abrir(g); else mostrarEscolha();
+  });
+})();
+</script>
