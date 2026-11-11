@@ -40,8 +40,88 @@ __version__ = "0.1.0"
 FRENTE = "F3"
 
 CENTAVO = Decimal("0.01")
+
+# LIMITE_PARCELA_ATE_80_KWH = 80 kWh:
+# - Fonte normativa de referência: Lei Federal nº 12.212, de 20/01/2010, art. 1º, § 4º
+#   (com redação dada pela Medida Provisória nº 1.300, de 21/05/2025, convertida na
+#   Lei nº 15.235, de 08/10/2025), regulamentada pela REN ANEEL nº 1.147, de 14/10/2025,
+#   e refletida nas subclasses "Residencial Tarifa Social – faixa 01" e
+#   "Residencial Desconto Social – faixa 01" da planilha ANEEL versionada
+#   (REH ANEEL nº 3.542, de 21/10/2025, e REH ANEEL nº 3.614, de 22/10/2026;
+#   dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx, obtida em 2026-10-29).
+# - Classificação no projeto: PARÂMETRO DO PROJETO no nível A (a transcrição literal da
+#   Lei nº 12.212/2010 e da REN 1.147/2025 segue como "A verificar" em
+#   dados/normas/README.md; o motor usa 80 kWh apenas para conferir a decomposição
+#   aritmética entre a 1ª faixa e a faixa excedente quando discriminadas na fatura).
 LIMITE_PARCELA_ATE_80_KWH = Decimal("80")
+
+# ALIQUOTA_ICMS_MAXIMA_B1 = 0,25 (25%):
+# - Referência histórica: Lei Distrital nº 1.254, de 08/11/1996, art. 18, inciso II
+#   (alíquota seletiva histórica de até 25% para energia elétrica residencial no DF),
+#   posteriormente limitada à alíquota modal interna pela Lei Complementar Federal
+#   nº 194, de 23/06/2022, e pela Lei Distrital nº 7.326, de 20/10/2023 (20% a partir de
+#   01/01/2024).
+# - Classificação no projeto: PARÂMETRO DO PROJETO (não há norma tributária de ICMS
+#   transcrita e conferida em dados/normas/corpus_b1.json; o valor 0,25 é mantido como
+#   parâmetro heurístico do projeto para acomodar as faturas sintéticas do benchmark com
+#   alíquotas de 12%, 20% e 25% e detectar anomalias sintéticas acima dessa faixa quando
+#   a fatura informa apenas aliquota_icms sem linha discriminada do imposto).
 ALIQUOTA_ICMS_MAXIMA_B1 = Decimal("0.25")
+
+FONTES_CONSTANTES_MOTOR: dict[str, dict[str, str]] = {
+    "LIMITE_PARCELA_ATE_80_KWH": {
+        "valor": "80",
+        "classificacao": "parametro_do_projeto",
+        "fonte": (
+            "Lei Federal nº 12.212/2010, art. 1º, § 4º (redação da MP nº 1.300/2025, "
+            "convertida na Lei nº 15.235/2025); REN ANEEL nº 1.147/2025; "
+            "REH ANEEL nº 3.542/2025 e REH ANEEL nº 3.614/2026 "
+            "(dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx)"
+        ),
+        "data_fonte": (
+            "2025-10-08 (Lei 15.235/2025) / 2025-10-14 (REN 1.147/2025) / "
+            "2026-10-29 (planilha ANEEL)"
+        ),
+        "observacao": (
+            "Marcada como parâmetro do projeto no nível A porque a transcrição literal da "
+            "Lei nº 12.212/2010 e da REN 1.147/2025 segue como 'A verificar' em "
+            "dados/normas/README.md."
+        ),
+    },
+    "ALIQUOTA_ICMS_MAXIMA_B1": {
+        "valor": "0.25",
+        "classificacao": "parametro_do_projeto",
+        "fonte": (
+            "Parâmetro do projeto para o benchmark sintético (referência histórica: "
+            "Lei Distrital nº 1.254/1996, art. 18, II; alíquota modal interna do DF "
+            "alterada para 20% pela Lei Distrital nº 7.326/2023 após a LC nº 194/2022)"
+        ),
+        "data_fonte": (
+            "1996-11-08 (Lei Distrital 1.254/1996) / "
+            "2023-10-20 (Lei Distrital 7.326/2023, vigência 2024-01-01)"
+        ),
+        "observacao": (
+            "Marcada como parâmetro do projeto porque não há norma estadual/distrital de "
+            "ICMS conferida em dados/normas/corpus_b1.json; preserva compatibilidade com "
+            "faturas sintéticas (12%, 20% e 25%) quando não há linha de ICMS discriminada."
+        ),
+    },
+    "VALORES_BANDEIRA_ANEEL_KWH": {
+        "valor": "verde=0.00000, amarela=0.01885, vermelha_1=0.04463, vermelha_2=0.07877",
+        "classificacao": "parametro_do_projeto",
+        "fonte": (
+            "Resolução Homologatória ANEEL nº 3.316, de 26 de março de 2024 "
+            "(R$ 18,85/MWh, R$ 44,63/MWh e R$ 78,77/MWh, convertidos para R$/kWh)"
+        ),
+        "data_fonte": "2024-03-26 (vigência 2024-04-01)",
+        "observacao": (
+            "Marcada como parâmetro de referência do projeto porque a planilha exportada "
+            "em dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx não traz coluna de "
+            "bandeira tarifária (ver dados/tarifas/README.md) e a REH 3.316/2024 segue "
+            "como 'A verificar' em dados/normas/README.md."
+        ),
+    },
+}
 
 _TERMOS_PARCELA_80 = (
     "80 kwh",
@@ -462,9 +542,12 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
 
 
 __all__ = [
+    "ALIQUOTA_ICMS_MAXIMA_B1",
     "CAMINHO_PADRAO_PROVENIENCIA",
     "CAMINHO_PADRAO_SINTETICAS",
+    "FONTES_CONSTANTES_MOTOR",
     "FRENTE",
+    "LIMITE_PARCELA_ATE_80_KWH",
     "LinhaTarifaAneel",
     "PASTA_SINTETICAS",
     "PASTA_TARIFAS",

@@ -31,7 +31,14 @@ _MIL = Decimal("1000")
 _PRECISAO_TARIFA_KWH = Decimal("0.00001")
 _CENTAVO = Decimal("0.01")
 
-# Adicionais de bandeira tarifária homologados pela ANEEL (em R$/kWh, sem tributos).
+# VALORES_BANDEIRA_ANEEL_KWH (em R$/kWh, sem tributos):
+# - Fonte normativa de referência: Resolução Homologatória ANEEL nº 3.316, de 26/03/2024
+#   (vigência a partir de 01/04/2024: amarela = R$ 18,85/MWh, vermelha patamar 1 =
+#   R$ 44,63/MWh e vermelha patamar 2 = R$ 78,77/MWh, convertidos para R$/kWh por /1000).
+# - Classificação no projeto: PARÂMETRO DO PROJETO (a planilha exportada em
+#   dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx não valida a tarifa de bandeira,
+#   conforme dados/tarifas/README.md, e a REH 3.316/2024 segue como "A verificar" em
+#   dados/normas/README.md; pode ser sobrescrito via ``referencia_bandeiras``).
 VALORES_BANDEIRA_ANEEL_KWH: dict[str, Decimal] = {
     "verde": Decimal("0.00000"),
     "amarela": Decimal("0.01885"),
