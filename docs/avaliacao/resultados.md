@@ -8,6 +8,19 @@
 
     **Status do golden set:** os hashes foram congelados (`checksums.sha256`) antes desta rodada, mas as 120 perguntas ainda não tiveram revisão humana. A regra de `dados/README.md` (conjuntos do experimento são congelados antes das rodadas) foi cumprida quanto ao hash, não quanto à revisão. Se a revisão alterar perguntas, será preciso refazer o congelamento e a rodada. Trate os resultados como **preliminares**.
 
+## S2: Gate de falso alarme do motor de nível A (F3)
+
+Medição do critério "nenhum falso alarme de nível A nas faturas corretas", em dois conjuntos sintéticos, gerada por `uv run python avaliacao/medir_falso_alarme_s2.py` (resultado em
+[`avaliacao/resultados/s2-falso-alarme.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-falso-alarme.json)).
+
+| Conjunto | Faturas corretas | Falsos alarmes | Erros injetados detectados |
+|---|---|---|---|
+| Benchmark v0 (gerador da F3) | 15 | 0 | 15 de 15 |
+| Golden set (200 faturas) | 103 | 0 | 97 de 97 |
+| **Total** | **118** | **0** | **112 de 112** |
+
+**Gate: aprovado.** Ressalva: os tipos de erro injetados são os que o próprio motor checa, então a detecção é alta por construção. O que o gate mede é a ausência de falso alarme, em faturas sintéticas.
+
 ## S2: Gate de Recall@5 da Norma Vigente (F2)
 
 Medição oficial do Gate da Sprint S2 sobre 30 perguntas com versão-gabarito, **amostra estratificada por categoria** (proporcional ao tamanho de cada uma, com ao menos 1 por categoria, semente 20261109) do golden set (`dados/golden-set/perguntas.jsonl`). Os 30 ids ficam gravados no JSON.

@@ -161,3 +161,16 @@ def test_gate_s2_amostra_cobre_todas_as_categorias_e_e_reprodutivel() -> None:
     resultado = mr_s2.medir_recall_s2(n_perguntas=30)
     assert resultado["ids_amostra"] == [p["id"] for p in a]
     assert sum(resultado["composicao_por_categoria"].values()) == 30
+
+
+def test_gate_s2_motor_nao_da_falso_alarme_em_faturas_corretas() -> None:
+    import medir_falso_alarme_s2 as fa
+
+    r = fa.medir()
+    assert r["benchmark_v0"]["n_corretas"] == 15 and r["golden_set"]["n_corretas"] == 103
+    assert r["total_falsos_alarmes"] == 0 and r["passou_gate"] is True
+    # o motor também acusa os erros injetados: não passa só por nunca acusar nada
+    assert r["benchmark_v0"]["detectadas"] == r["benchmark_v0"]["n_com_erro_injetado"]
+    assert r["golden_set"]["detectadas"] == r["golden_set"]["n_com_erro_injetado"]
+    versionado = json.loads(fa.SAIDA_PADRAO.read_text(encoding="utf-8"))
+    assert versionado["total_falsos_alarmes"] == r["total_falsos_alarmes"]
