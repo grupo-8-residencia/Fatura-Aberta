@@ -133,6 +133,7 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
         <button id="enviar" class="primary" type="button">Enviar respostas</button>
         <span id="enviado" class="muted"></span>
       </div>
+      <textarea id="copia" hidden readonly aria-label="Respostas em texto" style="min-height:140px"></textarea>
     </div>
   </section>
 
@@ -181,6 +182,10 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
   var itens = { golden: [], revisao: [], juiz: [] };
   var respostas = { golden: {}, revisao: {}, juiz: {} };
   var travado = false, sujo = false, gravando = false, timer = null;
+  var modoLocal = false; /* sem permissão de escrita no banco: salva neste navegador e entrega por arquivo */
+
+  function lerLocal(chave) { try { return window.localStorage.getItem("anot:" + chave); } catch (e) { return null; } }
+  function gravarLocal(chave, valor) { try { window.localStorage.setItem("anot:" + chave, valor); return true; } catch (e) { return false; } }
 
   function $(id) { return document.getElementById(id); }
   function el(tag, attrs, kids) {
@@ -214,11 +219,29 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
     Promise.all([claude.use("db"), claude.use("user")]).then(function (r) {
       db = r[0]; user = r[1];
       if (!db || !user) { aviso("Entre na sua conta para anotar. Sem login esta página não grava nada."); return; }
-      return user.id().then(function (id) { meuId = id; return carregarPerfil(); });
+      return user.id().then(function (id) {
+        meuId = id;
+        return Promise.resolve(user.can("data.write")).catch(function () { return null; }).then(function (pode) {
+          if (pode === false) entrarModoLocal();
+          return carregarPerfil();
+        });
+      });
     }).catch(function () { aviso("Não foi possível carregar a página. Recarregue; se continuar, avise o Pedro."); });
   }
 
+  function entrarModoLocal() {
+    modoLocal = true;
+    aviso("Sua conta só pode ler esta página, não gravar no banco. Suas respostas ficam salvas neste navegador. Quando terminar, clique em \"Baixar minhas respostas\" e mande o arquivo para o Pedro.");
+    $("enviar").textContent = "Baixar minhas respostas";
+    $("enviar-texto").textContent = "Suas respostas ficam neste navegador. Baixar gera um arquivo .json; mande-o para o Pedro (Teams). Pode baixar de novo se mudar algo.";
+  }
+
   function carregarPerfil() {
+    if (modoLocal) {
+      var g = lerLocal("github");
+      if (g && PESSOAS.indexOf(g) >= 0) { github = g; return abrirTrabalho(); }
+      mostrarEscolha({}); return Promise.resolve();
+    }
     return comTimeout(db.collection("anotadores").get()).then(function (snap) {
       var todos = {}; snap.docs.forEach(function (d) { todos[d.id] = d.data(); });
       if (todos[meuId] && todos[meuId].github) { github = todos[meuId].github; return abrirTrabalho(); }
@@ -239,6 +262,7 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
   }
 
   function escolher(p, btn) {
+    if (modoLocal) { github = p; gravarLocal("github", p); $("escolha").hidden = true; abrirTrabalho(); return; }
     btn.disabled = true;
     comTimeout(db.collection("anotadores").get()).then(function (snap) {
       var ocupado = false; snap.docs.forEach(function (d) { if (d.id !== meuId && d.data() && d.data().github === p) ocupado = true; });
@@ -251,11 +275,15 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
 
   function abrirTrabalho() {
     $("quem").textContent = github;
+    var vazio = { exists: false, data: function () { return undefined; } };
     return Promise.all([
       comTimeout(db.doc("fila/" + github).get()),
-      comTimeout(db.collection("data/users/" + meuId).doc("respostas").get()),
+      modoLocal ? Promise.resolve(vazio) : comTimeout(db.collection("data/users/" + meuId).doc("respostas").get()),
       comTimeout(db.doc("config/rodada").get())
     ]).then(function (r) {
+      if (modoLocal) {
+        try { var salvo = JSON.parse(lerLocal("respostas:" + github) || "null"); if (salvo) r[1] = { exists: true, data: function () { return salvo; } }; } catch (e) { /* ignora */ }
+      }
       var f = r[0].exists ? r[0].data() : null;
       if (f) { itens.golden = f.golden || []; itens.revisao = f.revisao || []; itens.juiz = f.juiz || []; }
       if (r[1].exists) { var d = r[1].data(); respostas.golden = d.golden || {}; respostas.revisao = d.revisao || {}; respostas.juiz = d.juiz || {}; }
@@ -373,10 +401,19 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
     if (!sujo) return;
     gravando = true; sujo = false;
     var snapshot = { golden: respostas.golden, revisao: respostas.revisao, juiz: respostas.juiz, atualizado: new Date().toISOString() };
+    if (modoLocal) {
+      var ok = gravarLocal("respostas:" + github, JSON.stringify(snapshot));
+      estadoSalvo(ok ? "ok" : "aviso", ok ? "Salvo neste navegador" : "Sem armazenamento local: baixe antes de fechar");
+      gravando = false; return;
+    }
     comTimeout(db.collection("data/users/" + meuId).doc("respostas").set(snapshot)).then(function () {
       estadoSalvo("ok", sujo ? "Salvando…" : "Salvo");
       return comTimeout(db.doc("progresso/" + meuId).set(progresso()));
-    }).catch(function () { sujo = true; estadoSalvo("erro", "Não salvou. Tentando de novo…"); timer = setTimeout(gravar, 3000); })
+    }).catch(function (e) {
+      sujo = true;
+      if (e && e.code === "invalid_argument") { entrarModoLocal(); gravando = false; gravar(); return; }
+      estadoSalvo("erro", "Não salvou. Tentando de novo…"); timer = setTimeout(gravar, 3000);
+    })
       .then(function () { gravando = false; if (sujo) { clearTimeout(timer); timer = setTimeout(gravar, 300); } });
   }
   function progresso() {
@@ -388,7 +425,22 @@ th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line
       atualizado: new Date().toISOString()
     };
   }
+  function baixar() {
+    var pacote = { esquema_versao: 1, github: github, golden: respostas.golden, revisao: respostas.revisao, juiz: respostas.juiz, enviado_em: new Date().toISOString(), versao_pagina: "2" };
+    var texto = JSON.stringify(pacote, null, 1);
+    claude.use("downloads").then(function (d) {
+      if (!d) throw new Error("sem downloads");
+      return d.save({ filename: "respostas-" + github + ".json", data: texto });
+    }).then(function () { $("enviado").textContent = "Arquivo salvo. Mande para o Pedro."; })
+      .catch(function (e) {
+        if (e && e.code === "declined") { $("enviado").textContent = "Download cancelado."; return; }
+        var ta = $("copia");
+        ta.hidden = false; ta.value = texto; ta.focus(); ta.select();
+        $("enviado").textContent = "Não consegui baixar. Copie o texto abaixo e mande ao Pedro.";
+      });
+  }
   function enviar() {
+    if (modoLocal) { baixar(); return; }
     if (travado) return;
     $("enviar").disabled = true;
     var pacote = { github: github, golden: respostas.golden, revisao: respostas.revisao, juiz: respostas.juiz, enviado_em: new Date().toISOString(), versao_pagina: "1" };

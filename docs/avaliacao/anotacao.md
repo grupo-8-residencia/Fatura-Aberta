@@ -94,6 +94,13 @@ revisar e, quando a rodada S3 terminar, os itens de calibração do juiz.
 - **Revisão das 120 perguntas:** 20 por pessoa, sorteadas com semente fixa
   (`dados/golden-set/anotacoes/distribuicao-revisao.json`), sem repetição.
 
+### Se a sua conta só consegue ler a página
+
+Quem está fora da organização do dono abre a página como leitor e não grava no banco. A página detecta
+isso, salva as respostas no próprio navegador e troca o botão por **Baixar minhas respostas**. Mande o
+arquivo `respostas-<usuario>.json` ao Pedro. O importador aceita esses arquivos individuais junto com o
+export do banco: `scripts/importar_anotacoes.py respostas-*.json`.
+
 ### Do banco para o repositório
 
 1. O dono exporta as entregas do banco para um JSON (formato no cabeçalho de

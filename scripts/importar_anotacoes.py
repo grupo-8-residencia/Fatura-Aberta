@@ -268,13 +268,39 @@ def relatorio(plano: Plano) -> str:
     return "\n".join(linhas)
 
 
+def juntar_exports(arquivos: list[dict[str, Any]]) -> dict[str, Any]:
+    """Aceita o export completo do banco e/ou arquivos individuais baixados pelas pessoas.
+
+    Um arquivo individual tem `github` no topo e as respostas (`golden`, `revisao`, `juiz`).
+    Vários arquivos viram um export único; a mesma pessoa duas vezes é erro no planejamento.
+    """
+    entregas: list[dict[str, Any]] = []
+    base: dict[str, Any] = {"esquema_versao": ESQUEMA}
+    for a in arquivos:
+        if isinstance(a.get("entregas"), list):
+            entregas.extend(a["entregas"])
+            base.update({k: v for k, v in a.items() if k != "entregas"})
+        elif "github" in a:
+            entregas.append({k: v for k, v in a.items() if k != "esquema_versao"})
+        else:
+            raise ErroImportacao("arquivo sem `entregas` nem `github`")
+    return {**base, "entregas": entregas}
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument("export", type=Path, help="JSON exportado do banco da página")
+    ap.add_argument(
+        "export", type=Path, nargs="+", help="JSON exportado do banco e/ou arquivos individuais"
+    )
     ap.add_argument("--aplicar", action="store_true", help="grava os CSV (padrão: só simula)")
     args = ap.parse_args(argv)
-    bruto = args.export.read_bytes()
-    dados = json.loads(bruto)
+    brutos = [e.read_bytes() for e in args.export]
+    bruto = b"\n".join(brutos)
+    try:
+        dados = juntar_exports([json.loads(b) for b in brutos])
+    except ErroImportacao as erro:
+        print(f"ERRO  {erro}\nNada foi gravado.")
+        return 1
     plano = planejar(dados)
     print(relatorio(plano))
     if plano.erros:

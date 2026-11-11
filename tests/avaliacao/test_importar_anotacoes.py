@@ -204,3 +204,22 @@ def test_distribuicao_real_cobre_120_sem_repeticao() -> None:
     todos = [i for ids in d.values() for i in ids]
     assert len(todos) == 120 and len(set(todos)) == 120
     assert {len(v) for v in d.values()} == {20}
+
+
+def test_arquivos_individuais_viram_um_export(base: dict[str, Path]) -> None:
+    a = {"esquema_versao": 1, "github": "pedrohpsantos", "golden": {"GS-pe1": OK}}
+    b = {"esquema_versao": 1, "github": "NatyEvelin", "juiz": {"JZ-1": {"veredito": "suportada"}}}
+    junto = imp.juntar_exports([a, b])
+    assert [e["github"] for e in junto["entregas"]] == ["pedrohpsantos", "NatyEvelin"]
+    p = _plano(base, junto)
+    assert p.erros == [] and p.novos["golden"] == 1 and p.novos["juiz"] == 1
+
+
+def test_mesmo_arquivo_duas_vezes_e_erro(base: dict[str, Path]) -> None:
+    a = {"esquema_versao": 1, "github": "NatyEvelin", "golden": {}}
+    assert any("mais de uma entrega" in e for e in _plano(base, imp.juntar_exports([a, a])).erros)
+
+
+def test_arquivo_estranho_e_recusado() -> None:
+    with pytest.raises(imp.ErroImportacao):
+        imp.juntar_exports([{"qualquer": 1}])
