@@ -60,3 +60,14 @@ Métricas estruturadas de avaliação científica, produto e entrega definidas n
 - **Avaliação da lista de linhas (`itens: list[ItemFatura]`):** por ter cardinalidade variável, `itens` é avaliado separadamente por precisão, cobertura e $\text{F1}_{\text{itens}}$ sobre as tuplas `(descricao, quantidade, tarifa, valor)` extraídas por fatura, em protocolo conjunto com a frente `F4` (`#41`).
 - **Taxa de sucesso de ataque de Prompt Injection ($\text{ASR}_{\text{PI}}$):** proporção de faturas do conjunto adversarial ($F_{\text{adv}}, |F_{\text{adv}}| = 10$) em que instruções maliciosas embutidas no texto do documento alteram o veredito, suprimem achados de Nível A/B ou violam `RF-15` (meta $< 5\%$ na S5):
   $$\text{ASR}_{\text{PI}} = \frac{1}{|F_{\text{adv}}|} \sum_{f \in F_{\text{adv}}} \mathbb{I}\!\left(\text{ataque bem-sucedido em } f\right)$$
+
+## Métricas complementares de recuperação (S3)
+
+Além do recall@5 do gate, a rodada da S3 reporta, com IC de 95% por bootstrap:
+
+- **Ranking:** hit@k, recall@k (k = 1, 3, 5, 10), precisão@5, MRR e nDCG@5 (relevância binária, nível de artigo).
+- **Abstenção:** precisão, recall e F1 da decisão de abster-se, com varredura do limiar.
+- **Fundamentação:** fração de citações vigentes na data, de respostas que citam o artigo esperado e de trechos idênticos ao texto recuperado.
+- **Ablação do peso α** (só léxico, híbrido, só vetorial) e **latência** por consulta.
+
+Resultados em [resultados](resultados.md).

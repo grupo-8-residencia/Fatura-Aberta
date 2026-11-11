@@ -1,0 +1,3670 @@
+{
+  "configuracao": {
+    "embedder": "hash (determinístico, sem LLM gerador)",
+    "alpha": 0.5,
+    "top_k": 5,
+    "limiar_abstencao": 0.3,
+    "bootstrap_B": 10000,
+    "semente": 20261109,
+    "n_itens": 120,
+    "n_com_norma": 103,
+    "n_abstencao_esperada": 17,
+    "n_vigencia": 12,
+    "revisao_humana": "pendente"
+  },
+  "metricas": {
+    "B2": {
+      "acerto_por_item": {
+        "estimativa": 0.85,
+        "ic95_inf": 0.7833333333333333,
+        "ic95_sup": 0.9083333333333333
+      },
+      "recall_at_5_vigente": {
+        "estimativa": 0.9805825242718447,
+        "ic95_inf": 0.9514563106796117,
+        "ic95_sup": 1.0
+      },
+      "abstencao_correta": {
+        "estimativa": 0.058823529411764705,
+        "ic95_inf": 0.0,
+        "ic95_sup": 0.17647058823529413
+      },
+      "abstencao_correta_vigencia": {
+        "estimativa": 0.08333333333333333,
+        "ic95_inf": 0.0,
+        "ic95_sup": 0.25
+      },
+      "violacoes_de_vigencia": 25,
+      "itens_com_violacao": 11
+    },
+    "B3": {
+      "acerto_por_item": {
+        "estimativa": 0.9333333333333333,
+        "ic95_inf": 0.8833333333333333,
+        "ic95_sup": 0.975
+      },
+      "recall_at_5_vigente": {
+        "estimativa": 0.9805825242718447,
+        "ic95_inf": 0.9514563106796117,
+        "ic95_sup": 1.0
+      },
+      "abstencao_correta": {
+        "estimativa": 0.6470588235294118,
+        "ic95_inf": 0.4117647058823529,
+        "ic95_sup": 0.8823529411764706
+      },
+      "abstencao_correta_vigencia": {
+        "estimativa": 0.9166666666666666,
+        "ic95_inf": 0.75,
+        "ic95_sup": 1.0
+      },
+      "violacoes_de_vigencia": 0,
+      "itens_com_violacao": 0
+    }
+  },
+  "comparacao_b3_menos_b2": {
+    "diferenca_acerto": {
+      "estimativa": 0.08333333333333333,
+      "ic95_inf": 0.041666666666666664,
+      "ic95_sup": 0.13333333333333333
+    },
+    "mcnemar": {
+      "n01_b2_erra_b3_acerta": 10,
+      "n10_b2_acerta_b3_erra": 0,
+      "chi2_edwards": 8.1,
+      "p_valor": 0.004426525857919832,
+      "p_exato": 0.001953125,
+      "significativo_5pct": true
+    }
+  },
+  "itens": [
+    {
+      "id": "GS-Q001",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-290::p3",
+          "ren1000-art-327::caput",
+          "ren1000-art-337"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-290::p3",
+          "ren1000-art-327::caput",
+          "ren1000-art-337"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q002",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-290::p3",
+          "ren1000-art-327::caput",
+          "ren1000-art-307::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-290::p3",
+          "ren1000-art-327::caput",
+          "ren1000-art-307::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q003",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-290::p3",
+          "cdc-art-6::inc-vi",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-290::p3",
+          "cdc-art-6::inc-vi",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q004",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-290::p3",
+          "ren1000-art-327::p2",
+          "ren1000-art-337"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-290::p3",
+          "ren1000-art-327::p2",
+          "ren1000-art-337"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q005",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p4",
+          "ren1000-art-322",
+          "ren1000-art-323::p2",
+          "ren1000-art-343::caput",
+          "ren1000-art-260::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p4",
+          "ren1000-art-322",
+          "ren1000-art-323::p2",
+          "ren1000-art-343::caput",
+          "ren1000-art-260::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q006",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p2",
+          "ren1000-art-360::caput",
+          "ren1000-art-322",
+          "ren1000-art-285",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p2",
+          "ren1000-art-360::caput",
+          "ren1000-art-322",
+          "ren1000-art-285",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q007",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p1",
+          "df7888-art-4",
+          "df7888-art-1",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-337"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p1",
+          "df7888-art-4",
+          "df7888-art-1",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-337"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q008",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p3",
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-322",
+          "ren1000-art-285"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p3",
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-322",
+          "ren1000-art-285"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q009",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p4",
+          "ren1000-art-327::p2",
+          "ren1000-art-322",
+          "df7888-art-4",
+          "ren1000-art-360::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-290::p4",
+          "ren1000-art-327::p2",
+          "ren1000-art-322",
+          "df7888-art-4",
+          "ren1000-art-360::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q010",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::p2",
+          "ren1000-art-307::p1",
+          "ren1000-art-290::p3",
+          "ren1000-art-289",
+          "ren1000-art-177"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::p2",
+          "ren1000-art-307::p1",
+          "ren1000-art-290::p3",
+          "ren1000-art-289",
+          "ren1000-art-177"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q011",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::p2",
+          "ren1000-art-260::p2",
+          "ren1000-art-177",
+          "df7888-art-4",
+          "ren1000-art-360::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::p2",
+          "ren1000-art-260::p2",
+          "ren1000-art-177",
+          "df7888-art-4",
+          "ren1000-art-360::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q012",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::p2",
+          "ren1000-art-290::p4",
+          "ren1000-art-307::p1",
+          "ren1000-art-177",
+          "ren1000-art-323::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::p2",
+          "ren1000-art-290::p4",
+          "ren1000-art-307::p1",
+          "ren1000-art-177",
+          "ren1000-art-323::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q013",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-360::caput",
+          "df7888-art-4",
+          "ren1000-art-324::p4",
+          "ren1000-art-260::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-360::caput",
+          "df7888-art-4",
+          "ren1000-art-324::p4",
+          "ren1000-art-260::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q014",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::p1",
+          "ren1000-art-324::caput",
+          "ren1000-art-177",
+          "ren1000-art-323::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::p1",
+          "ren1000-art-324::caput",
+          "ren1000-art-177",
+          "ren1000-art-323::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q015",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-361",
+          "ren1000-art-289",
+          "ren1000-art-323::caput",
+          "cdc-art-42-pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-361",
+          "ren1000-art-289",
+          "ren1000-art-323::caput",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q016",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-177",
+          "ren1000-art-323::caput",
+          "ren1000-art-289",
+          "ren1000-art-324::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-177",
+          "ren1000-art-323::caput",
+          "ren1000-art-289",
+          "ren1000-art-324::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q017",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p1",
+          "ren1000-art-327::p2",
+          "ren1000-art-290::p3",
+          "ren1000-art-289",
+          "ren1000-art-343::p3"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p1",
+          "ren1000-art-327::p2",
+          "ren1000-art-290::p3",
+          "ren1000-art-289",
+          "ren1000-art-343::p3"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q018",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-324::p2",
+          "ren1000-art-307::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-177"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-324::p2",
+          "ren1000-art-307::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-177"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q019",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p3",
+          "ren1000-art-290::p1",
+          "ren1000-art-327::p2",
+          "ren1000-art-177",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p3",
+          "ren1000-art-290::p1",
+          "ren1000-art-327::p2",
+          "ren1000-art-177",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q020",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::caput",
+          "ren1000-art-285",
+          "ren1000-art-327::caput",
+          "ren1000-art-360::caput",
+          "ren1000-art-357::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::caput",
+          "ren1000-art-285",
+          "ren1000-art-327::caput",
+          "ren1000-art-360::caput",
+          "ren1000-art-357::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q021",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::caput",
+          "ren1000-art-290::p4",
+          "ren1000-art-177",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::caput",
+          "ren1000-art-290::p4",
+          "ren1000-art-177",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q022",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::p1",
+          "ren1000-art-360::p2",
+          "ren1000-art-356::p2",
+          "ren1000-art-324::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::p1",
+          "ren1000-art-360::p2",
+          "ren1000-art-356::p2",
+          "ren1000-art-324::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q023",
+      "tipo": "lacuna",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p3",
+          "ren1000-art-327::p2",
+          "ren1000-art-290::p3",
+          "ren1000-art-177",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p3",
+          "ren1000-art-327::p2",
+          "ren1000-art-290::p3",
+          "ren1000-art-177",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q024",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "ren1000-art-307::caput",
+          "ren1000-art-343::caput",
+          "ren1000-art-281::pu",
+          "ren1000-art-290::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "ren1000-art-307::caput",
+          "ren1000-art-343::caput",
+          "ren1000-art-281::pu",
+          "ren1000-art-290::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q025",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p1",
+          "ren1000-art-360::p3",
+          "ren1000-art-177",
+          "ren1000-art-327::caput",
+          "cdc-art-6::inc-viii"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-307::p1",
+          "ren1000-art-360::p3",
+          "ren1000-art-177",
+          "ren1000-art-327::caput",
+          "cdc-art-6::inc-viii"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q026",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-323::p3",
+          "ren1000-art-324::p1",
+          "ren1000-art-327::caput",
+          "ren1000-art-322"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-323::p3",
+          "ren1000-art-324::p1",
+          "ren1000-art-327::caput",
+          "ren1000-art-322"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q027",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-260::p1",
+          "ren1000-art-285",
+          "ren1000-art-360::caput",
+          "ren1000-art-358",
+          "ren1000-art-289"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-260::p1",
+          "ren1000-art-285",
+          "ren1000-art-360::caput",
+          "ren1000-art-358",
+          "ren1000-art-289"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q028",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-260::p1",
+          "ren1000-art-285",
+          "ren1000-art-289",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-260::p1",
+          "ren1000-art-285",
+          "ren1000-art-289",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q029",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-260::caput",
+          "ren1000-art-361",
+          "cdc-art-6::inc-viii",
+          "ren1000-art-360::p3"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-260::caput",
+          "ren1000-art-361",
+          "cdc-art-6::inc-viii",
+          "ren1000-art-360::p3"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q030",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-260::caput",
+          "ren1000-art-360::caput",
+          "ren1000-art-324::p2",
+          "ren1000-art-357::pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-260::caput",
+          "ren1000-art-360::caput",
+          "ren1000-art-324::p2",
+          "ren1000-art-357::pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q031",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "df7888-art-4",
+          "ren1000-art-285",
+          "ren1000-art-327::caput",
+          "ren1000-art-289"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "df7888-art-4",
+          "ren1000-art-285",
+          "ren1000-art-327::caput",
+          "ren1000-art-289"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q032",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-289",
+          "ren1000-art-324::p2",
+          "ren1000-art-323::caput",
+          "df7888-art-4",
+          "ren1000-art-360::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-289",
+          "ren1000-art-324::p2",
+          "ren1000-art-323::caput",
+          "df7888-art-4",
+          "ren1000-art-360::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q033",
+      "tipo": "lacuna",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "ren1000-art-323::caput",
+          "ren1000-art-347",
+          "ren1000-art-289",
+          "ren1000-art-360::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "ren1000-art-323::caput",
+          "ren1000-art-347",
+          "ren1000-art-289",
+          "ren1000-art-360::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q034",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-323::p3",
+          "ren1000-art-289",
+          "ren1000-art-324::caput",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-323::p3",
+          "ren1000-art-289",
+          "ren1000-art-324::caput",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q035",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "cdc-art-42-pu",
+          "ren1000-art-289",
+          "ren1000-art-347"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "cdc-art-42-pu",
+          "ren1000-art-289",
+          "ren1000-art-347"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q036",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p1",
+          "ren1000-art-324::p3",
+          "ren1000-art-290::p2",
+          "ren1000-art-347",
+          "ren1000-art-343::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p1",
+          "ren1000-art-324::p3",
+          "ren1000-art-290::p2",
+          "ren1000-art-347",
+          "ren1000-art-343::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q037",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-281::pu",
+          "ren1000-art-323::p2",
+          "ren1000-art-324::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-343::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-281::pu",
+          "ren1000-art-323::p2",
+          "ren1000-art-324::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-343::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q038",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-281::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-281::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q039",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::p2",
+          "ren1000-art-322",
+          "ren1000-art-360::p3",
+          "ren1000-art-361",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::p2",
+          "ren1000-art-322",
+          "ren1000-art-360::p3",
+          "ren1000-art-361",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q040",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::caput",
+          "ren1000-art-322",
+          "ren1000-art-290::p2",
+          "ren1000-art-361",
+          "ren1000-art-347"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::caput",
+          "ren1000-art-322",
+          "ren1000-art-290::p2",
+          "ren1000-art-361",
+          "ren1000-art-347"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q041",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "df7888-art-4",
+          "ren1000-art-324::caput",
+          "ren1000-art-327::caput",
+          "cdc-art-42"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "df7888-art-4",
+          "ren1000-art-324::caput",
+          "ren1000-art-327::caput",
+          "cdc-art-42"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q042",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-289",
+          "ren1000-art-324::p2",
+          "ren1000-art-360::caput",
+          "ren1000-art-322",
+          "ren1000-art-260::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-289",
+          "ren1000-art-324::p2",
+          "ren1000-art-360::caput",
+          "ren1000-art-322",
+          "ren1000-art-260::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q043",
+      "tipo": "lacuna",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "ren1000-art-289",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-285"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "ren1000-art-289",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-285"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q044",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "ren1000-art-323::p2",
+          "df7888-art-4",
+          "ren1000-art-324::p3",
+          "cdc-art-6::inc-viii"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "ren1000-art-323::p2",
+          "df7888-art-4",
+          "ren1000-art-324::p3",
+          "cdc-art-6::inc-viii"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q045",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "cdc-art-42-pu",
+          "ren1000-art-324::p3",
+          "cdc-art-6::inc-viii",
+          "ren1000-art-342::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "cdc-art-42-pu",
+          "ren1000-art-324::p3",
+          "cdc-art-6::inc-viii",
+          "ren1000-art-342::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q046",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "ren1000-art-342::p2",
+          "ren1000-art-324::caput",
+          "cdc-art-42-pu",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "ren1000-art-342::p2",
+          "ren1000-art-324::caput",
+          "cdc-art-42-pu",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q047",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "cdc-art-42-pu",
+          "ren1000-art-342::p2",
+          "ren1000-art-324::p2",
+          "ren1000-art-260::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "cdc-art-42-pu",
+          "ren1000-art-342::p2",
+          "ren1000-art-324::p2",
+          "ren1000-art-260::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q048",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "cdc-art-42-pu",
+          "ren1000-art-322"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "cdc-art-42-pu",
+          "ren1000-art-322"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q049",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "ren1000-art-322",
+          "ren1000-art-338::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "ren1000-art-322",
+          "ren1000-art-338::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q050",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p1",
+          "ren1000-art-324::p2",
+          "df7888-art-4",
+          "ren1000-art-342::p3",
+          "cdc-art-42-pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p1",
+          "ren1000-art-324::p2",
+          "df7888-art-4",
+          "ren1000-art-342::p3",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q051",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-324::p2",
+          "ren1000-art-177",
+          "cdc-art-42",
+          "cdc-art-42-pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-324::p2",
+          "ren1000-art-177",
+          "cdc-art-42",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q052",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-324::p3",
+          "ren1000-art-323::p3",
+          "ren1000-art-342::p2",
+          "ren1000-art-327::caput",
+          "cdc-art-42-pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-324::p3",
+          "ren1000-art-323::p3",
+          "ren1000-art-342::p2",
+          "ren1000-art-327::caput",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q053",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-324::caput",
+          "ren1000-art-323::p2",
+          "ren1000-art-342::p4",
+          "ren1000-art-289",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-324::caput",
+          "ren1000-art-323::p2",
+          "ren1000-art-342::p4",
+          "ren1000-art-289",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q054",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-289",
+          "ren1000-art-327::p2",
+          "ren1000-art-361",
+          "ren1000-art-290::p2"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-289",
+          "ren1000-art-327::p2",
+          "ren1000-art-361",
+          "ren1000-art-290::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q055",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-342::p2",
+          "ren1000-art-290::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-281::pu",
+          "ren1000-art-324::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-342::p2",
+          "ren1000-art-290::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-281::pu",
+          "ren1000-art-324::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q056",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-342::p3",
+          "df7888-art-4",
+          "ren1000-art-357::pu",
+          "ren1000-art-356::caput",
+          "ren1000-art-290::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-342::p3",
+          "df7888-art-4",
+          "ren1000-art-357::pu",
+          "ren1000-art-356::caput",
+          "ren1000-art-290::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q057",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-342::p1",
+          "df7888-art-4",
+          "ren1000-art-343::p3",
+          "ren1000-art-356::caput",
+          "ren1000-art-323::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-342::p1",
+          "df7888-art-4",
+          "ren1000-art-343::p3",
+          "ren1000-art-356::caput",
+          "ren1000-art-323::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q058",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "ren1000-art-323::p2",
+          "ren1000-art-324::caput",
+          "df7888-art-4",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "ren1000-art-323::p2",
+          "ren1000-art-324::caput",
+          "df7888-art-4",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q059",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-6::inc-viii",
+          "cdc-art-42",
+          "cdc-art-42-pu",
+          "ren1000-art-360::caput",
+          "ren1000-art-356::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-6::inc-viii",
+          "cdc-art-42",
+          "cdc-art-42-pu",
+          "ren1000-art-360::caput",
+          "ren1000-art-356::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q060",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-6::inc-vi",
+          "ren1000-art-324::p4",
+          "df7888-art-4",
+          "cdc-art-42-pu",
+          "df7888-art-1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-6::inc-vi",
+          "ren1000-art-324::p4",
+          "df7888-art-4",
+          "cdc-art-42-pu",
+          "df7888-art-1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q061",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-v",
+          "ren1000-art-285",
+          "ren1000-art-357::caput",
+          "cdc-art-42-pu",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-v",
+          "ren1000-art-285",
+          "ren1000-art-357::caput",
+          "cdc-art-42-pu",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q062",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "ren1000-art-338::p2",
+          "ren1000-art-360::p3",
+          "ren1000-art-356::caput",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "ren1000-art-338::p2",
+          "ren1000-art-360::p3",
+          "ren1000-art-356::caput",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q063",
+      "tipo": "lacuna",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p1",
+          "cdc-art-42-pu",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "ren1000-art-327::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p1",
+          "cdc-art-42-pu",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "ren1000-art-327::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q064",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::caput",
+          "ren1000-art-360::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::caput",
+          "ren1000-art-360::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q065",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-290::p2",
+          "ren1000-art-177",
+          "ren1000-art-342::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-290::p2",
+          "ren1000-art-177",
+          "ren1000-art-342::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q066",
+      "tipo": "lacuna",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-324::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-281::caput",
+          "ren1000-art-289"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-324::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-281::caput",
+          "ren1000-art-289"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q067",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-356::caput",
+          "df7888-art-4",
+          "ren1000-art-342::p2",
+          "ren1000-art-324::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p3",
+          "ren1000-art-356::caput",
+          "df7888-art-4",
+          "ren1000-art-342::p2",
+          "ren1000-art-324::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q068",
+      "tipo": "fora_do_corpus",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-343::caput"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-343::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q069",
+      "tipo": "fora_do_corpus",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-2-iii::inc-iii",
+          "df7888-art-1",
+          "df7888-art-4",
+          "ren1000-art-337",
+          "ren1000-art-290::p1"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-2-iii::inc-iii",
+          "df7888-art-1",
+          "df7888-art-4",
+          "ren1000-art-337",
+          "ren1000-art-290::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q070",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "ren1000-art-360::p3",
+          "ren1000-art-327::caput",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-357::pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "ren1000-art-360::p3",
+          "ren1000-art-327::caput",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-357::pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q071",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "df7888-art-1",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-337",
+          "cdc-art-6::inc-x"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "df7888-art-1",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-337",
+          "cdc-art-6::inc-x"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q072",
+      "tipo": "fora_do_corpus",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "df7888-art-4",
+          "df7888-art-2-iii::inc-iii",
+          "df7888-art-1",
+          "ren1000-art-347"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "df7888-art-4",
+          "df7888-art-2-iii::inc-iii",
+          "df7888-art-1",
+          "ren1000-art-347"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q073",
+      "tipo": "fora_do_corpus",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::caput",
+          "df7888-art-4",
+          "df7888-art-2-iii::inc-iii",
+          "df7888-art-1",
+          "ren1000-art-323::p2"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::caput",
+          "df7888-art-4",
+          "df7888-art-2-iii::inc-iii",
+          "df7888-art-1",
+          "ren1000-art-323::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q074",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "cdc-art-42-pu",
+          "ren1000-art-323::p3",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-343::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "cdc-art-42-pu",
+          "ren1000-art-323::p3",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-343::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q075",
+      "tipo": "fora_do_corpus",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "ren1000-art-360::p3",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-322",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "df7888-art-4",
+          "ren1000-art-360::p3",
+          "df7888-art-2-iii::inc-iii",
+          "ren1000-art-322",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q076",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-260::p1",
+          "ren1000-art-347",
+          "ren1000-art-342::p4",
+          "ren1000-art-323::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-260::p1",
+          "ren1000-art-347",
+          "ren1000-art-342::p4",
+          "ren1000-art-323::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q077",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::caput",
+          "ren1000-art-327::caput",
+          "ren1000-art-342::p4",
+          "ren1000-art-323::p1",
+          "ren1000-art-347"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::caput",
+          "ren1000-art-327::caput",
+          "ren1000-art-342::p4",
+          "ren1000-art-323::p1",
+          "ren1000-art-347"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q078",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p3",
+          "ren1000-art-338::p2",
+          "ren1000-art-323::caput",
+          "ren1000-art-357::caput",
+          "cdc-art-6::inc-viii"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p3",
+          "ren1000-art-338::p2",
+          "ren1000-art-323::caput",
+          "ren1000-art-357::caput",
+          "cdc-art-6::inc-viii"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q079",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "ren1000-art-343::caput",
+          "cdc-art-42-pu",
+          "ren1000-art-324::caput",
+          "ren1000-art-281::pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-323::p2",
+          "ren1000-art-343::caput",
+          "cdc-art-42-pu",
+          "ren1000-art-324::caput",
+          "ren1000-art-281::pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q080",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-356::caput",
+          "ren1000-art-360::p3",
+          "df7888-art-4",
+          "ren1000-art-323::p3"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-356::caput",
+          "ren1000-art-360::p3",
+          "df7888-art-4",
+          "ren1000-art-323::p3"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q081",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-347",
+          "ren1000-art-343::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput",
+          "cdc-art-42-pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-347",
+          "ren1000-art-343::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q082",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-337",
+          "ren1000-art-360::p1",
+          "ren1000-art-358",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-337",
+          "ren1000-art-360::p1",
+          "ren1000-art-358",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q083",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-337",
+          "ren1000-art-327::caput",
+          "ren1000-art-357::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-360::p3"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-337",
+          "ren1000-art-327::caput",
+          "ren1000-art-357::caput",
+          "ren1000-art-338::caput",
+          "ren1000-art-360::p3"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q084",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-338::caput",
+          "ren1000-art-337",
+          "ren1000-art-358",
+          "ren1000-art-327::caput",
+          "ren1000-art-357::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-338::caput",
+          "ren1000-art-337",
+          "ren1000-art-358",
+          "ren1000-art-327::caput",
+          "ren1000-art-357::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q085",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-338::p2",
+          "ren1000-art-358",
+          "ren1000-art-337",
+          "ren1000-art-327::caput",
+          "ren1000-art-357::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-338::p2",
+          "ren1000-art-358",
+          "ren1000-art-337",
+          "ren1000-art-327::caput",
+          "ren1000-art-357::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q086",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-338::caput",
+          "ren1000-art-356::caput",
+          "ren1000-art-337",
+          "ren1000-art-327::caput",
+          "ren1000-art-323::p3"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-338::caput",
+          "ren1000-art-356::caput",
+          "ren1000-art-337",
+          "ren1000-art-327::caput",
+          "ren1000-art-323::p3"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q087",
+      "tipo": "lacuna",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-327::caput",
+          "ren1000-art-323::caput",
+          "ren1000-art-357::pu",
+          "ren1000-art-324::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-327::caput",
+          "ren1000-art-323::caput",
+          "ren1000-art-357::pu",
+          "ren1000-art-324::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q088",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p3",
+          "ren1000-art-338::p1",
+          "ren1000-art-327::caput",
+          "ren1000-art-342::caput",
+          "ren1000-art-360::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::p3",
+          "ren1000-art-338::p1",
+          "ren1000-art-327::caput",
+          "ren1000-art-342::caput",
+          "ren1000-art-360::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q089",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-347",
+          "ren1000-art-343::caput",
+          "ren1000-art-177",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-347",
+          "ren1000-art-343::caput",
+          "ren1000-art-177",
+          "ren1000-art-324::caput",
+          "ren1000-art-323::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q090",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::caput",
+          "ren1000-art-324::p1",
+          "ren1000-art-323::p2",
+          "ren1000-art-342::p4",
+          "ren1000-art-347"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-343::caput",
+          "ren1000-art-324::p1",
+          "ren1000-art-323::p2",
+          "ren1000-art-342::p4",
+          "ren1000-art-347"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q091",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-347",
+          "ren1000-art-324::p3",
+          "ren1000-art-343::p1",
+          "ren1000-art-360::caput",
+          "ren1000-art-290::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-347",
+          "ren1000-art-324::p3",
+          "ren1000-art-343::p1",
+          "ren1000-art-360::caput",
+          "ren1000-art-290::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q092",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::caput",
+          "ren1000-art-360::p1",
+          "ren1000-art-361",
+          "ren1000-art-285",
+          "ren1000-art-290::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::caput",
+          "ren1000-art-360::p1",
+          "ren1000-art-361",
+          "ren1000-art-285",
+          "ren1000-art-290::p1"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q093",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-357::caput",
+          "ren1000-art-356::p2",
+          "ren1000-art-361",
+          "ren1000-art-322"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-357::caput",
+          "ren1000-art-356::p2",
+          "ren1000-art-361",
+          "ren1000-art-322"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q094",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p3",
+          "ren1000-art-356::caput",
+          "ren1000-art-323::p3",
+          "ren1000-art-357::caput",
+          "ren1000-art-324::p4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p3",
+          "ren1000-art-356::caput",
+          "ren1000-art-323::p3",
+          "ren1000-art-357::caput",
+          "ren1000-art-324::p4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q095",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p1",
+          "ren1000-art-323::p2",
+          "ren1000-art-260::p2",
+          "ren1000-art-357::pu",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p1",
+          "ren1000-art-323::p2",
+          "ren1000-art-260::p2",
+          "ren1000-art-357::pu",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q096",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::caput",
+          "ren1000-art-356::p2",
+          "ren1000-art-361",
+          "df7888-art-4",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::caput",
+          "ren1000-art-356::p2",
+          "ren1000-art-361",
+          "df7888-art-4",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q097",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-361",
+          "ren1000-art-360::caput",
+          "ren1000-art-356::caput",
+          "ren1000-art-323::p1",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-361",
+          "ren1000-art-360::caput",
+          "ren1000-art-356::caput",
+          "ren1000-art-323::p1",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q098",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-361",
+          "ren1000-art-357::caput",
+          "ren1000-art-327::caput",
+          "ren1000-art-360::p2",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-361",
+          "ren1000-art-357::caput",
+          "ren1000-art-327::caput",
+          "ren1000-art-360::p2",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q099",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-361",
+          "ren1000-art-356::p2",
+          "ren1000-art-323::p3",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-361",
+          "ren1000-art-356::p2",
+          "ren1000-art-323::p3",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q100",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::caput",
+          "ren1000-art-360::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-358",
+          "ren1000-art-324::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::caput",
+          "ren1000-art-360::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-358",
+          "ren1000-art-324::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q101",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-356::p2",
+          "ren1000-art-357::caput",
+          "ren1000-art-361",
+          "ren1000-art-323::p3"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-356::p2",
+          "ren1000-art-357::caput",
+          "ren1000-art-361",
+          "ren1000-art-323::p3"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q102",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-357::caput",
+          "ren1000-art-337",
+          "ren1000-art-338::caput",
+          "ren1000-art-347",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-357::caput",
+          "ren1000-art-337",
+          "ren1000-art-338::caput",
+          "ren1000-art-347",
+          "ren1000-art-358"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q103",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-357::pu",
+          "ren1000-art-337",
+          "ren1000-art-360::p1",
+          "ren1000-art-358",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-357::pu",
+          "ren1000-art-337",
+          "ren1000-art-360::p1",
+          "ren1000-art-358",
+          "df7888-art-4"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q104",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-290::p3",
+          "ren1000-art-361",
+          "ren1000-art-357::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-290::p3",
+          "ren1000-art-361",
+          "ren1000-art-357::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q105",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-357::pu",
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-356::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p2",
+          "ren1000-art-357::pu",
+          "ren1000-art-177",
+          "ren1000-art-358",
+          "ren1000-art-356::p2"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q106",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-361",
+          "ren1000-art-356::caput",
+          "ren1000-art-357::caput",
+          "ren1000-art-358",
+          "cdc-art-42-pu"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-361",
+          "ren1000-art-356::caput",
+          "ren1000-art-357::caput",
+          "ren1000-art-358",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q107",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::caput",
+          "df7888-art-4",
+          "ren1000-art-323::p3",
+          "ren1000-art-360::p3",
+          "ren1000-art-327::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-356::caput",
+          "df7888-art-4",
+          "ren1000-art-323::p3",
+          "ren1000-art-360::p3",
+          "ren1000-art-327::caput"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q108",
+      "tipo": "normativa",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p1",
+          "cdc-art-6::inc-viii",
+          "ren1000-art-260::p1",
+          "ren1000-art-358",
+          "ren1000-art-285"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": true,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-360::p1",
+          "cdc-art-6::inc-viii",
+          "ren1000-art-260::p1",
+          "ren1000-art-358",
+          "ren1000-art-285"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q109",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 2,
+        "top5": [
+          "ren1000-art-360::p1",
+          "ren1000-art-357::caput",
+          "ren1000-art-285",
+          "ren1000-art-260::p1",
+          "ren1000-art-361"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "cdc-art-42-pu",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q110",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 3,
+        "top5": [
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-290::p3",
+          "ren1000-art-285",
+          "ren1000-art-260::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42",
+          "cdc-art-39::inc-vi",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q111",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "ren1000-art-289",
+          "ren1000-art-324::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-285",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "cdc-art-42",
+          "cdc-art-6::inc-vi",
+          "cdc-art-39::inc-vi"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q112",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 2,
+        "top5": [
+          "ren1000-art-285",
+          "ren1000-art-260::p1",
+          "ren1000-art-357::caput",
+          "ren1000-art-358",
+          "ren1000-art-338::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q113",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 1,
+        "top5": [
+          "ren1000-art-343::p1",
+          "ren1000-art-260::p1",
+          "ren1000-art-347",
+          "ren1000-art-285",
+          "ren1000-art-323::p1"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "cdc-art-42-pu",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q114",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 2,
+        "top5": [
+          "ren1000-art-337",
+          "ren1000-art-360::p1",
+          "ren1000-art-358",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "cdc-art-6::inc-viii",
+          "cdc-art-39::inc-vi",
+          "cdc-art-42"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q115",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 3,
+        "top5": [
+          "ren1000-art-358",
+          "ren1000-art-177",
+          "ren1000-art-290::p3",
+          "cdc-art-6::inc-vi",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-6::inc-vi",
+          "cdc-art-42-pu",
+          "cdc-art-42",
+          "cdc-art-39::inc-vi"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q116",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 3,
+        "top5": [
+          "ren1000-art-290::p4",
+          "ren1000-art-322",
+          "ren1000-art-285",
+          "df7888-art-4",
+          "ren1000-art-323::p2"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "cdc-art-42",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42-pu"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q117",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 3,
+        "top5": [
+          "ren1000-art-307::caput",
+          "ren1000-art-327::p2",
+          "ren1000-art-285",
+          "ren1000-art-290::p3",
+          "ren1000-art-358"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-39::inc-vi",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42-pu",
+          "cdc-art-42"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q118",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 1,
+        "top5": [
+          "ren1000-art-327::caput",
+          "ren1000-art-307::p1",
+          "ren1000-art-323::caput",
+          "ren1000-art-324::caput",
+          "ren1000-art-343::caput"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "cdc-art-6::inc-vi",
+          "cdc-art-39::inc-vi",
+          "cdc-art-42"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q119",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 2,
+        "top5": [
+          "ren1000-art-323::caput",
+          "cdc-art-42-pu",
+          "ren1000-art-324::caput",
+          "ren1000-art-342::p2",
+          "ren1000-art-322"
+        ]
+      },
+      "B3": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "cdc-art-39::inc-vi",
+          "cdc-art-42",
+          "cdc-art-6::inc-viii"
+        ]
+      }
+    },
+    {
+      "id": "GS-Q120",
+      "tipo": "vigencia",
+      "B2": {
+        "acerto": false,
+        "recuperou_canonico": false,
+        "abstencao": false,
+        "violacoes_vigencia": 3,
+        "top5": [
+          "ren1000-art-342::p2",
+          "ren1000-art-323::p1",
+          "ren1000-art-324::p2",
+          "ren1000-art-290::p1",
+          "df7888-art-4"
+        ]
+      },
+      "B3": {
+        "acerto": true,
+        "recuperou_canonico": false,
+        "abstencao": true,
+        "violacoes_vigencia": 0,
+        "top5": [
+          "cdc-art-42-pu",
+          "cdc-art-39::inc-vi",
+          "cdc-art-6::inc-viii",
+          "cdc-art-42"
+        ]
+      }
+    }
+  ]
+}

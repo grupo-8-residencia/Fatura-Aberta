@@ -11,6 +11,7 @@ strict: true
 exclude_docs: |
   _templates/
   produto/definicao/
+  material_didatico*
 
 theme:
   name: material
@@ -94,9 +95,11 @@ nav:
       - Lean Inception: produto/lean-inception.md
       - Critérios de aceite: produto/criterios-aceite.md
       - Pacote de definição: produto/pacote-de-definicao.md
+      - Coleta de faturas: produto/coleta-faturas.md
   - Arquitetura:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
+      - RAG normativo: arquitetura/rag.md
       - Decisões (ADRs):
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
@@ -119,6 +122,7 @@ nav:
   - Avaliação:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
+      - Golden set: avaliacao/golden-set.md
       - Resultados: avaliacao/resultados.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
