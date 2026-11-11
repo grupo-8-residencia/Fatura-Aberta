@@ -43,7 +43,10 @@ texto limpo (etapa 1 e 2), prevista para a frente F4.
 3. **Chunking.** `chunkar_dispositivo()` quebra em caput, parágrafos (`§ nº` e `Parágrafo único.`) e
    incisos. Cada chunk herda a citação com o dispositivo refinado (por exemplo, `art. 323, § 2º`).
 4. **Embeddings.** `criar_embedder()` escolhe o extrator por `FA_RAG_EMBEDDER` (padrão `hash`).
-5. **Índice.** `IndiceHibrido.do_corpus()` guarda os vetores normalizados e as frequências de termos.
+5. **Índice.** `IndiceHibrido.do_corpus()` guarda os vetores normalizados e as frequências de termos. Com
+   `arquivo_vetores=Path(...)` o índice é **durável**: os vetores vão para um JSON com a assinatura dos
+   textos e da dimensão, e são recarregados sem recalcular enquanto nada mudar (se o corpus, a
+   dimensão ou o arquivo mudarem, o índice recalcula e regrava).
 6. **Consulta.** `buscar(consulta, data_referencia=..., subgrupos={"B1"})` filtra, ordena e devolve
    `ResultadoBusca` com `score`, `score_vetorial` e `score_lexico`.
 7. **Síntese.** `responder()` monta o texto só com trechos literais dos chunks recuperados.
