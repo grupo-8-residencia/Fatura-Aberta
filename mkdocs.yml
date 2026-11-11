@@ -104,6 +104,7 @@ nav:
       - Decisões (ADRs):
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
+          - "ADR-002 — LLM local (Ollama)": arquitetura/decisoes/adr-002-llm-local.md
   - Frentes:
       - frentes/index.md
       - "F1 — Produto, Pesquisa e Conformidade": frentes/f1.md
@@ -116,6 +117,7 @@ nav:
       - conformidade/index.md
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
+      - Roteiro do parecer jurídico: conformidade/roteiro-parecer-juridico.md
       - Política de dados: conformidade/politica-de-dados.md
   - Segurança:
       - Injeção por imagem: seguranca/injecao-por-imagem.md
@@ -123,6 +125,7 @@ nav:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
       - Golden set: avaliacao/golden-set.md
+      - Como anotar: avaliacao/anotacao.md
       - Resultados: avaliacao/resultados.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
