@@ -193,3 +193,43 @@ def test_rag_extrativo_nao_usa_llm_e_se_abstem_fora_do_corpus(
     assert sum(i["acerto"] for i in normativas) / len(normativas) > 0.7
     m = rs.metricas_perguntas({"RAG": r})
     assert m["RAG"]["n"] == 120 and m["RAG"]["respostas_invalidas"] == 0
+
+
+def _item(
+    acerto: bool, *, tipo: str = "normativa", dur: float = 1.0, rf15: bool = False
+) -> dict[str, Any]:
+    return {
+        "id": "x", "tipo": tipo, "acerto": acerto, "valido": True, "duracao_s": dur,
+        "linguagem": ["ilegal"] if rf15 else [], "citacoes_inventadas": [],
+        "citacoes_fora_de_vigencia": [],
+    }  # fmt: skip
+
+
+def test_relatorio_escolhe_por_acerto_e_desempata_por_latencia() -> None:
+    import relatorio_s3 as rel
+
+    perguntas = {
+        "LLM": [_item(False) for _ in range(50)],
+        "RAG": [_item(True, dur=0.001) for _ in range(50)],
+        "B2": [_item(True, dur=30.0) for _ in range(50)],
+        "B3": [_item(True, dur=40.0) for _ in range(50)],
+    }
+    r = rel.comparar(
+        {"perguntas": {k: perguntas[k] for k in ("B2", "B3")}},
+        {"perguntas": {"LLM": perguntas["LLM"], "RAG": perguntas["RAG"]}},
+    )
+    esc = r["escolha_perguntas"]
+    assert esc["escolhido"] == "RAG" and set(esc["empatados"]) == {"RAG", "B2", "B3"}
+    assert r["mcnemar_perguntas"]["RAG_vs_LLM"]["significativo_5pct"] is True
+    assert r["perguntas"]["LLM"]["acerto"]["estimativa"] == 0.0
+
+
+def test_relatorio_exclui_quem_viola_rf15_ou_tem_resposta_invalida() -> None:
+    import relatorio_s3 as rel
+
+    bom = [_item(True) for _ in range(20)]
+    ruim = [_item(True, rf15=(k == 0)) for k in range(20)]
+    invalido = [{**_item(True), "valido": False} for _ in range(20)]
+    t = rel.tabela_perguntas({"B2": ruim, "B3": invalido, "RAG": bom})
+    assert rel.escolher(t, ("B2", "B3", "RAG"))["escolhido"] == "RAG"
+    assert rel.escolher(rel.tabela_perguntas({"B2": ruim}), ("B2",))["escolhido"] is None
