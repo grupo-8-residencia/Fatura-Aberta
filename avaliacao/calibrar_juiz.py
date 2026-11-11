@@ -31,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gerar_golden_set as gs  # noqa: E402
 from estatistica import (  # noqa: E402
     B_PADRAO,
+    SEMENTE_AMOSTRA,
     SEMENTE_PADRAO,
     acuracia,
     bootstrap_ic,
@@ -63,7 +64,7 @@ def selecionar_itens(n: int = N_ITENS) -> list[dict[str, str]]:
     """
     dist = gs.distribuir(gs.ler_perguntas(), gs.gerar_faturas())
     nomes = list(dist)
-    rng = random.Random(SEMENTE_PADRAO + 2)
+    rng = random.Random(SEMENTE_AMOSTRA + 2)
     filas = {nome: rng.sample(ids, len(ids)) for nome, ids in dist.items()}
     escolhidos: list[tuple[str, str]] = []
     while len(escolhidos) < n:
