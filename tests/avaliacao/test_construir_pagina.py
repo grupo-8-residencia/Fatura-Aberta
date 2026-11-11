@@ -3,6 +3,8 @@
 import importlib.util
 import json
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -76,3 +78,28 @@ def test_codigos_sao_criados_uma_vez_e_reaproveitados(tmp_path: Path) -> None:
     assert a == b and set(a) == set(cp.PESSOAS)
     assert all(len(v.replace("-", "")) == 12 for v in a.values())
     assert len(set(a.values())) == 6
+
+
+def test_javascript_da_pagina_gera_o_mesmo_verificador_do_python() -> None:
+    """Roda no node o trecho de criptografia da página: pegou um bug de hexadecimal em 11/11."""
+    import pytest
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node não instalado")
+    modelo = cp.MODELO.read_text(encoding="utf-8")
+    ini = modelo.index("  function normalizarCodigo")
+    fim = modelo.index("function assinar(") + modelo[modelo.index("function assinar(") :].index(
+        "\n"
+    )
+    trecho = modelo[ini:fim]
+    script = (
+        "const crypto = require('crypto').webcrypto;\n"
+        + trecho
+        + "\nderivarChave('NatyEvelin','ab12-cd34-ef56')"
+        + ".then(k => assinar(k,'ok')).then(console.log);"
+    )
+    saida = subprocess.run(
+        [node, "-e", script], capture_output=True, text=True, check=True, timeout=60
+    ).stdout.strip()
+    assert saida == cp.verificador("NatyEvelin", "AB12-CD34-EF56")

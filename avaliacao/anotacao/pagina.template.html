@@ -193,7 +193,7 @@ input[type=text] { font: inherit; font-family: var(--mono); color: var(--ink); b
   var chaveHmac = null, alteracoes = 0, ultimaCopia = null;
 
   function normalizarCodigo(c) { return String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); }
-  function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(2); }).join(""); }
+  function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); }
   function derivarChave(p, codigo) {
     var enc = new TextEncoder();
     return crypto.subtle.importKey("raw", enc.encode(normalizarCodigo(codigo)), "PBKDF2", false, ["deriveBits"]).then(function (base) {
