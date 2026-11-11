@@ -1016,7 +1016,7 @@ issues:
     criterios:
       - Aplicação acessível por URL pública
       - Logs revisados sem dados pessoais
-      - "Teste de carga leve documentado (metas: TODO)"
+      - "Teste de carga leve documentado e meta aceita pela equipe: 100 requisições, 5 simultâneas, 100% HTTP 200 e p95 ≤ 2 s com a aplicação ativa"
 
   - id: S6-03
     titulo: Automatizar 5 cenários ponta a ponta
