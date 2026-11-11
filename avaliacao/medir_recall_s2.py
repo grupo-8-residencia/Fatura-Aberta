@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import sys
 from datetime import date
 from pathlib import Path
@@ -30,6 +31,36 @@ def _artigo(doc_id: str) -> str:
     return doc_id.split("::")[0]
 
 
+def amostra_estratificada(
+    perguntas: list[dict[str, Any]], n: int, semente: int = SEMENTE_PADRAO
+) -> list[dict[str, Any]]:
+    """Amostra de n perguntas, proporcional ao tamanho de cada categoria, com semente fixa.
+
+    Cada categoria entra com ao menos 1 pergunta (a alocação usa o maior resto), para que o gate
+    não meça só os primeiros temas do arquivo.
+    """
+    grupos: dict[str, list[dict[str, Any]]] = {}
+    for p in perguntas:
+        grupos.setdefault(str(p.get("categoria", "")), []).append(p)
+    if n < len(grupos):
+        raise ValueError(f"n = {n} é menor que o número de categorias ({len(grupos)}).")
+    total = len(perguntas)
+    cotas = {c: max(1, int(n * len(g) / total)) for c, g in grupos.items()}
+    restos = sorted(grupos, key=lambda c: (n * len(grupos[c]) / total) % 1, reverse=True)
+    i = 0
+    while sum(cotas.values()) < n:
+        cotas[restos[i % len(restos)]] += 1
+        i += 1
+    while sum(cotas.values()) > n:  # o mínimo de 1 pode ter estourado o total
+        maior = max(cotas, key=lambda c: cotas[c])
+        cotas[maior] -= 1
+    rng = random.Random(semente)
+    escolhidas: list[dict[str, Any]] = []
+    for categoria in sorted(grupos):
+        escolhidas += rng.sample(grupos[categoria], cotas[categoria])
+    return sorted(escolhidas, key=lambda p: str(p["id"]))
+
+
 def medir_recall_s2(
     n_perguntas: int = N_PERGUNTAS_PADRAO,
     top_k: int = TOP_K,
@@ -40,13 +71,13 @@ def medir_recall_s2(
         for linha in PERGUNTAS.read_text(encoding="utf-8").splitlines()
         if linha.strip()
     ]
-    # Seleciona as primeiras n perguntas com norma esperada
-    perguntas_gate = [p for p in linhas if not p.get("abstencao_esperada", False)][:n_perguntas]
-    if len(perguntas_gate) < n_perguntas:
+    com_norma = [p for p in linhas if not p.get("abstencao_esperada", False)]
+    if len(com_norma) < n_perguntas:
         raise ValueError(
-            f"Conjunto possui apenas {len(perguntas_gate)} perguntas com norma esperada "
+            f"Conjunto possui apenas {len(com_norma)} perguntas com norma esperada "
             f"(necessárias: {n_perguntas})."
         )
+    perguntas_gate = amostra_estratificada(com_norma, n_perguntas)
 
     indice = IndiceHibrido.do_corpus()
     detalhes: list[dict[str, Any]] = []
@@ -92,6 +123,12 @@ def medir_recall_s2(
         "sprint": "S2",
         "frente": "F2",
         "n_perguntas": len(perguntas_gate),
+        "amostra": "estratificada por categoria, semente " + str(SEMENTE_PADRAO),
+        "ids_amostra": [p["id"] for p in perguntas_gate],
+        "composicao_por_categoria": {
+            c: sum(1 for p in perguntas_gate if p.get("categoria") == c)
+            for c in sorted({str(p.get("categoria", "")) for p in perguntas_gate})
+        },
         "acertos": int(sum(acertos)),
         "meta_gate": META_GATE_RECALL,
         "passou_gate": passou_gate,

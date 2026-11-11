@@ -38,5 +38,4 @@ faturas-reais/
 
 # Material didático e scripts de estudo locais (não versionados)
 *material_didatico*
-*material_ditatico*
-scripts/gerar_material_didatico*.py
+scripts/gerar_material_didatico_pdf.py

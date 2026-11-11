@@ -10,14 +10,19 @@
 
 ## S2: Gate de Recall@5 da Norma Vigente (F2)
 
-Medição oficial do Gate da Sprint S2 sobre 30 perguntas com versão-gabarito do golden set (`dados/golden-set/perguntas.jsonl`).
+Medição oficial do Gate da Sprint S2 sobre 30 perguntas com versão-gabarito, **amostra estratificada por categoria** (proporcional ao tamanho de cada uma, com ao menos 1 por categoria, semente 20261109) do golden set (`dados/golden-set/perguntas.jsonl`). Os 30 ids ficam gravados no JSON.
 Intervalo de confiança de 95% por bootstrap (B = 10.000, semente 20261109). Fonte:
 [`avaliacao/resultados/s2-recall-gate.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-recall-gate.json),
 gerado por `uv run python avaliacao/medir_recall_s2.py`.
 
 | Métrica de Gate | Meta da Sprint S2 | Resultado Obtido [IC 95%] | Status |
 |---|---|---|---|
-| **recall@5 da norma vigente (n = 30)** | ≥ 0,70 | **0,967 [0,900; 1,000]** (29 acertos em 30) | **APROVADO (GO)** |
+| **recall@5 da norma vigente (n = 30)** | ≥ 0,70 | **1,000 [1,000; 1,000]** (30 acertos em 30) | **APROVADO (GO)** |
+
+Composição da amostra: devolução em dobro 7, tarifas B1 5, medição estimada 5, corte e notificação 5, encargos e multas 4, bandeiras 2 e CIP/COSIP 2.
+
+!!! warning "Como ler este 100%"
+    O IC de [1,000; 1,000] não significa que o RAG não erra: com 30 acertos em 30 o bootstrap não tem variação para reamostrar. As perguntas foram escritas a partir do texto dos próprios dispositivos e ainda não tiveram revisão humana, então o recall tende a ser otimista. No conjunto completo (103 perguntas com norma esperada) o recall@5 é 0,981 [0,951; 1,000].
 
 ## S3: B1, B2 e B3
 

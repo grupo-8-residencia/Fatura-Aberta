@@ -145,3 +145,19 @@ def test_gate_s2_recall_em_30_perguntas() -> None:
     assert resultado["acertos"] >= 21  # >= 70% de 30
     assert resultado["recall_at_5"]["estimativa"] >= 0.70
     assert resultado["passou_gate"] is True
+
+
+def test_gate_s2_amostra_cobre_todas_as_categorias_e_e_reprodutivel() -> None:
+    import medir_recall_s2 as mr_s2
+
+    linhas = [
+        json.loads(x) for x in mr_s2.PERGUNTAS.read_text(encoding="utf-8").splitlines() if x.strip()
+    ]
+    com_norma = [p for p in linhas if not p["abstencao_esperada"]]
+    a = mr_s2.amostra_estratificada(com_norma, 30)
+    assert len(a) == 30 and len({p["id"] for p in a}) == 30
+    assert {p["categoria"] for p in a} == {p["categoria"] for p in com_norma}
+    assert a == mr_s2.amostra_estratificada(com_norma, 30)  # semente fixa
+    resultado = mr_s2.medir_recall_s2(n_perguntas=30)
+    assert resultado["ids_amostra"] == [p["id"] for p in a]
+    assert sum(resultado["composicao_por_categoria"].values()) == 30
