@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import math
 from collections import Counter
 from collections.abc import Collection, Sequence
@@ -32,6 +34,41 @@ class IndiceVetorial:
         for chave, vetor in zip(ids, self.embedder.embed(textos), strict=True):
             self._vetores[chave] = vetor
 
+    def assinatura(self, textos: dict[str, str]) -> str:
+        """Hash do que foi indexado (ids, textos e dimensão): detecta um arquivo desatualizado."""
+        bruto = json.dumps(
+            {"dim": self.embedder.dim, "textos": textos}, sort_keys=True, ensure_ascii=False
+        )
+        return hashlib.sha256(bruto.encode("utf-8")).hexdigest()
+
+    def salvar(self, caminho: Path, textos: dict[str, str]) -> None:
+        """Grava os vetores em JSON, com a assinatura dos textos para validar na carga."""
+        caminho.parent.mkdir(parents=True, exist_ok=True)
+        dados = {
+            "dim": self.embedder.dim,
+            "assinatura": self.assinatura(textos),
+            "vetores": {k: [round(x, 8) for x in v] for k, v in self._vetores.items()},
+        }
+        caminho.write_text(json.dumps(dados, ensure_ascii=False), encoding="utf-8")
+
+    def carregar(self, caminho: Path, textos: dict[str, str]) -> bool:
+        """Carrega os vetores se o arquivo existir e conferir com os textos; senão, False."""
+        if not caminho.exists():
+            return False
+        try:
+            dados = json.loads(caminho.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return False
+        vetores = dados.get("vetores", {})
+        if (
+            dados.get("dim") != self.embedder.dim
+            or dados.get("assinatura") != self.assinatura(textos)
+            or set(vetores) != set(textos)
+        ):
+            return False
+        self._vetores = {k: [float(x) for x in v] for k, v in vetores.items()}
+        return True
+
     def similaridades(self, consulta: str, ids: Collection[str]) -> dict[str, float]:
         q = self.embedder.embed([consulta])[0]
         return {
@@ -48,15 +85,20 @@ class IndiceHibrido:
         *,
         embedder: Embedder | None = None,
         alpha: float = 0.5,
+        arquivo_vetores: Path | None = None,
     ) -> None:
         if not 0.0 <= alpha <= 1.0:
             raise ValueError("alpha deve estar em [0, 1]")
         self.documentos = list(documentos)
         self.alpha = alpha
         self._vetorial = IndiceVetorial(embedder or criar_embedder())
-        self._vetorial.adicionar(
-            [d.id for d in self.documentos], [_texto_indexavel(d) for d in self.documentos]
-        )
+        textos = {d.id: _texto_indexavel(d) for d in self.documentos}
+        # Com `arquivo_vetores`, o índice é durável: reaproveita os vetores salvos se o corpus e o
+        # embedder não mudaram; caso contrário, recalcula e grava de novo.
+        if arquivo_vetores is None or not self._vetorial.carregar(arquivo_vetores, textos):
+            self._vetorial.adicionar(list(textos), list(textos.values()))
+            if arquivo_vetores is not None:
+                self._vetorial.salvar(arquivo_vetores, textos)
         self._tokens = {d.id: Counter(tokenizar(_texto_indexavel(d))) for d in self.documentos}
         n = len(self.documentos)
         df: Counter[str] = Counter()
@@ -73,10 +115,11 @@ class IndiceHibrido:
         *,
         embedder: Embedder | None = None,
         alpha: float = 0.5,
+        arquivo_vetores: Path | None = None,
     ) -> IndiceHibrido:
         """Carrega o corpus curado e indexa um chunk por dispositivo (caput, § e incisos)."""
         chunks = [c for doc in carregar_corpus(caminho) for c in chunkar_dispositivo(doc)]
-        return cls(chunks, embedder=embedder, alpha=alpha)
+        return cls(chunks, embedder=embedder, alpha=alpha, arquivo_vetores=arquivo_vetores)
 
     def _lexico(self, consulta_tokens: Sequence[str], doc_id: str) -> float:
         """Cobertura da consulta ponderada por IDF, em [0, 1]; termo ausente pesa contra."""

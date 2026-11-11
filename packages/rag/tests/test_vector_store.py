@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 import re
 import subprocess
@@ -236,3 +237,49 @@ def test_demonstracao_executa_e_mostra_fontes() -> None:
     assert saida.count("Fontes:") >= 3
     assert "Link oficial: https://" in saida and "Vigência:" in saida
     assert "abstenção" in saida
+
+
+def test_indice_duravel_salva_carrega_e_da_o_mesmo_resultado(tmp_path: Path) -> None:
+    arq = tmp_path / "vetores" / "indice.json"
+    novo = IndiceHibrido.do_corpus(arquivo_vetores=arq)
+    assert arq.exists()
+    carregado = IndiceHibrido.do_corpus(arquivo_vetores=arq)
+    hoje = date(2026, 11, 9)
+    a = novo.buscar("suspensão por inadimplemento sem notificação", data_referencia=hoje)
+    b = carregado.buscar("suspensão por inadimplemento sem notificação", data_referencia=hoje)
+    assert [r.documento.id for r in a] == [r.documento.id for r in b]
+    assert [round(r.score, 6) for r in a] == [round(r.score, 6) for r in b]
+
+
+def test_indice_duravel_nao_recalcula_quando_o_arquivo_confere(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    arq = tmp_path / "indice.json"
+    IndiceHibrido.do_corpus(arquivo_vetores=arq)
+    chamadas: list[int] = []
+    original = EmbedderHash.embed
+
+    def contar(self: EmbedderHash, textos: list[str]) -> list[list[float]]:
+        chamadas.append(len(textos))
+        return original(self, textos)
+
+    monkeypatch.setattr(EmbedderHash, "embed", contar)
+    IndiceHibrido.do_corpus(arquivo_vetores=arq)
+    assert chamadas == []  # nada foi recalculado: os vetores vieram do disco
+
+
+def test_indice_duravel_recalcula_se_o_texto_dimensao_ou_arquivo_mudou(tmp_path: Path) -> None:
+    arq = tmp_path / "indice.json"
+    docs = [_doc("a", "suspensão do fornecimento"), _doc("b", "multa por atraso")]
+    IndiceHibrido(docs, arquivo_vetores=arq)
+    # texto diferente com o mesmo id: assinatura não confere, então recalcula e regrava
+    docs2 = [_doc("a", "suspensão do fornecimento de energia"), docs[1]]
+    novo = IndiceHibrido(docs2, arquivo_vetores=arq)
+    assert novo.buscar("fornecimento de energia", data_referencia=date(2024, 1, 1))
+    # dimensão diferente
+    outro = IndiceHibrido(docs2, embedder=EmbedderHash(dim=64), arquivo_vetores=arq)
+    assert len(outro._vetorial._vetores["a"]) == 64
+    # arquivo corrompido
+    arq.write_text("não é json", encoding="utf-8")
+    ok = IndiceHibrido(docs2, arquivo_vetores=arq)
+    assert len(ok.documentos) == 2 and json.loads(arq.read_text(encoding="utf-8"))["dim"] == 384
