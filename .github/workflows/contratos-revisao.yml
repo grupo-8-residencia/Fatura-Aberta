@@ -31,17 +31,20 @@ jobs:
           set -euo pipefail
 
           PULL_JSON="$(
-            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}"
+            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}" \
+            | jq -c '{head: {sha: .head.sha}}'
           )"
 
           FILES_JSON="$(
             gh api --paginate --slurp \
-              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100"
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100" \
+              | jq -c '[.[][] | {filename, previous_filename}]'
           )"
 
           REVIEWS_JSON="$(
             gh api --paginate --slurp \
-              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100"
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100" \
+              | jq -c '[.[][] | {user: {login: .user.login, type: .user.type}, state, commit_id, submitted_at, dismissed_at}]'
           )"
 
           export PULL_JSON FILES_JSON REVIEWS_JSON

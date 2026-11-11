@@ -1,0 +1,37 @@
+{
+  "sprint": "S2",
+  "frente": "F3",
+  "criterio": "nenhum falso alarme de nível A nas faturas corretas",
+  "benchmark_v0": {
+    "n_faturas": 30,
+    "n_corretas": 15,
+    "falsos_alarmes": 0,
+    "ids_com_falso_alarme": [],
+    "tfa_a": {
+      "estimativa": 0.0,
+      "ic95_inf": 0.0,
+      "ic95_sup": 0.0
+    },
+    "n_com_erro_injetado": 15,
+    "detectadas": 15,
+    "ids_nao_detectadas": []
+  },
+  "golden_set": {
+    "n_faturas": 200,
+    "n_corretas": 103,
+    "falsos_alarmes": 0,
+    "ids_com_falso_alarme": [],
+    "tfa_a": {
+      "estimativa": 0.0,
+      "ic95_inf": 0.0,
+      "ic95_sup": 0.0
+    },
+    "n_com_erro_injetado": 97,
+    "detectadas": 97,
+    "ids_nao_detectadas": []
+  },
+  "total_faturas_corretas": 118,
+  "total_falsos_alarmes": 0,
+  "passou_gate": true,
+  "ressalva": "Faturas sintéticas: os tipos de erro injetados são os que o próprio motor checa, então a detecção é alta por construção; o que o gate mede aqui é a ausência de falso alarme. Não vale como taxa em faturas reais."
+}

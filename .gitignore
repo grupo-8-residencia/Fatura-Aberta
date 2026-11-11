@@ -35,3 +35,10 @@ next-env.d.ts
 *.heic
 notas-brutas/
 faturas-reais/
+
+# Material didático e scripts de estudo locais (não versionados)
+*material_didatico*
+scripts/gerar_material_didatico_pdf.py
+
+# Cache de respostas do LLM (reprodutível, não versionado)
+avaliacao/cache/

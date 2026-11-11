@@ -118,7 +118,7 @@ jobs:
           - build
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "24"
           cache: npm
@@ -528,17 +528,20 @@ jobs:
           fi
 
           PULL_JSON="$(
-            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}"
+            gh api "repos/${REPOSITORY}/pulls/${PR_NUMBER}" \
+            | jq -c '{head: {sha: .head.sha}}'
           )"
 
           FILES_JSON="$(
             gh api --paginate --slurp \
-              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100"
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100" \
+              | jq -c '[.[][] | {filename, previous_filename}]'
           )"
 
           REVIEWS_JSON="$(
             gh api --paginate --slurp \
-              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100"
+              "repos/${REPOSITORY}/pulls/${PR_NUMBER}/reviews?per_page=100" \
+              | jq -c '[.[][] | {user: {login: .user.login, type: .user.type}, state, commit_id, submitted_at, dismissed_at}]'
           )"
 
           export PULL_JSON FILES_JSON REVIEWS_JSON
