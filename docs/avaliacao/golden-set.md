@@ -49,6 +49,12 @@ incorreto, item duplicado e alíquota de ICMS incoerente. O gabarito vem da cons
     produzir aritmética coerente**. Não são as tarifas da Neoenergia Brasília. A planilha ANEEL de
     `dados/tarifas/` ainda não foi validada para bandeira.
 
+## Anotação humana
+
+O kit de anotação (um CSV por pessoa e a revisão das 120 perguntas) está em
+`dados/golden-set/anotacoes/`. Instruções para quem anota: [Como anotar](anotacao.md). Enquanto o time
+não devolver os CSV preenchidos, a revisão humana segue **pendente**.
+
 ## Limitações
 
 - Revisão humana pendente em todos os itens. Seis pessoas anotando 30 itens cobrem 180 dos 320; o

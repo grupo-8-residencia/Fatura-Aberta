@@ -123,6 +123,7 @@ nav:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
       - Golden set: avaliacao/golden-set.md
+      - Como anotar: avaliacao/anotacao.md
       - Resultados: avaliacao/resultados.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
