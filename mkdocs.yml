@@ -103,6 +103,7 @@ nav:
       - Decisões (ADRs):
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
+          - "ADR-002 — LLM local (Ollama)": arquitetura/decisoes/adr-002-llm-local.md
   - Frentes:
       - frentes/index.md
       - "F1 — Produto, Pesquisa e Conformidade": frentes/f1.md
