@@ -35,6 +35,12 @@ HTTP 200 e 422. Em **Application logs** da API no Render, a busca pelo marcador
 fictício no intervalo de uma hora retornou "No matching logs". As entradas
 correspondentes mostraram método, caminho e status, sem corpo da requisição.
 
+**Revisão após publicação da `dev` (11/11/2026, 08:54 BRT):** uma requisição
+válida e outra inválida com marcador sintético retornaram HTTP 200 e 422.
+Em **Application logs** da API no Render, a busca pelo marcador no intervalo
+de uma hora retornou "No matching logs". As entradas correspondentes exibiram
+método, caminho e status, sem o corpo das requisições.
+
 ## Teste de carga leve
 
 Com a API em execução, rode:
@@ -80,6 +86,12 @@ no painel se a instância havia hibernado, portanto esse tempo não deve ser
 tratado como tempo de inicialização confirmado. Em seguida, com o serviço
 ativo, 100/100 respostas HTTP 200 e p95 de 777 ms com 5 simultâneas.
 
+**Validação da `dev` publicada (11/11/2026, 08:53 BRT):** na API pública,
+100/100 respostas HTTP 200, 5 requisições simultâneas e p95 de 578 ms,
+com a aplicação ativa. A interface e `GET /saude` responderam HTTP 200;
+o formulário com valores sintéticos exibiu o cartão de decisão. O preflight
+CORS autorizou a origem da interface e rejeitou uma origem não configurada.
+
 ## Publicação externa (Render)
 
 1. A partir da `dev` atual, crie um **Web Service Docker** para a API com
@@ -107,9 +119,9 @@ nem no Git.
 **URLs públicas:** [interface](https://fatura-aberta-web-s6.onrender.com/) e
 [API](https://fatura-aberta-api-s6.onrender.com/saude). Os dois serviços estão
 no plano gratuito e podem hibernar após inatividade, atrasando a primeira
-requisição. Foram publicados a partir da branch `feat/44-public-deploy`, com
-deploy automático desligado. Depois do merge do PR, altere a branch dos
-serviços para `dev`, faça o deploy dessa versão e repita as verificações.
+requisição. Em 11/11/2026, os dois serviços passaram a usar a branch `dev`,
+com deploy manual do commit `f9e4135`; ambos ficaram com status **Live** no
+Render. O deploy automático permanece desligado.
 
 ### Rollback
 
