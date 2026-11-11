@@ -729,5 +729,333 @@
     "conferido_em": "2026-11-09",
     "fonte_conferencia": "Texto compilado em www.sinj.df.gov.br (SINJ-DF), conferido em 09/11/2026",
     "observacoes": "Vigência: na data da publicação (DODF nº 84 de 11/05/2026, conforme o art. 6º). Texto compilado do SINJ-DF, que não substitui o publicado no DODF. Esta lei garante direitos de informação e revisão da CIP; não fixa o valor nem a alíquota da contribuição."
+  },
+  {
+    "id": "ren956-mod8-s82-170-173",
+    "titulo": "PRODIST Módulo 8: indicadores individuais de continuidade (DIC, FIC, DMIC e DICRI)",
+    "texto": "170. Por meio do controle das interrupções e da apuração dos indicadores de continuidade de serviço, as distribuidoras, os consumidores, as centrais geradoras e a ANEEL podem avaliar a qualidade do serviço prestado e o desempenho do sistema elétrico.\n171. Os indicadores de continuidade do serviço de distribuição de energia elétrica são estabelecidos quanto à duração e frequência das interrupções.\n172. Os indicadores devem ser apurados mensalmente, considerando o mês civil, com exceção do indicador DICRI, que deve ser apurado por interrupção ocorrida em Dia Crítico.\n173. Os indicadores de continuidade individuais são: Duração de Interrupção Individual por Unidade Consumidora ou por Ponto de Conexão – DIC (expressa em horas e centésimos de hora); Frequência de Interrupção Individual por Unidade Consumidora ou por Ponto de Conexão – FIC (expressa em número de interrupções); Duração Máxima de Interrupção Contínua por Unidade Consumidora ou por Ponto de Conexão – DMIC (expressa em horas e centésimos de hora); e Duração da Interrupção Individual ocorrida em Dia Crítico por Unidade Consumidora ou Ponto de Conexão – DICRI (expressa em horas e centésimos de hora).\n177. Os indicadores de continuidade individuais e coletivos devem ser apurados considerando apenas as interrupções de longa duração, ou seja, aquelas com duração maior ou igual a 3 minutos.",
+    "citacao": {
+      "ato": "REN ANEEL nº 956/2021 (PRODIST Módulo 8)",
+      "dispositivo": "Seção 8.2, itens 170 a 173 e 177",
+      "vigencia_inicio": "2022-01-01",
+      "vigencia_fim": null,
+      "url": "https://www.gov.br/aneel/pt-br/centrais-de-conteudos/procedimentos-regulatorios/prodist"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "PRODIST",
+      "Módulo 8",
+      "DIC",
+      "FIC",
+      "DMIC",
+      "DICRI",
+      "continuidade",
+      "interrupção"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel (vigência base da REN 956/2021: 01/01/2022)",
+    "observacoes": "Equações 29 a 32 omitidas por serem notação matemática; o indicador DISE (Situação de Emergência) foi acrescido posteriormente pela REN ANEEL nº 1.137/2025."
+  },
+  {
+    "id": "ren956-mod8-s82-178-179",
+    "titulo": "PRODIST Módulo 8: situações desconsideradas na apuração de DIC, FIC e DMIC",
+    "texto": "178. Na apuração dos indicadores DIC e FIC não devem ser consideradas as seguintes situações: falha nas instalações da unidade consumidora ou da central geradora que não provoque interrupção em instalações de terceiros; interrupção decorrente de obras de interesse exclusivo do consumidor ou da central geradora e que afete somente sua unidade consumidora; Interrupção em Situação de Emergência – ISE; suspensão por inadimplemento do consumidor ou da central geradora; suspensão por deficiência técnica ou de segurança das instalações da unidade consumidora ou da central geradora que não provoque interrupção em instalações de terceiros, previstas em regulamentação; interrupção vinculada à programa de racionamento instituído pela União; interrupção ocorrida em Dia Crítico; interrupção oriunda de atuação de Esquema Regional de Alívio de Carga – ERAC estabelecido pelo ONS; e interrupção de origem externa ao sistema de distribuição.\n179. Na apuração do indicador DMIC, além das interrupções referidas no item 178, também não devem ser consideradas aquelas oriundas de interrupções programadas, desde que sejam atendidas as seguintes condições: os consumidores e centrais geradoras sejam devidamente avisados; e o início e o fim da interrupção estejam compreendidos no intervalo programado.",
+    "citacao": {
+      "ato": "REN ANEEL nº 956/2021 (PRODIST Módulo 8)",
+      "dispositivo": "Seção 8.2, itens 178 e 179",
+      "vigencia_inicio": "2022-01-01",
+      "vigencia_fim": null,
+      "url": "https://www.gov.br/aneel/pt-br/centrais-de-conteudos/procedimentos-regulatorios/prodist"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "PRODIST",
+      "Módulo 8",
+      "DIC",
+      "FIC",
+      "DMIC",
+      "expurgo",
+      "interrupção programada"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "observacoes": null
+  },
+  {
+    "id": "ren956-mod8-s82-214-216",
+    "titulo": "PRODIST Módulo 8: limites dos indicadores individuais DIC, FIC e DMIC para baixa tensão",
+    "texto": "214. Os limites dos indicadores de continuidade individuais DIC, FIC, DMIC, DICRI e DISE para as unidades consumidoras e centrais geradoras são estabelecidos nas tabelas 1 a 5 do Anexo 8.B, de acordo com a localização e com a tensão contratada.\n216. Os limites dos indicadores DIC, DMIC, DICRI e DISE são vinculados ao limite anual do indicador DEC, enquanto os limites do indicador FIC são vinculados ao limite anual do indicador FEC.\nAnexo 8.B, Tabela 4 (área urbana, tensão contratada <= 2,3 kV): conforme a faixa anual de DEC ou FEC do conjunto, o limite mensal varia de 4 a 21 horas para DIC, de 3 a 9 interrupções para FIC, de 3 a 12 horas para DMIC e 13 horas por evento para DICRI.\nAnexo 8.B, Tabela 5 (área não urbana, tensão contratada <= 2,3 kV): o limite mensal varia de 10 a 40 horas para DIC, de 4 a 12 interrupções para FIC, de 8 a 24 horas para DMIC e 26 horas por evento para DICRI.",
+    "citacao": {
+      "ato": "REN ANEEL nº 956/2021 (PRODIST Módulo 8)",
+      "dispositivo": "Seção 8.2, itens 214 e 216 e Anexo 8.B, Tabelas 4 e 5",
+      "vigencia_inicio": "2022-01-01",
+      "vigencia_fim": null,
+      "url": "https://www.gov.br/aneel/pt-br/centrais-de-conteudos/procedimentos-regulatorios/prodist"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "PRODIST",
+      "Módulo 8",
+      "DIC",
+      "FIC",
+      "DMIC",
+      "limites",
+      "Anexo 8.B",
+      "baixa tensão"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "observacoes": "Resumo das Tabelas 4 e 5 do Anexo 8.B omitindo os limites de DISE e as faixas intermediárias linha a linha."
+  },
+  {
+    "id": "ren956-mod8-s82-219-227",
+    "titulo": "PRODIST Módulo 8: compensação automática na fatura por violação de DIC, FIC e DMIC",
+    "texto": "219. No caso de violação do limite de continuidade individual dos indicadores DIC, FIC, DMIC, DICRI e DISE a distribuidora deve calcular a compensação ao consumidor ou central geradora, inclusive aqueles conectados em DIT, e efetuar o crédito na fatura apresentada em até 2 meses após o período de apuração.\n222. No caso de inadimplência do consumidor ou da central geradora, podem ser deduzidos da compensação os débitos vencidos a favor da distribuidora que não sejam objeto de contestação administrativa ou judicial.\n223. A compensação pela violação dos indicadores de continuidade é devida ao titular da unidade consumidora ou central geradora no período de apuração em que ocorreu a violação.\n224. Caso haja troca de titularidade da unidade consumidora ou central geradora durante o período de apuração que constatou a violação, a distribuidora deve creditar o valor devido ao novo titular da unidade consumidora ou central geradora.\n227. Para efeito de aplicação de eventual compensação, quando da violação dos limites estabelecidos, devem ser consideradas as seguintes situações: o valor mínimo da compensação no caso de violação do limite do indicador de continuidade individual deve ser R$ 0,01 (um centavo de real); o valor da compensação associada à violação do limite do indicador de continuidade individual deve estar limitado a 18 vezes o valor do \"VRC\"; quando ocorrer violação do limite de mais de um dos indicadores de continuidade individuais DIC, FIC e DMIC no mesmo período de apuração, para efeito de compensação deve ser considerado o indicador cuja compensação resultar no maior valor monetário.",
+    "citacao": {
+      "ato": "REN ANEEL nº 956/2021 (PRODIST Módulo 8)",
+      "dispositivo": "Seção 8.2, itens 219, 222 a 224 e 227",
+      "vigencia_inicio": "2022-01-01",
+      "vigencia_fim": null,
+      "url": "https://www.gov.br/aneel/pt-br/centrais-de-conteudos/procedimentos-regulatorios/prodist"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "PRODIST",
+      "Módulo 8",
+      "compensação",
+      "fatura",
+      "DIC",
+      "FIC",
+      "DMIC",
+      "2 meses"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "observacoes": "Itens 221 (dupla redação com alteração escalonada da REN 1.147/2025), 225 e 225.1 (equações e baixa renda) omitidos até confirmação pontual da data de efeito de cada dispositivo da REN 1.147/2025."
+  },
+  {
+    "id": "ren956-mod8-s82-234-235",
+    "titulo": "PRODIST Módulo 8: informação na fatura e histórico de 24 meses de interrupções",
+    "texto": "234. A distribuidora deve informar na fatura dos consumidores e das centrais geradoras, sempre que ocorrer violação dos indicadores de continuidade individuais, as informações referentes à compensação e à possibilidade de consulta detalhada ao histórico de apuração e limites disponível aos consumidores por meio de área de acesso restrito no sítio da distribuidora na Internet, de acordo com o estabelecido no Módulo 11 do PRODIST.\n235. A distribuidora deve informar por escrito, em até 30 dias, sempre que solicitados pelo consumidor ou pela central geradora, as seguintes informações referentes aos últimos 24 meses apurados: os valores apurados e os respectivos limites dos indicadores individuais discriminados no item 173; o valor do VRC; e as datas e horários de início e fim das interrupções ocorridas na unidade consumidora ou na central geradora, detalhando inclusive aquelas que foram expurgadas.",
+    "citacao": {
+      "ato": "REN ANEEL nº 956/2021 (PRODIST Módulo 8)",
+      "dispositivo": "Seção 8.2, itens 234 e 235",
+      "vigencia_inicio": "2022-01-01",
+      "vigencia_fim": null,
+      "url": "https://www.gov.br/aneel/pt-br/centrais-de-conteudos/procedimentos-regulatorios/prodist"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "PRODIST",
+      "Módulo 8",
+      "fatura",
+      "histórico",
+      "24 meses",
+      "30 dias"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "observacoes": null
+  },
+  {
+    "id": "reh3614-art-2",
+    "titulo": "REH ANEEL 3.614/2026: efeito tarifário médio da Neoenergia Brasília",
+    "texto": "Art. 2º As tarifas de aplicação da Neoenergia Brasília, constantes da Resolução Homologatória nº 3.542, de 14 de outubro de 2025, ficam, em média, reajustadas em 1,92% (um vírgula noventa e dois por cento), correspondendo ao efeito tarifário médio a ser percebido pelos consumidores, usuários e agentes supridos da distribuidora.",
+    "citacao": {
+      "ato": "REH ANEEL nº 3.614/2026",
+      "dispositivo": "art. 2º",
+      "vigencia_inicio": "2026-10-22",
+      "vigencia_fim": "2027-10-21",
+      "url": "https://www2.aneel.gov.br/cedoc/reh20263614.pdf"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "REH 3.614/2026",
+      "Neoenergia Brasília",
+      "reajuste tarifário",
+      "1,92%"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "Texto conferido em cópia integral da REH 3.614/2026 (Leis.org) e cruzado contra dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx (www2.aneel.gov.br retorna HTTP 403 automático)",
+    "observacoes": "DOU de 22/10/2026, seção 1, p. 61 (Processo nº 48500.030189/2025-17); reajuste médio provisório de 1,92% conforme decisão da diretoria da ANEEL."
+  },
+  {
+    "id": "reh3614-art-3",
+    "titulo": "REH ANEEL 3.614/2026: vigência das tarifas e aplicação de bandeira tarifária",
+    "texto": "Art. 3º As tarifas de aplicação constantes da Tabela 1, Grupo A, e da Tabela 2, Grupo B, do Anexo, estarão em vigor no período de 22 de outubro de 2026 a 21 de outubro de 2027.\n§ 3º No período de vigência da Bandeira Tarifária Amarela ou Vermelha, de que trata o Submódulo 6.8 dos Procedimentos de Regulação Tarifária - PRORET, deverá ser adicionado à Tarifa de Energia - TE de aplicação o correspondente valor fixado pela ANEEL em ato específico.",
+    "citacao": {
+      "ato": "REH ANEEL nº 3.614/2026",
+      "dispositivo": "art. 3º, caput e § 3º",
+      "vigencia_inicio": "2026-10-22",
+      "vigencia_fim": "2027-10-21",
+      "url": "https://www2.aneel.gov.br/cedoc/reh20263614.pdf"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "REH 3.614/2026",
+      "Neoenergia Brasília",
+      "vigência",
+      "bandeira tarifária",
+      "PRORET"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "Texto conferido em cópia integral da REH 3.614/2026 (Leis.org) e vigência validada na planilha oficial dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx",
+    "observacoes": "Inciso I (UHE Paranoá 2027–2028) e §§ 1º e 2º omitidos. A REH determina somar à TE o adicional de bandeira amarela ou vermelha, mas o valor monetário do adicional vem de ato específico separado da ANEEL."
+  },
+  {
+    "id": "reh3614-art-5",
+    "titulo": "REH ANEEL 3.614/2026: descontos sobre bandeira tarifária e SCEE",
+    "texto": "Art. 5º Definir, nas Tabelas 3 e 4 do Anexo, os percentuais de descontos relativos aos benefícios tarifários incidentes sobre as tarifas de aplicação.\n§ 1º Incide sobre o valor adicional da Bandeira Tarifária Amarela ou Vermelha o desconto previsto no inciso II do art. 1º do Decreto nº 7.891, de 23 de janeiro de 2013.\n§ 2º Os demais descontos previstos no Decreto nº 7.891, de 23 de janeiro de 2013 não incidem sobre o valor do adicional da Bandeira Tarifária Amarela ou Vermelha.\n§ 3º Os percentuais de desconto a serem aplicados na Tarifa de Uso dos Sistemas de Distribuição - TUSD e na Tarifa de Energia - TE, para estabelecimento da tarifa de aplicação no faturamento da energia compensada associado ao Sistema de Compensação de Energia Elétrica - SCEE, conforme disposto no art. 27 da Lei nº 14.300, de 6 de janeiro de 2022, devem respeitar a regra de transição aplicável ao faturamento de cada unidade consumidora participante do SCEE.",
+    "citacao": {
+      "ato": "REH ANEEL nº 3.614/2026",
+      "dispositivo": "art. 5º, caput e §§ 1º a 3º",
+      "vigencia_inicio": "2026-10-22",
+      "vigencia_fim": "2027-10-21",
+      "url": "https://www2.aneel.gov.br/cedoc/reh20263614.pdf"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "REH 3.614/2026",
+      "bandeira tarifária",
+      "desconto",
+      "Decreto 7.891/2013",
+      "SCEE"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "Texto conferido em cópia integral da REH 3.614/2026 (Leis.org); www2.aneel.gov.br retorna HTTP 403 automático",
+    "observacoes": "Esclarece que apenas o desconto do inciso II do art. 1º do Decreto nº 7.891/2013 (baixa renda) incide sobre o adicional de Bandeira Tarifária Amarela ou Vermelha."
+  },
+  {
+    "id": "reh3614-art-11",
+    "titulo": "REH ANEEL 3.614/2026: horário de ponta e posto intermediário da Tarifa Branca",
+    "texto": "Art. 11. O horário de ponta para a área de concessão da Neoenergia Brasília compreende o período entre as 18 horas e 00 minutos e as 20 horas e 59 minutos.\nParágrafo único. Para aplicação da Tarifa Branca o posto intermediário compreende uma hora imediatamente anterior e uma hora imediatamente posterior ao posto (horário) ponta.",
+    "citacao": {
+      "ato": "REH ANEEL nº 3.614/2026",
+      "dispositivo": "art. 11, caput e parágrafo único",
+      "vigencia_inicio": "2026-10-22",
+      "vigencia_fim": "2027-10-21",
+      "url": "https://www2.aneel.gov.br/cedoc/reh20263614.pdf"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "tags": [
+      "REH 3.614/2026",
+      "horário de ponta",
+      "tarifa branca",
+      "posto intermediário"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "Texto conferido em cópia integral da REH 3.614/2026 (Leis.org); www2.aneel.gov.br retorna HTTP 403 automático",
+    "observacoes": null
+  },
+  {
+    "id": "reh3614-tab2-b1",
+    "titulo": "REH ANEEL 3.614/2026: tarifas de aplicação do subgrupo B1 residencial (TUSD e TE)",
+    "texto": "Tabela 2 e Tabela 3 do Anexo (Neoenergia Brasília, Subgrupo B1 Residencial, vigência de 22 de outubro de 2026 a 21 de outubro de 2027, tarifas de aplicação em R$/MWh): Convencional e Pré-Pagamento Residencial — TUSD 453,47 e TE 380,82; Branca Residencial — Ponta TUSD 866,90 e TE 574,83, Intermediário TUSD 616,72 e TE 363,18, Fora de Ponta TUSD 366,55 e TE 363,18; Baixa Renda (tarifa de referência) — TUSD 282,99 e TE 366,88, com desconto de 100% na TUSD e na TE para a parcela do consumo mensal inferior ou igual a 80 kWh (Lei nº 15.235/2025, aplicável a partir de 05/07/2025); Desconto Social (consumo mensal igual ou inferior a 120 kWh, aplicando-se acima de 120 kWh a tarifa Residencial) — TUSD 290,49 e TE 379,32.",
+    "citacao": {
+      "ato": "REH ANEEL nº 3.614/2026",
+      "dispositivo": "Anexo, Tabela 2 (B1) e Tabela 3",
+      "vigencia_inicio": "2026-10-22",
+      "vigencia_fim": "2027-10-21",
+      "url": "https://www2.aneel.gov.br/cedoc/reh20263614.pdf"
+    },
+    "subgrupos": [
+      "B1"
+    ],
+    "tags": [
+      "REH 3.614/2026",
+      "B1",
+      "tarifa",
+      "TUSD",
+      "TE",
+      "baixa renda",
+      "desconto social",
+      "tarifa branca"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "Tabela 2/3 da REH 3.614/2026 conferidas ao centavo contra a planilha oficial da ANEEL dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx",
+    "observacoes": "Valores em R$/MWh sem tributos (ICMS, PIS/Pasep e Cofins). Dividir por 1.000 para obter R$/kWh (ex.: B1 Convencional = R$ 0,45347/kWh TUSD + R$ 0,38082/kWh TE = R$ 0,83429/kWh)."
+  },
+  {
+    "id": "reh3614-tab5-servicos",
+    "titulo": "REH ANEEL 3.614/2026: valores de serviços cobráveis para o Grupo B",
+    "texto": "Art. 6º e Tabela 5 do Anexo — Serviços Cobráveis (art. 623 da REN nº 1.000/2021), Grupo B (Monofásico / Bifásico / Trifásico em R$), em vigor de 22 de outubro de 2026 a 21 de outubro de 2027: I - Vistoria de unidade consumidora: 10,38 / 14,85 / 29,71; II - Aferição de medidor: 13,38 / 22,28 / 29,71; III - Verificação de nível de tensão: 13,38 / 22,28 / 26,76; IV - Religação normal: 11,86 / 16,33 / 49,04; V - Religação de urgência: 59,46 / 89,22 / 148,73; VI - Segunda via de fatura: 4,43; VII - Segunda via declaração de quitação anual de débitos: 4,43; XV - Visita técnica: 10,38 / 14,85 / 29,71; XVI - Custo administrativo de inspeção: 178,33 / 267,58 / 445,98.",
+    "citacao": {
+      "ato": "REH ANEEL nº 3.614/2026",
+      "dispositivo": "art. 6º e Anexo, Tabela 5 (Grupo B)",
+      "vigencia_inicio": "2026-10-22",
+      "vigencia_fim": "2027-10-21",
+      "url": "https://www2.aneel.gov.br/cedoc/reh20263614.pdf"
+    },
+    "subgrupos": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "tags": [
+      "REH 3.614/2026",
+      "serviços cobráveis",
+      "religação",
+      "aferição de medidor",
+      "segunda via"
+    ],
+    "conferido": "sim",
+    "conferido_em": "2026-11-11",
+    "fonte_conferencia": "Texto conferido em cópia integral da REH 3.614/2026 (Leis.org); www2.aneel.gov.br retorna HTTP 403 automático",
+    "observacoes": "Selecionados os principais itens do Grupo B da Tabela 5 (demais serviços específicos e Grupo A omitidos)."
   }
 ]
