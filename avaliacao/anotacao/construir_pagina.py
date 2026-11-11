@@ -14,7 +14,11 @@ Uso: python avaliacao/anotacao/construir_pagina.py
 from __future__ import annotations
 
 import csv
+import hashlib
+import hmac
 import json
+import os
+import secrets
 import sys
 from pathlib import Path
 from typing import Any
@@ -24,7 +28,12 @@ PASTA = RAIZ / "dados" / "golden-set" / "anotacoes"
 MODELO = Path(__file__).resolve().parent / "pagina.template.html"
 SAIDA = Path(__file__).resolve().parent / "pagina.html"
 JUIZ = RAIZ / "avaliacao" / "anotacoes" / "juiz-40.csv"
-VERSAO = "3"
+VERSAO = "4"
+CODIGOS = Path(
+    os.environ.get("FA_ANOT_CODIGOS", RAIZ / ".local" / "anotacao" / "codigos.json")
+)  # fora do Git
+ALFABETO = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"  # sem 0/O/1/I/L para evitar erro de digitação
+ITERACOES = 100_000
 PESSOAS = (
     "pedrohpsantos",
     "NatyEvelin",
@@ -46,6 +55,40 @@ def _ler(caminho: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def normalizar_codigo(codigo: str) -> str:
+    return "".join(c for c in codigo.upper() if c.isalnum())
+
+
+def chave(github: str, codigo: str) -> bytes:
+    """Chave HMAC da pessoa: PBKDF2-SHA256 do código, com o usuário no sal (igual à da página)."""
+    return hashlib.pbkdf2_hmac(
+        "sha256",
+        normalizar_codigo(codigo).encode(),
+        f"fa-anot:{github}".encode(),
+        ITERACOES,
+        32,
+    )
+
+
+def verificador(github: str, codigo: str) -> str:
+    return hmac.new(chave(github, codigo), b"ok", hashlib.sha256).hexdigest()
+
+
+def carregar_codigos(caminho: Path = CODIGOS) -> dict[str, str]:
+    """Lê (ou cria) um código pessoal por anotador. O arquivo nunca vai para o Git."""
+    existentes = json.loads(caminho.read_text(encoding="utf-8")) if caminho.exists() else {}
+    mudou = False
+    for p in PESSOAS:
+        if p not in existentes:
+            partes = ["".join(secrets.choice(ALFABETO) for _ in range(4)) for _ in range(3)]
+            existentes[p] = "-".join(partes)
+            mudou = True
+    if mudou:
+        caminho.parent.mkdir(parents=True, exist_ok=True)
+        caminho.write_text(json.dumps(existentes, indent=1), encoding="utf-8")
+    return existentes
+
+
 def montar_dados(
     pasta: Path = PASTA, juiz: Path = JUIZ
 ) -> dict[str, dict[str, list[dict[str, str]]]]:
@@ -65,16 +108,22 @@ def montar_dados(
     return dados
 
 
-def construir(dados: dict[str, Any], modelo: Path = MODELO) -> str:
+def construir(
+    dados: dict[str, Any], modelo: Path = MODELO, codigos: dict[str, str] | None = None
+) -> str:
     texto = modelo.read_text(encoding="utf-8")
+    if codigos:  # a página só guarda o verificador, nunca o código
+        dados = {p: {**d, "verificador": verificador(p, codigos[p])} for p, d in dados.items()}
     # "</" dentro de <script> fecharia a tag; escapa só esse caso.
     carga = json.dumps(dados, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return texto.replace("__DADOS__", carga).replace("__VERSAO__", VERSAO)
 
 
 def main() -> int:
-    SAIDA.write_text(construir(montar_dados()), encoding="utf-8")
+    codigos = carregar_codigos()
+    SAIDA.write_text(construir(montar_dados(), codigos=codigos), encoding="utf-8")
     print(f"Gravado {SAIDA} ({SAIDA.stat().st_size // 1024} KB)")
+    print(f"Códigos pessoais (mande a cada pessoa em particular): {CODIGOS}")
     return 0
 
 

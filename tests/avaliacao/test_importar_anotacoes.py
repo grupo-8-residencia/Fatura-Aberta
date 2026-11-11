@@ -223,3 +223,43 @@ def test_mesmo_arquivo_duas_vezes_e_erro(base: dict[str, Path]) -> None:
 def test_arquivo_estranho_e_recusado() -> None:
     with pytest.raises(imp.ErroImportacao):
         imp.juntar_exports([{"qualquer": 1}])
+
+
+def _entrega_v2(github: str, codigo: str, corpo: dict[str, Any]) -> dict[str, Any]:
+    import hashlib
+    import hmac as _hmac
+
+    texto = json.dumps(corpo, ensure_ascii=False)
+    cod = "".join(c for c in codigo.upper() if c.isalnum())
+    chave = hashlib.pbkdf2_hmac("sha256", cod.encode(), f"fa-anot:{github}".encode(), 100_000, 32)
+    assinatura = _hmac.new(chave, texto.encode(), "sha256").hexdigest()
+    return {"esquema_versao": 2, "github": github, "corpo": texto, "assinatura": assinatura}
+
+
+def test_entrega_assinada_e_aceita_com_o_codigo_certo() -> None:
+    corpo = {"github": "NatyEvelin", "golden": {}}
+    e = _entrega_v2("NatyEvelin", "abcd-efgh-2345", corpo)
+    junto = imp.juntar_exports([e], {"NatyEvelin": "ABCD-EFGH-2345"}, exigir_assinatura=True)
+    assert junto["entregas"][0]["github"] == "NatyEvelin"
+
+
+def test_assinatura_adulterada_ou_codigo_errado_e_recusada() -> None:
+    e = _entrega_v2("NatyEvelin", "AAAA-BBBB-CCCC", {"github": "NatyEvelin", "golden": {}})
+    with pytest.raises(imp.ErroImportacao, match="não confere"):
+        imp.juntar_exports([e], {"NatyEvelin": "ZZZZ-ZZZZ-ZZZZ"})
+    e["corpo"] = e["corpo"].replace("{}", '{"x": {}}')
+    with pytest.raises(imp.ErroImportacao, match="não confere"):
+        imp.juntar_exports([e], {"NatyEvelin": "AAAA-BBBB-CCCC"})
+
+
+def test_corpo_de_outra_pessoa_nao_passa_pela_assinatura() -> None:
+    e = _entrega_v2("NatyEvelin", "AAAA-BBBB-CCCC", {"github": "mariadenis", "golden": {}})
+    with pytest.raises(imp.ErroImportacao, match="corpo assinado"):
+        imp.juntar_exports([e], {"NatyEvelin": "AAAA-BBBB-CCCC"})
+
+
+def test_entrega_sem_assinatura_e_recusada_quando_exigida() -> None:
+    with pytest.raises(imp.ErroImportacao, match="sem assinatura"):
+        imp.juntar_exports([{"esquema_versao": 1, "github": "NatyEvelin"}], exigir_assinatura=True)
+    with pytest.raises(imp.ErroImportacao, match="arquivo de códigos"):
+        imp.juntar_exports([{"esquema_versao": 2, "github": "x", "corpo": "{}", "assinatura": "a"}])

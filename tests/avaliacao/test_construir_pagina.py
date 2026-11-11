@@ -54,3 +54,25 @@ def test_script_nao_e_fechado_por_conteudo_dos_itens() -> None:
     }
     html = cp.construir(dados)
     assert html.count("</script>") == 1
+
+
+def test_pagina_guarda_so_o_verificador_e_ele_bate_com_o_do_importador() -> None:
+    codigos = {p: "AAAA-BBBB-CCCC" for p in cp.PESSOAS}
+    html = cp.construir(cp.montar_dados(), codigos=codigos)
+    assert "AAAA-BBBB-CCCC" not in html and "AAAABBBBCCCC" not in html
+    assert cp.verificador("NatyEvelin", "aaaa bbbb cccc") == cp.verificador(
+        "NatyEvelin", "AAAA-BBBB-CCCC"
+    )
+    assert cp.verificador("NatyEvelin", "AAAA-BBBB-CCCC") in html
+    assert cp.verificador("mariadenis", "AAAA-BBBB-CCCC") != cp.verificador(
+        "NatyEvelin", "AAAA-BBBB-CCCC"
+    )
+
+
+def test_codigos_sao_criados_uma_vez_e_reaproveitados(tmp_path: Path) -> None:
+    arq = tmp_path / "codigos.json"
+    a = cp.carregar_codigos(arq)
+    b = cp.carregar_codigos(arq)
+    assert a == b and set(a) == set(cp.PESSOAS)
+    assert all(len(v.replace("-", "")) == 12 for v in a.values())
+    assert len(set(a.values())) == 6

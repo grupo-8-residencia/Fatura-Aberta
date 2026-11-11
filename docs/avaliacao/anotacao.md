@@ -84,11 +84,15 @@ Em vez de planilha, o time pode responder numa página de anotação, sem login 
 filas: os 30 itens do golden set, 20 perguntas para revisar e, quando a rodada S3 terminar, os itens de
 calibração do juiz.
 
-- **Acesso:** qualquer pessoa com o link. Escolha seu usuário do GitHub; os itens carregados são só os seus.
-- **Salvamento:** automático, no navegador. Limpar os dados do navegador apaga as respostas, então entregue
-  antes.
-- **Entregar:** o botão **Copiar minhas respostas** gera um texto JSON. Cole numa mensagem para o Pedro
-  (ou salve como `respostas-<usuario>.json`).
+- **Acesso:** qualquer pessoa com o link, sem login. Cada pessoa escolhe o usuário do GitHub e digita o
+  **código pessoal** que o Pedro enviou em particular; só então os itens dela abrem. O código não está no
+  Git nem no HTML (a página guarda apenas um verificador).
+- **Salvamento:** automático, no navegador. Para continuar em outro aparelho ou depois de limpar o
+  navegador, cole na página o último texto copiado ("Continuar de outro aparelho").
+- **Resumo antes de entregar:** a página lista quantos itens estão completos, quais faltam e se há
+  alterações depois da última cópia.
+- **Entregar:** **Copiar minhas respostas** gera um texto assinado com o código pessoal (HMAC-SHA256), com
+  um recibo de 8 caracteres. Cole numa mensagem para o Pedro (ou salve como `respostas-<usuario>.json`).
 - **Juiz às cegas:** a página mostra só a saída do sistema e a evidência. O veredito do juiz automático e
   a resposta da outra pessoa não entram no HTML.
 - **Revisão das 120 perguntas:** 20 por pessoa, sorteadas com semente fixa
@@ -97,11 +101,16 @@ calibração do juiz.
 ### Dos arquivos para o repositório
 
 1. Salve cada entrega como um arquivo `respostas-<usuario>.json`.
-2. Simular (não grava nada): `.venv/bin/python scripts/importar_anotacoes.py respostas-*.json`
-3. Gravar nos CSV, com backup e registro em `importacoes.jsonl`:
-   `.venv/bin/python scripts/importar_anotacoes.py respostas-*.json --aplicar`
+2. Simular (não grava nada), verificando as assinaturas com os códigos:
+   `.venv/bin/python scripts/importar_anotacoes.py respostas-*.json --codigos .local/anotacao/codigos.json`
+3. Gravar nos CSV, com backup e registro em `importacoes.jsonl`: o mesmo comando com `--aplicar`.
 4. Rodar `scripts/consolidar_anotacoes.py` (golden set) e `avaliacao/calibrar_juiz.py` (juiz).
 
 O importador recusa tudo se houver id fora do que foi atribuído, resposta fora do formato, "não" sem
 correção e justificativa, ou conflito com uma anotação já gravada. Reaplicar os mesmos arquivos não muda
-nada. A identidade é a que a pessoa escolheu na página: o Pedro confere os nomes antes de consolidar.
+nada. Uma entrega com assinatura inválida, ou sem assinatura (sem `--aceitar-sem-assinatura`), é recusada: a
+identidade é comprovada pelo código pessoal, não pelo nome escolhido.
+
+Os códigos são gerados por `avaliacao/anotacao/construir_pagina.py` em `.local/anotacao/codigos.json`
+(fora do Git). Para incluir os itens do juiz depois da rodada, rode o script de novo e republique a página;
+os códigos se mantêm.

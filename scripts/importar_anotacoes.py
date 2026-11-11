@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import hmac
 import io
 import json
 import os
@@ -268,11 +269,35 @@ def relatorio(plano: Plano) -> str:
     return "\n".join(linhas)
 
 
-def juntar_exports(arquivos: list[dict[str, Any]]) -> dict[str, Any]:
-    """Aceita o export completo do banco e/ou arquivos individuais baixados pelas pessoas.
+def _chave(github: str, codigo: str) -> bytes:
+    cod = "".join(c for c in codigo.upper() if c.isalnum())
+    return hashlib.pbkdf2_hmac("sha256", cod.encode(), f"fa-anot:{github}".encode(), 100_000, 32)
 
-    Um arquivo individual tem `github` no topo e as respostas (`golden`, `revisao`, `juiz`).
-    Vários arquivos viram um export único; a mesma pessoa duas vezes é erro no planejamento.
+
+def verificar_assinatura(entrega: dict[str, Any], codigos: dict[str, str]) -> dict[str, Any]:
+    """Confere a assinatura de uma entrega v2 e devolve a entrega já aberta (formato v1)."""
+    g = entrega.get("github")
+    if g not in codigos:
+        raise ErroImportacao(f"{g}: sem código no arquivo de códigos")
+    esperado = hmac.new(_chave(g, codigos[g]), str(entrega.get("corpo", "")).encode(), "sha256")
+    if not hmac.compare_digest(esperado.hexdigest(), str(entrega.get("assinatura", ""))):
+        raise ErroImportacao(f"{g}: assinatura não confere (texto alterado ou código errado)")
+    corpo: dict[str, Any] = json.loads(entrega["corpo"])
+    if corpo.get("github") != g:
+        raise ErroImportacao(f"{g}: o corpo assinado é de {corpo.get('github')!r}")
+    return corpo
+
+
+def juntar_exports(
+    arquivos: list[dict[str, Any]],
+    codigos: dict[str, str] | None = None,
+    exigir_assinatura: bool = False,
+) -> dict[str, Any]:
+    """Aceita o export do banco e/ou arquivos individuais baixados ou colados pelas pessoas.
+
+    Entrega v2 (`corpo` + `assinatura`) é verificada com o código pessoal. Entrega v1 não tem
+    assinatura: com `exigir_assinatura` ela é recusada. Duas entregas da mesma pessoa viram erro
+    no planejamento.
     """
     entregas: list[dict[str, Any]] = []
     base: dict[str, Any] = {"esquema_versao": ESQUEMA}
@@ -280,10 +305,18 @@ def juntar_exports(arquivos: list[dict[str, Any]]) -> dict[str, Any]:
         if isinstance(a.get("entregas"), list):
             entregas.extend(a["entregas"])
             base.update({k: v for k, v in a.items() if k != "entregas"})
+        elif a.get("esquema_versao") == 2 and "corpo" in a:
+            if codigos is None:
+                raise ErroImportacao("entrega assinada sem arquivo de códigos (--codigos)")
+            entregas.append(verificar_assinatura(a, codigos))
         elif "github" in a:
+            if exigir_assinatura:
+                raise ErroImportacao(
+                    f"{a['github']}: entrega sem assinatura (use --aceitar-sem-assinatura)"
+                )
             entregas.append({k: v for k, v in a.items() if k != "esquema_versao"})
         else:
-            raise ErroImportacao("arquivo sem `entregas` nem `github`")
+            raise ErroImportacao("arquivo sem `entregas`, `corpo` nem `github`")
     return {**base, "entregas": entregas}
 
 
@@ -293,11 +326,25 @@ def main(argv: list[str] | None = None) -> int:
         "export", type=Path, nargs="+", help="JSON exportado do banco e/ou arquivos individuais"
     )
     ap.add_argument("--aplicar", action="store_true", help="grava os CSV (padrão: só simula)")
+    ap.add_argument(
+        "--codigos",
+        type=Path,
+        default=None,
+        help="JSON {usuario: código} para verificar assinaturas",
+    )
+    ap.add_argument(
+        "--aceitar-sem-assinatura", action="store_true", help="aceita entregas v1 sem assinatura"
+    )
     args = ap.parse_args(argv)
     brutos = [e.read_bytes() for e in args.export]
     bruto = b"\n".join(brutos)
     try:
-        dados = juntar_exports([json.loads(b) for b in brutos])
+        codigos = json.loads(args.codigos.read_text(encoding="utf-8")) if args.codigos else None
+        dados = juntar_exports(
+            [json.loads(b) for b in brutos],
+            codigos,
+            exigir_assinatura=not args.aceitar_sem_assinatura,
+        )
     except ErroImportacao as erro:
         print(f"ERRO  {erro}\nNada foi gravado.")
         return 1
