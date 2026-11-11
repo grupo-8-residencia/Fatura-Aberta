@@ -164,3 +164,42 @@ def test_metricas_ampliadas_batem_com_o_arquivo_versionado() -> None:
     for chave in ("ranking", "ablacao_alpha", "abstencao_por_limiar", "fundamentacao"):
         assert r[chave] == versionado[chave]
     assert r["fundamentacao"]["citacoes_vigentes"]["estimativa"] == 1.0
+
+
+def test_gate_s2_recall_em_30_perguntas() -> None:
+    import medir_recall_s2 as mr_s2
+
+    resultado = mr_s2.medir_recall_s2(n_perguntas=30)
+    assert resultado["n_perguntas"] == 30
+    assert resultado["acertos"] >= 21  # >= 70% de 30
+    assert resultado["recall_at_5"]["estimativa"] >= 0.70
+    assert resultado["passou_gate"] is True
+
+
+def test_gate_s2_amostra_cobre_todas_as_categorias_e_e_reprodutivel() -> None:
+    import medir_recall_s2 as mr_s2
+
+    linhas = [
+        json.loads(x) for x in mr_s2.PERGUNTAS.read_text(encoding="utf-8").splitlines() if x.strip()
+    ]
+    com_norma = [p for p in linhas if not p["abstencao_esperada"]]
+    a = mr_s2.amostra_estratificada(com_norma, 30)
+    assert len(a) == 30 and len({p["id"] for p in a}) == 30
+    assert {p["categoria"] for p in a} == {p["categoria"] for p in com_norma}
+    assert a == mr_s2.amostra_estratificada(com_norma, 30)  # semente fixa
+    resultado = mr_s2.medir_recall_s2(n_perguntas=30)
+    assert resultado["ids_amostra"] == [p["id"] for p in a]
+    assert sum(resultado["composicao_por_categoria"].values()) == 30
+
+
+def test_gate_s2_motor_nao_da_falso_alarme_em_faturas_corretas() -> None:
+    import medir_falso_alarme_s2 as fa
+
+    r = fa.medir()
+    assert r["benchmark_v0"]["n_corretas"] == 15 and r["golden_set"]["n_corretas"] == 103
+    assert r["total_falsos_alarmes"] == 0 and r["passou_gate"] is True
+    # o motor também acusa os erros injetados: não passa só por nunca acusar nada
+    assert r["benchmark_v0"]["detectadas"] == r["benchmark_v0"]["n_com_erro_injetado"]
+    assert r["golden_set"]["detectadas"] == r["golden_set"]["n_com_erro_injetado"]
+    versionado = json.loads(fa.SAIDA_PADRAO.read_text(encoding="utf-8"))
+    assert versionado["total_falsos_alarmes"] == r["total_falsos_alarmes"]

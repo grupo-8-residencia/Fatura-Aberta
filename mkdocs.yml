@@ -12,6 +12,7 @@ exclude_docs: |
   _templates/
   produto/definicao/
   material_didatico*
+  material_ditatico*
 
 theme:
   name: material
@@ -116,6 +117,7 @@ nav:
       - conformidade/index.md
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
+      - Roteiro do parecer jurídico: conformidade/roteiro-parecer-juridico.md
       - Política de dados: conformidade/politica-de-dados.md
   - Segurança:
       - Injeção por imagem: seguranca/injecao-por-imagem.md
@@ -123,6 +125,7 @@ nav:
       - avaliacao/index.md
       - Métricas: avaliacao/metricas.md
       - Golden set: avaliacao/golden-set.md
+      - Como anotar: avaliacao/anotacao.md
       - Resultados: avaliacao/resultados.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md

@@ -30,9 +30,11 @@ flowchart LR
     C -. "não conferido" .-> X["Fora do índice<br/>(A verificar)"]
 ```
 
-A coleta e a limpeza hoje são manuais e conferidas por pessoa; o resultado é o `corpus_b1.json`, que
-é a entrada reproduzível do restante do pipeline. TODO: conversão automática de PDFs de normas em
-texto limpo (etapa 1 e 2), prevista para a frente F4.
+A coleta e a limpeza são assistidas por `scripts/converter_norma.py` (F4) e conferidas por pessoa; o
+resultado é o `corpus_b1.json`, que é a entrada reproduzível do restante do pipeline. O conversor lê
+PDF ou HTML, separa por artigo, tira cabeçalhos, rodapés e notas de redação, e grava itens
+candidatos com `conferido = "A verificar"`: nada entra no índice sem conferência humana. O inventário
+dos atos está em `dados/normas/manifesto_atos.json`.
 
 1. **Curadoria.** Cada dispositivo é transcrito do texto oficial e conferido. O item guarda `id`,
    `titulo`, `texto`, `citacao` (`ato`, `dispositivo`, `vigencia_inicio`, `vigencia_fim`, `url`),
@@ -43,7 +45,10 @@ texto limpo (etapa 1 e 2), prevista para a frente F4.
 3. **Chunking.** `chunkar_dispositivo()` quebra em caput, parágrafos (`§ nº` e `Parágrafo único.`) e
    incisos. Cada chunk herda a citação com o dispositivo refinado (por exemplo, `art. 323, § 2º`).
 4. **Embeddings.** `criar_embedder()` escolhe o extrator por `FA_RAG_EMBEDDER` (padrão `hash`).
-5. **Índice.** `IndiceHibrido.do_corpus()` guarda os vetores normalizados e as frequências de termos.
+5. **Índice.** `IndiceHibrido.do_corpus()` guarda os vetores normalizados e as frequências de termos. Com
+   `arquivo_vetores=Path(...)` o índice é **durável**: os vetores vão para um JSON com a assinatura dos
+   textos e da dimensão, e são recarregados sem recalcular enquanto nada mudar (se o corpus, a
+   dimensão ou o arquivo mudarem, o índice recalcula e regrava).
 6. **Consulta.** `buscar(consulta, data_referencia=..., subgrupos={"B1"})` filtra, ordena e devolve
    `ResultadoBusca` com `score`, `score_vetorial` e `score_lexico`.
 7. **Síntese.** `responder()` monta o texto só com trechos literais dos chunks recuperados.
