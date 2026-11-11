@@ -21,18 +21,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import threading
 import time
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterator, Sequence
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from auditar_cobertura import auditar, carregar, ids_esperados  # noqa: E402
 from calibrar_juiz import escrever_csv, ler_csv  # noqa: E402
 from estatistica import B_PADRAO, SEMENTE_PADRAO, bootstrap_ic, mcnemar  # noqa: E402
 
@@ -264,25 +267,65 @@ def resumo_motor(achados: Sequence[Achado]) -> str:
 # --------------------------------------------------------------------------- LLM
 
 
+TENTATIVAS_EXTRAS = 2  # só para falha de comunicação ou tempo esgotado, com os mesmos parâmetros
+PAUSA_NOVA_TENTATIVA_S = 5.0
+
+
+def classificar_erro(erro: BaseException) -> str:
+    """Tipo da falha: comunicacao, timeout, modelo_indisponivel ou erro_cliente."""
+    if isinstance(erro, TimeoutError):
+        return "timeout"
+    texto = str(erro).lower()
+    if "timed out" in texto or "timeout" in texto:
+        return "timeout"
+    if isinstance(erro, RuntimeError) and "não está instalado" in str(erro):
+        return "modelo_indisponivel"
+    if isinstance(erro, OSError):  # URLError, ConnectionError e afins
+        return "comunicacao"
+    return "erro_cliente"
+
+
 def _chamar(
     cliente: ClienteLLM, sistema: str, prompt: str, esquema: dict[str, Any]
 ) -> dict[str, Any]:
+    """Uma chamada ao LLM. Falha de comunicação ou timeout é refeita até TENTATIVAS_EXTRAS vezes
+    com os mesmos parâmetros; toda tentativa fica registrada. JSON inválido nunca é refeito: a
+    resposta desfavorável continua contando como inválida."""
     t0 = time.perf_counter()
-    try:
-        r = cliente.gerar(sistema=sistema, prompt=prompt, esquema=esquema)
-    except Exception as erro:  # rede, timeout, modelo ausente: a rodada segue e registra
-        return {"valido": False, "erro": f"{type(erro).__name__}: {erro}", "duracao_s": 0.0}
+    falhas: list[dict[str, str]] = []
+    r = None
+    for tentativa in range(1 + TENTATIVAS_EXTRAS):
+        try:
+            r = cliente.gerar(sistema=sistema, prompt=prompt, esquema=esquema)
+            break
+        except Exception as erro:  # a rodada segue e registra
+            tipo = classificar_erro(erro)
+            falhas.append({"tipo": tipo, "mensagem": f"{type(erro).__name__}: {erro}"[:300]})
+            if tipo not in ("comunicacao", "timeout") or tentativa == TENTATIVAS_EXTRAS:
+                return {
+                    "valido": False,
+                    "erro": falhas[-1]["mensagem"],
+                    "erro_tipo": tipo,
+                    "tentativas": falhas,
+                    "duracao_s": 0.0,
+                }
+            time.sleep(PAUSA_NOVA_TENTATIVA_S)
+    assert r is not None
     base: dict[str, Any] = {
         "duracao_s": r.duracao_s or round(time.perf_counter() - t0, 3),
         "tokens_saida": r.tokens_saida,
         "do_cache": r.do_cache,
     }
+    if falhas:
+        base["tentativas"] = falhas  # tentativas anteriores que falharam antes de dar certo
     try:
         dados = r.json()
     except ValueError:
-        return {**base, "valido": False, "erro": "JSON inválido", "bruto": r.texto[:300]}
+        return {**base, "valido": False, "erro": "JSON inválido", "erro_tipo": "json_invalido",
+                "bruto": r.texto[:300]}  # fmt: skip
     if not isinstance(dados, dict):
-        return {**base, "valido": False, "erro": "JSON não é objeto", "bruto": r.texto[:300]}
+        return {**base, "valido": False, "erro": "JSON não é objeto", "erro_tipo": "esquema",
+                "bruto": r.texto[:300]}  # fmt: skip
     return {**base, "valido": True, "dados": dados}
 
 
@@ -672,14 +715,85 @@ def _carregar_saida(caminho: Path) -> dict[str, Any]:
 
 
 def _gravar(dados: dict[str, Any], caminho: Path) -> None:
+    """Grava por arquivo temporário e troca atômica: uma interrupção não deixa JSON pela metade."""
     caminho.parent.mkdir(parents=True, exist_ok=True)
-    caminho.write_text(json.dumps(dados, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    tmp = caminho.with_name(caminho.name + ".tmp")
+    tmp.write_text(json.dumps(dados, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    os.replace(tmp, caminho)
+
+
+@contextmanager
+def trava_de_rodada(caminho: Path) -> Iterator[None]:
+    """Impede duas rodadas ao mesmo tempo no mesmo arquivo de saída (PID no arquivo de trava)."""
+    caminho.parent.mkdir(parents=True, exist_ok=True)
+    if caminho.exists():
+        try:
+            pid = int(caminho.read_text().strip())
+            os.kill(pid, 0)
+        except (ValueError, ProcessLookupError):
+            caminho.unlink(missing_ok=True)  # trava velha de processo que não existe mais
+        except PermissionError:
+            raise RuntimeError(f"Já há uma rodada em andamento (trava {caminho})") from None
+        else:
+            raise RuntimeError(f"Já há uma rodada em andamento (PID {pid}, trava {caminho})")
+    caminho.write_text(str(os.getpid()), encoding="utf-8")
+    try:
+        yield
+    finally:
+        caminho.unlink(missing_ok=True)
+
+
+PRIVADO_JUIZ = RAIZ / ".local" / "juiz" / "veredito-juiz-40.json"
+COLUNAS_DO_JUIZ = ("veredito_juiz", "proposicoes_juiz")
+
+
+def separar_veredito_juiz(
+    linhas: Sequence[dict[str, str]],
+) -> tuple[list[dict[str, str]], dict[str, dict[str, str]]]:
+    """Tira o veredito e as proposições do juiz das linhas versionadas.
+
+    Os avaliadores humanos não podem ver a opinião do juiz. As linhas devolvidas ficam sem essas
+    colunas; o conteúdo vai para o arquivo privado, usado só na calibração depois que as 80
+    decisões humanas estiverem travadas.
+    """
+    cegas, privado = [], {}
+    for linha in linhas:
+        privado[linha["item_id"]] = {c: linha.get(c, "") for c in COLUNAS_DO_JUIZ}
+        cegas.append({**linha, **dict.fromkeys(COLUNAS_DO_JUIZ, "")})
+    return cegas, privado
+
+
+def gravar_privado_juiz(privado: dict[str, dict[str, str]], caminho: Path | None = None) -> None:
+    caminho = caminho or PRIVADO_JUIZ
+    existente = json.loads(caminho.read_text(encoding="utf-8")) if caminho.exists() else {}
+    for item, v in privado.items():
+        if v.get("veredito_juiz") or item not in existente:
+            existente[item] = v  # não apaga um veredito já guardado com uma linha em branco
+    _gravar(existente, caminho)
+
+
+def cegar_arquivos(saida: Path) -> int:
+    """Move o veredito do juiz do CSV e do JSON da rodada para o arquivo privado."""
+    if CSV_JUIZ.exists():
+        cegas, privado = separar_veredito_juiz(ler_csv(CSV_JUIZ))
+        gravar_privado_juiz(privado)
+        escrever_csv(CSV_JUIZ, cegas)
+    dados = _carregar_saida(saida)
+    if dados.get("juiz_calibracao"):
+        dados["juiz_calibracao"], privado = separar_veredito_juiz(dados["juiz_calibracao"])
+        gravar_privado_juiz(privado)
+        _gravar(dados, saida)
+    print(f"Veredito do juiz guardado em {PRIVADO_JUIZ} (fora do Git)")
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument(
-        "--etapa", choices=["b1", "faturas", "perguntas", "juiz", "tudo", "extra"], default="tudo"
+        "--etapa",
+        choices=["b1", "faturas", "perguntas", "juiz", "tudo", "extra", "cegar", "completa"],
+        default="tudo",
+        help="completa = b1, B2/B3, LLM puro, RAG extrativo, juiz (cego) e auditoria de cobertura",
     )
     ap.add_argument("--limite", type=int, default=None, help="só os N primeiros itens (teste)")
     ap.add_argument("--saida", type=Path, default=SAIDA)
@@ -692,6 +806,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = ap.parse_args(argv)
     saida = args.saida
+    if args.etapa == "cegar":
+        return cegar_arquivos(saida)
+    with trava_de_rodada(saida.with_suffix(".lock")):
+        return _executar(args)
+
+
+def _executar(args: argparse.Namespace) -> int:
+    saida: Path = args.saida
+    completa = args.etapa == "completa"
+    etapa = "tudo" if completa else args.etapa
 
     faturas = ler_jsonl(GOLDEN / "faturas_sinteticas.jsonl")[: args.limite]
     perguntas = ler_jsonl(GOLDEN / "perguntas.jsonl")[: args.limite]
@@ -712,28 +836,30 @@ def main(argv: list[str] | None = None) -> int:
     dados["cabecalho"] = metadados_rodada(
         {"gerador": gerador, "juiz": juiz}, checksums=GOLDEN / "checksums.sha256", raiz=RAIZ
     )
+    dados["cabecalho"]["semente_llm"] = 42
+    dados["cabecalho"]["semente_bootstrap"] = SEMENTE_PADRAO
     dados["cabecalho"]["limite"] = args.limite
     dados["cabecalho"]["faturas_llm"] = len(faturas_llm)
 
-    if args.etapa in ("b1", "faturas", "tudo"):
+    if etapa in ("b1", "faturas", "tudo"):
         dados.setdefault("faturas", {})["B1"] = rodar_b1(faturas_llm)
         dados["b1_200_faturas"] = rodar_b1(faturas)
         n_ok = sum(i["acerto"] for i in dados["faturas"]["B1"])
         say(f"B1: {n_ok}/{len(faturas_llm)} faturas certas")
-    if args.etapa in ("perguntas", "tudo"):
+    if etapa in ("perguntas", "tudo"):
         dados.setdefault("perguntas", {})
         for b in ("B2", "B3"):
             dados["perguntas"][b] = rodar_llm_perguntas(
                 gerador, indice, perguntas, b, say, args.paralelo
             )
             _gravar(dados, saida)
-    if args.etapa in ("faturas", "tudo"):
+    if etapa in ("faturas", "tudo"):
         for b in ("B2", "B3"):
             dados["faturas"][b] = rodar_llm_faturas(
                 gerador, indice, faturas_llm, b, say, args.paralelo
             )
             _gravar(dados, saida)
-    if args.etapa == "extra":
+    if etapa == "extra" or completa:
         dados.setdefault("perguntas", {})
         dados.setdefault("faturas", {})
         dados["perguntas"]["RAG"] = rodar_rag_extrativo_perguntas(indice, perguntas)
@@ -742,7 +868,7 @@ def main(argv: list[str] | None = None) -> int:
         _gravar(dados, saida)
         dados["faturas"]["LLM"] = rodar_llm_puro_faturas(gerador, faturas_llm, say, args.paralelo)
         _gravar(dados, saida)
-    if args.etapa in ("juiz", "tudo") and CSV_JUIZ.exists():
+    if etapa in ("juiz", "tudo") and CSV_JUIZ.exists():
         linhas = ler_csv(CSV_JUIZ)
         b3 = {
             i["id"]: i
@@ -758,13 +884,22 @@ def main(argv: list[str] | None = None) -> int:
             indice,
             say,
         )
+        linhas, privado = separar_veredito_juiz(linhas)
         if args.limite is None:
             escrever_csv(CSV_JUIZ, linhas)
+            gravar_privado_juiz(privado)
         dados["juiz_calibracao"] = linhas
     if "faturas" in dados:
         dados["metricas_faturas"] = metricas_faturas(dados["faturas"])
     if "perguntas" in dados:
         dados["metricas_perguntas"] = metricas_perguntas(dados["perguntas"])
+    if completa:
+        resumo = auditar(carregar(saida, None), ids_esperados())
+        dados["cobertura"] = resumo
+        dados["completo"] = bool(resumo["completo"])
+        say(
+            "COBERTURA COMPLETA" if dados["completo"] else "COBERTURA INCOMPLETA (sem recomendação)"
+        )
     _gravar(dados, saida)
     say(f"Gravado em {saida}")
     return 0

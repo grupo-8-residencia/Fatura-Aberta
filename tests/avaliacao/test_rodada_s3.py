@@ -233,3 +233,124 @@ def test_relatorio_exclui_quem_viola_rf15_ou_tem_resposta_invalida() -> None:
     t = rel.tabela_perguntas({"B2": ruim, "B3": invalido, "RAG": bom})
     assert rel.escolher(t, ("B2", "B3", "RAG"))["escolhido"] == "RAG"
     assert rel.escolher(rel.tabela_perguntas({"B2": ruim}), ("B2",))["escolhido"] is None
+
+
+# ------------------------------------------------- falhas, trava, escrita atômica e cegamento
+
+
+class _ClienteQueFalha:
+    """Falha `falhas` vezes com o erro dado e depois responde com um JSON válido."""
+
+    def __init__(self, erro: Exception, falhas: int) -> None:
+        self.erro, self.falhas, self.chamadas = erro, falhas, 0
+
+    def versao(self) -> str:
+        return "falso"
+
+    def gerar(self, **_: Any) -> Any:
+        from fa_agentes.llm import RespostaLLM
+
+        self.chamadas += 1
+        if self.chamadas <= self.falhas:
+            raise self.erro
+        return RespostaLLM(
+            texto='{"ok": true}', modelo="falso", digest="d", duracao_s=0.1, tokens_saida=3
+        )
+
+
+def test_classifica_os_tipos_de_falha() -> None:
+    assert rs.classificar_erro(TimeoutError("x")) == "timeout"
+    assert rs.classificar_erro(ConnectionError("recusou")) == "comunicacao"
+    assert rs.classificar_erro(RuntimeError("Modelo 'm' não está instalado no Ollama")) == (
+        "modelo_indisponivel"
+    )
+    assert rs.classificar_erro(ValueError("outra")) == "erro_cliente"
+
+
+def test_falha_de_comunicacao_e_refeita_e_registrada(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(rs, "PAUSA_NOVA_TENTATIVA_S", 0)
+    c = _ClienteQueFalha(ConnectionError("caiu"), falhas=2)
+    r = rs._chamar(c, "s", "p", {})  # type: ignore[arg-type]
+    assert r["valido"] is True and c.chamadas == 3
+    assert [t["tipo"] for t in r["tentativas"]] == ["comunicacao", "comunicacao"]
+
+
+def test_desiste_depois_das_tentativas_extras_e_conta_como_invalida(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(rs, "PAUSA_NOVA_TENTATIVA_S", 0)
+    c = _ClienteQueFalha(TimeoutError("lento"), falhas=99)
+    r = rs._chamar(c, "s", "p", {})  # type: ignore[arg-type]
+    assert r["valido"] is False and r["erro_tipo"] == "timeout"
+    assert c.chamadas == 1 + rs.TENTATIVAS_EXTRAS and len(r["tentativas"]) == c.chamadas
+
+
+def test_modelo_indisponivel_nao_e_refeito() -> None:
+    c = _ClienteQueFalha(RuntimeError("Modelo 'm' não está instalado no Ollama"), falhas=99)
+    r = rs._chamar(c, "s", "p", {})  # type: ignore[arg-type]
+    assert r["valido"] is False and c.chamadas == 1 and r["erro_tipo"] == "modelo_indisponivel"
+
+
+def test_json_invalido_nunca_e_refeito() -> None:
+    from fa_agentes.llm import RespostaLLM
+
+    class Ruim:
+        chamadas = 0
+
+        def versao(self) -> str:
+            return "x"
+
+        def gerar(self, **_: Any) -> Any:
+            Ruim.chamadas += 1
+            return RespostaLLM(
+                texto="não é json", modelo="x", digest="d", duracao_s=0.1, tokens_saida=1
+            )
+
+    r = rs._chamar(Ruim(), "s", "p", {})  # type: ignore[arg-type]
+    assert r["valido"] is False and r["erro_tipo"] == "json_invalido" and Ruim.chamadas == 1
+
+
+def test_trava_impede_segunda_rodada_e_limpa_ao_sair(tmp_path: Any) -> None:
+    trava = tmp_path / "s3.lock"
+    with rs.trava_de_rodada(trava):  # noqa: SIM117 (a segunda trava precisa abrir dentro da primeira)
+        with pytest.raises(RuntimeError, match="em andamento"), rs.trava_de_rodada(trava):
+            pass
+    assert not trava.exists()
+
+
+def test_trava_de_processo_morto_e_descartada(tmp_path: Any) -> None:
+    trava = tmp_path / "s3.lock"
+    trava.write_text("999999999")  # PID que não existe
+    with rs.trava_de_rodada(trava):
+        assert trava.read_text() != "999999999"
+
+
+def test_gravar_e_atomico_e_nao_deixa_temporario(tmp_path: Any) -> None:
+    alvo = tmp_path / "r.json"
+    rs._gravar({"a": 1}, alvo)
+    rs._gravar({"a": 2}, alvo)
+    assert json.loads(alvo.read_text())["a"] == 2
+    assert [p.name for p in tmp_path.iterdir()] == ["r.json"]
+
+
+def test_separar_veredito_do_juiz_deixa_as_linhas_cegas() -> None:
+    linhas = [
+        {
+            "item_id": "J1",
+            "saida_do_sistema": "s",
+            "veredito_juiz": "suportada",
+            "proposicoes_juiz": "[1]",
+            "veredito_humano_1": "",
+        },
+    ]
+    cegas, privado = rs.separar_veredito_juiz(linhas)
+    assert cegas[0]["veredito_juiz"] == "" and cegas[0]["proposicoes_juiz"] == ""
+    assert cegas[0]["saida_do_sistema"] == "s"
+    assert privado["J1"] == {"veredito_juiz": "suportada", "proposicoes_juiz": "[1]"}
+
+
+def test_gravar_privado_nao_apaga_veredito_ja_guardado(tmp_path: Any) -> None:
+    arq = tmp_path / "priv.json"
+    rs.gravar_privado_juiz({"J1": {"veredito_juiz": "suportada", "proposicoes_juiz": ""}}, arq)
+    rs.gravar_privado_juiz({"J1": {"veredito_juiz": "", "proposicoes_juiz": ""}}, arq)
+    assert json.loads(arq.read_text())["J1"]["veredito_juiz"] == "suportada"
