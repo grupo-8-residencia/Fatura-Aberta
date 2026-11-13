@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import csv
 import json
 import math
 from pathlib import Path
@@ -54,39 +53,69 @@ def test_kappa_de_cohen_valores_conhecidos() -> None:
     assert est.kappa_cohen(humano, juiz) == pytest.approx(0.4)
 
 
-def test_modelo_do_juiz_tem_40_itens_sem_numeros(tmp_path: Path) -> None:
+def test_modelo_do_juiz_tem_40_itens_dois_avaliadores_e_nenhum_veredito(tmp_path: Path) -> None:
     arq = tmp_path / "juiz.csv"
     cj.gerar_modelo(arq)
-    with arq.open(encoding="utf-8") as f:
-        linhas = list(csv.DictReader(f))
+    linhas = cj.ler_csv(arq)
     assert len(linhas) == 40 and len({r["item_id"] for r in linhas}) == 40
-    assert {r["anotador"] for r in linhas} == set(gs.ANOTADORES)
+    assert {r["anotador_1"] for r in linhas} == set(gs.ANOTADORES)
+    assert all(r["anotador_1"] != r["anotador_2"] for r in linhas)
+    assert {r["tipo"] for r in linhas} == {"fatura", "pergunta"}
+    assert not any(
+        r["veredito_humano_1"] or r["veredito_humano_2"] or r["veredito_juiz"] for r in linhas
+    )
     with pytest.raises(ValueError, match="incompleta"):
         cj.calcular(arq)
 
 
-def test_calibracao_calcula_kappa_com_anotacao_sintetica(tmp_path: Path) -> None:
+def _csv_sintetico(arq: Path, *, erros_juiz: int, erros_h2: int = 0) -> None:
     """Anotação SINTÉTICA, só para testar o cálculo; não é resultado de pesquisa."""
+    linhas = cj.selecionar_itens()
+    for k, r in enumerate(linhas):
+        base = "suportada" if k % 2 == 0 else "sem_suporte"
+        outro = "sem_suporte" if base == "suportada" else "suportada"
+        r["veredito_humano_1"] = base
+        r["veredito_humano_2"] = outro if k < erros_h2 else base
+        r["veredito_juiz"] = outro if k < erros_juiz else base
+    cj.escrever_csv(arq, linhas)
+
+
+def test_calibracao_calcula_kappas_e_aprova_com_concordancia_alta(tmp_path: Path) -> None:
     arq = tmp_path / "juiz.csv"
-    with arq.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(cj.COLUNAS)
-        for k in range(40):
-            humano = "confere" if k % 2 == 0 else "diverge_A"
-            juiz = humano if k >= 2 else ("diverge_A" if humano == "confere" else "confere")
-            w.writerow([f"X{k}", "t", humano, juiz])
+    _csv_sintetico(arq, erros_juiz=2)
     r = cj.calcular(arq)
-    assert r["n"] == 40 and r["acuracia"] == pytest.approx(38 / 40)
-    assert r["aprovado"] is True and float(str(r["kappa"])) > cj.LIMIAR_KAPPA
+    assert r["n"] == 40 and r["acuracia_humano1_juiz"] == pytest.approx(38 / 40)
+    assert r["kappa_humano1_juiz"] == pytest.approx(0.9) and r["aprovado"] is True
+    assert r["kappa_humano1_humano2"] == pytest.approx(1.0) and r["referencia_humana_confiavel"]
 
 
-def test_modelo_versionado_continua_vazio() -> None:
-    """Enquanto não houver anotação humana real, o CSV versionado não pode ter números."""
-    with cj.ARQUIVO_PADRAO.open(encoding="utf-8") as f:
-        linhas = list(csv.DictReader(f))
-    if any(r["veredito_humano"] or r["veredito_juiz"] for r in linhas):
-        pytest.skip("anotação humana já preenchida")
-    assert cj.main([]) == 2
+def test_calibracao_reprova_quando_um_dos_humanos_discorda_do_juiz(tmp_path: Path) -> None:
+    arq = tmp_path / "juiz.csv"
+    _csv_sintetico(arq, erros_juiz=2, erros_h2=12)
+    r = cj.calcular(arq)
+    assert r["kappa_humano2_juiz"] < cj.LIMIAR_KAPPA <= r["kappa_humano1_juiz"]
+    assert r["aprovado"] is False and r["referencia_humana_confiavel"] is False
+
+
+def test_calibracao_rejeita_rotulo_fora_do_vocabulario(tmp_path: Path) -> None:
+    arq = tmp_path / "juiz.csv"
+    _csv_sintetico(arq, erros_juiz=0)
+    linhas = cj.ler_csv(arq)
+    linhas[0]["veredito_juiz"] = "talvez"
+    cj.escrever_csv(arq, linhas)
+    with pytest.raises(ValueError, match="incompleta"):
+        cj.calcular(arq)
+
+
+def test_csv_versionado_nao_tem_veredito_humano_inventado() -> None:
+    """Sem anotação humana real, as colunas humanas do CSV versionado ficam vazias."""
+    linhas = cj.ler_csv(cj.ARQUIVO_PADRAO)
+    assert len(linhas) == 40
+    assert not any(r["veredito_humano_1"] or r["veredito_humano_2"] for r in linhas)
+    if any(r["veredito_juiz"] for r in linhas):
+        assert all(r["saida_do_sistema"] and r["evidencia"] for r in linhas if r["veredito_juiz"])
+    else:
+        assert cj.main([]) == 2
 
 
 def test_rodada_b2_b3_e_reprodutivel_e_b3_nao_viola_vigencia() -> None:

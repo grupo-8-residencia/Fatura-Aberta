@@ -3,7 +3,8 @@
 
 - B2: RAG híbrido SEM filtro de vigência.
 - B3: RAG híbrido COM filtro de vigência (e de subgrupo).
-- B1 (LLM sem RAG) não roda aqui: exige um LLM configurado. TODO.
+- B1 (motor determinístico) e a rodada com LLM estão em `rodada_s3.py`. Este script mede só a
+  recuperação, sem LLM.
 
 Um item é "acerto" quando:
 - a pergunta tem norma esperada: algum artigo canônico está no top-5 e estava vigente na data;
