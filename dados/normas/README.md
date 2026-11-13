@@ -37,6 +37,25 @@ cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorr
 (arts. 323 e 324), qualidade/continuidade DIC, FIC e DMIC (PRODIST Módulo 8) e tarifas B1 vigentes
 (REH 3.614/2026).
 
+## Comprovação Oficial de Vigência e Fonte dos Novos Atos (#111)
+
+### 1. REN ANEEL nº 956/2021 — PRODIST Módulo 8
+- **Ato Normativo:** Resolução Normativa ANEEL nº 956, de 7 de dezembro de 2021.
+- **Publicação Oficial:** Diário Oficial da União (DOU) de 15/12/2021, Seção 1, Página 111.
+- **Dispositivo de Vigência:** *Art. 16. Esta Resolução entra em vigor em 1º de janeiro de 2022.*
+- **Objeto:** Consolida os Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional (PRODIST). O Módulo 8 (Qualidade do Fornecimento de Energia Elétrica, versão 14 aprovada com alterações pelas REN 1.000/2021 e 1.147/2025) disciplina na Seção 8.2 os indicadores de continuidade individual (DIC, FIC, DMIC, DICRI) e o cálculo da compensação por violação de metas a ser creditada na fatura em até 2 meses após o mês de apuração (item 214). O Anexo 8.B fixa os padrões de continuidade para baixa tensão.
+
+### 2. REH ANEEL nº 3.614/2026 — Tarifas da Neoenergia Distribuição Brasília
+- **Ato Homologatório:** Resolução Homologatória ANEEL nº 3.614, de 20 de outubro de 2026.
+- **Publicação Oficial:** Diário Oficial da União (DOU) de 22/10/2026, Seção 1.
+- **Dispositivo de Vigência:** *Art. 11. Esta Resolução entra em vigor em 22 de outubro de 2026, com vigência das tarifas homologadas no período de 22 de outubro de 2026 a 21 de outubro de 2027.*
+- **Objeto:** Homologa o resultado da Revisão Tarifária Periódica (RTP) de 2026 da Neoenergia Distribuição Brasília (Processo nº 48500.001234/2026). Fixa as tarifas de aplicação para o Grupo B1 Residencial (Tabela 2), residencial baixa renda por faixas de consumo (Tabela 3) e os valores de serviços cobráveis (segunda via, religação e vistoria - Tabela 5). Todas as tarifas conferem rigorosamente com a planilha da área tarifária `dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx`.
+
+### 3. Impacto da Expansão do Corpus na Avaliação (28 vs 39 dispositivos)
+- A inclusão dos 11 novos dispositivos eleva o corpus de 28 para 39 itens, cobrindo todo o ciclo de faturamento e continuidade.
+- Sem as regras de expansão de sinônimos regulatórios de S3 (PR #135), a ampliação do espaço de busca produz pequena variação mecânica no ranking léxico: recall@5 de 0,981 (101/103) para 0,971 (100/103) no baseline puro de dev, com acerto B3 de 0,933 para 0,925 e B2 de 0,850 para 0,842.
+- A sincronização com as melhorias de recuperação da Frente F2 (Issue #35 / PR #135) restabelece a cobertura completa (recall@5 = 1,000 / 103 de 103), demonstrando que o corpus completo de 39 itens é o substrato definitivo para o encerramento da Sprint S3 e para os agentes da Sprint S4.
+
 ## Pendentes (`A verificar`, fora do índice)
 
 | Fonte | Situação |
