@@ -3,7 +3,7 @@
     "n_perguntas": 120,
     "n_com_norma": 103,
     "alpha": 0.5,
-    "limiar": 0.25,
+    "limiar": 0.3,
     "embedder": "hash (determinístico)",
     "bootstrap_B": 10000,
     "semente": 42,
@@ -211,15 +211,15 @@
     }
   },
   "fundamentacao": {
-    "respostas_nao_abstidas": 108,
+    "respostas_nao_abstidas": 106,
     "citacoes_vigentes": {
       "estimativa": 1.0,
       "ic95_inf": 1.0,
       "ic95_sup": 1.0
     },
     "resposta_cita_artigo_canonico": {
-      "estimativa": 0.9902912621359223,
-      "ic95_inf": 0.970873786407767,
+      "estimativa": 0.9803921568627451,
+      "ic95_inf": 0.9509803921568627,
       "ic95_sup": 1.0
     },
     "texto_literal_dos_trechos": {
@@ -229,8 +229,8 @@
     }
   },
   "latencia_ms": {
-    "media": 0.8709284062135639,
-    "p95": 0.9046660270541906,
-    "max": 1.1375410249456763
+    "media": 0.8677576829055414,
+    "p95": 1.013167027849704,
+    "max": 1.1659169686026871
   }
 }

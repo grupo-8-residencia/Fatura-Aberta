@@ -22,13 +22,13 @@
     }
   },
   "abstencao_limiar_025": {
-    "vp": 4,
-    "fp": 2,
-    "fn": 2,
-    "vn": 12,
-    "precisao": 0.6667,
-    "recall": 0.6667,
-    "f1": 0.6667,
+    "vp": 5,
+    "fp": 3,
+    "fn": 1,
+    "vn": 11,
+    "precisao": 0.625,
+    "recall": 0.8333,
+    "f1": 0.7143,
     "acuracia": 0.8
   },
   "abstencao_limiar_030": {
@@ -42,10 +42,10 @@
     "acuracia": 0.8
   },
   "comparacao_mcnemar_030_vs_025": {
-    "n01": 1,
-    "n10": 1,
-    "chi2": 0.5,
-    "p_valor": 0.4795,
+    "n01": 0,
+    "n10": 0,
+    "chi2": 0.0,
+    "p_valor": 1.0,
     "p_exato": 1.0,
     "significativo_5pct": false
   },
@@ -93,7 +93,7 @@
           "vigente": true
         }
       ],
-      "absteve_limiar_025": false,
+      "absteve_limiar_025": true,
       "absteve_limiar_030": true
     },
     {
@@ -241,8 +241,8 @@
       "categoria": "devolucao_em_dobro",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "cdc-art-42",
-        "ren1000-art-323"
+        "ren1000-art-323",
+        "cdc-art-42"
       ],
       "espera_abstencao": false,
       "recuperou_top1": true,
@@ -595,7 +595,7 @@
           "vigente": true
         }
       ],
-      "absteve_limiar_025": false,
+      "absteve_limiar_025": true,
       "absteve_limiar_030": true
     },
     {
@@ -738,8 +738,8 @@
       "categoria": "cobranca_indevida",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "cdc-art-42",
-        "cdc-art-6"
+        "cdc-art-6",
+        "cdc-art-42"
       ],
       "espera_abstencao": false,
       "recuperou_top1": true,
@@ -831,8 +831,8 @@
       "categoria": "cip_cosip",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "df7888-art-4",
-        "df7888-art-3"
+        "df7888-art-3",
+        "df7888-art-4"
       ],
       "espera_abstencao": false,
       "recuperou_top1": true,

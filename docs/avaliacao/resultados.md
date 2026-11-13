@@ -46,8 +46,8 @@ gerado por `uv run python avaliacao/rodar_b2_b3.py`.
 | Baseline | O que é | Acerto por item (n = 120) | recall@5 vigente (n = 103) | Abstenção correta (n = 17) | Citações de dispositivo fora de vigência |
 |---|---|---|---|---|---|
 | **B1** | motor determinístico (sem LLM), só nas faturas | não se aplica às perguntas | não se aplica | não se aplica | não se aplica |
-| **B2** | RAG sem filtro de vigência | 0,875 [0,817; 0,933] | 1,000 [1,000; 1,000] | 0,118 [0,000; 0,294] | 29 em 12 itens |
-| **B3** | RAG com filtro de vigência | 0,958 [0,917; 0,992] | 1,000 [1,000; 1,000] | 0,706 [0,471; 0,882] | 0 |
+| **B2** | RAG sem filtro de vigência | 0,883 [0,825; 0,933] | 1,000 [1,000; 1,000] | 0,176 [0,000; 0,353] | 28 em 12 itens |
+| **B3** | RAG com filtro de vigência | 0,967 [0,933; 0,992] | 1,000 [1,000; 1,000] | 0,765 [0,529; 0,941] | 0 |
 
 **B3 − B2 no acerto por item:** +0,083 (IC 95% [0,042; 0,133]). **McNemar pareado:** 10 itens em que o
 B2 erra e o B3 acerta, 0 no sentido contrário; χ² com correção de Edwards = 8,1, p = 0,0044
@@ -59,11 +59,12 @@ B2 erra e o B3 acerta, 0 no sentido contrário; χ² com correção de Edwards =
   ANEEL 1.000/2021): o B2 se abstém corretamente em 2 deles, o B3 em 10. Nos 97 itens normativos e nos
   6 de lacuna, B2 e B3 são idênticos, porque a data de referência é atual. Essa vantagem existe **por
   construção do golden set**: ele inclui perguntas em que o filtro deveria fazer diferença.
-- **Erros remanescentes de abstenção (5 de 17 no B3 ajustado):** após a normalização léxica de termos
+- **Erros remanescentes de abstenção (4 de 17 no B3 ajustado com limiar 0,30 mantido):** após a normalização léxica de termos
   leigos, a remoção da tag imprecisa `"CIP"` em `ren1000-art-343` (cujo § 2º não foi transcrito), o
-  escopo negativo declarado (`nao_cobre`) em `df7888-*` e a calibração sem vazamento para o limiar
-  `0,25`, o `recall@5` vigente subiu para 103 de 103 (0 falhas normativas) e as recusas falsas em
-  perguntas respondíveis caíram de 9 para 0. Seguem sem abstenção 3 itens `fora_do_corpus` de CIP/COSIP
+  escopo negativo declarado (`nao_cobre`) em `df7888-*` e a manutenção do limiar seguro de `0,30`
+  (acolhendo a revisão metodológica que apontou ausência de ganho do `0,25` no teste cego), o `recall@5`
+  vigente subiu para 103 de 103 (0 falhas normativas), o acerto global atingiu 116 de 120 (0,967) e as
+  recusas falsas em perguntas respondíveis caíram para 0. Seguem sem abstenção 2 itens `fora_do_corpus` de CIP/COSIP
   e os 2 itens de vigência de 2021 (`GS-Q119` e `GS-Q120`), em que o CDC, art. 42, parágrafo único
   (vigente desde 1991), ultrapassa o limiar por tratar de repetição de indébito.
 - **Ajuste dentro da amostra (in-sample) nos itens normativos:** as duas falhas normativas anteriores
@@ -99,8 +100,8 @@ Comparação consolidada da recuperação entre o gate da **Sprint S2**, a **lin
 | Rodada / Etapa | Gate 30 perguntas (`s2-recall-gate.json`) | `hit@5` vigente (n = 103) | `recall@5` (n = 103) | `MRR` (n = 103) | Acerto global B3 (n = 120) | Falsas recusas (FP na abstenção) |
 |---|---|---|---|---|---|---|
 | **S2 (gate inicial)** | 30/30 (`1,000 [1,000; 1,000]`) | — | — | — | — | — |
-| **S3 (linha de base anterior)** | 30/30 (`1,000 [1,000; 1,000]`) | 0,981 [0,951; 1,000] | 0,976 [0,942; 1,000] | 0,885 [0,836; 0,929] | 0,933 [0,883; 0,975] | 9 (limiar 0,30) |
-| **S3 (após ajustes, dentro da amostra, limiar `0,25`)** | **30/30 (`1,000 [1,000; 1,000]`)** | **1,000 [1,000; 1,000]** | **0,995 [0,985; 1,000]** | **0,929 [0,892; 0,961]** | **0,958 [0,917; 0,992]** | **0 (limiar 0,25)** |
+| **S3 (linha de base anterior)** | 30/30 (`1,000 [1,000; 1,000]`) | 0,981 [0,951; 1,000] | 0,976 [0,942; 1,000] | 0,885 [0,836; 0,929] | 0,933 [0,883; 0,975] | 9 (limiar 0,30 sem normalização) |
+| **S3 (após ajustes, dentro da amostra, limiar `0,30` mantido)** | **30/30 (`1,000 [1,000; 1,000]`)** | **1,000 [1,000; 1,000]** | **0,995 [0,985; 1,000]** | **0,929 [0,892; 0,961]** | **0,967 [0,933; 0,992]** | **0 (limiar 0,30 com normalização)** |
 
 ### Definição de acerto
 
@@ -234,7 +235,7 @@ não produz número nenhum antes disso.
 |---|---|---|---|---|
 | recall@5 em 30 perguntas | S2 | RAG | recall@5 de 1,000 [1,000; 1,000] (30 de 30) na amostra estratificada e 0,995 [0,985; 1,000] nas 103 perguntas com norma | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-recall-gate.json) |
 | LLM × RAG | S3 | B2, B3 | Tabela acima; B1 e juiz pendentes | acima |
-| Calibração de abstenção (60/60) | S3 | B3 | Limiar `0,25` calibrado sem vazamento; F1 = 0,714 [0,333; 0,941] e precisão = 1,000 no split cego | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-calibracao-abstencao.json) |
+| Calibração de abstenção (60/60) | S3 | B3 | Calibração 60/60 sem vazamento; limiar 0,30 mantido no pacote (F1 = 0,800 no teste cego vs 0,714 com 0,25) | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-calibracao-abstencao.json) |
 | Agentes | S4 | B4, B5 | Aguardando execução da S4 | — |
 | Campos-chave em 40 fotos | S5 | extração | Aguardando execução da S5 | — |
 | Rodada final | S7 | B1–B5 | Aguardando execução da S7 | — |
