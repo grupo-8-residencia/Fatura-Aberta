@@ -12,7 +12,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 
 B_PADRAO = 10_000
-SEMENTE_PADRAO = 20261109
+SEMENTE_PADRAO = 42  # bootstrap: seed = 42, como fixa o protocolo (docs/avaliacao/index.md)
+SEMENTE_AMOSTRA = 20261109  # sorteios de amostras e ordem de itens (não é a do bootstrap)
 
 
 @dataclass(frozen=True, slots=True)

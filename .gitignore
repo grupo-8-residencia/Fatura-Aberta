@@ -42,3 +42,10 @@ scripts/gerar_material_didatico_pdf.py
 
 # Cache de respostas do LLM (reprodutível, não versionado)
 avaliacao/cache/
+
+# Conversor de normas (F4): PDFs baixados e candidatos ficam só locais
+normas_baixadas/
+candidatos/
+
+# Estado local de trabalho e códigos pessoais da anotação (nunca versionar)
+.local/
