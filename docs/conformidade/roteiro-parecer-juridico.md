@@ -88,5 +88,14 @@ se a lista está completa ou se há termos a acrescentar ou retirar.
 | Texto aprovado do aviso de transparência | TODO |
 | Próximos passos | TODO |
 
+## 8. Perguntas complementares para revisão da equipe
+
+- Se a ferramenta apresentar uma divergência incorreta, quais responsabilidades e medidas preventivas devemos considerar?
+- Quais cuidados são necessários para proteger os dados pessoais presentes nas faturas, conforme a LGPD?
+- Como devemos informar ao consumidor que uma norma ou tabela tarifária pode estar desatualizada?
+- Como comunicar resultados inconclusivos sem transmitir a impressão de que a cobrança foi considerada correta?
+- Termos como "cobrança indevida", "irregularidade" e "inconsistência" apresentam riscos jurídicos diferentes?
+
+> Perguntas propostas pela F1, pendentes de revisão da equipe e avaliação dos profissionais de Direito.
 Depois de preencher, atualize a seção "Diretrizes internas propostas para validação jurídica" de
 [fronteira jurídica](fronteira-juridica.md) e feche a issue `#4` por PR com `Closes #4`.
