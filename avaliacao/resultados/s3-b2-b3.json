@@ -5,7 +5,7 @@
     "top_k": 5,
     "limiar_abstencao": 0.3,
     "bootstrap_B": 10000,
-    "semente": 20261109,
+    "semente": 42,
     "n_itens": 120,
     "n_com_norma": 103,
     "n_abstencao_esperada": 17,

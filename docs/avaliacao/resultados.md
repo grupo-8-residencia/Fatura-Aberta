@@ -23,8 +23,8 @@ Medição do critério "nenhum falso alarme de nível A nas faturas corretas", e
 
 ## S2: Gate de Recall@5 da Norma Vigente (F2)
 
-Medição oficial do Gate da Sprint S2 sobre 30 perguntas com versão-gabarito, **amostra estratificada por categoria** (proporcional ao tamanho de cada uma, com ao menos 1 por categoria, semente 20261109) do golden set (`dados/golden-set/perguntas.jsonl`). Os 30 ids ficam gravados no JSON.
-Intervalo de confiança de 95% por bootstrap (B = 10.000, semente 20261109). Fonte:
+Medição oficial do Gate da Sprint S2 sobre 30 perguntas com versão-gabarito, **amostra estratificada por categoria** (proporcional ao tamanho de cada uma, com ao menos 1 por categoria, semente de amostragem 20261109) do golden set (`dados/golden-set/perguntas.jsonl`). Os 30 ids ficam gravados no JSON.
+Intervalo de confiança de 95% por bootstrap (B = 10.000, semente 42). Fonte:
 [`avaliacao/resultados/s2-recall-gate.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-recall-gate.json),
 gerado por `uv run python avaliacao/medir_recall_s2.py`.
 
@@ -39,13 +39,13 @@ Composição da amostra: devolução em dobro 7, tarifas B1 5, medição estimad
 
 ## S3: B1, B2 e B3
 
-Intervalos de confiança de 95% por bootstrap (B = 10.000, semente 20261109). Fonte:
+Intervalos de confiança de 95% por bootstrap (B = 10.000, semente 42). Fonte:
 [`avaliacao/resultados/s3-b2-b3.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-b2-b3.json),
 gerado por `.venv/bin/python avaliacao/rodar_b2_b3.py`.
 
 | Baseline | O que é | Acerto por item (n = 120) | recall@5 vigente (n = 103) | Abstenção correta (n = 17) | Citações de dispositivo fora de vigência |
 |---|---|---|---|---|---|
-| **B1** | LLM sem RAG | TODO: exige um LLM configurado | TODO | TODO | TODO |
+| **B1** | motor determinístico (sem LLM), só nas faturas | não se aplica às perguntas | não se aplica | não se aplica | não se aplica |
 | **B2** | RAG sem filtro de vigência | 0,850 [0,783; 0,908] | 0,981 [0,951; 1,000] | 0,059 [0,000; 0,176] | 25 em 11 itens |
 | **B3** | RAG com filtro de vigência | 0,933 [0,883; 0,975] | 0,981 [0,951; 1,000] | 0,647 [0,412; 0,882] | 0 |
 
