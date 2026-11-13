@@ -174,3 +174,29 @@ def test_gate_s2_motor_nao_da_falso_alarme_em_faturas_corretas() -> None:
     assert r["golden_set"]["detectadas"] == r["golden_set"]["n_com_erro_injetado"]
     versionado = json.loads(fa.SAIDA_PADRAO.read_text(encoding="utf-8"))
     assert versionado["total_falsos_alarmes"] == r["total_falsos_alarmes"]
+
+
+def test_calibracao_abstencao_sem_vazamento_e_reprodutivel() -> None:
+    import calibrar_abstencao as ca
+
+    from fa_rag.sintese import LIMIAR_PADRAO
+
+    itens = [
+        json.loads(x) for x in ca.PERGUNTAS.read_text(encoding="utf-8").splitlines() if x.strip()
+    ]
+    cal_a, tst_a = ca.dividir_estratificado(itens)
+    cal_b, tst_b = ca.dividir_estratificado(itens)
+    assert cal_a == cal_b and tst_a == tst_b
+    assert len(cal_a) == 60 and len(tst_a) == 60
+    ids_cal = {i["id"] for i in cal_a}
+    ids_tst = {i["id"] for i in tst_a}
+    assert ids_cal.isdisjoint(ids_tst)
+    assert ids_cal | ids_tst == {i["id"] for i in itens}
+
+    r = ca.rodar()
+    versionado = json.loads(ca.SAIDA.read_text(encoding="utf-8"))
+    assert r == versionado
+    assert r["configuracao"]["limiar_escolhido"] == 0.25
+    assert r["configuracao"]["limiar_padrao_pacote"] == LIMIAR_PADRAO == 0.30
+    assert r["teste"]["abstencao"]["precisao"] == 1.0
+    assert r["teste"]["ranking_com_norma"]["recall@5"]["estimativa"] >= 0.95

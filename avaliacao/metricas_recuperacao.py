@@ -22,6 +22,7 @@ from typing import Any
 from estatistica import B_PADRAO, SEMENTE_PADRAO, bootstrap_ic
 
 from fa_rag import IndiceHibrido, responder
+from fa_rag.sintese import LIMIAR_PADRAO
 
 RAIZ = Path(__file__).resolve().parents[1]
 PERGUNTAS = RAIZ / "dados" / "golden-set" / "perguntas.jsonl"
@@ -149,7 +150,7 @@ def rodar() -> dict[str, Any]:
             "n_perguntas": len(itens),
             "n_com_norma": len(com_norma),
             "alpha": indice.alpha,
-            "limiar": 0.30,
+            "limiar": LIMIAR_PADRAO,
             "embedder": "hash (determinístico)",
             "bootstrap_B": B_PADRAO,
             "semente": SEMENTE_PADRAO,
