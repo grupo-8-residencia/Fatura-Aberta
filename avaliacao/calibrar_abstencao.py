@@ -23,7 +23,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from estatistica import B_PADRAO, SEMENTE_PADRAO, mcnemar
+from estatistica import B_PADRAO, SEMENTE_AMOSTRA, SEMENTE_PADRAO, mcnemar
 from metricas_recuperacao import (
     PERGUNTAS as PERGUNTAS,
 )
@@ -42,7 +42,7 @@ LIMIAR_ANTERIOR = 0.30
 
 
 def dividir_estratificado(
-    itens: list[dict[str, Any]], *, semente: int = SEMENTE_PADRAO
+    itens: list[dict[str, Any]], *, semente: int = SEMENTE_AMOSTRA
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Divide ``itens`` em metades disjuntas estratificadas por ``(tipo, categoria)``."""
     rng = random.Random(semente)
@@ -197,7 +197,7 @@ def _avaliar_split(
 def rodar() -> dict[str, Any]:
     """Executa calibração sem vazamento (calibra em 60 itens e mede uma vez em 60 de teste)."""
     itens = [json.loads(x) for x in PERGUNTAS.read_text(encoding="utf-8").splitlines() if x]
-    calibracao, teste = dividir_estratificado(itens, semente=SEMENTE_PADRAO)
+    calibracao, teste = dividir_estratificado(itens, semente=SEMENTE_AMOSTRA)
     indice = IndiceHibrido.do_corpus()
 
     varredura_cal, scores_cal, esp_cal = _varrer_limiares(indice, calibracao, LIMIARES_CANDIDATOS)
@@ -205,7 +205,8 @@ def rodar() -> dict[str, Any]:
 
     return {
         "configuracao": {
-            "semente": SEMENTE_PADRAO,
+            "semente_amostragem": SEMENTE_AMOSTRA,
+            "semente_bootstrap": SEMENTE_PADRAO,
             "bootstrap_B": B_PADRAO,
             "estratificacao": ["tipo", "categoria"],
             "n_calibracao": len(calibracao),

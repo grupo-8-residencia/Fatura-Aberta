@@ -797,8 +797,8 @@
       "categoria": "devolucao_dobro",
       "pergunta": "Qual a diferença entre cobrança a menor e a maior no faturamento incorreto?",
       "esperado": [
-        "ren1000-art-323",
-        "ren1000-art-324"
+        "ren1000-art-324",
+        "ren1000-art-323"
       ],
       "recuperou": true,
       "top5": [
@@ -839,8 +839,8 @@
       "categoria": "cip_cosip",
       "pergunta": "Qual lei distrital regula a contribuição de iluminação pública?",
       "esperado": [
-        "df7888-art-4",
-        "df7888-art-1"
+        "df7888-art-1",
+        "df7888-art-4"
       ],
       "recuperou": true,
       "top5": [

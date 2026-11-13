@@ -1,0 +1,962 @@
+{
+  "tipo_avaliacao": "fora_da_amostra (out-of-sample)",
+  "descricao": "Avaliação em 20 perguntas formuladas de forma independente em linguagem cotidiana, sem consulta prévia ao dicionário de normalização léxica.",
+  "n_total": 20,
+  "n_com_norma": 14,
+  "n_abstencao_esperada": 6,
+  "recuperacao_perguntas_com_norma": {
+    "acertos_top1": 8,
+    "acertos_top5": 11,
+    "total": 14,
+    "hit@1": {
+      "estimativa": 0.5714,
+      "ic95_inferior": 0.2857,
+      "ic95_superior": 0.7857,
+      "formatado": "0.571 [0.286; 0.786]"
+    },
+    "hit@5": {
+      "estimativa": 0.7857,
+      "ic95_inferior": 0.5714,
+      "ic95_superior": 1.0,
+      "formatado": "0.786 [0.571; 1.000]"
+    }
+  },
+  "abstencao_limiar_025": {
+    "vp": 4,
+    "fp": 2,
+    "fn": 2,
+    "vn": 12,
+    "precisao": 0.6667,
+    "recall": 0.6667,
+    "f1": 0.6667,
+    "acuracia": 0.8
+  },
+  "abstencao_limiar_030": {
+    "vp": 5,
+    "fp": 3,
+    "fn": 1,
+    "vn": 11,
+    "precisao": 0.625,
+    "recall": 0.8333,
+    "f1": 0.7143,
+    "acuracia": 0.8
+  },
+  "comparacao_mcnemar_030_vs_025": {
+    "n01": 1,
+    "n10": 1,
+    "chi2": 0.5,
+    "p_valor": 0.4795,
+    "p_exato": 1.0,
+    "significativo_5pct": false
+  },
+  "detalhes": [
+    {
+      "id": "NOV-Q01",
+      "pergunta": "A concessionária pode cortar minha luz na sexta-feira à tarde?",
+      "categoria": "corte_notificacao",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-361"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": false,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.2847,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.2805,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p3",
+          "dispositivo": "art. 360, § 3º",
+          "score": 0.2783,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-356::caput",
+          "dispositivo": "art. 356, caput",
+          "score": 0.2746,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::caput",
+          "dispositivo": "art. 357, caput",
+          "score": 0.2136,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q02",
+      "pergunta": "Quantos dias antes do corte a empresa precisa me avisar do débito?",
+      "categoria": "corte_notificacao",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-360"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-360::p2",
+          "dispositivo": "art. 360, § 2º",
+          "score": 0.4278,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.4271,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-356::p2",
+          "dispositivo": "art. 356, § 2º",
+          "score": 0.3414,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::pu",
+          "dispositivo": "art. 357, parágrafo único",
+          "score": 0.3203,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.2495,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q03",
+      "pergunta": "Se o relógio ficar trancado no quintal sem acesso, como é cobrado?",
+      "categoria": "medicao_estimada",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-281",
+        "ren1000-art-285"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-323::p3",
+          "dispositivo": "art. 323, § 3º",
+          "score": 0.214,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.2088,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::p2",
+          "dispositivo": "art. 324, § 2º",
+          "score": 0.2044,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::caput",
+          "dispositivo": "art. 360, caput",
+          "score": 0.1872,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::caput",
+          "dispositivo": "art. 260, caput",
+          "score": 0.1703,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": true,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q04",
+      "pergunta": "Qual o prazo mínimo entre a entrega da fatura e o vencimento em residência?",
+      "categoria": "tarifas_b1",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-338"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.4932,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.3408,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-358",
+          "dispositivo": "art. 358",
+          "score": 0.335,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.3212,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::caput",
+          "dispositivo": "art. 357, caput",
+          "score": 0.3085,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q05",
+      "pergunta": "Se a conta cobrar o dobro do consumo real por erro no sistema, como recebo?",
+      "categoria": "devolucao_em_dobro",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "cdc-art-42",
+        "ren1000-art-323"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.4842,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.3755,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42-pu",
+          "dispositivo": "art. 42, parágrafo único",
+          "score": 0.3522,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.348,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42",
+          "dispositivo": "art. 42, caput",
+          "score": 0.2311,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q06",
+      "pergunta": "Paguei o boleto da luz ontem no banco e hoje no aplicativo sem querer.",
+      "categoria": "cobranca_indevida",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-342"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.2488,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.176,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-356::caput",
+          "dispositivo": "art. 356, caput",
+          "score": 0.1753,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.1693,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.1683,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": true,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q07",
+      "pergunta": "Quantos porcento de multa a distribuidora pode cobrar por atraso na conta?",
+      "categoria": "encargos_multas",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-343"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-343::caput",
+          "dispositivo": "art. 343, caput",
+          "score": 0.5332,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-347",
+          "dispositivo": "art. 347",
+          "score": 0.3452,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::p3",
+          "dispositivo": "art. 323, § 3º",
+          "score": 0.2816,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.2581,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-356::caput",
+          "dispositivo": "art. 356, caput",
+          "score": 0.2145,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q08",
+      "pergunta": "A empresa pode cobrar fatura retroativa por erro de medição de três anos?",
+      "categoria": "cobranca_indevida",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-324"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": false,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.4171,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.3518,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.2995,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.268,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-343::caput",
+          "dispositivo": "art. 343, caput",
+          "score": 0.2174,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q09",
+      "pergunta": "A fatura precisa trazer o histórico de consumos mensais e código legível?",
+      "categoria": "tarifas_b1",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-327"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.4288,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-281::caput",
+          "dispositivo": "art. 281, caput",
+          "score": 0.2419,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2399,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-260::p2",
+          "dispositivo": "art. 260, § 2º",
+          "score": 0.2371,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.2135,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q10",
+      "pergunta": "Qual é o valor exato em reais da taxa de iluminação pública em Taguatinga?",
+      "categoria": "fora_do_corpus",
+      "data_referencia": "2026-11-09",
+      "canonicos": [],
+      "espera_abstencao": true,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "df7888-art-1",
+          "dispositivo": "art. 1º, caput",
+          "score": 0.397,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.3937,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-2-iii::inc-iii",
+          "dispositivo": "art. 2º, inciso III",
+          "score": 0.3448,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.0905,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p1",
+          "dispositivo": "art. 290, § 1º",
+          "score": 0.0848,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q11",
+      "pergunta": "Qual a porcentagem da alíquota de ICMS sobre energia residencial no DF?",
+      "categoria": "fora_do_corpus",
+      "data_referencia": "2026-11-09",
+      "canonicos": [],
+      "espera_abstencao": true,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.081,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-322",
+          "dispositivo": "art. 322, caput e incisos I e II",
+          "score": 0.0519,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.0478,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.0469,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-356::caput",
+          "dispositivo": "art. 356, caput",
+          "score": 0.0453,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": true,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q12",
+      "pergunta": "Como funciona o financiamento bancário para placas solares residenciais?",
+      "categoria": "fora_do_corpus",
+      "data_referencia": "2026-11-09",
+      "canonicos": [],
+      "espera_abstencao": true,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2857,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.1541,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p1",
+          "dispositivo": "art. 360, § 1º",
+          "score": 0.1436,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::p3",
+          "dispositivo": "art. 323, § 3º",
+          "score": 0.139,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-338::p1",
+          "dispositivo": "art. 338, § 1º",
+          "score": 0.1323,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q13",
+      "pergunta": "Qual a punição criminal no Código Penal para ligação clandestina de energia?",
+      "categoria": "fora_do_corpus",
+      "data_referencia": "2026-11-09",
+      "canonicos": [],
+      "espera_abstencao": true,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-327::caput",
+          "dispositivo": "art. 327, caput",
+          "score": 0.2196,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::caput",
+          "dispositivo": "art. 323, caput",
+          "score": 0.1929,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p3",
+          "dispositivo": "art. 360, § 3º",
+          "score": 0.1826,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-6::inc-vi",
+          "dispositivo": "art. 6º, inciso VI",
+          "score": 0.1777,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.1753,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": true,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q14",
+      "pergunta": "Quem é o órgão competente para fixar a tarifa de ônibus no Distrito Federal?",
+      "categoria": "fora_do_corpus",
+      "data_referencia": "2026-11-09",
+      "canonicos": [],
+      "espera_abstencao": true,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.246,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p3",
+          "dispositivo": "art. 360, § 3º",
+          "score": 0.2215,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::caput",
+          "dispositivo": "art. 307, caput",
+          "score": 0.2098,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p3",
+          "dispositivo": "art. 290, § 3º",
+          "score": 0.2011,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.1927,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": true,
+      "absteve_limiar_030": true
+    },
+    {
+      "id": "NOV-Q15",
+      "pergunta": "A leitura da luz pode ser feita com intervalo de apenas 15 dias entre contas?",
+      "categoria": "medicao_estimada",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-260"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-260::p1",
+          "dispositivo": "art. 260, § 1º",
+          "score": 0.4366,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-360::p3",
+          "dispositivo": "art. 360, § 3º",
+          "score": 0.4037,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-285",
+          "dispositivo": "art. 285",
+          "score": 0.3707,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.2496,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.2371,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q16",
+      "pergunta": "Em corte indevido de conta já paga, quais os direitos básicos do consumidor?",
+      "categoria": "cobranca_indevida",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "cdc-art-42",
+        "cdc-art-6"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "cdc-art-6::inc-viii",
+          "dispositivo": "art. 6º, inciso VIII",
+          "score": 0.4076,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::caput",
+          "dispositivo": "art. 357, caput",
+          "score": 0.3419,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42-pu",
+          "dispositivo": "art. 42, parágrafo único",
+          "score": 0.3376,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-361",
+          "dispositivo": "art. 361, caput e incisos I, I-A e II",
+          "score": 0.3182,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::caput",
+          "dispositivo": "art. 324, caput",
+          "score": 0.2804,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q17",
+      "pergunta": "A distribuidora pode exigir vantagem manifestamente excessiva ao consumidor?",
+      "categoria": "cobranca_indevida",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "cdc-art-39"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "cdc-art-39::inc-v",
+          "dispositivo": "art. 39, inciso V",
+          "score": 0.7457,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-324::p4",
+          "dispositivo": "art. 324, § 4º",
+          "score": 0.2192,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42-pu",
+          "dispositivo": "art. 42, parágrafo único",
+          "score": 0.2158,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-323::p3",
+          "dispositivo": "art. 323, § 3º",
+          "score": 0.2049,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.1959,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q18",
+      "pergunta": "Como solicitar revisão da taxa de iluminação pública cobrada na conta no DF?",
+      "categoria": "cip_cosip",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "df7888-art-4",
+        "df7888-art-3"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": true,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.6402,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-1",
+          "dispositivo": "art. 1º, caput",
+          "score": 0.4222,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-2-iii::inc-iii",
+          "dispositivo": "art. 2º, inciso III",
+          "score": 0.406,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-337",
+          "dispositivo": "art. 337",
+          "score": 0.102,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::p1",
+          "dispositivo": "art. 290, § 1º",
+          "score": 0.0911,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q19",
+      "pergunta": "Quais os requisitos para ter direito à tarifa social de energia elétrica?",
+      "categoria": "tarifas_b1",
+      "data_referencia": "2026-11-09",
+      "canonicos": [
+        "ren1000-art-290"
+      ],
+      "espera_abstencao": false,
+      "recuperou_top1": false,
+      "recuperou_top5": true,
+      "top5": [
+        {
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.4281,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-290::caput",
+          "dispositivo": "art. 290, caput",
+          "score": 0.3655,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-327::p2",
+          "dispositivo": "art. 327, § 2º",
+          "score": 0.3578,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.342,
+          "vigente": true
+        },
+        {
+          "id": "df7888-art-4",
+          "dispositivo": "art. 4º, caput e incisos I a IV",
+          "score": 0.321,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": false,
+      "absteve_limiar_030": false
+    },
+    {
+      "id": "NOV-Q20",
+      "pergunta": "Em maio de 2020, as regras da Resolução Normativa 1.000 já eram válidas?",
+      "categoria": "vigencia",
+      "data_referencia": "2020-05-15",
+      "canonicos": [
+        "ren1000-art-177"
+      ],
+      "espera_abstencao": true,
+      "recuperou_top1": false,
+      "recuperou_top5": false,
+      "top5": [
+        {
+          "id": "cdc-art-6::inc-viii",
+          "dispositivo": "art. 6º, inciso VIII",
+          "score": 0.1399,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-39::inc-vi",
+          "dispositivo": "art. 39, inciso VI",
+          "score": 0.0878,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42",
+          "dispositivo": "art. 42, caput",
+          "score": 0.0377,
+          "vigente": true
+        },
+        {
+          "id": "cdc-art-42-pu",
+          "dispositivo": "art. 42, parágrafo único",
+          "score": 0.0367,
+          "vigente": true
+        }
+      ],
+      "absteve_limiar_025": true,
+      "absteve_limiar_030": true
+    }
+  ]
+}
