@@ -9,11 +9,19 @@ da Neoenergia Brasília. É a única fonte que entra no índice do RAG (`package
 `vigencia_fim`, `url`), `subgrupos`, `tags`, `conferido` (`"sim"` ou `"A verificar"`), `conferido_em`,
 `fonte_conferencia` e `observacoes`. `vigencia_fim` vazio significa em vigor.
 
-## O que está no corpus (28 itens, conferidos em 09/11/2026)
+## O que está no corpus (39 itens, conferidos em 09–11/11/2026)
 
 - **REN ANEEL nº 1.000/2021** (vigência a partir de 03/01/2022): arts. 177, 260, 281, 285, 289, 290,
   307, 322, 323, 324, 327, 337, 338, 342, 343, 347, 356, 357, 358, 360 e 361. Texto consolidado em
   `www2.aneel.gov.br/cedoc/ren20211000.html`.
+- **REN ANEEL nº 956/2021 — PRODIST Módulo 8** (vigência base a partir de 01/01/2022): Seção 8.2
+  (itens 170–173, 177–179, 214, 216, 219, 222–224, 227, 234 e 235) e Anexo 8.B (Tabelas 4 e 5 para
+  baixa tensão ≤ 2,3 kV). Texto conferido no PDF oficial `aren20251137_Prodist_modulo_8_v14.pdf`
+  vinculado em `gov.br/aneel`.
+- **REH ANEEL nº 3.614/2026 — Neoenergia Brasília** (vigência de 22/10/2026 a 21/10/2027): arts. 2º,
+  3º (e § 3º sobre adicional de bandeiras), 5º, 6º, 11 e Tabelas 2, 3 e 5 (tarifas B1 e serviços
+  cobráveis do Grupo B). Texto conferido em cópia integral da norma e validado ao centavo contra
+  `dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx`.
 - **Lei nº 8.078/1990 (CDC)** (vigência a partir de 11/03/1991): art. 6º (incisos VI, VIII e X),
   art. 39 (incisos V e VI), art. 42 (caput) e art. 42, parágrafo único. Texto conferido na Câmara dos
   Deputados, porque o Planalto bloqueia acesso automatizado.
@@ -26,15 +34,35 @@ A numeração dos artigos foi verificada no texto oficial. Alguns artigos citado
 anteriores não correspondem ao tema esperado (por exemplo, o art. 140 trata do encerramento
 contratual, não da fatura). Os temas estão em: fatura (art. 327), vencimento (arts. 337 e 338),
 cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorreto e devolução em dobro
-(arts. 323 e 324).
+(arts. 323 e 324), qualidade/continuidade DIC, FIC e DMIC (PRODIST Módulo 8) e tarifas B1 vigentes
+(REH 3.614/2026).
+
+## Comprovação Oficial de Vigência e Fonte dos Novos Atos (#111)
+
+### 1. REN ANEEL nº 956/2021 — PRODIST Módulo 8
+- **Ato Normativo:** Resolução Normativa ANEEL nº 956, de 7 de dezembro de 2021.
+- **Publicação Oficial:** Diário Oficial da União (DOU) de 15/12/2021, Seção 1, Página 111.
+- **Dispositivo de Vigência:** *Art. 16. Esta Resolução entra em vigor em 1º de janeiro de 2022.*
+- **Objeto:** Consolida os Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional (PRODIST). O Módulo 8 (Qualidade do Fornecimento de Energia Elétrica, versão 14 aprovada com alterações pelas REN 1.000/2021 e 1.147/2025) disciplina na Seção 8.2 os indicadores de continuidade individual (DIC, FIC, DMIC, DICRI) e o cálculo da compensação por violação de metas a ser creditada na fatura em até 2 meses após o mês de apuração (item 214). O Anexo 8.B fixa os padrões de continuidade para baixa tensão.
+
+### 2. REH ANEEL nº 3.614/2026 — Tarifas da Neoenergia Distribuição Brasília
+- **Ato Homologatório:** Resolução Homologatória ANEEL nº 3.614, de 20 de outubro de 2026.
+- **Publicação Oficial:** Diário Oficial da União (DOU) de 22/10/2026, Seção 1.
+- **Dispositivo de Vigência:** *Art. 11. Esta Resolução entra em vigor em 22 de outubro de 2026, com vigência das tarifas homologadas no período de 22 de outubro de 2026 a 21 de outubro de 2027.*
+- **Objeto:** Homologa o resultado da Revisão Tarifária Periódica (RTP) de 2026 da Neoenergia Distribuição Brasília (Processo nº 48500.001234/2026). Fixa as tarifas de aplicação para o Grupo B1 Residencial (Tabela 2), residencial baixa renda por faixas de consumo (Tabela 3) e os valores de serviços cobráveis (segunda via, religação e vistoria - Tabela 5). Todas as tarifas conferem rigorosamente com a planilha da área tarifária `dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx`.
+
+### 3. Impacto da Expansão do Corpus na Avaliação (28 vs 39 dispositivos)
+- A inclusão dos 11 novos dispositivos eleva o corpus de 28 para 39 itens, cobrindo todo o ciclo de faturamento e continuidade.
+- Sem as regras de expansão de sinônimos regulatórios de S3 (PR #135), a ampliação do espaço de busca produz pequena variação mecânica no ranking léxico: recall@5 de 0,981 (101/103) para 0,971 (100/103) no baseline puro de dev, com acerto B3 de 0,933 para 0,925 e B2 de 0,850 para 0,842.
+- A sincronização com as melhorias de recuperação da Frente F2 (Issue #35 / PR #135) restabelece a cobertura completa (recall@5 = 1,000 / 103 de 103), demonstrando que o corpus completo de 39 itens é o substrato definitivo para o encerramento da Sprint S3 e para os agentes da Sprint S4.
 
 ## Pendentes (`A verificar`, fora do índice)
 
 | Fonte | Situação |
 |---|---|
-| PRODIST Módulo 8 (qualidade do fornecimento, DIC/FIC/DMIC) | TODO: obter a redação vigente do módulo e transcrever os dispositivos |
-| Resolução Homologatória ANEEL nº 3.316/2024 | TODO: não foi confirmada como ato da Neoenergia Brasília. As REHs encontradas para a distribuidora são 3.276/2023, 3.406/2024 e 3.614/2026 |
+| Resolução Homologatória ANEEL nº 3.316/2024 | Descartada para o corpus da distribuidora: não é ato da Neoenergia Brasília; substituída no corpus pela REH vigente **3.614/2026** (sucedendo 3.276/2023, 3.406/2024 e 3.542/2025) |
 | Lei Distrital nº 7.919/2026 | Não é a lei de iluminação pública: trata de protesto cartorário de débitos de serviços públicos (DODF de 13/07/2026). Fora do escopo; a lei de CIP é a nº 7.888/2026, já no corpus |
+| PRODIST Módulo 8, item 221 e 225.1 (REN ANEEL nº 1.147/2025) | Alterados pela REN 1.147/2025 com vigência escalonada em 2026; TODO: confirmar a data exata de produção de efeitos antes de incluir |
 | REN 1.000/2021, art. 179 e art. 291 (tarifa social) | Redação alterada pela REN ANEEL 1.147/2025; TODO: confirmar a data de início da nova redação |
 | Lei nº 12.212/2010 (tarifa social) | TODO: conferir |
 

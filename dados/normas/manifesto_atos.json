@@ -15,13 +15,13 @@
     "prefixo": "ren956",
     "ato": "REN ANEEL nº 956/2021",
     "descricao": "Consolida os Procedimentos de Distribuição (PRODIST). Módulos 3, 5 e 11 não contam como atos à parte",
-    "vigencia_inicio": null,
+    "vigencia_inicio": "2022-01-01",
     "vigencia_fim": null,
     "url_oficial": "https://www.gov.br/aneel/pt-br/centrais-de-conteudos/procedimentos-regulatorios/prodist",
     "url_download": null,
-    "status": "a_confirmar",
+    "status": "ok",
     "origem": "natalia",
-    "observacoes": "Vigência não informada. Módulos 3, 5 e 11 são indexados dentro deste ato."
+    "observacoes": "Vigência base confirmada em gov.br/aneel (01/01/2022). Seção 8.2 e Anexo 8.B do Módulo 8 (DIC, FIC, DMIC e compensação) conferidos no PDF oficial v14 e integrados ao corpus na Issue #111."
   },
   {
     "prefixo": "cdc",
@@ -129,7 +129,7 @@
     "url_download": null,
     "status": "ok",
     "origem": "talita",
-    "observacoes": "Citada como encontrada no README do #99."
+    "observacoes": "Confirmada no texto (DOU 22/10/2026) como RTP 2026 da Neoenergia Brasília; tarifas B1 validadas ao centavo contra dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx e incorporadas ao corpus na Issue #111."
   },
   {
     "prefixo": "reh3542",
