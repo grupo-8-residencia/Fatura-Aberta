@@ -17,17 +17,11 @@ O Fatura Aberta é um projeto acadêmico da Residência em IA (UnB / Instituto E
 ## 3. Pauta sugerida (40 minutos)
 
 | Etapa | Tempo | Foco |
-
 | --- | --- | --- |
-
 | Apresentação e autorização de registro | 4 min | Objetivo e caráter informal |
-
 | Limites e linguagem | 10 min | Fronteira informativa e expressões |
-
 | Frases A/B/C e RF-15 | 12 min | Analisar exemplos prioritários |
-
 | Responsabilidade, LGPD e fontes | 9 min | Erros, dados e normas |
-
 | Encerramento | 5 min | Resumo, pendências e autorização de divulgação |
 
 ## 4. Perguntas para a reunião
@@ -111,27 +105,16 @@ No roteiro do projeto, o RF-15 bloqueia termos de qualificação jurídica concl
 ## 7. Registro da conversa
 
 | Campo | Preencher durante ou após a reunião |
-
 | --- | --- |
-
 | Data, hora e formato | A preencher |
-
 | Participantes da equipe | A preencher |
-
 | Profissional e função | A preencher; publicar nome somente com autorização |
-
 | Autorização para anotações / gravação | A preencher; gravação somente com autorização específica |
-
 | Frases mantidas / ajustadas / evitadas | A preencher com identificação das frases |
-
 | Orientações sobre RF-15 e aviso | A preencher |
-
 | Responsabilidade, LGPD e fontes | A preencher |
-
 | Pontos sem consenso / a verificar | A preencher |
-
 | Decisões internas e responsáveis | A preencher; não atribuir ao profissional |
-
 | Autorização para publicar resumo | A preencher |
 
 ## 8. Encaminhamentos e GitHub
