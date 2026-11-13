@@ -12,7 +12,11 @@ TEXTO_ABSTENCAO = (
     "Não encontrei no corpus normativo um dispositivo vigente que cubra esta pergunta. "
     "O sistema não responde sem fonte; consulte a distribuidora ou a ANEEL."
 )
-LIMIAR_PADRAO = 0.25
+# Limiar padrão mantido em 0.30 conforme recomendação de auditoria metodológica:
+# a calibração estratificada (S3-07) apontou 0,25 no treino (calibração), mas no teste
+# cego (n=60) e no out-of-sample o 0,30 obteve melhor equilíbrio e maior revocação de
+# abstenção (F1 0,800 vs 0,714). O 0,25 não se validou fora da calibração.
+LIMIAR_PADRAO = 0.30
 
 
 @dataclass(frozen=True, slots=True)

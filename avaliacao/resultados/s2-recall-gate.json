@@ -797,8 +797,8 @@
       "categoria": "devolucao_dobro",
       "pergunta": "Qual a diferença entre cobrança a menor e a maior no faturamento incorreto?",
       "esperado": [
-        "ren1000-art-324",
-        "ren1000-art-323"
+        "ren1000-art-323",
+        "ren1000-art-324"
       ],
       "recuperou": true,
       "top5": [
@@ -1045,8 +1045,8 @@
       "categoria": "encargos_multas",
       "pergunta": "Qual a diferença entre prazo de cobrança e prazo de multa?",
       "esperado": [
-        "ren1000-art-347",
-        "ren1000-art-343"
+        "ren1000-art-343",
+        "ren1000-art-347"
       ],
       "recuperou": true,
       "top5": [

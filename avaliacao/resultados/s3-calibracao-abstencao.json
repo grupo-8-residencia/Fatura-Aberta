@@ -18,7 +18,7 @@
       0.4
     ],
     "limiar_escolhido": 0.25,
-    "limiar_padrao_pacote": 0.25,
+    "limiar_padrao_pacote": 0.3,
     "limiar_anterior": 0.3
   },
   "splits": {

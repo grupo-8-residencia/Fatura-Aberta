@@ -196,6 +196,7 @@ def test_calibracao_abstencao_sem_vazamento_e_reprodutivel() -> None:
     r = ca.rodar()
     versionado = json.loads(ca.SAIDA.read_text(encoding="utf-8"))
     assert r == versionado
-    assert r["configuracao"]["limiar_escolhido"] == LIMIAR_PADRAO
+    assert r["configuracao"]["limiar_escolhido"] == 0.25
+    assert r["configuracao"]["limiar_padrao_pacote"] == LIMIAR_PADRAO == 0.30
     assert r["teste"]["abstencao"]["precisao"] == 1.0
     assert r["teste"]["ranking_com_norma"]["recall@5"]["estimativa"] >= 0.95
