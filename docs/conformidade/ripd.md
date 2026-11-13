@@ -3,7 +3,7 @@
 **Projeto:** Fatura Aberta  
 **Responsável:** F1 — Produto, Pesquisa e Conformidade (Sprint 1)  
 **Par de revisão:** Talita  
-**Situação:** Em revisão
+**Situação:** Revisado pelo par de revisão da F1 (pendências técnicas e jurídicas em acompanhamento)
 
 > Este relatório apresenta os riscos relacionados ao tratamento de dados pessoais no Fatura Aberta e as medidas previstas para reduzi-los. As informações técnicas foram elaboradas com base na arquitetura e na documentação do projeto. As questões que dependem de definição jurídica ou de confirmação da implementação permanecem identificadas como pendências. Este documento não substitui uma avaliação jurídica.
 
@@ -101,7 +101,7 @@ O relatório deverá ser atualizado conforme essas definições forem concluída
 
 **Responsável:** F1 — Produto, Pesquisa e Conformidade  
 **Revisora:** Talita  
-**Data da revisão:** Pendente  
-**Situação:** Aguardando revisão técnica e de conformidade.
+**Data da revisão:** 13/11/2026  
+**Situação:** Revisado pelo par da F1; aguardando validações técnicas e jurídicas pendentes.
 
 Este documento apresenta uma avaliação preliminar dos riscos de proteção de dados e não constitui parecer jurídico.
