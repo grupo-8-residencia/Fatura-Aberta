@@ -34,8 +34,8 @@ gerado por `uv run python avaliacao/medir_recall_s2.py`.
 
 Composição da amostra: devolução em dobro 7, tarifas B1 5, medição estimada 5, corte e notificação 5, encargos e multas 4, bandeiras 2 e CIP/COSIP 2.
 
-!!! warning "Como ler este 100%"
-    O IC de [1,000; 1,000] não significa que o RAG não erra: com 30 acertos em 30 o bootstrap não tem variação para reamostrar. As perguntas foram escritas a partir do texto dos próprios dispositivos e ainda não tiveram revisão humana, então o recall tende a ser otimista. No conjunto completo (103 perguntas com norma esperada), após os ajustes da S3, o `hit@5` é 1,000 [1,000; 1,000] e o `recall@5` é 0,995 [0,985; 1,000].
+!!! warning "Como ler este 100% e métricas no conjunto de 103 perguntas"
+    O IC de [1,000; 1,000] no gate de 30 perguntas decorre de 30 acertos em 30 (sem variação amostral). No conjunto completo (103 perguntas com norma esperada), o `hit@5` de 1,000 [1,000; 1,000] e o `recall@5` de 0,995 [0,985; 1,000] foram obtidos **após ajuste, no mesmo conjunto (dentro da amostra / in-sample)**. Conforme auditoria técnica da Sprint S3, os 9 padrões de expressões e o escopo negativo foram informados diretamente pelos erros observados na linha de base. Veja a seção de limitações metodológicas e a checagem fora da amostra abaixo.
 
 ## S3: B1, B2 e B3
 
@@ -66,15 +66,30 @@ B2 erra e o B3 acerta, 0 no sentido contrário; χ² com correção de Edwards =
   perguntas respondíveis caíram de 9 para 0. Seguem sem abstenção 3 itens `fora_do_corpus` de CIP/COSIP
   e os 2 itens de vigência de 2021 (`GS-Q119` e `GS-Q120`), em que o CDC, art. 42, parágrafo único
   (vigente desde 1991), ultrapassa o limiar por tratar de repetição de indébito.
-- **Zero itens normativos perdidos após os ajustes da S3:** as duas falhas normativas anteriores
+- **Ajuste dentro da amostra (in-sample) nos itens normativos:** as duas falhas normativas anteriores
   (`GS-Q026` e `GS-Q054`, termos leigos como "medidor lido no grupo B" e "paguei duas vezes") passaram
-  a ser recuperadas no top-5 com `hit@5` = 1,000.
+  a ser recuperadas no top-5 com `hit@5` = 1,000. Porém, como esses padrões foram desenhados a partir
+  dos próprios casos de falha do golden set, essa métrica reflete desempenho dentro da amostra.
+
+### Limitação metodológica: ajuste léxico guiado por erros do golden set
+
+Durante a revisão técnica da Issue #35 / PR #135, constatou-se que dos 9 padrões introduzidos em `_FRASES` (`fa_rag/texto.py`), 7 correspondem diretamente a formulações presentes em perguntas do golden set:
+- `GS-Q026`: `"de quanto em quanto tempo"` → `intervalo leitura`
+- `GS-Q054`: `"duas vezes"` → `duplicidade`
+- `GS-Q045`: `"má fé"` → `dolo`
+- `GS-Q072`: `"taxa de iluminação"` → `cip iluminacao`
+- `GS-Q070`: `"conta de luz"` → `fatura energia`
+- `GS-Q033`: `"por estimativa"` → `estimativa media`
+- `GS-Q092` e `GS-Q109`: `"falta de pagamento"` → `inadimplemento`
+
+Além disso, a declaração de escopo negativo (`nao_cobre`) nos itens `df7888-*` foi desenhada a partir das 5 perguntas de CIP/COSIP que falhavam.
+Como a partição aleatória estratificada destinou três desses itens (`GS-Q026`, `GS-Q054` e `GS-Q070`) para o split de teste de 60 itens, **esse split não pode ser considerado estritamente cego em relação à normalização léxica da recuperação**. Por essa razão, os índices de 103 de 103 e `recall@5 = 0,995` devem ser rigorosamente rotulados como **desempenho após ajuste, no mesmo conjunto (dentro da amostra / in-sample)**. Para medir a generalização real, realizou-se a checagem em 20 perguntas novas independentes documentada adiante.
 
 ### Classificação dos erros da S3 e comparação com a S2 (S3-04)
 
 | Classe de erro na linha de base (B3 S3 anterior) | Exemplos | Causa raiz | Ajuste aplicado | Situação pós-ajuste |
 |---|---|---|---|---|
-| **Vocabulário leigo fora do léxico jurídico** | `GS-Q026` ("medidor", "lido", "grupo B") e `GS-Q054` ("paguei duas vezes") | Prefixação `token[:5]` e stopwords não mapeavam flexões/expressões populares para `medição`, `leitura`, `duplicidade` e `grupob` | Normalização de expressões (`_FRASES`), sinônimos canônicos (`_SINONIMOS`) e limpeza de stopwords em `fa_rag.texto` | **2 → 0** (`hit@5 = 1,000`) |
+| **Vocabulário leigo fora do léxico jurídico** | `GS-Q026` ("medidor", "lido", "grupo B") e `GS-Q054` ("paguei duas vezes") | Prefixação `token[:5]` e stopwords não mapeavam flexões/expressões populares para `medição`, `leitura`, `duplicidade` e `grupob` | Normalização de expressões (`_FRASES`), sinônimos canônicos (`_SINONIMOS`) e limpeza de stopwords em `fa_rag.texto` | **2 → 0** (`hit@5 = 1,000`, dentro da amostra) |
 | **Metadado impreciso em dispositivo** | `GS-Q072` e `GS-Q073` caindo em `ren1000-art-343` | Tag `"CIP"` presente no JSON mesmo sem o § 2º transcrito no texto | Remoção da tag `"CIP"` em `ren1000-art-343` e verificação de entidades em `IndiceHibrido.buscar` | **2 → 0** (ambas passaram a se abster) |
 | **Mesmo assunto sem resposta na norma** | Perguntas de valor, alíquota e encargos da CIP batendo em `df7888-*` | Lei Distrital 7.888/2026 garante revisão e transparência, mas não fixa alíquota, valor ou multa | Campo declarativo `nao_cobre` em `df7888-*` + atenuação declarativa em `vector_store.py` | Parcial (**3** itens `fora_do_corpus` seguem sem abstenção no limiar 0,25) |
 | **Intersecção temporal com CDC vigente em 2021** | `GS-Q119` e `GS-Q120` (data `2021-06-01`) | Filtro remove a REN 1.000/2021, mas `cdc-art-42-pu` vigorava em 2021 e trata de devolução em dobro | Mantido transparente sem regra ad hoc de IDs; exige refinamento do enunciado no golden set se a intenção for exclusiva da REN | **2** itens de vigência citando CDC vigente em 2021 |
@@ -85,7 +100,7 @@ Comparação consolidada da recuperação entre o gate da **Sprint S2**, a **lin
 |---|---|---|---|---|---|---|
 | **S2 (gate inicial)** | 30/30 (`1,000 [1,000; 1,000]`) | — | — | — | — | — |
 | **S3 (linha de base anterior)** | 30/30 (`1,000 [1,000; 1,000]`) | 0,981 [0,951; 1,000] | 0,976 [0,942; 1,000] | 0,885 [0,836; 0,929] | 0,933 [0,883; 0,975] | 9 (limiar 0,30) |
-| **S3 (após ajustes + calibração `0,25`)** | **30/30 (`1,000 [1,000; 1,000]`)** | **1,000 [1,000; 1,000]** | **0,995 [0,985; 1,000]** | **0,929 [0,892; 0,961]** | **0,958 [0,917; 0,992]** | **0 (limiar 0,25)** |
+| **S3 (após ajustes, dentro da amostra, limiar `0,25`)** | **30/30 (`1,000 [1,000; 1,000]`)** | **1,000 [1,000; 1,000]** | **0,995 [0,985; 1,000]** | **0,929 [0,892; 0,961]** | **0,958 [0,917; 0,992]** | **0 (limiar 0,25)** |
 
 ### Definição de acerto
 
@@ -149,24 +164,42 @@ Positivo = abster-se.
 
 ### Calibração sem vazamento (split estratificado 60/60, S3-07)
 
-Para evitar viés otimista de escolher o limiar sobre as mesmas 120 perguntas, o script
-`avaliacao/calibrar_abstencao.py` divide o golden set em metades disjuntas e estratificadas por
-`(tipo, categoria)` (`semente = 20261109`), seleciona o limiar **exclusivamente no split de
-calibração (n = 60)** e avalia uma única vez no **split cego de teste (n = 60)**. Fonte:
+Para evitar viés de escolher o limiar sobre todo o conjunto, o script `avaliacao/calibrar_abstencao.py` divide o golden set em metades disjuntas e estratificadas por `(tipo, categoria)` (`semente_amostragem = 20261109`), seleciona o limiar **exclusivamente no split de calibração (n = 60)** e avalia uma única vez no **split cego de teste (n = 60)**. Os intervalos de bootstrap usam a semente oficial 42 (`B = 10.000`). Fonte:
 [`avaliacao/resultados/s3-calibracao-abstencao.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-calibracao-abstencao.json).
 
 | Split | Limiar | Precisão [IC 95%] | Recall [IC 95%] | F1 [IC 95%] | Acurácia [IC 95%] | Matriz (VP / FP / FN / VN) |
 |---|---|---|---|---|---|---|
 | **Calibração (n = 60)** | **0,25** (selecionado) | 1,000 [1,000; 1,000] | 0,875 [0,600; 1,000] | 0,933 [0,750; 1,000] | 0,983 [0,950; 1,000] | 7 / 0 / 1 / 52 |
 | **Teste cego (n = 60)** | **0,25** (congelado) | **1,000 [1,000; 1,000]** | **0,556 [0,200; 0,889]** | **0,714 [0,333; 0,941]** | **0,933 [0,867; 0,983]** | **5 / 0 / 4 / 51** |
-| **Teste cego (ablativo)** | 0,30 (anterior) | 1,000 | 0,667 | 0,800 | 0,950 | 6 / 0 / 3 / 51 |
+| **Teste cego (ablativo)** | 0,30 (anterior) | 1,000 [1,000; 1,000] | 0,667 [0,333; 1,000] | 0,800 [0,500; 0,952] | 0,950 [0,883; 0,983] | 6 / 0 / 3 / 51 |
 
-No split cego de teste (`n = 60`), o limiar calibrado mantém **precisão de abstenção 1,000 (0 recusas
-falsas em perguntas respondíveis)**, `recall@5` de 0,990 [0,971; 1,000] e `MRR` de 0,905 [0,843; 0,958]
-nos 51 itens com norma esperada. Entre os 9 itens de abstenção do split de teste, 4 ainda não atingem o
-corte (`FN = 4`, 3 `fora_do_corpus` de tema compartilhado com a lei distrital e 1 de vigência com CDC
-aplicável em 2021). A diferença pareada entre `0,25` e `0,30` no split de teste não é estatisticamente
-significativa (McNemar `p_exato = 1,0`).
+#### Análise estatística e limites da calibração no teste cego
+
+1. **Ausência de evidência de ganho no teste cego:** No split de teste ($n = 60$), o limiar calibrado de $0,25$ obteve $F1 = 0,714$ ($recall = 0,556$, IC 95% $[0,200; 0,889]$), enquanto o limiar anterior de $0,30$ obteve $F1 = 0,800$ ($recall = 0,667$). O teste de McNemar pareado entre os acertos de abstenção com limiar $0,30$ vs $0,25$ no teste cego resulta em:
+   $$n_{01} = 0, \quad n_{10} = 1, \quad \chi^2 = 0,0, \quad p = 1,0 \quad (p\text{ exato binomial} = 1,0)$$
+   **Conclusão honesta:** não há evidência estatística de que o limiar de $0,25$ vença o de $0,30$ no split de teste cego. A melhora de $F1$ ($0,875 \to 0,933$) restringiu-se ao split de calibração onde o parâmetro foi ajustado.
+2. **Origem da precisão 1,000 ("0 recusas falsas"):** A ausência de falsas recusas ($FP = 0$) no teste e no conjunto completo decorre primariamente do estágio 1 de normalização léxica (`fa_rag/texto.py`), que elevou os escores de perguntas válidas leigas para acima de $0,35$, e não do rebaixamento do limiar isoladamente.
+3. **Casos não abstidos:** Dos 9 itens com abstenção esperada no teste cego, 4 ainda ultrapassam o corte em $0,25$ ($FN = 4$: 3 de CIP fora do corpus batendo na lei distrital e 1 de vigência em 2021 em que o CDC é recuperado legitimamente).
+
+### Checagem independente fora da amostra (out-of-sample) em 20 perguntas novas
+
+Para responder diretamente à limitação de ajuste dentro da amostra, foi executada uma avaliação independente com 20 perguntas formuladas em linguagem natural cotidiana de consumidores (disjuntas de `dados/golden-set/perguntas.jsonl` e não vistas durante o desenvolvimento).
+Script: `avaliacao/checar_perguntas_novas.py`, fonte: [`s3-perguntas-novas-out-of-sample.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-perguntas-novas-out-of-sample.json).
+
+Composição: 14 perguntas com norma esperada (cortes na sexta-feira, notificação prévia, medidor trancado, prazo de vencimento, duplicidade, juros, CDC) e 6 com abstenção esperada (alíquota ICMS DF, valor da taxa de CIP em Taguatinga, placas solares, furto de energia no Código Penal, transporte público e vigência da REN 1.000 em 2020).
+
+| Métrica | Limiar 0,25 | Limiar 0,30 (anterior) |
+|---|---|---|
+| **Hit@5 na norma esperada (n = 14)** | **0,786 [0,571; 1,000]** (11 de 14) | 0,786 [0,571; 1,000] (11 de 14) |
+| **Hit@1 na norma esperada (n = 14)** | **0,571 [0,286; 0,786]** (8 de 14) | 0,571 [0,286; 0,786] (8 de 14) |
+| **Precisão de abstenção (n = 20)** | **0,667** (4 VP, 2 FP) | 0,625 (5 VP, 3 FP) |
+| **Recall de abstenção (n = 20)** | **0,667** (4 de 6) | 0,833 (5 de 6) |
+| **F1 de abstenção (n = 20)** | **0,667** | 0,714 |
+| **Acurácia global (n = 20)** | **0,800** (16 de 20) | 0,800 (16 de 20) |
+
+**Conclusão da checagem independente:**
+- O recuperador híbrido generaliza para perguntas inéditas em linguagem leiga com **Hit@5 = 78,6%**, superando a meta regulatória do Gate ($\ge 70\%$).
+- O limiar de $0,25$ apresenta menor taxa de falsas recusas ($FP = 2$ vs $FP = 3$), enquanto o limiar de $0,30$ retém maior recall de abstenção ($83,3\%$ vs $66,7\%$). Ambas as opções atingem idêntica acurácia global de 80,0%, confirmando empiricamente que a escolha de limiar é um compromisso de projeto entre tolerância a falso alarme e rigor de abstenção.
 
 ### Fundamentação (108 respostas não abstidas)
 
