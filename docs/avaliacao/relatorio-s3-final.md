@@ -1,10 +1,11 @@
 # Relatório S3: LLM × RAG no Fatura Aberta
 
-!!! warning "Versão para revisão do time (13/11/2026)"
-    Os números abaixo vêm da rodada completa de 13/11/2026 (`avaliacao/resultados/s3-rodada.json`).
+!!! warning "Entrega da S3 (decisões do time em 16/11/2026)"
+    Os números abaixo vêm da rodada completa de 13/11/2026 (`avaliacao/resultados/s3-rodada.json`),
+    com o corpus congelado de 28 dispositivos e o limiar de abstenção 0,30.
     **A calibração do juiz LLM (κ ≥ 0,75) não foi concluída**: faltam as anotações humanas. Por isso a
-    métrica de "afirmações sem suporte" **não entra** neste relatório, e as decisões abaixo são provisórias
-    até o time revisar os números.
+    métrica de "afirmações sem suporte" **não entra** neste relatório e será atualizada quando as 80
+    decisões humanas forem importadas.
 
 ## Resumo
 
@@ -122,7 +123,7 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
    motor no contexto (T4) detecta quase todas as anomalias (99%) e não dá falso alarme, mas se abstém em
    46% das faturas, o que derruba o acerto.
 
-## Escolha para o produto (provisória)
+## Escolha para o produto (decidida pelo time em 16/11/2026)
 
 - **Perguntas regulatórias:** T2, RAG com filtro de vigência e resposta extrativa, citando ato,
   dispositivo e vigência. Satisfaz os quatro critérios (sem citação fora de vigência, rastreável, sem
@@ -130,17 +131,31 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
   significativo, e a escolha vem da regra (0 inválidas).
 - **Faturas:** motor determinístico (nível A) como base. O LLM só entra como redator de uma explicação sobre
   o resultado do motor, e isso **não foi testado**.
-- **Hipótese para a próxima rodada:** T2 + abstenção calibrada + motor nas faturas, com o LLM apenas
-  reescrevendo. É uma hipótese, não um resultado.
+- **Hipótese para a S4 (primeira tarefa prática):** T2 + abstenção calibrada + motor nas faturas, com o LLM
+  atuando só como redator sobre essa base. É uma hipótese, não um resultado.
+
+### Decisões do time
+
+| Decisão | Resultado |
+|---|---|
+| Corte do T1 nas faturas | Aceito: 111 faturas, declarado. O T1 é só linha de base; T2 e B1 definem a escolha |
+| Corpus | Congelado em 28 dispositivos nesta rodada. O PR #139 (39 itens) entra na abertura da S4, com nova rodada de recuperação |
+| Limiar de abstenção | 0,30, exatamente o que rodou. Na S4, calibrar para os casos fora do corpus e lacuna (PR #135) |
+| Escolha do produto | T2 nas perguntas e B1 nas faturas; modelo híbrido como primeira tarefa da S4 |
+| Juiz | Entregue como indicativo; o relatório é atualizado após importar as 80 decisões humanas |
 
 ## Limites e riscos (leia antes de citar os números)
 
 1. **O 100% do motor é circular.** As 200 faturas sintéticas e seus gabaritos foram geradas com o mesmo
    conhecimento do motor (gerador de erros injetados). O B1 mede se ele acerta o que foi construído para
    ele acertar, não o desempenho em faturas reais.
-2. **Golden set sem revisão humana completa.** As 120 perguntas foram escritas a partir do texto dos
-   próprios dispositivos, o que tende a inflar o recall. As anotações do time (30 itens por pessoa) ainda
-   não foram consolidadas.
+2. **Golden set com revisão humana incompleta.** As 120 perguntas foram escritas a partir do texto dos
+   próprios dispositivos, o que tende a inflar o recall. Em 16/11, 5 das 6 pessoas tinham concluído os 30
+   itens (150 anotações, 0 divergências) e a revisão das 120 perguntas estava em 76. Verificação por
+   amostragem dessas anotações: o recálculo independente das 200 faturas (consumo, energia, bandeira,
+   total, ICMS e item duplicado) confirma os 200 gabaritos, e todas as citações canônicas existem no corpus.
+   Ressalva: 72 das 90 anotações de faturas não têm comentário, então só as 18 com conta registrada
+   mostram a conferência feita; "0 divergências" não deve ser lido como prova de revisão independente.
 3. **Juiz LLM não calibrado.** O juiz (`qwen3:14b`) já rodou nos 40 itens, e o veredito dele fica fora do
    Git e escondido dos anotadores. Falta a parte humana: 2 pessoas por item, 80 decisões, para medir
    κ ≥ 0,75. Sem isso, a métrica de afirmações sem suporte fica de fora e nenhum número do juiz é citado.
@@ -165,9 +180,7 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 |---|---|---|
 | 80 decisões humanas do juiz (40 itens × 2 pessoas), na fila cega da página de anotação | 6 pessoas | habilita "afirmações sem suporte" e o κ |
 | Anotação do golden set (30 itens por pessoa, 0/30 hoje) | 6 pessoas | pode mudar gabaritos e exigir recongelar o conjunto |
-| Aceitar o corte de 111 faturas no T1 ou rodar as 89 restantes (~2,5 h) | Pedro | completa o T1 nas faturas |
-| Corpus de 28 ou 39 dispositivos (PR #139) e limiar 0,30 ou 0,25 (PR #135) | time | muda o recall e o T2 |
-| Medir modelos alternativos para o produto (ADR-003) | Pedro | muda a escolha do modelo, não a do método |
+| Medir modelos alternativos para o produto (ADR-003), na S4 | Pedro | muda a escolha do modelo, não a do método |
 | Investigar as 16 respostas inválidas do T4 | Pedro | pode elevar o T4 acima do T2 |
 
 ## Reproduzir
