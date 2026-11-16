@@ -88,6 +88,8 @@ COPY --from=builder --chown=aplicacao:aplicacao \
 COPY --from=builder --chown=aplicacao:aplicacao \
   /app/packages/motor /app/packages/motor
 COPY --from=builder --chown=aplicacao:aplicacao \
+  /app/packages/rag /app/packages/rag
+COPY --from=builder --chown=aplicacao:aplicacao \
   /app/apps/api /app/apps/api
 
 USER aplicacao
