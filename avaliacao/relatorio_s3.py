@@ -130,9 +130,12 @@ def escolher(tabela: dict[str, Any], candidatos: tuple[str, ...]) -> dict[str, A
 
 
 def cobertura_de(principal: Path, extra: Path | None) -> dict[str, Any]:
-    from auditar_cobertura import auditar, carregar, ids_esperados
+    from auditar_cobertura import auditar, carregar, ids_esperados, limite_llm_puro
 
-    return auditar(carregar(principal, extra), ids_esperados())
+    return auditar(
+        carregar(principal, extra),
+        ids_esperados(limite_faturas_llm_puro=limite_llm_puro(principal)),
+    )
 
 
 def comparar(

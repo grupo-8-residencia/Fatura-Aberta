@@ -804,6 +804,12 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="chamadas de LLM só nas N primeiras faturas e nas dos itens do juiz",
     )
+    ap.add_argument(
+        "--limite-faturas-llm-puro",
+        type=int,
+        default=None,
+        help="T1 (LLM puro) só nas N primeiras faturas (corte de custo declarado no cabeçalho)",
+    )
     args = ap.parse_args(argv)
     saida = args.saida
     if args.etapa == "cegar":
@@ -840,6 +846,10 @@ def _executar(args: argparse.Namespace) -> int:
     dados["cabecalho"]["semente_bootstrap"] = SEMENTE_PADRAO
     dados["cabecalho"]["limite"] = args.limite
     dados["cabecalho"]["faturas_llm"] = len(faturas_llm)
+    faturas_puro = faturas_llm
+    if args.limite_faturas_llm_puro is not None:
+        faturas_puro = faturas_llm[: args.limite_faturas_llm_puro]
+        dados["cabecalho"]["faturas_llm_puro"] = len(faturas_puro)
 
     if etapa in ("b1", "faturas", "tudo"):
         dados.setdefault("faturas", {})["B1"] = rodar_b1(faturas_llm)
@@ -866,7 +876,7 @@ def _executar(args: argparse.Namespace) -> int:
         say(f"RAG extrativo: {sum(i['acerto'] for i in dados['perguntas']['RAG'])} acertos")
         dados["perguntas"]["LLM"] = rodar_llm_puro_perguntas(gerador, perguntas, say, args.paralelo)
         _gravar(dados, saida)
-        dados["faturas"]["LLM"] = rodar_llm_puro_faturas(gerador, faturas_llm, say, args.paralelo)
+        dados["faturas"]["LLM"] = rodar_llm_puro_faturas(gerador, faturas_puro, say, args.paralelo)
         _gravar(dados, saida)
     if etapa in ("juiz", "tudo") and CSV_JUIZ.exists():
         linhas = ler_csv(CSV_JUIZ)

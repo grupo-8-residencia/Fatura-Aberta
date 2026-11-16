@@ -44,12 +44,29 @@ EXIGIDO: tuple[tuple[str, str], ...] = (
 )
 
 
-def ids_esperados(golden: Path = GOLDEN) -> dict[str, list[str]]:
+def ids_esperados(
+    golden: Path = GOLDEN, limite_faturas_llm_puro: int | None = None
+) -> dict[str, list[str]]:
+    """Ids esperados por conjunto; `faturas/LLM` pode ser um prefixo declarado."""
+
     def ler(nome: str) -> list[str]:
         linhas = (golden / nome).read_text(encoding="utf-8").splitlines()
         return [json.loads(x)["id"] for x in linhas if x.strip()]
 
-    return {"perguntas": ler("perguntas.jsonl"), "faturas": ler("faturas_sinteticas.jsonl")}
+    faturas = ler("faturas_sinteticas.jsonl")
+    esperados = {"perguntas": ler("perguntas.jsonl"), "faturas": faturas}
+    if limite_faturas_llm_puro is not None:
+        esperados["faturas/LLM"] = faturas[:limite_faturas_llm_puro]
+    return esperados
+
+
+def limite_llm_puro(principal: Path) -> int | None:
+    """Lê do cabeçalho da rodada o prefixo de faturas declarado para o LLM puro, se houver."""
+    if not principal.exists():
+        return None
+    cab = json.loads(principal.read_text(encoding="utf-8")).get("cabecalho", {})
+    valor = cab.get("faturas_llm_puro")
+    return int(valor) if valor else None
 
 
 def _valido(conjunto: str, baseline: str, item: dict[str, Any]) -> bool:
@@ -79,7 +96,7 @@ def auditar(
     linhas: dict[str, Any] = {}
     completo = True
     for conjunto, baseline in EXIGIDO:
-        esperado = esperados[conjunto]
+        esperado = esperados.get(f"{conjunto}/{baseline}", esperados[conjunto])
         itens = resultados.get(conjunto, {}).get(baseline, [])
         contagem = Counter(i["id"] for i in itens)
         validos = {i["id"] for i in itens if _valido(conjunto, baseline, i)}
@@ -108,7 +125,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--faltantes", action="store_true", help="imprime só os ids pendentes")
     ap.add_argument("--sem-gravar", action="store_true")
     args = ap.parse_args(argv)
-    r = auditar(carregar(args.principal, args.extra), ids_esperados())
+    r = auditar(
+        carregar(args.principal, args.extra),
+        ids_esperados(limite_faturas_llm_puro=limite_llm_puro(args.principal)),
+    )
     if args.faltantes:
         for nome, linha in r["baselines"].items():
             print(nome, " ".join(linha["pendentes"]))
