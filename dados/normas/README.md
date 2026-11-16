@@ -49,12 +49,12 @@ cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorr
 - **Ato Homologatório:** Resolução Homologatória ANEEL nº 3.614, de 20 de outubro de 2026.
 - **Publicação Oficial:** Diário Oficial da União (DOU) de 22/10/2026, Seção 1.
 - **Dispositivo de Vigência:** *Art. 11. Esta Resolução entra em vigor em 22 de outubro de 2026, com vigência das tarifas homologadas no período de 22 de outubro de 2026 a 21 de outubro de 2027.*
-- **Objeto:** Homologa o resultado da Revisão Tarifária Periódica (RTP) de 2026 da Neoenergia Distribuição Brasília (Processo nº 48500.001234/2026). Fixa as tarifas de aplicação para o Grupo B1 Residencial (Tabela 2), residencial baixa renda por faixas de consumo (Tabela 3) e os valores de serviços cobráveis (segunda via, religação e vistoria - Tabela 5). Todas as tarifas conferem rigorosamente com a planilha da área tarifária `dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx`.
+- **Objeto:** Homologa o resultado da Revisão Tarifária Periódica (RTP) de 2026 da Neoenergia Distribuição Brasília (Processo nº 48500.030189/2025-17). Fixa as tarifas de aplicação para o Grupo B1 Residencial (Tabela 2), residencial baixa renda por faixas de consumo (Tabela 3) e os valores de serviços cobráveis (segunda via, religação e vistoria - Tabela 5). Todas as tarifas conferem rigorosamente com a planilha da área tarifária `dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx`.
 
 ### 3. Impacto da Expansão do Corpus na Avaliação (28 vs 39 dispositivos)
 - A inclusão dos 11 novos dispositivos eleva o corpus de 28 para 39 itens, cobrindo todo o ciclo de faturamento e continuidade.
 - Sem as regras de expansão de sinônimos regulatórios de S3 (PR #135), a ampliação do espaço de busca produz pequena variação mecânica no ranking léxico: recall@5 de 0,981 (101/103) para 0,971 (100/103) no baseline puro de dev, com acerto B3 de 0,933 para 0,925 e B2 de 0,850 para 0,842.
-- A sincronização com as melhorias de recuperação da Frente F2 (Issue #35 / PR #135) restabelece a cobertura completa (recall@5 = 1,000 / 103 de 103), demonstrando que o corpus completo de 39 itens é o substrato definitivo para o encerramento da Sprint S3 e para os agentes da Sprint S4.
+- A combinação das melhorias de recuperação da Frente F2 (Issue #35 / PR #135) com este corpus de 39 itens é a expectativa de integração para restabelecer a cobertura completa de 103/103 (recall@5 = 1,000), mantendo-se neste PR o resultado reproduzível isolado de 100/103 (0,971). Após a entrada de ambos os PRs na dev, as métricas conjuntas serão regeneradas.
 
 ## Pendentes (`A verificar`, fora do índice)
 
