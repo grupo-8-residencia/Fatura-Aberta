@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import random
 import sys
 from pathlib import Path
@@ -80,7 +81,7 @@ def selecionar_itens(n: int = N_ITENS) -> list[dict[str, str]]:
 
 
 def ler_csv(caminho: Path) -> list[dict[str, str]]:
-    with caminho.open(encoding="utf-8", newline="") as f:
+    with caminho.open(encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
 
 
@@ -97,11 +98,22 @@ def gerar_modelo(caminho: Path) -> None:
     escrever_csv(caminho, selecionar_itens())
 
 
-def calcular(caminho: Path) -> dict[str, Any]:
+def juntar_veredito_privado(linhas: list[dict[str, str]], privado: Path) -> None:
+    """Devolve às linhas o veredito do juiz guardado fora do Git (vale só depois das anotações)."""
+    guardado = json.loads(privado.read_text(encoding="utf-8"))
+    for linha in linhas:
+        extra = guardado.get(linha["item_id"], {})
+        linha["veredito_juiz"] = extra.get("veredito_juiz", "") or linha.get("veredito_juiz", "")
+
+
+def calcular(caminho: Path, minimo: int = N_ITENS, privado: Path | None = None) -> dict[str, Any]:
     linhas = ler_csv(caminho)
+    if privado is not None:
+        juntar_veredito_privado(linhas, privado)
     colunas = ("veredito_humano_1", "veredito_humano_2", "veredito_juiz")
     completas = [r for r in linhas if all(r.get(c, "").strip() in ROTULOS for c in colunas)]
-    if len(completas) < N_ITENS:
+    excluidos = [r["item_id"] for r in linhas if r not in completas]
+    if len(completas) < minimo:
         raise ValueError(
             f"Anotação incompleta: {len(completas)} de {N_ITENS} itens com os três vereditos "
             f"({', '.join(ROTULOS)}) em {caminho.name}."
@@ -116,6 +128,7 @@ def calcular(caminho: Path) -> dict[str, Any]:
     k1, k2, k12 = kappa_cohen(h1, j), kappa_cohen(h2, j), kappa_cohen(h1, h2)
     return {
         "n": len(completas),
+        "itens_excluidos": excluidos,
         "kappa_humano1_juiz": k1,
         "kappa_humano2_juiz": k2,
         "kappa_humano1_humano2": k12,
@@ -133,16 +146,26 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("--arquivo", type=Path, default=ARQUIVO_PADRAO)
     ap.add_argument("--gerar-modelo", action="store_true")
+    ap.add_argument(
+        "--minimo", type=int, default=N_ITENS,
+        help="itens completos exigidos; abaixo de 40 só com a exclusão declarada",
+    )  # fmt: skip
+    ap.add_argument("--juiz-privado", type=Path, default=None, help="JSON do veredito do juiz")
+    ap.add_argument("--saida", type=Path, default=None, help="grava o resultado em JSON")
     args = ap.parse_args(argv)
     if args.gerar_modelo:
         gerar_modelo(args.arquivo)
         print(f"Modelo com {N_ITENS} itens gravado em {args.arquivo}")
         return 0
     try:
-        r = calcular(args.arquivo)
+        r = calcular(args.arquivo, args.minimo, args.juiz_privado)
     except (ValueError, FileNotFoundError) as erro:
         print(f"Sem resultado: {erro}", file=sys.stderr)
         return 2
+    if args.saida:
+        args.saida.write_text(
+            json.dumps(r, ensure_ascii=False, indent=1, default=list) + "\n", encoding="utf-8"
+        )
     print(
         f"n={r['n']} κ(h1×juiz)={r['kappa_humano1_juiz']:.3f} "
         f"κ(h2×juiz)={r['kappa_humano2_juiz']:.3f} κ(h1×h2)={r['kappa_humano1_humano2']:.3f} "

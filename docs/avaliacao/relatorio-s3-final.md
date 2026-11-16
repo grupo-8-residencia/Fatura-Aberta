@@ -3,9 +3,8 @@
 !!! warning "Entrega da S3 (decisões do time em 16/11/2026)"
     Os números abaixo vêm da rodada completa de 13/11/2026 (`avaliacao/resultados/s3-rodada.json`),
     com o corpus congelado de 28 dispositivos e o limiar de abstenção 0,30.
-    **A calibração do juiz LLM (κ ≥ 0,75) não foi concluída**: faltam as anotações humanas. Por isso a
-    métrica de "afirmações sem suporte" **não entra** neste relatório e será atualizada quando as 80
-    decisões humanas forem importadas.
+    **O juiz LLM foi reprovado na calibração** (κ humano × juiz ≈ 0,03, abaixo de 0,75; veja os limites).
+    Por isso a métrica de "afirmações sem suporte" **não entra** neste relatório como número confiável.
 
 ## Resumo
 
@@ -142,7 +141,7 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 | Corpus | Congelado em 28 dispositivos nesta rodada. O PR #139 (39 itens) entra na abertura da S4, com nova rodada de recuperação |
 | Limiar de abstenção | 0,30, exatamente o que rodou. Na S4, calibrar para os casos fora do corpus e lacuna (PR #135) |
 | Escolha do produto | T2 nas perguntas e B1 nas faturas; modelo híbrido como primeira tarefa da S4 |
-| Juiz | Entregue como indicativo; o relatório é atualizado após importar as 80 decisões humanas |
+| Juiz | Reprovado na calibração (κ ≈ 0,03); a métrica de afirmações sem suporte não é usada. Refinar o prompt do juiz na S4 |
 
 ## Limites e riscos (leia antes de citar os números)
 
@@ -156,9 +155,14 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
    total, ICMS e item duplicado) confirma os 200 gabaritos, e todas as citações canônicas existem no corpus.
    Ressalva: 72 das 90 anotações de faturas não têm comentário, então só as 18 com conta registrada
    mostram a conferência feita; "0 divergências" não deve ser lido como prova de revisão independente.
-3. **Juiz LLM não calibrado.** O juiz (`qwen3:14b`) já rodou nos 40 itens, e o veredito dele fica fora do
-   Git e escondido dos anotadores. Falta a parte humana: 2 pessoas por item, 80 decisões, para medir
-   κ ≥ 0,75. Sem isso, a métrica de afirmações sem suporte fica de fora e nenhum número do juiz é citado.
+3. **Juiz LLM reprovado na calibração.** Em 39 dos 40 itens (o GS-Q114 ficou sem veredito válido do juiz,
+   que travou duas vezes), o κ entre o juiz (`qwen3:14b`) e cada avaliador humano foi **0,029** (acurácia
+   56,4%, IC 95% [41,0%; 71,8%]), muito abaixo do critério de 0,75. O juiz marcou `sem_suporte` em 17
+   itens, contra 4 dos humanos: ele trata como "sem lastro" frases genéricas que repetem o que a norma exige
+   da fatura. Pelo protocolo, o prompt do juiz deve ser refinado, ou a avaliação final passa a ser humana.
+   Ressalva de proveniência: as 80 decisões humanas foram consolidadas e entregues pelo Pedro, não
+   exportadas individualmente pela página, e os dois avaliadores concordam em todos os itens (κ humano ×
+   humano = 1,000). Esse valor não deve ser citado como concordância independente.
 4. **Cobertura desigual do T1 nas faturas.** O T1 rodou em 111 das 200 faturas (as 111 primeiras por id,
    corte declarado no cabeçalho da rodada, por custo de tempo). Por isso o T1 não é pareável com os outros
    nas faturas, e o IC dele é mais largo.
@@ -169,8 +173,11 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 7. **Embedder sem semântica.** O embedder padrão (hashing) só captura sobreposição de palavras.
 8. **Gabarito disputado.** A pergunta GS-Q119 tem gabarito discutível (o filtro remove a REN, e o CDC art.
    42 vigorava em 2021).
-9. **Corpus.** O corpus é de 28 dispositivos. A ampliação (PRODIST e REH, PR #139) reduz o recall@5 de 0,981
-   para 0,971 e **não** está nestes números. O limiar 0,25 do PR #135 também não.
+9. **Corpus e recuperação.** A rodada usa o corpus de 28 dispositivos e a recuperação **anterior** ao PR
+   #135, que entrou na `dev` em 16/11/2026 depois da rodada. Com a recuperação do #135, o T2 (RAG extrativo)
+   passa de 100 para 113 acertos em 120 (94,2%), mas esse ganho é dentro da amostra (os ajustes usaram erros
+   do próprio golden set) e **não foi refeito com LLM**. A ampliação do corpus (PRODIST e REH, PR #139)
+   reduz o recall@5 de 0,981 para 0,971 e também não está nestes números.
 10. **Um único gerador.** Só `gpt-oss:20b` foi usado. Não há evidência de que seja o melhor modelo; a escolha
     vem da ADR-002 (local e reproduzível).
 
@@ -178,7 +185,7 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 
 | Item | Quem | Efeito nos números |
 |---|---|---|
-| 80 decisões humanas do juiz (40 itens × 2 pessoas), na fila cega da página de anotação | 6 pessoas | habilita "afirmações sem suporte" e o κ |
+| Refinar o prompt do juiz e repetir a calibração (e obter veredito válido para o GS-Q114) | Pedro | habilita "afirmações sem suporte" |
 | Anotação do golden set (30 itens por pessoa, 0/30 hoje) | 6 pessoas | pode mudar gabaritos e exigir recongelar o conjunto |
 | Medir modelos alternativos para o produto (ADR-003), na S4 | Pedro | muda a escolha do modelo, não a do método |
 | Investigar as 16 respostas inválidas do T4 | Pedro | pode elevar o T4 acima do T2 |

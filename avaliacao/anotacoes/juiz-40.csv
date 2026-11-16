@@ -1,4 +1,4 @@
-item_id,tipo,anotador_1,anotador_2,saida_do_sistema,evidencia,proposicoes_juiz,veredito_humano_1,veredito_humano_2,veredito_juiz
+﻿item_id,tipo,anotador_1,anotador_2,saida_do_sistema,evidencia,proposicoes_juiz,veredito_humano_1,veredito_humano_2,veredito_juiz
 GS-F004,fatura,TalitaaNunes,NatyEvelin,"[diverge_A] Total da fatura: A soma das linhas (412,35 R$) não corresponde ao total informado (443,35 R$).
 [abstem] ICMS: Não há discriminação da base de cálculo nem do valor do ICMS na fatura.","FATURA
 Mês de referência: 2026-05
@@ -33,7 +33,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F011,fatura,NatyEvelin,luizoryone,"[abstem] ICMS: Não há discriminação do valor e da base de cálculo do ICMS na fatura, apesar da alíquota estar informada como 0,20 (20%).","FATURA
 Mês de referência: 2026-08
 Leitura anterior: 4413 kWh
@@ -72,7 +72,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F012,fatura,pedrohpsantos,TalitaaNunes,"[diverge_A] Consumo medido: O consumo informado (187 kWh) difere do consumo calculado a partir das leituras (209 kWh).
 [abstem] ICMS: Não há discriminação da base de cálculo nem do valor cobrado do ICMS na fatura.","FATURA
 Mês de referência: 2026-02
@@ -107,7 +107,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F036,fatura,luizoryone,mariadenis,"[abstem] ICMS: Não há separação da base e do valor cobrado de ICMS, apenas a alíquota informada.","FATURA
 Mês de referência: 2026-10
 Leitura anterior: 19033 kWh
@@ -146,7 +146,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F045,fatura,TalitaaNunes,NatyEvelin,"[diverge_A] Contribuição municipal (sintética): A linha aparece duplicada com o mesmo valor de R$ 12,00 em vez de zero ou um único lançamento.
 [abstem] ICMS: A fatura informa a alíquota de 20 % mas não apresenta base nem valor do imposto.","FATURA
 Mês de referência: 2026-09
@@ -187,7 +187,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F058,fatura,NatyEvelin,luizoryone,[abstem] ICMS: Alíquota informada mas base e valor do tributo não constam separadamente.,"FATURA
 Mês de referência: 2026-10
 Leitura anterior: 63578 kWh
@@ -226,7 +226,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F076,fatura,NatyEvelin,luizoryone,"[diverge_A] Total da fatura: O total informado excede a soma das linhas visíveis em R$ 11,00, sem justificativa aparente na fatura.
 [abstem] ICMS: A alíquota de ICMS está informada, porém a base e o valor do tributo não são discriminados.","FATURA
 Mês de referência: 2026-07
@@ -266,7 +266,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F088,fatura,RaissaOliveira19,pedrohpsantos,"[diverge_A] Consumo de energia: O valor cobrado (R$ 95,68) difere do produto quantidade × tarifa (R$ 83,20).
 [abstem] ICMS: A alíquota de ICMS foi informada, mas a base e o valor do tributo não constam separadamente na fatura.","FATURA
 Mês de referência: 2026-04
@@ -301,7 +301,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F093,fatura,NatyEvelin,luizoryone,"[diverge_A] Consumo medido: O consumo calculado a partir das leituras difere do consumo informado na fatura (217 kWh vs. 169 kWh).
 [abstem] ICMS: A alíquota de ICMS está informada, porém a base e o valor do tributo não são discriminados na fatura.","FATURA
 Mês de referência: 2026-07
@@ -341,7 +341,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F095,fatura,TalitaaNunes,NatyEvelin,"[abstem] ICMS: Não há discriminação da base de cálculo ou do valor do ICMS na fatura, apesar da alíquota ser informada como 0,20.","FATURA
 Mês de referência: 2026-08
 Leitura anterior: 58176 kWh
@@ -380,7 +380,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F102,fatura,TalitaaNunes,NatyEvelin,"[abstem] ICMS: Não há informação separada sobre a base de cálculo e o valor cobrado do ICMS, apesar da alíquota estar indicada na fatura. Isso impede confirmação da correta aplicação do imposto.","FATURA
 Mês de referência: 2026-10
 Leitura anterior: 29478 kWh
@@ -419,7 +419,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F110,fatura,luizoryone,mariadenis,"[diverge_A] Consumo de energia: O valor cobrado (R$ 219,88) difere do produto entre quantidade e tarifa (R$ 191,20).
 [abstem] ICMS: A alíquota de ICMS está informada, mas a base e o valor do tributo não constam separadamente na fatura.","FATURA
 Mês de referência: 2026-04
@@ -454,7 +454,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F112,fatura,pedrohpsantos,TalitaaNunes,[abstem] ICMS: Não consta linha separada com base e valor de ICMS na fatura apesar da alíquota informada.,"FATURA
 Mês de referência: 2026-08
 Leitura anterior: 49119 kWh
@@ -493,7 +493,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F130,fatura,pedrohpsantos,TalitaaNunes,"[abstem] ICMS: Não há separação da base e do valor do ICMS na fatura, impossibilitando a verificação completa desse tributo. ","FATURA
 Mês de referência: 2026-04
 Leitura anterior: 54562 kWh
@@ -527,7 +527,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F131,fatura,pedrohpsantos,TalitaaNunes,"[abstem] ICMS: Não há separação da base de cálculo e do valor cobrado do ICMS na fatura, impossibilitando a verificação completa desse tributo. ","FATURA
 Mês de referência: 2026-04
 Leitura anterior: 57836 kWh
@@ -561,7 +561,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F140,fatura,RaissaOliveira19,pedrohpsantos,"[abstem] ICMS: A fatura não apresenta separação da base de cálculo nem do valor cobrado do ICMS, apesar da alíquota informada (0,20).","FATURA
 Mês de referência: 2026-09
 Leitura anterior: 10485 kWh
@@ -600,7 +600,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F148,fatura,NatyEvelin,luizoryone,"[diverge_A] Consumo medido: O consumo calculado a partir das leituras difere dos 94 kWh informados na fatura, indicando divergência nos números da fatura.
 [abstem] ICMS: A alíquota de ICMS está informada, mas a base e o valor do tributo não são discriminados separadamente na fatura.","FATURA
 Mês de referência: 2026-01
@@ -635,7 +635,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F169,fatura,RaissaOliveira19,pedrohpsantos,"[diverge_A] Consumo de energia: O valor cobrado (R$ 142,60) difere do produto quantidade × tarifa (R$ 124,00).
 [abstem] ICMS: A alíquota de ICMS foi informada, mas a base e o valor do tributo não constam separadamente na fatura.","FATURA
 Mês de referência: 2026-02
@@ -670,7 +670,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F174,fatura,luizoryone,mariadenis,"[abstem] ICMS: A alíquota de ICMS foi informada, porém a base de cálculo e o valor cobrado não constam separadamente na fatura.","FATURA
 Mês de referência: 2026-02
 Leitura anterior: 64024 kWh
@@ -704,7 +704,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-F190,fatura,mariadenis,RaissaOliveira19,"[abstem] ICMS: Não há discriminação da base ou valor do ICMS na fatura, impossibilitando verificação completa.","FATURA
 Mês de referência: 2026-08
 Leitura anterior: 10527 kWh
@@ -743,7 +743,7 @@ III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplici
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-F192,fatura,TalitaaNunes,NatyEvelin,"[abstem] ICMS: Não há informação separada da base ou valor de ICMS na fatura para verificar o cálculo com a alíquota informada (0,20).","FATURA
 Mês de referência: 2026-04
 Leitura anterior: 13178 kWh
@@ -777,7 +777,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-290::caput] Art. 290. A distribuidora deve faturar a unidade consumidora do grupo B pelo maior valor obtido a partir do:
 I - consumo de energia elétrica ativa; ou
-II - custo de disponibilidade disposto no art. 291.",,,,
+II - custo de disponibilidade disposto no art. 291.",,suportada,suportada,
 GS-Q003,pergunta,TalitaaNunes,NatyEvelin,"Sim, um idoso que recebe BPC tem direito à subclasse baixa renda.","PERGUNTA: Idoso que recebe BPC tem direito à subclasse baixa renda?
 
 DISPOSITIVOS
@@ -797,7 +797,7 @@ b) arrecadação total por região administrativa do Distrito Federal;
 c) demonstrativo dos investimentos e manutenções realizados em cada região administrativa, com descrição dos serviços e valores empenhados;
 II – ser informado sobre a metodologia de cálculo da CIP, bem como sobre os critérios de reajuste e os dispositivos legais que regulam sua cobrança;
 III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplicidade ou inconsistência de cobrança;
-IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.",,,,
+IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.",,suportada,suportada,
 GS-Q005,pergunta,mariadenis,RaissaOliveira19,"Quando o consumo é muito baixo, a fatura do grupo B será calculada como o maior valor entre o custo de disponibilidade e o consumo de energia elétrica. Se o consumo for inferior ao custo de disponibilidade, a fatura corresponderá ao custo de disponibilidade. Caso contrário, será cobrado apenas o consumo.","PERGUNTA: Como é calculada a fatura do grupo B quando o consumo é muito baixo?
 
 DISPOSITIVOS
@@ -810,7 +810,7 @@ I - a quantia recebida indevidamente deve ser devolvida em dobro, independenteme
 II - o valor do inciso I deste parágrafo deve ser atualizado pelo Índice Nacional de Preços ao Consumidor Amplo – IPCA; e
 III - devem ser calculados e acrescidos os juros de mora à razão de 1% ao mês pro rata die sobre o valor atualizado obtido do inciso II deste parágrafo.
 [ren1000-art-343::caput] Art. 343. No caso de atraso no pagamento da fatura, a distribuidora pode cobrar multa, atualização monetária pelo Índice Nacional de Preços ao Consumidor Amplo – IPCA e juros de mora de 1% ao mês calculados pro rata die.
-[ren1000-art-260::p2] § 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.",,,,
+[ren1000-art-260::p2] § 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.",,sem_suporte,sem_suporte,
 GS-Q006,pergunta,RaissaOliveira19,pedrohpsantos,"Não, a diferença cobrada pelo custo de disponibilidade não pode ser compensada depois.","PERGUNTA: A diferença cobrada pelo custo de disponibilidade pode ser compensada depois?
 
 DISPOSITIVOS
@@ -833,7 +833,7 @@ b) arrecadação total por região administrativa do Distrito Federal;
 c) demonstrativo dos investimentos e manutenções realizados em cada região administrativa, com descrição dos serviços e valores empenhados;
 II – ser informado sobre a metodologia de cálculo da CIP, bem como sobre os critérios de reajuste e os dispositivos legais que regulam sua cobrança;
 III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplicidade ou inconsistência de cobrança;
-IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.",,,,
+IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.",,suportada,suportada,
 GS-Q008,pergunta,pedrohpsantos,TalitaaNunes,"Sim, a unidade de baixa renda tem desconto no custo de disponibilidade.","PERGUNTA: Unidade de baixa renda tem desconto no custo de disponibilidade?
 
 DISPOSITIVOS
@@ -850,7 +850,7 @@ I - para unidade consumidora do grupo B: o maior valor entre o custo de disponib
 II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.
 [ren1000-art-285] Art. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exceções dispostas nesta Resolução, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - não atingido o limite mínimo de 27 dias: faturar o consumo medido, vedada a aplicação do custo de disponibilidade; e
-II - ultrapassado o limite máximo de 33 dias: proporcionalizar o consumo registrado pelo número máximo de dias permitido, ajustando a leitura atual ao consumo resultante.",,,,
+II - ultrapassado o limite máximo de 33 dias: proporcionalizar o consumo registrado pelo número máximo de dias permitido, ajustando a leitura atual ao consumo resultante.",,suportada,suportada,
 GS-Q015,pergunta,TalitaaNunes,NatyEvelin,"O código para pagamento está indicado na própria fatura, conforme o art. 327 da REN ANEEL nº 1.000/2021 (caput).","PERGUNTA: Onde fica o código para pagar a fatura?
 
 DISPOSITIVOS
@@ -876,7 +876,7 @@ II - demais grandezas elétricas: médias aritméticas dos valores faturados nos
 [ren1000-art-323::caput] Art. 323. A distribuidora, no caso de faturar valores incorretos, não apresentar fatura ou faturar sem utilizar a leitura do sistema de medição nos casos em que não haja previsão nesta Resolução, sem prejuízo das penalidades cabíveis, deve observar os seguintes procedimentos:
 I - faturamento a menor ou ausência de faturamento: cobrar do consumidor e demais usuários as quantias não recebidas, limitando-se aos últimos 3 ciclos de faturamento imediatamente anteriores ao ciclo vigente; e
 II - faturamento a maior: devolver ao consumidor e demais usuários, até o segundo ciclo de faturamento posterior à constatação, as quantias recebidas indevidamente nos últimos 60 ciclos de faturamento imediatamente anteriores à constatação.
-[cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",,,,
+[cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",,suportada,suportada,
 GS-Q016,pergunta,luizoryone,mariadenis,"Os valores relativos aos produtos, serviços e atividades prestados (inciso VII do art. 327).","PERGUNTA: Quais valores de produtos e serviços aparecem na fatura?
 
 DISPOSITIVOS
@@ -906,7 +906,7 @@ I - demanda ativa: valor contratado, caso aplicável, ou a média aritmética do
 II - demais grandezas elétricas: médias aritméticas dos valores faturados nos 12 últimos ciclos de faturamento.
 [ren1000-art-324::caput] Art. 324. A distribuidora deve observar os seguintes procedimentos no caso de, por motivo atribuível ao consumidor e demais usuários, faturar valores incorretos ou faturar sem utilizar a leitura do sistema de medição:
 I - faturamento a maior: devolver ao consumidor e demais usuários as quantias recebidas indevidamente, no ciclo de faturamento posterior à constatação, correspondentes ao período faturado incorretamente; e
-II - faturamento a menor: cobrar do consumidor e demais usuários as quantias não recebidas.",,,,
+II - faturamento a menor: cobrar do consumidor e demais usuários as quantias não recebidas.",,suportada,suportada,
 GS-Q025,pergunta,luizoryone,mariadenis,"Sim, quando há medição apropriada a distribuidora deve faturar aplicando a tarifa correspondente sobre o consumo faturado nos dias de vigência de cada bandeira tarifária. (ren1000-art-307::p1)","PERGUNTA: Existe regra de bandeira para unidades com medição apropriada?
 
 DISPOSITIVOS
@@ -933,7 +933,7 @@ VIII - histórico de consumo, caso aplicável;
 IX - impostos e contribuições incidentes; e
 X - código para pagamento e linha numérica digitável ou, caso aplicável, mensagem indicativa de que o pagamento será realizado por meio de débito automático.
 XI - código de resposta rápida do PIX, quando solicitado pelo consumidor e demais usuários.
-[cdc-art-6::inc-viii] VIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;",,,,
+[cdc-art-6::inc-viii] VIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;",,suportada,suportada,
 GS-Q026,pergunta,NatyEvelin,luizoryone,A leitura do medidor do grupo B deve ocorrer a cada 27‑33 dias.,"PERGUNTA: De quanto em quanto tempo o medidor do grupo B deve ser lido?
 
 DISPOSITIVOS
@@ -961,7 +961,7 @@ X - código para pagamento e linha numérica digitável ou, caso aplicável, men
 XI - código de resposta rápida do PIX, quando solicitado pelo consumidor e demais usuários.
 [ren1000-art-322] Art. 322. Quando houver suspensão de fornecimento de energia elétrica, a distribuidora deve faturar de acordo com as seguintes disposições:
 I - para unidade consumidora do grupo B: o maior valor entre o custo de disponibilidade e o consumo de energia elétrica, apenas nos ciclos de faturamento em que ocorrer a suspensão ou a religação da unidade consumidora; e
-II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,,,
+II - para unidade consumidora do grupo A: a demanda contratada enquanto vigente o contrato, observadas as demais condições dispostas nesta Resolução.",,suportada,suportada,
 GS-Q054,pergunta,pedrohpsantos,TalitaaNunes,"A fatura duplicada configura faturamento a maior; a distribuidora deve devolver ao consumidor as quantias recebidas indevidamente até o segundo ciclo de faturamento posterior à constatação, abrangendo os últimos 60 ciclos anteriores. (ren1000-art-323::caput)","PERGUNTA: Paguei a fatura duas vezes; o que acontece?
 
 DISPOSITIVOS
@@ -976,7 +976,7 @@ II - demais grandezas elétricas: médias aritméticas dos valores faturados nos
 I - o pagamento da fatura tiver sido realizado até a data limite contida na notificação para suspensão do fornecimento; ou
 I -A - o pagamento da fatura tiver sido realizado por meio de código de resposta rápida do PIX antes da execução da suspensão do fornecimento; ou
 II - a suspensão for efetuada sem observar o disposto nesta Resolução.
-[ren1000-art-290::p2] § 2º A diferença resultante na aplicação do custo de disponibilidade não é passível de futura compensação.",,,,
+[ren1000-art-290::p2] § 2º A diferença resultante na aplicação do custo de disponibilidade não é passível de futura compensação.",,sem_suporte,sem_suporte,
 GS-Q059,pergunta,pedrohpsantos,TalitaaNunes,"Sim, o consumidor pode ter inversão do ônus da prova em disputa de cobrança, nos termos do art. 6º, VIII do Código de Defesa do Consumidor.","PERGUNTA: O consumidor pode ter inversão do ônus da prova em disputa de cobrança?
 
 DISPOSITIVOS
@@ -992,7 +992,7 @@ IV - no caso de impedimento de acesso para fins de leitura, as informações do 
 I - não pagamento da fatura da prestação do serviço público de distribuição de energia elétrica;
 II - não pagamento de serviços cobráveis;
 III - descumprimento das obrigações relacionadas ao oferecimento de garantias, de que trata o art. 345; ou
-IV - não pagamento de prejuízos causados nas instalações da distribuidora cuja responsabilidade tenha sido imputada ao consumidor, desde que vinculados à prestação do serviço público de energia elétrica.",,,,
+IV - não pagamento de prejuízos causados nas instalações da distribuidora cuja responsabilidade tenha sido imputada ao consumidor, desde que vinculados à prestação do serviço público de energia elétrica.",,suportada,suportada,
 GS-Q060,pergunta,RaissaOliveira19,pedrohpsantos,"Sim, o consumidor tem direito à reparação de danos, conforme o art. 6º, inciso VI da Lei nº 8.078/1990 e o art. 42, § 1º da mesma lei.","PERGUNTA: O consumidor tem direito à reparação de danos?
 
 DISPOSITIVOS
@@ -1007,7 +1007,7 @@ II – ser informado sobre a metodologia de cálculo da CIP, bem como sobre os c
 III – ter direito à revisão dos lançamentos da CIP em caso de erro, duplicidade ou inconsistência de cobrança;
 IV – contar com canais institucionais para apresentação de requerimentos administrativos relacionados à CIP, inclusive para fins de restituição, impugnação ou solicitação de isenção, quando cabível.
 [cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.
-[df7888-art-1] Art. 1º Esta Lei estabelece os direitos dos usuários do serviço de iluminação pública e dos contribuintes da Contribuição de Iluminação Pública – CIP no Distrito Federal, com vistas à garantia de segurança, eficiência, transparência e participação social na prestação deste serviço público essencial.",,,,
+[df7888-art-1] Art. 1º Esta Lei estabelece os direitos dos usuários do serviço de iluminação pública e dos contribuintes da Contribuição de Iluminação Pública – CIP no Distrito Federal, com vistas à garantia de segurança, eficiência, transparência e participação social na prestação deste serviço público essencial.",,sem_suporte,sem_suporte,
 GS-Q079,pergunta,luizoryone,mariadenis,Os juros de mora são de 1 % ao mês (pro rata die).,"PERGUNTA: Os juros de mora são de quanto por mês?
 
 DISPOSITIVOS
@@ -1020,7 +1020,7 @@ III - devem ser calculados e acrescidos os juros de mora à razão de 1% ao mês
 [ren1000-art-324::caput] Art. 324. A distribuidora deve observar os seguintes procedimentos no caso de, por motivo atribuível ao consumidor e demais usuários, faturar valores incorretos ou faturar sem utilizar a leitura do sistema de medição:
 I - faturamento a maior: devolver ao consumidor e demais usuários as quantias recebidas indevidamente, no ciclo de faturamento posterior à constatação, correspondentes ao período faturado incorretamente; e
 II - faturamento a menor: cobrar do consumidor e demais usuários as quantias não recebidas.
-[ren1000-art-281::pu] Parágrafo único. É vedado mais de um faturamento no mesmo mês civil, exceto nas situações dispostas nesta Resolução.",,,,
+[ren1000-art-281::pu] Parágrafo único. É vedado mais de um faturamento no mesmo mês civil, exceto nas situações dispostas nesta Resolução.",,suportada,suportada,
 GS-Q081,pergunta,mariadenis,RaissaOliveira19,O prazo máximo para cobrar uma fatura em atraso é de **até 60 meses** (art. 347 da REN ANEEL nº 1.000/2021).,"PERGUNTA: Por quanto tempo uma fatura em atraso pode ser cobrada?
 
 DISPOSITIVOS
@@ -1032,7 +1032,7 @@ II - faturamento a menor: cobrar do consumidor e demais usuários as quantias n�
 [ren1000-art-323::caput] Art. 323. A distribuidora, no caso de faturar valores incorretos, não apresentar fatura ou faturar sem utilizar a leitura do sistema de medição nos casos em que não haja previsão nesta Resolução, sem prejuízo das penalidades cabíveis, deve observar os seguintes procedimentos:
 I - faturamento a menor ou ausência de faturamento: cobrar do consumidor e demais usuários as quantias não recebidas, limitando-se aos últimos 3 ciclos de faturamento imediatamente anteriores ao ciclo vigente; e
 II - faturamento a maior: devolver ao consumidor e demais usuários, até o segundo ciclo de faturamento posterior à constatação, as quantias recebidas indevidamente nos últimos 60 ciclos de faturamento imediatamente anteriores à constatação.
-[cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",,,,
+[cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",,suportada,suportada,
 GS-Q089,pergunta,mariadenis,RaissaOliveira19,"Sim, pode ser cobrado por uma fatura de cinco anos atrás, pois o prazo máximo previsto é de 60 meses (art. 347).","PERGUNTA: Posso ser cobrado por uma fatura de cinco anos atrás?
 
 DISPOSITIVOS
@@ -1049,39 +1049,39 @@ I - faturamento a maior: devolver ao consumidor e demais usuários as quantias r
 II - faturamento a menor: cobrar do consumidor e demais usuários as quantias não recebidas.
 [ren1000-art-323::caput] Art. 323. A distribuidora, no caso de faturar valores incorretos, não apresentar fatura ou faturar sem utilizar a leitura do sistema de medição nos casos em que não haja previsão nesta Resolução, sem prejuízo das penalidades cabíveis, deve observar os seguintes procedimentos:
 I - faturamento a menor ou ausência de faturamento: cobrar do consumidor e demais usuários as quantias não recebidas, limitando-se aos últimos 3 ciclos de faturamento imediatamente anteriores ao ciclo vigente; e
-II - faturamento a maior: devolver ao consumidor e demais usuários, até o segundo ciclo de faturamento posterior à constatação, as quantias recebidas indevidamente nos últimos 60 ciclos de faturamento imediatamente anteriores à constatação.",,,,
+II - faturamento a maior: devolver ao consumidor e demais usuários, até o segundo ciclo de faturamento posterior à constatação, as quantias recebidas indevidamente nos últimos 60 ciclos de faturamento imediatamente anteriores à constatação.",,suportada,suportada,
 GS-Q112,pergunta,mariadenis,RaissaOliveira19,(abstenção),"PERGUNTA: Qual o intervalo permitido entre leituras do grupo B?
 
 DISPOSITIVOS
 [cdc-art-39::inc-vi] VI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;
 [cdc-art-6::inc-viii] VIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;
 [cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.
-[cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",,,,
+[cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.",,suportada,suportada,
 GS-Q113,pergunta,RaissaOliveira19,pedrohpsantos,(abstenção),"PERGUNTA: Qual o percentual máximo da multa por atraso?
 
 DISPOSITIVOS
 [cdc-art-39::inc-vi] VI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;
 [cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.
 [cdc-art-6::inc-viii] VIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;
-[cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",,,,
+[cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",,suportada,suportada,
 GS-Q114,pergunta,mariadenis,RaissaOliveira19,(abstenção),"PERGUNTA: Em quantos dias úteis vence a fatura residencial?
 
 DISPOSITIVOS
 [cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.
 [cdc-art-6::inc-viii] VIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;
 [cdc-art-39::inc-vi] VI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;
-[cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",,,,
+[cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",,suportada,suportada,
 GS-Q115,pergunta,luizoryone,mariadenis,(abstenção),"PERGUNTA: Quem tem direito à subclasse baixa renda?
 
 DISPOSITIVOS
 [cdc-art-6::inc-vi] VI - a efetiva prevenção e reparação de danos patrimoniais e morais, individuais, coletivos e difusos;
 [cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.
 [cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.
-[cdc-art-39::inc-vi] VI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;",,,,
+[cdc-art-39::inc-vi] VI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;",,suportada,suportada,
 GS-Q120,pergunta,NatyEvelin,luizoryone,"Para devolver um pagamento duplicado, solicite ao fornecedor a restituição do valor excedente, acrescido de correção monetária e juros legais. O Código de Defesa do Consumidor garante esse direito (art. 42, § 1º).","PERGUNTA: Como devolver pagamento duplicado de fatura?
 
 DISPOSITIVOS
 [cdc-art-42-pu] O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.
 [cdc-art-39::inc-vi] VI - executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor, ressalvadas as decorrentes de práticas anteriores entre as partes;
 [cdc-art-6::inc-viii] VIII - a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências;
-[cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",,,,
+[cdc-art-42] Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.",,sem_suporte,sem_suporte,

@@ -111,10 +111,23 @@ def test_csv_versionado_nao_tem_veredito_humano_inventado() -> None:
     """Sem anotação humana real, as colunas humanas do CSV versionado ficam vazias."""
     linhas = cj.ler_csv(cj.ARQUIVO_PADRAO)
     assert len(linhas) == 40
-    assert not any(r["veredito_humano_1"] or r["veredito_humano_2"] for r in linhas)
+    decisoes = sum(bool(r["veredito_humano_1"]) + bool(r["veredito_humano_2"]) for r in linhas)
+    # vereditos humanos só entram pelo importador, que registra cada importação em importacoes.jsonl
+    registro = Path(__file__).resolve().parents[2] / "dados/golden-set/anotacoes/importacoes.jsonl"
+    importadas = 0
+    if registro.exists():
+        for linha in registro.read_text(encoding="utf-8").splitlines():
+            if linha.strip():
+                importadas += int(json.loads(linha).get("novos", {}).get("juiz", 0))
+    assert decisoes <= importadas, "veredito humano no CSV sem importação registrada"
+    assert all(
+        r[c] in ("", "suportada", "sem_suporte")
+        for r in linhas
+        for c in ("veredito_humano_1", "veredito_humano_2")
+    )
     if any(r["veredito_juiz"] for r in linhas):
         assert all(r["saida_do_sistema"] and r["evidencia"] for r in linhas if r["veredito_juiz"])
-    else:
+    elif not decisoes:
         assert cj.main([]) == 2
 
 
