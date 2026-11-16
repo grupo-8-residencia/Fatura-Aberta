@@ -141,6 +141,9 @@ input[type=text] { font: inherit; font-family: var(--mono); color: var(--ink); b
       <p class="muted">As respostas ficam só neste navegador (se limpar os dados do navegador, perde). Quando terminar, clique em copiar, cole numa mensagem para o Pedro no Teams ou salve como <span class="mono">respostas-<span id="nome-arq">usuario</span>.json</span>. Dá para copiar de novo se mudar algo.</p>
       <div class="nav">
         <button id="copiar" class="primary" type="button">Copiar minhas respostas</button>
+        <button id="baixar-respostas" type="button">Baixar respostas (.json)</button>
+        <button id="baixar-questoes" type="button">Baixar minhas questões (.csv)</button>
+        <span id="baixou" class="muted"></span>
         <span id="copiado" class="muted"></span>
       </div>
       <textarea id="copia" readonly aria-label="Respostas em texto" style="min-height:120px" hidden></textarea>
@@ -243,6 +246,7 @@ input[type=text] { font: inherit; font-family: var(--mono); color: var(--ink); b
 
   var candidato = null;
   function pedirCodigo(p) {
+    if (!DADOS[p].verificador) { chaveHmac = null; gravar("github", p); abrir(p); return; }
     candidato = p; $("cod-nome").textContent = p; $("cod-msg").textContent = "";
     $("form-codigo").hidden = false; $("codigo").value = ""; $("codigo").focus();
   }
@@ -378,29 +382,65 @@ input[type=text] { font: inherit; font-family: var(--mono); color: var(--ink); b
   }
   function montar() {
     var corpo = JSON.stringify({ github: github, golden: respostas.golden, revisao: respostas.revisao, juiz: respostas.juiz, enviado_em: new Date().toISOString(), versao_pagina: VERSAO });
+    if (!chaveHmac) {
+      var c0 = JSON.parse(corpo); c0.esquema_versao = 1;
+      return Promise.resolve(JSON.stringify(c0));
+    }
     return assinar(chaveHmac, corpo).then(function (assinatura) {
       return JSON.stringify({ esquema_versao: 2, github: github, corpo: corpo, assinatura: assinatura });
     });
   }
   function copiar() {
-    if (!chaveHmac) { $("copiado").textContent = "Entre com seu código primeiro."; return; }
+    if (!github) return;
     montar().then(function (texto) {
       var ta = $("copia"); ta.hidden = false; ta.value = texto;
       ultimaCopia = new Date(); alteracoes = 0; atualizarResumo();
-      var recibo = JSON.parse(texto).assinatura.slice(0, 8);
+      var recibo = chaveHmac ? JSON.parse(texto).assinatura.slice(0, 8) : new Date().toLocaleTimeString("pt-BR");
       var pronto = function () { $("copiado").textContent = "Copiado. Recibo " + recibo + ". Cole numa mensagem para o Pedro."; };
       var manual = function () { ta.focus(); ta.select(); $("copiado").textContent = "Recibo " + recibo + ". Selecione e copie o texto abaixo e cole numa mensagem para o Pedro."; };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(texto).then(pronto, manual); else manual();
     }).catch(function () { $("copiado").textContent = "Não consegui gerar a entrega."; });
   }
+  function csvCelula(v) { return '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"'; }
+  function salvarArquivo(nome, texto, msgId) {
+    var m = $(msgId);
+    var plano = function () {
+      try {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([texto], { type: "text/plain;charset=utf-8" }));
+        a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+        m.textContent = "Se o download não começou, use o texto copiado abaixo.";
+      } catch (e) { m.textContent = "Não consegui baixar. Use 'Copiar minhas respostas'."; }
+    };
+    if (window.claude && claude.use) {
+      claude.use("downloads").then(function (d) {
+        if (!d) { plano(); return; }
+        d.save({ filename: nome, data: texto }).then(function () { m.textContent = "Arquivo salvo: " + nome; },
+          function (e) { if (!e || e.code !== "declined") plano(); else m.textContent = "Download cancelado."; });
+      }, plano);
+    } else plano();
+  }
+  function baixarQuestoes() {
+    if (!github) return;
+    var linhas = [["fila", "id", "tipo", "pergunta_ou_enunciado", "gabarito_ou_resposta_esperada", "data_referencia", "citacao_canonica", "abstencao_esperada", "saida_do_sistema", "evidencia", "SUA_RESPOSTA (sim/nao/suportada/sem_suporte)", "CORRECAO", "COMENTARIO"]];
+    itens.golden.forEach(function (it) { linhas.push(["golden", it.id, it.tipo, it.enunciado, it.gabarito_proposto, "", "", "", "", "", "", "", ""]); });
+    itens.revisao.forEach(function (it) { linhas.push(["revisao", it.id, it.tipo, it.pergunta, it.resposta_esperada, it.data_referencia, it.citacao_canonica, it.abstencao_esperada, "", "", "", "", ""]); });
+    itens.juiz.forEach(function (it) { linhas.push(["juiz", it.id, it.tipo, "", "", "", "", "", it.saida_do_sistema, it.evidencia, "", "", ""]); });
+    var csv = "﻿" + linhas.map(function (l) { return l.map(csvCelula).join(","); }).join("\r\n");
+    salvarArquivo("questoes-" + github + ".csv", csv, "baixou");
+  }
+  function baixarRespostas() {
+    if (!github) return;
+    montar().then(function (texto) { salvarArquivo("respostas-" + github + ".json", texto, "baixou"); });
+  }
   function restaurar() {
     var msg = $("rest-msg");
     try {
       var ent = JSON.parse($("restaurar").value);
-      if (ent.esquema_versao !== 2 || ent.github !== github) { msg.textContent = "Esse texto não é do usuário " + github + "."; return; }
-      assinar(chaveHmac, ent.corpo).then(function (a) {
-        if (a !== ent.assinatura) { msg.textContent = "Assinatura não confere (texto alterado ou código diferente)."; return; }
-        var c = JSON.parse(ent.corpo);
+      if (ent.github !== github) { msg.textContent = "Esse texto não é do usuário " + github + "."; return; }
+      (chaveHmac ? assinar(chaveHmac, ent.corpo) : Promise.resolve(null)).then(function (a) {
+        if (chaveHmac && (ent.esquema_versao !== 2 || a !== ent.assinatura)) { msg.textContent = "Assinatura não confere (texto alterado ou código diferente)."; return; }
+        var c = chaveHmac ? JSON.parse(ent.corpo) : ent;
         ["golden", "revisao", "juiz"].forEach(function (f) {
           Object.keys(c[f] || {}).forEach(function (id) {
             var atual = respostas[f][id];
@@ -420,7 +460,10 @@ input[type=text] { font: inherit; font-family: var(--mono); color: var(--ink); b
     $("form-codigo").addEventListener("submit", entrar);
     $("btn-restaurar").addEventListener("click", restaurar);
     $("trocar").addEventListener("click", function () { remover("github"); chaveHmac = null; mostrarEscolha(); });
+    $("baixar-questoes").addEventListener("click", baixarQuestoes);
+    $("baixar-respostas").addEventListener("click", baixarRespostas);
     var g = ler("github"), c = g ? ler("codigo:" + g) : null;
+    if (g && DADOS[g] && !DADOS[g].verificador) { abrir(g); return; }
     if (g && DADOS[g] && c && window.crypto && crypto.subtle) {
       derivarChave(g, c).then(function (k) {
         return assinar(k, "ok").then(function (v) {
