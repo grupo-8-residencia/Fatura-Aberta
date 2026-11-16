@@ -127,6 +127,7 @@ nav:
       - Métricas: avaliacao/metricas.md
       - Golden set: avaliacao/golden-set.md
       - Como anotar: avaliacao/anotacao.md
+      - Divergências do golden set: avaliacao/divergencias-golden-set.md
       - Resultados: avaliacao/resultados.md
       - Relatório S3 (LLM × RAG): avaliacao/relatorio-s3-final.md
   - Operação:
