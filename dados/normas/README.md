@@ -43,7 +43,8 @@ cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorr
 - **Ato Normativo:** Resolução Normativa ANEEL nº 956, de 7 de dezembro de 2021.
 - **Publicação Oficial:** Diário Oficial da União (DOU) de 15/12/2021, Seção 1, Página 111.
 - **Dispositivo de Vigência:** *Art. 16. Esta Resolução entra em vigor em 1º de janeiro de 2022.*
-- **Objeto:** Consolida os Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional (PRODIST). O Módulo 8 (Qualidade do Fornecimento de Energia Elétrica, versão 14 aprovada com alterações pelas REN 1.000/2021 e 1.147/2025) disciplina na Seção 8.2 os indicadores de continuidade individual (DIC, FIC, DMIC, DICRI) e o cálculo da compensação por violação de metas a ser creditada na fatura em até 2 meses após o mês de apuração (item 214). O Anexo 8.B fixa os padrões de continuidade para baixa tensão.
+- **Esclarecimento sobre a Data-Base 01/01/2022:** A data-base de 01/01/2022 é fixada expressamente no Art. 16 da Resolução Normativa instituidora (REN ANEEL nº 956/2021), ato que revogou as normas esparsas anteriores e consolidou a estrutura geral do PRODIST. Os arquivos em formato anexo (como o Anexo do Módulo 8) não trazem dispositivo próprio de vigência no corpo técnico das seções porque sua força cogente decorre do art. 16 da resolução consolidante. As alterações subsequentes foram promovidas pela REN ANEEL nº 1.000/2021 e pela REN ANEEL nº 1.137/2025 (versão 14 consolidada, em vigor, que inseriu o indicador de Situação de Emergência — DISE nos itens 172 e 173).
+- **Objeto:** Consolida os Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional (PRODIST). O Módulo 8 (Qualidade do Fornecimento de Energia Elétrica, versão 14 consolidada pela REN 1.137/2025) disciplina na Seção 8.2 os indicadores de continuidade individual (DIC, FIC, DMIC, DICRI e DISE) e o cálculo da compensação por violação de metas a ser creditada na fatura em até 2 meses após o mês de apuração (item 214). O Anexo 8.B fixa os padrões de continuidade para baixa tensão.
 
 ### 2. REH ANEEL nº 3.614/2026 — Tarifas da Neoenergia Distribuição Brasília
 - **Ato Homologatório:** Resolução Homologatória ANEEL nº 3.614, de 20 de outubro de 2026.
@@ -53,8 +54,11 @@ cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorr
 
 ### 3. Impacto da Expansão do Corpus na Avaliação (28 vs 39 dispositivos)
 - A inclusão dos 11 novos dispositivos eleva o corpus de 28 para 39 itens, cobrindo todo o ciclo de faturamento e continuidade.
-- Sem as regras de expansão de sinônimos regulatórios de S3 (PR #135), a ampliação do espaço de busca produz pequena variação mecânica no ranking léxico: recall@5 de 0,981 (101/103) para 0,971 (100/103) no baseline puro de dev, com acerto B3 de 0,933 para 0,925 e B2 de 0,850 para 0,842.
-- A combinação das melhorias de recuperação da Frente F2 (Issue #35 / PR #135) com este corpus de 39 itens é a expectativa de integração para restabelecer a cobertura completa de 103/103 (recall@5 = 1,000), mantendo-se neste PR o resultado reproduzível isolado de 100/103 (0,971). Após a entrada de ambos os PRs na dev, as métricas conjuntas serão regeneradas.
+- Com a integração das melhorias de recuperação da Frente F2 (incorporadas na dev via PR #135) sobre o corpus ampliado de 39 itens, os resultados oficiais mensurados nos benchmarks são:
+  - **Avaliação de Linha de Base B3 (com filtro de vigência):** Acerto de 0,967 (116/120), Recall@5 de 1,000 (103/103), Abstenção correta de 0,765 (13/17) e 0 violações de vigência.
+  - **Ranking de Recuperação (n=103):** Recall@1 de 0,835 [0,762; 0,898], Recall@3 de 0,985 [0,966; 1,000], Recall@5 de 0,990 [0,976; 1,000] (102/103), Recall@10 de 1,000 [1,000; 1,000] (103/103), MRR de 0,924 [0,883; 0,960] e nDCG@5 de 0,936 [0,905; 0,963].
+  - **Gate da Sprint S2 (n=30):** Recall@5 de 1,000 [1,000; 1,000] (30/30), superando a meta de 70%.
+  - **Comparação B3 vs B2:** Teste de McNemar confirma superioridade de B3 com n01=10, n10=0 e p = 0,0044.
 
 ## Pendentes (`A verificar`, fora do índice)
 

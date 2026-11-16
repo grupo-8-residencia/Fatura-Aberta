@@ -806,8 +806,8 @@
   },
   {
     "id": "ren956-mod8-s82-170-173",
-    "titulo": "PRODIST Módulo 8: indicadores individuais de continuidade (DIC, FIC, DMIC e DICRI)",
-    "texto": "170. Por meio do controle das interrupções e da apuração dos indicadores de continuidade de serviço, as distribuidoras, os consumidores, as centrais geradoras e a ANEEL podem avaliar a qualidade do serviço prestado e o desempenho do sistema elétrico.\n171. Os indicadores de continuidade do serviço de distribuição de energia elétrica são estabelecidos quanto à duração e frequência das interrupções.\n172. Os indicadores devem ser apurados mensalmente, considerando o mês civil, com exceção do indicador DICRI, que deve ser apurado por interrupção ocorrida em Dia Crítico.\n173. Os indicadores de continuidade individuais são: Duração de Interrupção Individual por Unidade Consumidora ou por Ponto de Conexão – DIC (expressa em horas e centésimos de hora); Frequência de Interrupção Individual por Unidade Consumidora ou por Ponto de Conexão – FIC (expressa em número de interrupções); Duração Máxima de Interrupção Contínua por Unidade Consumidora ou por Ponto de Conexão – DMIC (expressa em horas e centésimos de hora); e Duração da Interrupção Individual ocorrida em Dia Crítico por Unidade Consumidora ou Ponto de Conexão – DICRI (expressa em horas e centésimos de hora).\n177. Os indicadores de continuidade individuais e coletivos devem ser apurados considerando apenas as interrupções de longa duração, ou seja, aquelas com duração maior ou igual a 3 minutos.",
+    "titulo": "PRODIST Módulo 8: indicadores individuais de continuidade (DIC, FIC, DMIC, DICRI e DISE)",
+    "texto": "170. Por meio do controle das interrupções e da apuração dos indicadores de continuidade de serviço, as distribuidoras, os consumidores, as centrais geradoras e a ANEEL podem avaliar a qualidade do serviço prestado e o desempenho do sistema elétrico.\n171. Os indicadores de continuidade do serviço de distribuição de energia elétrica são estabelecidos quanto à duração e frequência das interrupções.\n172. Os indicadores devem ser apurados mensalmente, considerando o mês civil, com exceção dos indicadores DICRI e DISE, que devem ser apurados por interrupção ocorrida em Dia Crítico ou em Situação de Emergência, respectivamente.\n173. Os indicadores de continuidade individuais, a seguir discriminados, devem ser apurados para todas as unidades consumidoras, centrais geradoras ou por ponto de conexão: Duração de Interrupção Individual por Unidade Consumidora ou por Ponto de Conexão – DIC (expressa em horas e centésimos de hora); Frequência de Interrupção Individual por Unidade Consumidora ou por Ponto de Conexão – FIC (expressa em número de interrupções); Duração Máxima de Interrupção Contínua por Unidade Consumidora ou por Ponto de Conexão – DMIC (expressa em horas e centésimos de hora); Duração da Interrupção Individual ocorrida em Dia Crítico por Unidade Consumidora ou Ponto de Conexão – DICRI (expressa em horas e centésimos de hora); e Duração da Interrupção Individual ocorrida em Situação de Emergência por Unidade Consumidora ou por Ponto de Conexão – DISE (expressa em horas e centésimos de hora).\n177. Os indicadores de continuidade individuais e coletivos devem ser apurados considerando apenas as interrupções de longa duração, ou seja, aquelas com duração maior ou igual a 3 minutos.",
     "citacao": {
       "ato": "REN ANEEL nº 956/2021 (PRODIST Módulo 8)",
       "dispositivo": "Seção 8.2, itens 170 a 173 e 177",
@@ -828,13 +828,14 @@
       "FIC",
       "DMIC",
       "DICRI",
+      "DISE",
       "continuidade",
       "interrupção"
     ],
     "conferido": "sim",
-    "conferido_em": "2026-11-11",
+    "conferido_em": "2026-11-16",
     "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel (vigência base da REN 956/2021: 01/01/2022)",
-    "observacoes": "Equações 29 a 32 omitidas por serem notação matemática; o indicador DISE (Situação de Emergência) foi acrescido posteriormente pela REN ANEEL nº 1.137/2025."
+    "observacoes": "Equações 29 a 33 omitidas por serem notação matemática. Redação vigente consolidada do Módulo 8 (versão 14 alterada pela REN ANEEL nº 1.137/2025, incorporando o indicador DISE)."
   },
   {
     "id": "ren956-mod8-s82-178-179",
