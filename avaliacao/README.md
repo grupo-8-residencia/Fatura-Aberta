@@ -5,6 +5,7 @@ Harness dos baselines e das métricas. O protocolo está em [`docs/avaliacao/`](
 | Arquivo | Para quê |
 |---|---|
 | `rodada_s3.py` | **rodada S3 completa**: B1 (motor), B2 e B3 (LLM + RAG) em 200 faturas e 120 perguntas, e o juiz nos 40 itens; grava `resultados/s3-rodada.json` |
+| `rodada_s4.py` | **rodada S4**: B4 (Analista sem Auditor) × B5 (com Auditor) e ablação nas 120 perguntas, retomável; grava `resultados/s4-b4-b5.json` e `s4-b4-b5-comparacao.json` |
 | `calibrar_juiz.py` | calibra o juiz contra 40 itens anotados por 2 humanos (κ ≥ 0,75); `--gerar-modelo` cria o CSV |
 | `anotacoes/juiz-40.csv` | os 40 itens: saída do sistema, evidência e veredito do juiz; **as colunas humanas ficam vazias até haver anotação real** |
 | `estatistica.py` | bootstrap (B = 10.000), McNemar com correção de Edwards e Kappa de Cohen, só com a biblioteca padrão |

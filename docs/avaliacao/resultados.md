@@ -109,6 +109,10 @@ Comparação consolidada da recuperação entre o gate da **Sprint S2**, a **lin
   `data_referencia`.
 - Pergunta em que a abstenção é esperada: a síntese se abstém.
 
+## S4: B4 × B5
+
+O Auditor elimina as afirmações sem suporte (15,0% → 0%) mas reduz o acerto de 91,7% para 77,5% (McNemar p < 0,001): pelo gate da S4, o B4 é o produto. Detalhes, ablação e falhas anotadas em [Relatório S4](relatorio-s4.md).
+
 ## Métricas ampliadas de recuperação e fundamentação (S3)
 
 Mesmo golden set, B3 (com filtro de vigência), nível de artigo (um chunk por artigo). IC 95% por
