@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.12, <3.15"
 
 [manifest]
@@ -331,10 +331,14 @@ version = "0.1.0"
 source = { editable = "packages/agentes" }
 dependencies = [
     { name = "fa-contratos" },
+    { name = "fa-rag" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "fa-contratos", editable = "packages/contratos" }]
+requires-dist = [
+    { name = "fa-contratos", editable = "packages/contratos" },
+    { name = "fa-rag", editable = "packages/rag" },
+]
 
 [[package]]
 name = "fa-api"
@@ -426,7 +430,6 @@ wheels = [
 name = "fatura-aberta"
 version = "0.1.0"
 source = { virtual = "." }
-default-groups = ["dev", "docs"]
 dependencies = [
     { name = "fa-agentes" },
     { name = "fa-api" },
