@@ -81,6 +81,17 @@ def mcnemar(c: dict[str, Any], chave: str) -> list[str]:
     return out
 
 
+def resumo_escolha(conjunto: str, e: dict[str, Any]) -> str:
+    """Frase da escolha; trata o caso em que nenhum baseline é elegível (sem as chaves de elegíveis)."""
+    if e.get("escolhido") is None:
+        motivo = e.get("motivo", "nenhum baseline elegível")
+        return f"Nenhum baseline é elegível nas {conjunto} ({motivo}). Não há escolhido nesse conjunto."
+    return (
+        f"Elegíveis nas {conjunto}: {', '.join(e['elegiveis'])}. "
+        f"Escolhido: **{e['escolhido']}** (acerto {pct(e['acerto'])})."
+    )
+
+
 def gerar(c: dict[str, Any]) -> str:
     cab = c["cabecalho"]
     completo = c["completo"]
@@ -107,13 +118,11 @@ def gerar(c: dict[str, Any]) -> str:
           "## 3. Perguntas (120)", ""] + tabela_perguntas(c) + ["", "Acerto por tipo de pergunta:", ""] + tabela_tipos(c)  # fmt: skip
     L += ["", "McNemar (pareado, p exato):", ""] + mcnemar(c, "mcnemar_perguntas")
     e = c["escolha_perguntas"]
-    L += ["", f"Regra de escolha (congelada antes dos resultados): 0 inválidas e 0 violações do RF-15; maior acerto; "
-          f"empate (< 1 p.p.) vai para a menor latência. Elegíveis nas perguntas: {', '.join(e['elegiveis']) or 'nenhum'}.",
-          f"Escolhido nas perguntas: **{e['escolhido']}** (acerto {pct(e['acerto'])}).", "",
+    L += ["", "Regra de escolha (congelada antes dos resultados): 0 inválidas e 0 violações do RF-15; maior acerto; "
+          "empate (< 1 p.p.) vai para a menor latência.", resumo_escolha("perguntas", e), "",
           "## 4. Faturas (200)", ""] + tabela_faturas(c) + ["", "McNemar:", ""] + mcnemar(c, "mcnemar_faturas")  # fmt: skip
     f = c["escolha_faturas"]
-    L += ["", f"Elegíveis nas faturas: {', '.join(f['elegiveis'])}. Escolhido: **{f['escolhido']}**.", "",
-          "## 5. Recomendação", ""]  # fmt: skip
+    L += ["", resumo_escolha("faturas", f), "", "## 5. Recomendação", ""]  # fmt: skip
     if completo and c.get("recomendacao_final"):
         L.append(f"{c['recomendacao_final']}")
     else:
