@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | proposta (decisão do Pedro em 09/11/2026; falta confirmação do time) |
+| **Status** | aceita para o experimento da S3 (decisão do Pedro em 09/11/2026; usada na rodada de 13/11/2026; a confirmação formal do time segue pendente) |
 | **Data** | 2026-11-09 |
 | **Decisores** | Pedro (Tech Lead, F5), com revisão da Raissa |
 
@@ -49,3 +49,15 @@ O provedor é escolhido por variáveis de ambiente (`FA_LLM_PROVEDOR`, `FA_LLM_M
 - **O que muda no código, nos dados ou nos prazos:** `fa_agentes.llm` (cliente, cache e metadados),
   `fa_agentes.linguagem` (verificador RF-15), variáveis no `.env.example` e a rodada S3
   (`avaliacao/rodar_rodada_s3.py`). O cache de respostas fica em `avaliacao/cache/`, fora do Git.
+
+## Evidência da S3 (13/11/2026)
+
+- A rodada completa usou `gpt-oss:20b` (digest `17052f91a42e`) como gerador e `qwen3:14b` (digest
+  `bdbd181c33f2`) como juiz, com temperatura 0 e semente 42; modelo, digest, semente e SHA-256 do golden
+  set estão no `cabecalho` de `avaliacao/resultados/s3-rodada.json`.
+- Comando único e reproduzível: `FA_LLM_PROVEDOR=ollama .venv/bin/python avaliacao/rodada_s3.py --etapa completa
+  --paralelo 2 --limite-faturas-llm-puro 111`; retoma pelo cache em disco.
+- O CI roda sem chave nem rede, com o cliente falso (padrão); um teste garante que o código não contém
+  `API_KEY` nem `Bearer`.
+- **Limite:** esta ADR não afirma que esses sejam os melhores modelos, apenas que cabem na máquina, são
+  locais e reprodutíveis. A escolha do modelo do produto é da [ADR-003](adr-003-modelo-produto.md).
