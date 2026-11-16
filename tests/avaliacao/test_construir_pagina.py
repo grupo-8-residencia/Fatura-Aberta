@@ -28,7 +28,8 @@ def test_cada_pessoa_recebe_30_itens_e_20_perguntas() -> None:
 def test_html_gerado_traz_os_dados_e_nao_usa_banco_nem_login() -> None:
     html = cp.construir(cp.montar_dados())
     assert "__DADOS__" not in html and "__VERSAO__" not in html
-    assert "claude.use" not in html
+    # só a capacidade de download é usada; banco e usuário (que exigem login) ficam de fora
+    assert 'use("db")' not in html and 'use("user")' not in html
     m = re.search(r"var DADOS = (\{.*?\});\n", html, re.S)
     assert m and set(json.loads(m.group(1))) == set(cp.PESSOAS)
 
