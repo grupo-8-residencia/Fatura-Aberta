@@ -148,8 +148,8 @@
       "categoria": "medicao_estimada",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "ren1000-art-281",
-        "ren1000-art-285"
+        "ren1000-art-285",
+        "ren1000-art-281"
       ],
       "espera_abstencao": false,
       "recuperou_top1": false,
@@ -241,8 +241,8 @@
       "categoria": "devolucao_em_dobro",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "ren1000-art-323",
-        "cdc-art-42"
+        "cdc-art-42",
+        "ren1000-art-323"
       ],
       "espera_abstencao": false,
       "recuperou_top1": true,
@@ -831,8 +831,8 @@
       "categoria": "cip_cosip",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "df7888-art-3",
-        "df7888-art-4"
+        "df7888-art-4",
+        "df7888-art-3"
       ],
       "espera_abstencao": false,
       "recuperou_top1": true,
