@@ -161,11 +161,31 @@ function validar(d: DadosConfirmados): Erros {
   return erros;
 }
 
-const ORIENTACAO =
-  "Você pode pedir esclarecimento à distribuidora. Se tiver dúvida, procure o Procon-DF ou a Defensoria Pública do DF.";
+// Textos do relatório jurídico-regulatório do Grupo 8 (nov/2026): G1, P05, C2, C3, C4, P02, P08,
+// P12 e P13. Mudar estes textos exige revisão de conformidade (F1).
+const AVISO_GERAL =
+  "Esta ferramenta realiza conferências informativas com base nos dados identificados na fatura e nas fontes regulatórias indicadas. Os resultados estão limitados às verificações efetivamente realizadas e não representam garantia de correção integral da cobrança, conclusão sobre sua legalidade ou reconhecimento de direitos individuais. A análise não substitui avaliação técnica ou jurídica especializada.";
+const AVISO_RESULTADO =
+  "Esta conferência considera apenas os dados e as fontes indicados. A ausência de divergência identificada não significa que todos os componentes da fatura foram validados.";
+const AVISO_MINUTA =
+  "Revise as informações e altere o texto conforme necessário. A minuta é um modelo informativo, e o envio à distribuidora depende exclusivamente da decisão do consumidor.";
+const ORIGEM_DIVERGENCIA = "Não foi possível determinar a origem da diferença.";
+const ABSTENCAO_NAO_VALIDA = "Isso não significa que o valor tenha sido validado.";
+const CANAIS_DISTRIBUIDORA =
+  "Caso deseje compreender melhor a composição deste valor, os canais de atendimento da distribuidora podem fornecer esclarecimentos e informações complementares.";
+const ORGAOS_PUBLICOS =
+  "Para obter informações sobre direitos do consumidor e conhecer os serviços de atendimento disponíveis, consulte o Procon-DF ou a Defensoria Pública do Distrito Federal.";
+const REFERENCIA_NAO_CONCLUI =
+  "A referência indica a fonte considerada e não representa, isoladamente, conclusão sobre a legalidade da cobrança.";
 
+/** Modelo de minuta da pergunta 08 do relatório, preenchido com o item e o período. */
 function textoPedido(d: Decisao, mes: string): string {
-  return `Peço esclarecimento sobre o item "${d.titulo}" da fatura de ${mes}, com a memória de cálculo usada pela distribuidora.`;
+  const diferenca = d.valores ? `${d.titulo} (${d.valores})` : d.titulo;
+  return [
+    `Solicito, por gentileza, esclarecimentos sobre os valores apresentados na fatura referente ao período de ${mes}, especialmente quanto a: ${diferenca}.`,
+    "Se possível, solicito o envio da memória de cálculo utilizada, do histórico de leituras considerado e de informações sobre eventuais ajustes, compensações ou critérios de faturamento aplicados.",
+    "O objetivo desta solicitação é compreender a composição dos valores apresentados.",
+  ].join("\n\n");
 }
 
 function useFocoPreso(
@@ -356,7 +376,8 @@ function Guia() {
           <h3>Níveis A, B e C</h3>
           <p>
             A é conta feita com os dados da própria fatura. B compara com a tabela oficial da
-            ANEEL. C é indício que não dá para confirmar e vira pedido de esclarecimento.
+            ANEEL, com ato, vigência e fonte. C reúne situações que os dados da fatura não
+            permitem confirmar, com abstenção explícita e apoio informativo.
           </p>
         </section>
       </div>
@@ -368,9 +389,9 @@ function IconeResultado({ resultado }: { resultado: Resultado }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
       <circle cx="10" cy="10" r="7.5" stroke="currentColor" />
-      {resultado === "Confere" ? (
+      {resultado === "Compatível" ? (
         <path d="m6.5 10 2.25 2.25 4.75-4.75" stroke="currentColor" />
-      ) : resultado === "Norma aplicável" ? (
+      ) : resultado === "Referência normativa" ? (
         <path d="M10 9v4.5M10 6.5v.25" stroke="currentColor" />
       ) : (
         <path d="M10 6.5v4M10 13.5v.25" stroke="currentColor" />
@@ -405,7 +426,7 @@ function ListaFontes({ decisao }: { decisao: Decisao }) {
 function classeResultado(resultado: Resultado): string {
   if (resultado === "Não foi possível concluir") return "decision-result--inconclusive";
   if (resultado === "Divergência encontrada") return "decision-result--divergence";
-  if (resultado === "Norma aplicável") return "decision-result--norma";
+  if (resultado === "Referência normativa") return "decision-result--norma";
   return "";
 }
 
@@ -434,7 +455,13 @@ function CartaoDecisao({
       </p>
       <p className="decision-explanation">{decisao.explicacao}</p>
       {decisao.valores && <p className="decision-values">{decisao.valores}</p>}
-      {(diverge || semConclusao) && <p className="decision-guidance">{ORIENTACAO}</p>}
+      {(diverge || semConclusao) && (
+        <div className="decision-guidance">
+          <p>{diverge ? ORIGEM_DIVERGENCIA : ABSTENCAO_NAO_VALIDA}</p>
+          <p>{CANAIS_DISTRIBUIDORA}</p>
+          <p>{ORGAOS_PUBLICOS}</p>
+        </div>
+      )}
       <ListaFontes decisao={decisao} />
       {decisao.explicacoes.length > 0 && (
         <section className="agent-explanations" aria-label={`Explicação dos agentes sobre ${decisao.titulo}`}>
@@ -450,6 +477,9 @@ function CartaoDecisao({
               </div>
               <p className="decision-explanation">{e.explicacao}</p>
               <ListaFontes decisao={e} />
+              {e.resultado === "Referência normativa" && (
+                <p className="decision-values">{REFERENCIA_NAO_CONCLUI}</p>
+              )}
             </div>
           ))}
         </section>
@@ -556,6 +586,7 @@ function FormularioConfirmacao({
           <p className="section-kicker">Antes da conferência</p>
           <h2 id="confirmacao-titulo">Confirme os dados da fatura</h2>
           <p>Nenhuma conta é feita antes da confirmação. Os campos vêm com um exemplo fictício.</p>
+          <p className="aviso-conformidade">{AVISO_GERAL}</p>
         </div>
       </div>
       <form
@@ -753,7 +784,7 @@ function ItensConferidos({ dados }: { dados: DadosConfirmados }) {
 
 const FILTROS: { id: Filtro; rotulo: string }[] = [
   { id: "todos", rotulo: "Todos" },
-  { id: "confere", rotulo: "Confere" },
+  { id: "confere", rotulo: "Compatível" },
   { id: "divergencia", rotulo: "Divergência" },
   { id: "sem_conclusao", rotulo: "Sem conclusão" },
   { id: "A", rotulo: "Nível A" },
@@ -763,7 +794,7 @@ const FILTROS: { id: Filtro; rotulo: string }[] = [
 
 function passaFiltro(d: Decisao, filtro: Filtro): boolean {
   if (filtro === "todos") return true;
-  if (filtro === "confere") return d.resultado === "Confere";
+  if (filtro === "confere") return d.resultado === "Compatível";
   if (filtro === "divergencia") return d.resultado === "Divergência encontrada";
   if (filtro === "sem_conclusao") return d.resultado === "Não foi possível concluir";
   return d.nivel === filtro || d.explicacoes.some((e) => e.nivel === filtro);
@@ -802,6 +833,7 @@ export default function FaturaAberta() {
   const [guiaAberto, setGuiaAberto] = useState(false);
   const [pedido, setPedido] = useState<Decisao | null>(null);
   const [copiado, setCopiado] = useState("");
+  const [minuta, setMinuta] = useState("");
   const [modalLimpar, setModalLimpar] = useState(false);
   const buscaRef = useRef<HTMLInputElement>(null);
   const tituloConferenciaRef = useRef<HTMLHeadingElement>(null);
@@ -913,7 +945,7 @@ export default function FaturaAberta() {
           : decisoes.some(pedeAtencao)
             ? "Veja os itens destacados."
             : decisoes.length
-              ? "Tudo certo com os itens conferidos."
+              ? "Os itens conferidos são compatíveis."
               : "Confirme a fatura para ver a conferência.",
     },
     historico: { estado: "idle", mensagem: "Nada fica guardado por aqui." },
@@ -1175,9 +1207,11 @@ export default function FaturaAberta() {
 
                     <section className="decisions-section" aria-labelledby="decisoes-titulo">
                       <h2 id="decisoes-titulo">Cartões de decisão</h2>
+                      <p className="aviso-conformidade">{AVISO_RESULTADO}</p>
                       <p className="level-legend">
                         <strong>Legenda:</strong> A é conta com os dados da fatura; B compara com a
-                        tabela ANEEL; C é indício que vira pedido de esclarecimento.
+                        tabela oficial da ANEEL; C reúne situações que os dados da fatura não permitem
+                        confirmar.
                       </p>
                       <div className={`decision-list decision-list--${visao}`}>
                         {visiveis.map((d) => (
@@ -1188,6 +1222,7 @@ export default function FaturaAberta() {
                             aoPedir={() => {
                               setGuiaAberto(false);
                               setCopiado("");
+                              setMinuta(textoPedido(d, conferidos.mesReferencia));
                               setPedido(d);
                             }}
                             aoRevisar={() => {
@@ -1282,20 +1317,32 @@ export default function FaturaAberta() {
       <Gaveta aberta={pedido !== null} titulo="Pedido de esclarecimento" aoFechar={fecharPedido} lateral>
         {pedido && (
           <>
-            <Faisca estado="guiding" mensagem="Use os dados da fatura no pedido." />
-            <p className="clarification-intro">Texto baseado só no que a fatura informa:</p>
-            <blockquote className="clarification-copy">
-              {textoPedido(pedido, conferidos.mesReferencia)}
-            </blockquote>
+            <Faisca estado="guiding" mensagem="Revise o texto antes de usar." />
+            <p className="aviso-conformidade">{AVISO_MINUTA}</p>
+            <div className="field">
+              <label htmlFor="minuta">Texto do pedido (editável)</label>
+              <textarea
+                id="minuta"
+                className="input minuta-texto"
+                rows={10}
+                value={minuta}
+                onChange={(e) => setMinuta(e.target.value)}
+                aria-describedby="minuta-ajuda"
+              />
+              <span className="field-hint" id="minuta-ajuda">
+                Modelo informativo gerado pelo Fatura Aberta. Inclua os dados da sua unidade
+                consumidora e o que mais quiser antes de enviar, se decidir enviar.
+              </span>
+            </div>
+            <p className="aviso-conformidade">{AVISO_GERAL}</p>
             <Botao
               onClick={() => {
-                const texto = textoPedido(pedido, conferidos.mesReferencia);
                 if (!navigator.clipboard) {
                   setCopiado("Selecione o texto para copiar.");
                   return;
                 }
                 navigator.clipboard
-                  .writeText(texto)
+                  .writeText(minuta)
                   .then(() => setCopiado("Texto copiado."))
                   .catch(() => setCopiado("Selecione o texto para copiar."));
               }}

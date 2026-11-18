@@ -23,7 +23,7 @@ export const Botao = forwardRef<HTMLButtonElement, BotaoProps>(function Botao(
 const DESCRICAO_NIVEL: Record<Nivel, string> = {
   A: "conta feita com os dados da própria fatura",
   B: "comparação com a tabela oficial da ANEEL",
-  C: "indício que vira pedido de esclarecimento",
+  C: "situação que os dados da fatura não permitem confirmar, com apoio informativo",
 };
 
 export function SeloNivel({ nivel }: { nivel: Nivel }) {

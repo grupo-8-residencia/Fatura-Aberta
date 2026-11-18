@@ -44,10 +44,10 @@ export type DadosConfirmados = {
 };
 
 export type Resultado =
-  | "Confere"
+  | "Compatível"
   | "Divergência encontrada"
   | "Não foi possível concluir"
-  | "Norma aplicável";
+  | "Referência normativa";
 
 export type Decisao = {
   chave: string;
@@ -128,14 +128,14 @@ function divergente(a: Achado): boolean {
 
 /**
  * Resultado do cartão. Um achado fora do nível A, sem abstenção e sem valores para comparar, é a
- * explicação de um agente (norma aplicável ao item), e não uma conclusão de que o item confere.
+ * explicação de um agente (referência normativa do item), e não uma conclusão de compatibilidade.
  */
 function resultadoDe(a: Achado): Resultado {
   if (a.abstencao) return "Não foi possível concluir";
   if (divergente(a)) return "Divergência encontrada";
   const semValores = a.valor_esperado == null || a.valor_cobrado == null;
-  if (a.nivel !== "A" && semValores) return "Norma aplicável";
-  return "Confere";
+  if (a.nivel !== "A" && semValores) return "Referência normativa";
+  return "Compatível";
 }
 
 export function paraDecisao(a: Achado, indice: number): Decisao {
