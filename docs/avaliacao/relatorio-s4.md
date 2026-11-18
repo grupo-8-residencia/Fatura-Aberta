@@ -11,7 +11,8 @@
 !!! success "Rodada T5 (18/11/2026): o sistema multiagentes resolve a perda do B5"
     Com os 4 agentes (política T5: o rascunho barrado pelo Auditor cai na resposta extrativa do
     Pesquisador, em vez de abstenção), o acerto nas 120 perguntas foi **93,3% [88,3%; 97,5%]**, com
-    **0 JSON inválido** em 106 chamadas ao LLM, **0% de respostas com afirmação sem suporte**, 0 violação do
+    **0 JSON inválido** em 106 chamadas ao LLM, 0% de respostas com afirmação sem suporte (por construção:
+    o T5 só entrega o que o Auditor aprovou ou o trecho literal da norma), 0 violação do
     RF-15, 0 citação inventada e 0 fora de vigência. O T5 supera o B5 (23 × 3, McNemar exato p = 8,8×10⁻⁵)
     e empata, sem diferença significativa, com o B4 (7 × 3, p = 0,34) e com o T2 (2 × 0, p = 0,50).
     Detalhes na [seção T5](#rodada-t5-sistema-multiagentes-corpus-de-39-dispositivos).
@@ -189,7 +190,7 @@ Fonte: `avaliacao/resultados/s4-t5.json` e `s4-t5-comparacao.json` (hash do corp
 | B4 (Analista sem Auditor) | 90,0% [84,2%; 95,0%] | 20,0% | 14,2% | 2 | 1 |
 | B5 (Auditor estrito) | 76,7% [69,2%; 84,2%] | 34,2% | 0% (por construção) | 0 | 0 |
 | T2 (extrativo do Pesquisador) | 91,7% [86,7%; 96,7%] | 11,7% | 0% (trecho literal) | 0 | 0 |
-| **T5 (4 agentes)** | **93,3% [88,3%; 97,5%]** | 11,7% | **0%** | **0** | **0** |
+| **T5 (4 agentes)** | **93,3% [88,3%; 97,5%]** | 11,7% | 0% (por construção) | 0 | 0 |
 
 | Comparação (McNemar, pareado) | Só o primeiro acerta | Só o segundo acerta | p exato |
 |---|---|---|---|
@@ -197,6 +198,11 @@ Fonte: `avaliacao/resultados/s4-t5.json` e `s4-t5-comparacao.json` (hash do corp
 | T5 × B5 | 23 | 3 | 8,8×10⁻⁵ |
 | T5 × B4 | 7 | 3 | 0,34 |
 | T5 × T2 | 2 | 0 | 0,50 |
+
+O 0% de "sem suporte" do T5, como o do B5, é **por construção**: o T5 só entrega o que passou nas mesmas
+regras que definem "sem suporte", ou o trecho literal da norma. O que mede o T5 é o **acerto**. O RF-15 do
+T2 e do T5 é medido no texto que seria entregue (os trechos do Pesquisador): nenhum dos trechos tem termo
+vedado; se tivesse, o Orquestrador entregaria só a referência ao dispositivo.
 
 **De onde veio a resposta do T5:** 79 perguntas com o texto do Analista aprovado pelo Auditor, 27 com a
 resposta extrativa (o Auditor barrou o rascunho) e 14 com abstenção (o Pesquisador não achou dispositivo

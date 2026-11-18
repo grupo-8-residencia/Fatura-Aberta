@@ -99,6 +99,34 @@ def test_t5_entrega_o_rascunho_aprovado(
     assert t5["origem"] == "analista_auditado" and t5["acerto"]
 
 
+def test_rf15_e_medido_no_trecho_extrativo() -> None:
+    from datetime import date
+
+    from fa_contratos import Citacao
+    from fa_rag import DocumentoNormativo
+
+    c = Citacao(ato="REN 1.000/2021", dispositivo="art. 323, § 2º",
+                vigencia_inicio=date(2022, 1, 3), url="https://exemplo.invalid/ato")  # fmt: skip
+    doc = DocumentoNormativo(
+        id="ren1000-art-323::p2",
+        titulo="art. 323, § 2º",
+        texto="A distribuidora deve fazer a devolução em dobro do valor pago a maior.",
+        citacao=c,
+        subgrupos=("B1",),
+    )
+    indice = IndiceHibrido([doc])
+    p = {"id": "GS-X", "tipo": "normativa", "pergunta": "O que fazer com o valor pago a maior?",
+         "data_referencia": "2024-05-10", "abstencao_esperada": False,
+         "citacao_canonica": ["ren1000-art-323"]}  # fmt: skip
+    cliente = rs.ClienteRobusto(ClienteFalso(resposta=_resposta()))
+    reg = rs.registrar_analise(AnalistaNormativo(indice, cliente), cliente, p)
+    rel = rs.reconstruir(reg, {doc.id: doc}, p)
+    t2 = rs.avaliar_braco("T2", rel, p, Auditor(None), reg["extrativo"])
+    t5 = rs.avaliar_braco("T5", rel, p, Auditor(None), reg["extrativo"])
+    assert t2["linguagem"] and t2["trecho_com_termo_vedado"]
+    assert t5["linguagem"] == [] and t5["trecho_com_termo_vedado"]  # o Orquestrador não transcreve
+
+
 def test_registros_antigos_sem_extrativo_so_tem_b4_e_b5(
     indice: IndiceHibrido, perguntas: list[dict[str, Any]]
 ) -> None:

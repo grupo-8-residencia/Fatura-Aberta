@@ -59,7 +59,7 @@ from fa_agentes.analista import SISTEMA_ANALISTA  # noqa: E402
 from fa_agentes.auditor import COBERTURA_MINIMA  # noqa: E402
 from fa_agentes.llm import RespostaLLM  # noqa: E402
 from fa_rag import DocumentoNormativo, IndiceHibrido  # noqa: E402
-from fa_rag.sintese import LIMIAR_PADRAO  # noqa: E402
+from fa_rag.sintese import LIMIAR_PADRAO, _trecho  # noqa: E402
 
 RESULTADOS = Path(__file__).resolve().parent / "resultados"
 SAIDA = RESULTADOS / "s4-b4-b5.json"
@@ -232,6 +232,12 @@ def avaliar_braco(
             if nome == "T5":
                 origem = "abstencao" if abst_x else "pesquisador_extrativo"
             canon = set(p["citacao_canonica"])
+            # RF-15 medido no texto que o Pesquisador entregaria (os mesmos trechos de
+            # fa_rag.sintese.responder). No T5, o Orquestrador troca esse trecho por uma referência
+            # neutra quando há termo vedado; por isso o T5 registra o termo, mas não o emite.
+            por_id = {d.id: d for d in rel.dispositivos}
+            texto_x = " ".join(_trecho(por_id[i].texto) for i in ids_x if i in por_id)
+            termos = [v.termo for v in verificar_linguagem(texto_x)] if not abst_x else []
             return {
                 "id": p["id"],
                 "tipo": p["tipo"],
@@ -244,7 +250,8 @@ def avaliar_braco(
                 "motivos": {},
                 "citacao_inventada": False,
                 "fora_de_vigencia": False,
-                "linguagem": [],
+                "linguagem": termos if nome == "T2" else [],
+                "trecho_com_termo_vedado": bool(termos),
                 "cita_canonico": any(_artigo(i) in canon for i in ids_x),
                 "recuperou_canonico": any(_artigo(d.id) in canon for d in rel.dispositivos),
                 "origem": origem,
@@ -283,6 +290,7 @@ def avaliar_braco(
         "cita_canonico": any(_artigo(i) in canon for i in ids),
         "recuperou_canonico": any(_artigo(d.id) in canon for d in rel.dispositivos),
         "origem": origem,
+        "trecho_com_termo_vedado": False,
     }
 
 
@@ -367,6 +375,9 @@ def resumo_braco(itens: Sequence[dict[str, Any]]) -> dict[str, Any]:
         "perguntas_com_citacao_inventada": sum(i["citacao_inventada"] for i in itens),
         "perguntas_com_citacao_fora_de_vigencia": sum(i["fora_de_vigencia"] for i in itens),
         "violacoes_rf15": sum(1 for i in itens if i["linguagem"]),
+        "trechos_extrativos_com_termo_vedado": sum(
+            1 for i in itens if i.get("trecho_com_termo_vedado")
+        ),
         "motivos": dict(sorted(sum((Counter(i["motivos"]) for i in itens), Counter()).items())),
     }
 

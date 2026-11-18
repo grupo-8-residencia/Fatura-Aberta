@@ -23,7 +23,12 @@
   "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
   "documentos_corpus": 78,
   "conjunto": "120 perguntas (golden set congelado); faturas fora do escopo da S4",
-  "limite": null
+  "limite": null,
+  "metricas_recalculadas": {
+   "data_utc": "2026-11-18T20:02:01Z",
+   "commit": "7ad999c",
+   "motivo": "RF-15 medido no texto extrativo (T2/T5); sem nova chamada ao LLM, registros idênticos"
+  }
  },
  "cobertura": {
   "esperado": 120,
@@ -68,6 +73,7 @@
    "perguntas_com_citacao_inventada": 1,
    "perguntas_com_citacao_fora_de_vigencia": 0,
    "violacoes_rf15": 2,
+   "trechos_extrativos_com_termo_vedado": 0,
    "motivos": {
     "citacao_inventada": 1,
     "linguagem_proibida": 2,
@@ -100,6 +106,7 @@
    "perguntas_com_citacao_inventada": 0,
    "perguntas_com_citacao_fora_de_vigencia": 0,
    "violacoes_rf15": 0,
+   "trechos_extrativos_com_termo_vedado": 0,
    "motivos": {}
   },
   "B5_estrutural": {
@@ -128,6 +135,7 @@
    "perguntas_com_citacao_inventada": 0,
    "perguntas_com_citacao_fora_de_vigencia": 0,
    "violacoes_rf15": 0,
+   "trechos_extrativos_com_termo_vedado": 0,
    "motivos": {
     "sem_suporte": 3
    }
@@ -158,6 +166,7 @@
    "perguntas_com_citacao_inventada": 0,
    "perguntas_com_citacao_fora_de_vigencia": 0,
    "violacoes_rf15": 0,
+   "trechos_extrativos_com_termo_vedado": 0,
    "motivos": {}
   },
   "T5": {
@@ -186,6 +195,7 @@
    "perguntas_com_citacao_inventada": 0,
    "perguntas_com_citacao_fora_de_vigencia": 0,
    "violacoes_rf15": 0,
+   "trechos_extrativos_com_termo_vedado": 0,
    "motivos": {}
   }
  },

@@ -23,7 +23,12 @@
   "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
   "documentos_corpus": 78,
   "conjunto": "120 perguntas (golden set congelado); faturas fora do escopo da S4",
-  "limite": null
+  "limite": null,
+  "metricas_recalculadas": {
+   "data_utc": "2026-11-18T20:02:01Z",
+   "commit": "7ad999c",
+   "motivo": "RF-15 medido no texto extrativo (T2/T5); sem nova chamada ao LLM, registros idênticos"
+  }
  },
  "registros": [
   {
@@ -4067,7 +4072,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q002",
@@ -4086,7 +4092,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q003",
@@ -4105,7 +4112,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q004",
@@ -4124,7 +4132,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q005",
@@ -4143,7 +4152,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q006",
@@ -4162,7 +4172,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q007",
@@ -4181,7 +4192,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q008",
@@ -4200,7 +4212,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q009",
@@ -4219,7 +4232,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q010",
@@ -4239,7 +4253,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q011",
@@ -4259,7 +4274,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q012",
@@ -4278,7 +4294,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q013",
@@ -4297,7 +4314,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q014",
@@ -4316,7 +4334,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q015",
@@ -4335,7 +4354,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q016",
@@ -4354,7 +4374,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q017",
@@ -4374,7 +4395,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q018",
@@ -4391,7 +4413,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q019",
@@ -4410,7 +4433,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q020",
@@ -4430,7 +4454,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q021",
@@ -4449,7 +4474,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q022",
@@ -4468,7 +4494,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q023",
@@ -4485,7 +4512,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q024",
@@ -4502,7 +4530,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q025",
@@ -4521,7 +4550,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q026",
@@ -4540,7 +4570,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q027",
@@ -4559,7 +4590,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q028",
@@ -4576,7 +4608,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q029",
@@ -4595,7 +4628,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q030",
@@ -4614,7 +4648,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q031",
@@ -4633,7 +4668,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q032",
@@ -4652,7 +4688,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q033",
@@ -4671,7 +4708,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q034",
@@ -4693,7 +4731,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q035",
@@ -4713,7 +4752,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q036",
@@ -4732,7 +4772,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q037",
@@ -4753,7 +4794,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q038",
@@ -4772,7 +4814,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q039",
@@ -4791,7 +4834,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q040",
@@ -4812,7 +4856,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q041",
@@ -4831,7 +4876,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q042",
@@ -4850,7 +4896,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q043",
@@ -4869,7 +4916,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q044",
@@ -4890,7 +4938,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q045",
@@ -4914,7 +4963,8 @@
     ],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q046",
@@ -4934,7 +4984,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q047",
@@ -4953,7 +5004,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q048",
@@ -4975,7 +5027,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q049",
@@ -4994,7 +5047,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q050",
@@ -5014,7 +5068,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q051",
@@ -5034,7 +5089,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q052",
@@ -5053,7 +5109,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q053",
@@ -5072,7 +5129,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q054",
@@ -5092,7 +5150,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q055",
@@ -5111,7 +5170,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q056",
@@ -5130,7 +5190,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q057",
@@ -5149,7 +5210,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q058",
@@ -5168,7 +5230,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q059",
@@ -5189,7 +5252,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q060",
@@ -5208,7 +5272,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q061",
@@ -5227,7 +5292,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q062",
@@ -5246,7 +5312,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q063",
@@ -5263,7 +5330,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q064",
@@ -5282,7 +5350,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q065",
@@ -5304,7 +5373,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q066",
@@ -5325,7 +5395,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q067",
@@ -5346,7 +5417,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q068",
@@ -5363,7 +5435,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q069",
@@ -5380,7 +5453,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q070",
@@ -5401,7 +5475,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q071",
@@ -5423,7 +5498,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q072",
@@ -5440,7 +5516,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q073",
@@ -5457,7 +5534,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q074",
@@ -5480,7 +5558,8 @@
     ],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q075",
@@ -5497,7 +5576,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q076",
@@ -5516,7 +5596,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q077",
@@ -5538,7 +5619,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q078",
@@ -5557,7 +5639,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q079",
@@ -5577,7 +5660,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q080",
@@ -5598,7 +5682,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q081",
@@ -5617,7 +5702,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q082",
@@ -5636,7 +5722,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q083",
@@ -5655,7 +5742,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q084",
@@ -5675,7 +5763,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q085",
@@ -5694,7 +5783,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q086",
@@ -5714,7 +5804,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q087",
@@ -5731,7 +5822,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q088",
@@ -5750,7 +5842,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q089",
@@ -5769,7 +5862,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q090",
@@ -5789,7 +5883,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q091",
@@ -5806,7 +5901,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q092",
@@ -5825,7 +5921,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q093",
@@ -5844,7 +5941,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q094",
@@ -5863,7 +5961,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q095",
@@ -5882,7 +5981,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q096",
@@ -5901,7 +6001,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q097",
@@ -5922,7 +6023,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q098",
@@ -5941,7 +6043,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q099",
@@ -5964,7 +6067,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q100",
@@ -5983,7 +6087,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q101",
@@ -6002,7 +6107,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q102",
@@ -6021,7 +6127,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q103",
@@ -6040,7 +6147,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q104",
@@ -6059,7 +6167,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q105",
@@ -6076,7 +6185,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q106",
@@ -6095,7 +6205,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q107",
@@ -6114,7 +6225,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q108",
@@ -6135,7 +6247,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q109",
@@ -6152,7 +6265,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q110",
@@ -6169,7 +6283,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q111",
@@ -6186,7 +6301,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q112",
@@ -6203,7 +6319,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q113",
@@ -6220,7 +6337,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q114",
@@ -6237,7 +6355,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q115",
@@ -6254,7 +6373,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q116",
@@ -6271,7 +6391,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q117",
@@ -6288,7 +6409,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q118",
@@ -6305,7 +6427,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q119",
@@ -6322,7 +6445,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q120",
@@ -6341,7 +6465,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    }
   ],
   "B5": [
@@ -6362,7 +6487,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q002",
@@ -6381,7 +6507,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q003",
@@ -6400,7 +6527,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q004",
@@ -6419,7 +6547,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q005",
@@ -6438,7 +6567,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q006",
@@ -6457,7 +6587,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q007",
@@ -6476,7 +6607,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q008",
@@ -6495,7 +6627,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q009",
@@ -6514,7 +6647,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q010",
@@ -6534,7 +6668,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q011",
@@ -6554,7 +6689,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q012",
@@ -6573,7 +6709,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q013",
@@ -6592,7 +6729,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q014",
@@ -6611,7 +6749,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q015",
@@ -6630,7 +6769,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q016",
@@ -6649,7 +6789,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q017",
@@ -6669,7 +6810,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q018",
@@ -6686,7 +6828,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q019",
@@ -6705,7 +6848,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q020",
@@ -6725,7 +6869,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q021",
@@ -6744,7 +6889,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q022",
@@ -6763,7 +6909,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q023",
@@ -6780,7 +6927,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q024",
@@ -6797,7 +6945,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q025",
@@ -6816,7 +6965,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q026",
@@ -6835,7 +6985,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q027",
@@ -6854,7 +7005,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q028",
@@ -6871,7 +7023,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q029",
@@ -6890,7 +7043,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q030",
@@ -6909,7 +7063,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q031",
@@ -6928,7 +7083,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q032",
@@ -6947,7 +7103,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q033",
@@ -6966,7 +7123,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q034",
@@ -6983,7 +7141,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q035",
@@ -7003,7 +7162,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q036",
@@ -7022,7 +7182,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q037",
@@ -7039,7 +7200,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q038",
@@ -7058,7 +7220,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q039",
@@ -7077,7 +7240,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q040",
@@ -7094,7 +7258,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q041",
@@ -7113,7 +7278,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q042",
@@ -7132,7 +7298,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q043",
@@ -7151,7 +7318,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q044",
@@ -7172,7 +7340,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q045",
@@ -7189,7 +7358,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q046",
@@ -7209,7 +7379,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q047",
@@ -7228,7 +7399,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q048",
@@ -7245,7 +7417,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q049",
@@ -7264,7 +7437,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q050",
@@ -7284,7 +7458,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q051",
@@ -7304,7 +7479,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q052",
@@ -7323,7 +7499,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q053",
@@ -7342,7 +7519,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q054",
@@ -7362,7 +7540,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q055",
@@ -7381,7 +7560,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q056",
@@ -7400,7 +7580,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q057",
@@ -7419,7 +7600,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q058",
@@ -7438,7 +7620,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q059",
@@ -7455,7 +7638,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q060",
@@ -7474,7 +7658,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q061",
@@ -7493,7 +7678,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q062",
@@ -7512,7 +7698,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q063",
@@ -7529,7 +7716,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q064",
@@ -7548,7 +7736,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q065",
@@ -7565,7 +7754,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q066",
@@ -7582,7 +7772,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q067",
@@ -7599,7 +7790,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q068",
@@ -7616,7 +7808,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q069",
@@ -7633,7 +7826,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q070",
@@ -7650,7 +7844,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q071",
@@ -7667,7 +7862,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q072",
@@ -7684,7 +7880,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q073",
@@ -7701,7 +7898,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q074",
@@ -7718,7 +7916,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q075",
@@ -7735,7 +7934,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q076",
@@ -7754,7 +7954,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q077",
@@ -7771,7 +7972,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q078",
@@ -7790,7 +7992,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q079",
@@ -7810,7 +8013,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q080",
@@ -7827,7 +8031,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q081",
@@ -7846,7 +8051,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q082",
@@ -7865,7 +8071,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q083",
@@ -7884,7 +8091,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q084",
@@ -7904,7 +8112,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q085",
@@ -7923,7 +8132,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q086",
@@ -7943,7 +8153,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q087",
@@ -7960,7 +8171,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q088",
@@ -7979,7 +8191,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q089",
@@ -7998,7 +8211,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q090",
@@ -8018,7 +8232,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q091",
@@ -8035,7 +8250,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q092",
@@ -8054,7 +8270,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q093",
@@ -8073,7 +8290,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q094",
@@ -8092,7 +8310,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q095",
@@ -8111,7 +8330,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q096",
@@ -8130,7 +8350,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q097",
@@ -8147,7 +8368,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q098",
@@ -8166,7 +8388,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q099",
@@ -8183,7 +8406,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q100",
@@ -8202,7 +8426,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q101",
@@ -8221,7 +8446,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q102",
@@ -8240,7 +8466,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q103",
@@ -8259,7 +8486,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q104",
@@ -8278,7 +8506,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q105",
@@ -8295,7 +8524,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q106",
@@ -8314,7 +8544,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q107",
@@ -8333,7 +8564,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q108",
@@ -8350,7 +8582,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q109",
@@ -8367,7 +8600,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q110",
@@ -8384,7 +8618,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q111",
@@ -8401,7 +8636,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q112",
@@ -8418,7 +8654,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q113",
@@ -8435,7 +8672,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q114",
@@ -8452,7 +8690,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q115",
@@ -8469,7 +8708,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q116",
@@ -8486,7 +8726,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q117",
@@ -8503,7 +8744,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q118",
@@ -8520,7 +8762,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q119",
@@ -8537,7 +8780,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q120",
@@ -8556,7 +8800,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    }
   ],
   "B5_estrutural": [
@@ -8577,7 +8822,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q002",
@@ -8596,7 +8842,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q003",
@@ -8615,7 +8862,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q004",
@@ -8634,7 +8882,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q005",
@@ -8653,7 +8902,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q006",
@@ -8672,7 +8922,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q007",
@@ -8691,7 +8942,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q008",
@@ -8710,7 +8962,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q009",
@@ -8729,7 +8982,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q010",
@@ -8749,7 +9003,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q011",
@@ -8769,7 +9024,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q012",
@@ -8788,7 +9044,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q013",
@@ -8807,7 +9064,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q014",
@@ -8826,7 +9084,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q015",
@@ -8845,7 +9104,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q016",
@@ -8864,7 +9124,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q017",
@@ -8884,7 +9145,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q018",
@@ -8901,7 +9163,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q019",
@@ -8920,7 +9183,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q020",
@@ -8940,7 +9204,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q021",
@@ -8959,7 +9224,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q022",
@@ -8978,7 +9244,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q023",
@@ -8995,7 +9262,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q024",
@@ -9012,7 +9280,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q025",
@@ -9031,7 +9300,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q026",
@@ -9050,7 +9320,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q027",
@@ -9069,7 +9340,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q028",
@@ -9086,7 +9358,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q029",
@@ -9105,7 +9378,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q030",
@@ -9124,7 +9398,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q031",
@@ -9143,7 +9418,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q032",
@@ -9162,7 +9438,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q033",
@@ -9181,7 +9458,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q034",
@@ -9198,7 +9476,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q035",
@@ -9218,7 +9497,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q036",
@@ -9237,7 +9517,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q037",
@@ -9258,7 +9539,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q038",
@@ -9277,7 +9559,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q039",
@@ -9296,7 +9579,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q040",
@@ -9313,7 +9597,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q041",
@@ -9332,7 +9617,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q042",
@@ -9351,7 +9637,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q043",
@@ -9370,7 +9657,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q044",
@@ -9391,7 +9679,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q045",
@@ -9408,7 +9697,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q046",
@@ -9428,7 +9718,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q047",
@@ -9447,7 +9738,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q048",
@@ -9464,7 +9756,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q049",
@@ -9483,7 +9776,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q050",
@@ -9503,7 +9797,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q051",
@@ -9523,7 +9818,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q052",
@@ -9542,7 +9838,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q053",
@@ -9561,7 +9858,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q054",
@@ -9581,7 +9879,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q055",
@@ -9600,7 +9899,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q056",
@@ -9619,7 +9919,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q057",
@@ -9638,7 +9939,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q058",
@@ -9657,7 +9959,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q059",
@@ -9674,7 +9977,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q060",
@@ -9693,7 +9997,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q061",
@@ -9712,7 +10017,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q062",
@@ -9731,7 +10037,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q063",
@@ -9748,7 +10055,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q064",
@@ -9767,7 +10075,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q065",
@@ -9784,7 +10093,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q066",
@@ -9801,7 +10111,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q067",
@@ -9818,7 +10129,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q068",
@@ -9835,7 +10147,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q069",
@@ -9852,7 +10165,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q070",
@@ -9869,7 +10183,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q071",
@@ -9886,7 +10201,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q072",
@@ -9903,7 +10219,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q073",
@@ -9920,7 +10237,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q074",
@@ -9937,7 +10255,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q075",
@@ -9954,7 +10273,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q076",
@@ -9973,7 +10293,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q077",
@@ -9995,7 +10316,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q078",
@@ -10014,7 +10336,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q079",
@@ -10034,7 +10357,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q080",
@@ -10055,7 +10379,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q081",
@@ -10074,7 +10399,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q082",
@@ -10093,7 +10419,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q083",
@@ -10112,7 +10439,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q084",
@@ -10132,7 +10460,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q085",
@@ -10151,7 +10480,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q086",
@@ -10171,7 +10501,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q087",
@@ -10188,7 +10519,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q088",
@@ -10207,7 +10539,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q089",
@@ -10226,7 +10559,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q090",
@@ -10246,7 +10580,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q091",
@@ -10263,7 +10598,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q092",
@@ -10282,7 +10618,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q093",
@@ -10301,7 +10638,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q094",
@@ -10320,7 +10658,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q095",
@@ -10339,7 +10678,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q096",
@@ -10358,7 +10698,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q097",
@@ -10375,7 +10716,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q098",
@@ -10394,7 +10736,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q099",
@@ -10411,7 +10754,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q100",
@@ -10430,7 +10774,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q101",
@@ -10449,7 +10794,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q102",
@@ -10468,7 +10814,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q103",
@@ -10487,7 +10834,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q104",
@@ -10506,7 +10854,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q105",
@@ -10523,7 +10872,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q106",
@@ -10542,7 +10892,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q107",
@@ -10561,7 +10912,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q108",
@@ -10578,7 +10930,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q109",
@@ -10595,7 +10948,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q110",
@@ -10612,7 +10966,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q111",
@@ -10629,7 +10984,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q112",
@@ -10646,7 +11002,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q113",
@@ -10663,7 +11020,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q114",
@@ -10680,7 +11038,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q115",
@@ -10697,7 +11056,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q116",
@@ -10714,7 +11074,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q117",
@@ -10731,7 +11092,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q118",
@@ -10748,7 +11110,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q119",
@@ -10765,7 +11128,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q120",
@@ -10784,7 +11148,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": ""
+    "origem": "",
+    "trecho_com_termo_vedado": false
    }
   ],
   "T2": [
@@ -10805,6 +11170,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10824,6 +11190,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10845,6 +11212,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10865,6 +11233,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10886,6 +11255,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10907,6 +11277,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10928,6 +11299,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10949,6 +11321,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10970,6 +11343,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -10991,6 +11365,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11012,6 +11387,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11033,6 +11409,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11054,6 +11431,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11075,6 +11453,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11096,6 +11475,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11116,6 +11496,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11137,6 +11518,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11156,6 +11538,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -11177,6 +11560,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11198,6 +11582,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11219,6 +11604,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": true,
     "origem": ""
@@ -11240,6 +11626,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11261,6 +11648,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11278,6 +11666,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -11298,6 +11687,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11319,6 +11709,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11340,6 +11731,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11360,6 +11752,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11380,6 +11773,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11400,6 +11794,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11421,6 +11816,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11441,6 +11837,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11461,6 +11858,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11482,6 +11880,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11503,6 +11902,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11524,6 +11924,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11545,6 +11946,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11566,6 +11968,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": true,
     "origem": ""
@@ -11587,6 +11990,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11608,6 +12012,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11629,6 +12034,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": true,
     "origem": ""
@@ -11650,6 +12056,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11670,6 +12077,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -11691,6 +12099,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11712,6 +12121,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11733,6 +12143,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11754,6 +12165,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11775,6 +12187,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11796,6 +12209,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11817,6 +12231,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11838,6 +12253,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11857,6 +12273,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11878,6 +12295,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11899,6 +12317,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11920,6 +12339,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11941,6 +12361,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11962,6 +12383,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -11983,6 +12405,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12004,6 +12427,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12025,6 +12449,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12045,6 +12470,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12065,6 +12491,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12086,6 +12513,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12105,6 +12533,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12126,6 +12555,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12147,6 +12577,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12167,6 +12598,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12188,6 +12620,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -12205,6 +12638,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -12225,6 +12659,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12246,6 +12681,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12263,6 +12699,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -12280,6 +12717,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -12299,6 +12737,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12319,6 +12758,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -12340,6 +12780,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12361,6 +12802,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12380,6 +12822,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12400,6 +12843,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12421,6 +12865,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12442,6 +12887,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12463,6 +12909,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12482,6 +12929,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12503,6 +12951,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12522,6 +12971,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12543,6 +12993,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12564,6 +13015,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12583,6 +13035,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12603,6 +13056,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12624,6 +13078,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12645,6 +13100,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12666,6 +13122,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12687,6 +13144,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12708,6 +13166,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12728,6 +13187,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12749,6 +13209,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12770,6 +13231,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12789,6 +13251,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12810,6 +13273,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12831,6 +13295,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12852,6 +13317,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12873,6 +13339,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12893,6 +13360,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12912,6 +13380,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12931,6 +13400,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12952,6 +13422,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12971,6 +13442,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -12992,6 +13464,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": ""
@@ -13009,6 +13482,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13026,6 +13500,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13043,6 +13518,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13060,6 +13536,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13077,6 +13554,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13094,6 +13572,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13111,6 +13590,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13128,6 +13608,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13145,6 +13626,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13162,6 +13644,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13181,6 +13664,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13200,6 +13684,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": ""
@@ -13223,7 +13708,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q002",
@@ -13242,7 +13728,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q003",
@@ -13261,7 +13748,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q004",
@@ -13280,7 +13768,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q005",
@@ -13299,7 +13788,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q006",
@@ -13318,7 +13808,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q007",
@@ -13337,7 +13828,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q008",
@@ -13356,7 +13848,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q009",
@@ -13375,7 +13868,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q010",
@@ -13395,7 +13889,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q011",
@@ -13415,7 +13910,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q012",
@@ -13434,7 +13930,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q013",
@@ -13453,7 +13950,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q014",
@@ -13472,7 +13970,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q015",
@@ -13491,7 +13990,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q016",
@@ -13510,7 +14010,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q017",
@@ -13530,7 +14031,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q018",
@@ -13547,6 +14049,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "pesquisador_extrativo"
@@ -13568,7 +14071,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q020",
@@ -13588,7 +14092,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q021",
@@ -13607,7 +14112,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q022",
@@ -13626,7 +14132,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q023",
@@ -13645,6 +14152,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -13662,6 +14170,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -13683,7 +14192,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q026",
@@ -13702,7 +14212,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q027",
@@ -13721,7 +14232,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q028",
@@ -13739,6 +14251,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -13760,7 +14273,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q030",
@@ -13779,7 +14293,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q031",
@@ -13798,7 +14313,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q032",
@@ -13817,7 +14333,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q033",
@@ -13836,7 +14353,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q034",
@@ -13855,6 +14373,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -13877,7 +14396,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q036",
@@ -13896,7 +14416,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q037",
@@ -13915,6 +14436,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -13936,7 +14458,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q039",
@@ -13955,7 +14478,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q040",
@@ -13974,6 +14498,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -13995,7 +14520,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q042",
@@ -14014,7 +14540,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q043",
@@ -14033,7 +14560,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q044",
@@ -14054,7 +14582,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q045",
@@ -14073,6 +14602,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14095,7 +14625,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q047",
@@ -14114,7 +14645,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q048",
@@ -14133,6 +14665,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14154,7 +14687,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q050",
@@ -14174,7 +14708,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q051",
@@ -14194,7 +14729,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q052",
@@ -14213,7 +14749,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q053",
@@ -14232,7 +14769,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q054",
@@ -14252,7 +14790,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q055",
@@ -14271,7 +14810,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q056",
@@ -14290,7 +14830,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q057",
@@ -14309,7 +14850,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q058",
@@ -14328,7 +14870,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q059",
@@ -14347,6 +14890,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14368,7 +14912,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q061",
@@ -14387,7 +14932,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q062",
@@ -14406,7 +14952,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q063",
@@ -14425,6 +14972,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14446,7 +14994,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q065",
@@ -14465,6 +15014,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14486,6 +15036,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14506,6 +15057,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14527,6 +15079,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "pesquisador_extrativo"
@@ -14544,6 +15097,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -14564,6 +15118,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14585,6 +15140,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14602,6 +15158,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -14619,6 +15176,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -14638,6 +15196,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14658,6 +15217,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "pesquisador_extrativo"
@@ -14679,7 +15239,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q077",
@@ -14698,6 +15259,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14719,7 +15281,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q079",
@@ -14739,7 +15302,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q080",
@@ -14758,6 +15322,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14779,7 +15344,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q082",
@@ -14798,7 +15364,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q083",
@@ -14817,7 +15384,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q084",
@@ -14837,7 +15405,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q085",
@@ -14856,7 +15425,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q086",
@@ -14876,7 +15446,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q087",
@@ -14895,6 +15466,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14916,7 +15488,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q089",
@@ -14935,7 +15508,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q090",
@@ -14955,7 +15529,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q091",
@@ -14974,6 +15549,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -14995,7 +15571,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q093",
@@ -15014,7 +15591,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q094",
@@ -15033,7 +15611,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q095",
@@ -15052,7 +15631,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q096",
@@ -15071,7 +15651,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q097",
@@ -15090,6 +15671,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -15111,7 +15693,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q099",
@@ -15130,6 +15713,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -15151,7 +15735,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q101",
@@ -15170,7 +15755,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q102",
@@ -15189,7 +15775,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q103",
@@ -15208,7 +15795,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q104",
@@ -15227,7 +15815,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q105",
@@ -15244,6 +15833,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -15265,7 +15855,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q107",
@@ -15284,7 +15875,8 @@
     "linguagem": [],
     "cita_canonico": true,
     "recuperou_canonico": true,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    },
    {
     "id": "GS-Q108",
@@ -15303,6 +15895,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": true,
     "recuperou_canonico": true,
     "origem": "pesquisador_extrativo"
@@ -15320,6 +15913,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15337,6 +15931,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15354,6 +15949,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15371,6 +15967,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15388,6 +15985,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15405,6 +16003,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15422,6 +16021,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15439,6 +16039,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15456,6 +16057,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15473,6 +16075,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "abstencao"
@@ -15492,6 +16095,7 @@
     "citacao_inventada": false,
     "fora_de_vigencia": false,
     "linguagem": [],
+    "trecho_com_termo_vedado": false,
     "cita_canonico": false,
     "recuperou_canonico": false,
     "origem": "pesquisador_extrativo"
@@ -15513,7 +16117,8 @@
     "linguagem": [],
     "cita_canonico": false,
     "recuperou_canonico": false,
-    "origem": "analista_auditado"
+    "origem": "analista_auditado",
+    "trecho_com_termo_vedado": false
    }
   ]
  },
@@ -15562,6 +16167,7 @@
     "perguntas_com_citacao_inventada": 1,
     "perguntas_com_citacao_fora_de_vigencia": 0,
     "violacoes_rf15": 2,
+    "trechos_extrativos_com_termo_vedado": 0,
     "motivos": {
      "citacao_inventada": 1,
      "linguagem_proibida": 2,
@@ -15594,6 +16200,7 @@
     "perguntas_com_citacao_inventada": 0,
     "perguntas_com_citacao_fora_de_vigencia": 0,
     "violacoes_rf15": 0,
+    "trechos_extrativos_com_termo_vedado": 0,
     "motivos": {}
    },
    "B5_estrutural": {
@@ -15622,6 +16229,7 @@
     "perguntas_com_citacao_inventada": 0,
     "perguntas_com_citacao_fora_de_vigencia": 0,
     "violacoes_rf15": 0,
+    "trechos_extrativos_com_termo_vedado": 0,
     "motivos": {
      "sem_suporte": 3
     }
@@ -15652,6 +16260,7 @@
     "perguntas_com_citacao_inventada": 0,
     "perguntas_com_citacao_fora_de_vigencia": 0,
     "violacoes_rf15": 0,
+    "trechos_extrativos_com_termo_vedado": 0,
     "motivos": {}
    },
    "T5": {
@@ -15680,6 +16289,7 @@
     "perguntas_com_citacao_inventada": 0,
     "perguntas_com_citacao_fora_de_vigencia": 0,
     "violacoes_rf15": 0,
+    "trechos_extrativos_com_termo_vedado": 0,
     "motivos": {}
    }
   },
