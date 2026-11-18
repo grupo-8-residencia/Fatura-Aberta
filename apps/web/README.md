@@ -8,4 +8,4 @@ npm install
 npm run dev
 ```
 
-As versões estão fixas em `package.json` (sem `latest`) e o `package-lock.json` está versionado; use `npm ci` para instalações reproduzíveis. O CI exige `npm audit --audit-level=high` sem achados.
+As versões estão fixas em `package.json` (sem `latest`) e o `package-lock.json` está versionado; use `npm ci` para instalações reproduzíveis. O CI exige `npm audit --omit=dev --audit-level=high` sem achados. Exceção documentada: o `picomatch` (GHSA-fc5q-39xc-vjpf) não tem versão corrigida e só entra pelo ferramental de lint; o audit completo roda como aviso até sair a correção (#159).
