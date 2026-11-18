@@ -34,7 +34,7 @@
         "ic95_inf": 0.0,
         "ic95_sup": 0.0
       },
-      "violacoes_de_vigencia": 28,
+      "violacoes_de_vigencia": 32,
       "itens_com_violacao": 12
     },
     "B3": {
@@ -90,7 +90,7 @@
           "ren1000-art-177",
           "ren1000-art-358",
           "ren1000-art-290::p3",
-          "ren1000-art-327::caput",
+          "reh3614-tab2-b1",
           "ren1000-art-337"
         ]
       },
@@ -103,7 +103,7 @@
           "ren1000-art-177",
           "ren1000-art-358",
           "ren1000-art-290::p3",
-          "ren1000-art-327::caput",
+          "reh3614-tab2-b1",
           "ren1000-art-337"
         ]
       }
@@ -118,10 +118,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-177",
+          "reh3614-tab2-b1",
           "ren1000-art-290::p3",
           "ren1000-art-358",
-          "ren1000-art-327::caput",
-          "ren1000-art-307::caput"
+          "ren1000-art-327::caput"
         ]
       },
       "B3": {
@@ -131,10 +131,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-177",
+          "reh3614-tab2-b1",
           "ren1000-art-290::p3",
           "ren1000-art-358",
-          "ren1000-art-327::caput",
-          "ren1000-art-307::caput"
+          "ren1000-art-327::caput"
         ]
       }
     },
@@ -150,8 +150,8 @@
           "ren1000-art-177",
           "ren1000-art-358",
           "ren1000-art-290::p3",
-          "cdc-art-6::inc-vi",
-          "df7888-art-4"
+          "reh3614-tab2-b1",
+          "cdc-art-6::inc-vi"
         ]
       },
       "B3": {
@@ -163,8 +163,8 @@
           "ren1000-art-177",
           "ren1000-art-358",
           "ren1000-art-290::p3",
-          "cdc-art-6::inc-vi",
-          "df7888-art-4"
+          "reh3614-tab2-b1",
+          "cdc-art-6::inc-vi"
         ]
       }
     },
@@ -178,10 +178,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-177",
+          "reh3614-tab2-b1",
           "ren1000-art-327::p2",
           "ren1000-art-290::p3",
-          "ren1000-art-358",
-          "ren1000-art-337"
+          "ren1000-art-358"
         ]
       },
       "B3": {
@@ -191,10 +191,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-177",
+          "reh3614-tab2-b1",
           "ren1000-art-327::p2",
           "ren1000-art-290::p3",
-          "ren1000-art-358",
-          "ren1000-art-337"
+          "ren1000-art-358"
         ]
       }
     },
@@ -210,8 +210,8 @@
           "ren1000-art-290::p4",
           "ren1000-art-322",
           "ren1000-art-260::p2",
-          "ren1000-art-323::p2",
-          "ren1000-art-343::caput"
+          "ren956-mod8-s82-219-227",
+          "ren1000-art-323::p2"
         ]
       },
       "B3": {
@@ -223,8 +223,8 @@
           "ren1000-art-290::p4",
           "ren1000-art-322",
           "ren1000-art-260::p2",
-          "ren1000-art-323::p2",
-          "ren1000-art-343::caput"
+          "ren956-mod8-s82-219-227",
+          "ren1000-art-323::p2"
         ]
       }
     },
@@ -241,7 +241,7 @@
           "ren1000-art-360::caput",
           "ren1000-art-322",
           "ren1000-art-285",
-          "df7888-art-4"
+          "ren956-mod8-s82-234-235"
         ]
       },
       "B3": {
@@ -254,7 +254,7 @@
           "ren1000-art-360::caput",
           "ren1000-art-322",
           "ren1000-art-285",
-          "df7888-art-4"
+          "ren956-mod8-s82-234-235"
         ]
       }
     },
@@ -300,8 +300,8 @@
           "ren1000-art-290::p3",
           "ren1000-art-358",
           "ren1000-art-177",
-          "ren1000-art-322",
-          "ren1000-art-285"
+          "reh3614-tab2-b1",
+          "ren1000-art-322"
         ]
       },
       "B3": {
@@ -313,8 +313,8 @@
           "ren1000-art-290::p3",
           "ren1000-art-358",
           "ren1000-art-177",
-          "ren1000-art-322",
-          "ren1000-art-285"
+          "reh3614-tab2-b1",
+          "ren1000-art-322"
         ]
       }
     },
@@ -329,9 +329,9 @@
         "top5": [
           "ren1000-art-290::p4",
           "ren1000-art-327::p2",
-          "ren1000-art-322",
-          "df7888-art-4",
-          "ren1000-art-360::caput"
+          "reh3614-tab2-b1",
+          "reh3614-art-11::pu",
+          "ren1000-art-322"
         ]
       },
       "B3": {
@@ -342,9 +342,9 @@
         "top5": [
           "ren1000-art-290::p4",
           "ren1000-art-327::p2",
-          "ren1000-art-322",
-          "df7888-art-4",
-          "ren1000-art-360::caput"
+          "reh3614-tab2-b1",
+          "reh3614-art-11::pu",
+          "ren1000-art-322"
         ]
       }
     },
@@ -359,9 +359,9 @@
         "top5": [
           "ren1000-art-327::p2",
           "ren1000-art-307::p1",
+          "reh3614-art-5::p3",
           "ren1000-art-290::p3",
-          "ren1000-art-289",
-          "ren1000-art-177"
+          "reh3614-art-3::p3"
         ]
       },
       "B3": {
@@ -372,9 +372,9 @@
         "top5": [
           "ren1000-art-327::p2",
           "ren1000-art-307::p1",
+          "reh3614-art-5::p3",
           "ren1000-art-290::p3",
-          "ren1000-art-289",
-          "ren1000-art-177"
+          "reh3614-art-3::p3"
         ]
       }
     },
@@ -391,7 +391,7 @@
           "ren1000-art-260::p2",
           "ren1000-art-177",
           "df7888-art-4",
-          "ren1000-art-360::caput"
+          "ren956-mod8-s82-234-235"
         ]
       },
       "B3": {
@@ -404,7 +404,7 @@
           "ren1000-art-260::p2",
           "ren1000-art-177",
           "df7888-art-4",
-          "ren1000-art-360::caput"
+          "ren956-mod8-s82-234-235"
         ]
       }
     },
@@ -418,10 +418,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::p2",
+          "reh3614-art-11::pu",
           "ren1000-art-290::p4",
-          "ren1000-art-307::p1",
-          "ren1000-art-177",
-          "ren1000-art-323::caput"
+          "reh3614-tab2-b1",
+          "ren1000-art-307::p1"
         ]
       },
       "B3": {
@@ -431,10 +431,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::p2",
+          "reh3614-art-11::pu",
           "ren1000-art-290::p4",
-          "ren1000-art-307::p1",
-          "ren1000-art-177",
-          "ren1000-art-323::caput"
+          "reh3614-tab2-b1",
+          "ren1000-art-307::p1"
         ]
       }
     },
@@ -450,8 +450,8 @@
           "ren1000-art-327::caput",
           "ren1000-art-360::caput",
           "df7888-art-4",
-          "ren1000-art-260::p2",
-          "ren1000-art-324::p4"
+          "ren956-mod8-s82-234-235",
+          "ren1000-art-260::p2"
         ]
       },
       "B3": {
@@ -463,8 +463,8 @@
           "ren1000-art-327::caput",
           "ren1000-art-360::caput",
           "df7888-art-4",
-          "ren1000-art-260::p2",
-          "ren1000-art-324::p4"
+          "ren956-mod8-s82-234-235",
+          "ren1000-art-260::p2"
         ]
       }
     },
@@ -478,10 +478,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::p2",
+          "reh3614-art-5::p1",
           "ren1000-art-307::p1",
-          "ren1000-art-177",
-          "ren1000-art-323::caput",
-          "ren1000-art-324::caput"
+          "reh3614-art-3::p3",
+          "ren1000-art-177"
         ]
       },
       "B3": {
@@ -491,10 +491,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::p2",
+          "reh3614-art-5::p1",
           "ren1000-art-307::p1",
-          "ren1000-art-177",
-          "ren1000-art-323::caput",
-          "ren1000-art-324::caput"
+          "reh3614-art-3::p3",
+          "ren1000-art-177"
         ]
       }
     },
@@ -540,8 +540,8 @@
           "ren1000-art-327::caput",
           "ren1000-art-177",
           "ren1000-art-323::caput",
-          "ren1000-art-289",
-          "ren1000-art-324::caput"
+          "reh3614-tab5-servicos",
+          "ren1000-art-289"
         ]
       },
       "B3": {
@@ -553,8 +553,8 @@
           "ren1000-art-327::caput",
           "ren1000-art-177",
           "ren1000-art-323::caput",
-          "ren1000-art-289",
-          "ren1000-art-324::caput"
+          "reh3614-tab5-servicos",
+          "ren1000-art-289"
         ]
       }
     },
@@ -569,9 +569,9 @@
         "top5": [
           "ren1000-art-307::p1",
           "ren1000-art-327::p2",
-          "ren1000-art-290::p3",
-          "ren1000-art-289",
-          "ren1000-art-343::p3"
+          "reh3614-art-5::p3",
+          "reh3614-art-3::p3",
+          "ren1000-art-290::p3"
         ]
       },
       "B3": {
@@ -582,9 +582,9 @@
         "top5": [
           "ren1000-art-307::p1",
           "ren1000-art-327::p2",
-          "ren1000-art-290::p3",
-          "ren1000-art-289",
-          "ren1000-art-343::p3"
+          "reh3614-art-5::p3",
+          "reh3614-art-3::p3",
+          "ren1000-art-290::p3"
         ]
       }
     },
@@ -598,10 +598,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p3",
           "ren1000-art-307::p1",
-          "ren1000-art-324::p2",
-          "ren1000-art-323::caput",
-          "ren1000-art-177"
+          "reh3614-art-3::p3",
+          "ren1000-art-324::p2"
         ]
       },
       "B3": {
@@ -611,10 +611,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p3",
           "ren1000-art-307::p1",
-          "ren1000-art-324::p2",
-          "ren1000-art-323::caput",
-          "ren1000-art-177"
+          "reh3614-art-3::p3",
+          "ren1000-art-324::p2"
         ]
       }
     },
@@ -628,10 +628,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::p3",
+          "reh3614-art-5::p3",
+          "reh3614-art-3::p3",
           "ren1000-art-327::p2",
-          "ren1000-art-290::p1",
-          "df7888-art-4",
-          "ren1000-art-177"
+          "ren1000-art-290::p1"
         ]
       },
       "B3": {
@@ -641,10 +641,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::p3",
+          "reh3614-art-5::p3",
+          "reh3614-art-3::p3",
           "ren1000-art-327::p2",
-          "ren1000-art-290::p1",
-          "df7888-art-4",
-          "ren1000-art-177"
+          "ren1000-art-290::p1"
         ]
       }
     },
@@ -659,9 +659,9 @@
         "top5": [
           "ren1000-art-307::caput",
           "ren1000-art-327::caput",
-          "ren1000-art-285",
-          "ren1000-art-360::caput",
-          "cdc-art-42"
+          "reh3614-art-3::p3",
+          "reh3614-art-5::p2",
+          "ren1000-art-285"
         ]
       },
       "B3": {
@@ -672,9 +672,9 @@
         "top5": [
           "ren1000-art-307::caput",
           "ren1000-art-327::caput",
-          "ren1000-art-285",
-          "ren1000-art-360::caput",
-          "cdc-art-42"
+          "reh3614-art-3::p3",
+          "reh3614-art-5::p2",
+          "ren1000-art-285"
         ]
       }
     },
@@ -688,10 +688,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p2",
           "ren1000-art-307::caput",
-          "ren1000-art-290::p4",
-          "ren1000-art-177",
-          "ren1000-art-358"
+          "reh3614-art-3::p3",
+          "reh3614-tab2-b1"
         ]
       },
       "B3": {
@@ -701,10 +701,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p2",
           "ren1000-art-307::caput",
-          "ren1000-art-290::p4",
-          "ren1000-art-177",
-          "ren1000-art-358"
+          "reh3614-art-3::p3",
+          "reh3614-tab2-b1"
         ]
       }
     },
@@ -718,10 +718,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p1",
+          "reh3614-art-3::p3",
           "ren1000-art-307::p1",
-          "ren1000-art-360::p2",
-          "ren1000-art-356::p2",
-          "ren1000-art-323::caput"
+          "ren1000-art-360::p2"
         ]
       },
       "B3": {
@@ -731,10 +731,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p1",
+          "reh3614-art-3::p3",
           "ren1000-art-307::p1",
-          "ren1000-art-360::p2",
-          "ren1000-art-356::p2",
-          "ren1000-art-323::caput"
+          "ren1000-art-360::p2"
         ]
       }
     },
@@ -748,10 +748,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::p3",
+          "reh3614-art-3::p3",
           "ren1000-art-327::p2",
-          "ren1000-art-290::p3",
-          "ren1000-art-177",
-          "ren1000-art-358"
+          "reh3614-art-5::p3",
+          "reh3614-tab2-b1"
         ]
       },
       "B3": {
@@ -761,10 +761,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::p3",
+          "reh3614-art-3::p3",
           "ren1000-art-327::p2",
-          "ren1000-art-290::p3",
-          "ren1000-art-177",
-          "ren1000-art-358"
+          "reh3614-art-5::p3",
+          "reh3614-tab2-b1"
         ]
       }
     },
@@ -778,10 +778,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::caput",
+          "reh3614-art-5::p1",
+          "reh3614-art-3::p3",
           "ren1000-art-327::caput",
-          "ren1000-art-323::p2",
-          "ren1000-art-343::caput",
-          "ren1000-art-281::pu"
+          "ren1000-art-323::p2"
         ]
       },
       "B3": {
@@ -791,10 +791,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::caput",
+          "reh3614-art-5::p1",
+          "reh3614-art-3::p3",
           "ren1000-art-327::caput",
-          "ren1000-art-323::p2",
-          "ren1000-art-343::caput",
-          "ren1000-art-281::pu"
+          "ren1000-art-323::p2"
         ]
       }
     },
@@ -808,10 +808,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::p1",
+          "reh3614-art-5::p3",
           "ren1000-art-327::caput",
-          "ren1000-art-177",
-          "cdc-art-6::inc-viii",
-          "ren1000-art-323::caput"
+          "reh3614-art-3::p3",
+          "ren1000-art-177"
         ]
       },
       "B3": {
@@ -821,10 +821,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-307::p1",
+          "reh3614-art-5::p3",
           "ren1000-art-327::caput",
-          "ren1000-art-177",
-          "cdc-art-6::inc-viii",
-          "ren1000-art-323::caput"
+          "reh3614-art-3::p3",
+          "ren1000-art-177"
         ]
       }
     },
@@ -839,9 +839,9 @@
         "top5": [
           "ren1000-art-260::caput",
           "ren1000-art-285",
+          "reh3614-tab5-servicos",
           "ren1000-art-323::caput",
-          "ren1000-art-324::caput",
-          "ren1000-art-290::caput"
+          "ren1000-art-324::caput"
         ]
       },
       "B3": {
@@ -852,9 +852,9 @@
         "top5": [
           "ren1000-art-260::caput",
           "ren1000-art-285",
+          "reh3614-tab5-servicos",
           "ren1000-art-323::caput",
-          "ren1000-art-324::caput",
-          "ren1000-art-290::caput"
+          "ren1000-art-324::caput"
         ]
       }
     },
@@ -869,9 +869,9 @@
         "top5": [
           "ren1000-art-260::p1",
           "ren1000-art-285",
+          "reh3614-tab2-b1",
           "ren1000-art-360::caput",
-          "ren1000-art-358",
-          "ren1000-art-289"
+          "ren1000-art-358"
         ]
       },
       "B3": {
@@ -882,9 +882,9 @@
         "top5": [
           "ren1000-art-260::p1",
           "ren1000-art-285",
+          "reh3614-tab2-b1",
           "ren1000-art-360::caput",
-          "ren1000-art-358",
-          "ren1000-art-289"
+          "ren1000-art-358"
         ]
       }
     },
@@ -960,8 +960,8 @@
           "ren1000-art-285",
           "ren1000-art-260::caput",
           "ren1000-art-360::caput",
-          "ren1000-art-324::p2",
-          "ren1000-art-289"
+          "reh3614-tab5-servicos",
+          "ren1000-art-324::p2"
         ]
       },
       "B3": {
@@ -973,8 +973,8 @@
           "ren1000-art-285",
           "ren1000-art-260::caput",
           "ren1000-art-360::caput",
-          "ren1000-art-324::p2",
-          "ren1000-art-289"
+          "reh3614-tab5-servicos",
+          "ren1000-art-324::p2"
         ]
       }
     },
@@ -989,8 +989,8 @@
         "top5": [
           "ren1000-art-323::caput",
           "ren1000-art-289",
-          "df7888-art-4",
           "ren1000-art-260::caput",
+          "df7888-art-4",
           "ren1000-art-324::caput"
         ]
       },
@@ -1002,8 +1002,8 @@
         "top5": [
           "ren1000-art-323::caput",
           "ren1000-art-289",
-          "df7888-art-4",
           "ren1000-art-260::caput",
+          "df7888-art-4",
           "ren1000-art-324::caput"
         ]
       }
@@ -1019,9 +1019,9 @@
         "top5": [
           "ren1000-art-289",
           "ren1000-art-324::p2",
-          "df7888-art-4",
           "ren1000-art-360::caput",
-          "ren1000-art-357::pu"
+          "df7888-art-4",
+          "ren956-mod8-s82-234-235"
         ]
       },
       "B3": {
@@ -1032,9 +1032,9 @@
         "top5": [
           "ren1000-art-289",
           "ren1000-art-324::p2",
-          "df7888-art-4",
           "ren1000-art-360::caput",
-          "ren1000-art-357::pu"
+          "df7888-art-4",
+          "ren956-mod8-s82-234-235"
         ]
       }
     },
@@ -1110,8 +1110,8 @@
           "ren1000-art-323::caput",
           "ren1000-art-324::p2",
           "ren1000-art-289",
-          "ren1000-art-347",
-          "ren1000-art-281::pu"
+          "ren1000-art-281::pu",
+          "ren1000-art-347"
         ]
       },
       "B3": {
@@ -1123,8 +1123,8 @@
           "ren1000-art-323::caput",
           "ren1000-art-324::p2",
           "ren1000-art-289",
-          "ren1000-art-347",
-          "ren1000-art-281::pu"
+          "ren1000-art-281::pu",
+          "ren1000-art-347"
         ]
       }
     },
@@ -1197,11 +1197,11 @@
         "abstencao": false,
         "violacoes_vigencia": 0,
         "top5": [
+          "ren956-mod8-s82-170-173",
           "ren1000-art-323::p3",
           "ren1000-art-281::caput",
           "ren1000-art-338::caput",
-          "ren1000-art-324::caput",
-          "ren1000-art-289"
+          "ren1000-art-324::caput"
         ]
       },
       "B3": {
@@ -1210,11 +1210,11 @@
         "abstencao": false,
         "violacoes_vigencia": 0,
         "top5": [
+          "ren956-mod8-s82-170-173",
           "ren1000-art-323::p3",
           "ren1000-art-281::caput",
           "ren1000-art-338::caput",
-          "ren1000-art-324::caput",
-          "ren1000-art-289"
+          "ren1000-art-324::caput"
         ]
       }
     },
@@ -1229,9 +1229,9 @@
         "top5": [
           "ren1000-art-356::p2",
           "ren1000-art-322",
-          "ren1000-art-360::p3",
           "ren1000-art-361",
-          "ren1000-art-358"
+          "ren1000-art-360::p3",
+          "ren1000-art-357::caput"
         ]
       },
       "B3": {
@@ -1242,9 +1242,9 @@
         "top5": [
           "ren1000-art-356::p2",
           "ren1000-art-322",
-          "ren1000-art-360::p3",
           "ren1000-art-361",
-          "ren1000-art-358"
+          "ren1000-art-360::p3",
+          "ren1000-art-357::caput"
         ]
       }
     },
@@ -1290,8 +1290,8 @@
           "ren1000-art-323::p2",
           "df7888-art-4",
           "ren1000-art-324::p2",
-          "cdc-art-42",
-          "ren1000-art-327::caput"
+          "ren1000-art-327::caput",
+          "cdc-art-42"
         ]
       },
       "B3": {
@@ -1303,8 +1303,8 @@
           "ren1000-art-323::p2",
           "df7888-art-4",
           "ren1000-art-324::p2",
-          "cdc-art-42",
-          "ren1000-art-327::caput"
+          "ren1000-art-327::caput",
+          "cdc-art-42"
         ]
       }
     },
@@ -1441,7 +1441,7 @@
           "ren1000-art-342::p2",
           "ren1000-art-324::caput",
           "cdc-art-42-pu",
-          "df7888-art-4"
+          "ren956-mod8-s82-219-227"
         ]
       },
       "B3": {
@@ -1454,7 +1454,7 @@
           "ren1000-art-342::p2",
           "ren1000-art-324::caput",
           "cdc-art-42-pu",
-          "df7888-art-4"
+          "ren956-mod8-s82-219-227"
         ]
       }
     },
@@ -1619,9 +1619,9 @@
         "top5": [
           "ren1000-art-324::p3",
           "ren1000-art-323::p3",
+          "reh3614-tab5-servicos",
           "ren1000-art-342::p2",
-          "ren1000-art-327::caput",
-          "cdc-art-42-pu"
+          "ren1000-art-327::caput"
         ]
       },
       "B3": {
@@ -1632,9 +1632,9 @@
         "top5": [
           "ren1000-art-324::p3",
           "ren1000-art-323::p3",
+          "reh3614-tab5-servicos",
           "ren1000-art-342::p2",
-          "ren1000-art-327::caput",
-          "cdc-art-42-pu"
+          "ren1000-art-327::caput"
         ]
       }
     },
@@ -1651,7 +1651,7 @@
           "ren1000-art-323::p2",
           "ren1000-art-342::p4",
           "ren1000-art-327::caput",
-          "ren1000-art-289"
+          "ren1000-art-285"
         ]
       },
       "B3": {
@@ -1664,7 +1664,7 @@
           "ren1000-art-323::p2",
           "ren1000-art-342::p4",
           "ren1000-art-327::caput",
-          "ren1000-art-289"
+          "ren1000-art-285"
         ]
       }
     },
@@ -1708,10 +1708,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-342::p2",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-290::p1",
           "ren1000-art-323::caput",
-          "ren1000-art-281::pu",
-          "ren1000-art-324::caput"
+          "ren1000-art-281::pu"
         ]
       },
       "B3": {
@@ -1721,10 +1721,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-342::p2",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-290::p1",
           "ren1000-art-323::caput",
-          "ren1000-art-281::pu",
-          "ren1000-art-324::caput"
+          "ren1000-art-281::pu"
         ]
       }
     },
@@ -1921,7 +1921,7 @@
           "ren1000-art-338::p2",
           "ren1000-art-360::p3",
           "ren1000-art-356::caput",
-          "ren1000-art-327::caput"
+          "ren956-mod8-s82-170-173"
         ]
       },
       "B3": {
@@ -1934,7 +1934,7 @@
           "ren1000-art-338::p2",
           "ren1000-art-360::p3",
           "ren1000-art-356::caput",
-          "ren1000-art-327::caput"
+          "ren956-mod8-s82-170-173"
         ]
       }
     },
@@ -1980,8 +1980,8 @@
           "cdc-art-42",
           "ren1000-art-323::caput",
           "ren1000-art-324::caput",
-          "ren1000-art-342::p4",
-          "ren1000-art-360::caput"
+          "ren1000-art-360::caput",
+          "ren1000-art-342::p4"
         ]
       },
       "B3": {
@@ -1993,8 +1993,8 @@
           "cdc-art-42",
           "ren1000-art-323::caput",
           "ren1000-art-324::caput",
-          "ren1000-art-342::p4",
-          "ren1000-art-360::caput"
+          "ren1000-art-360::caput",
+          "ren1000-art-342::p4"
         ]
       }
     },
@@ -2071,7 +2071,7 @@
           "ren1000-art-356::caput",
           "df7888-art-4",
           "ren1000-art-342::p2",
-          "ren1000-art-324::p2"
+          "ren956-mod8-s82-178-179"
         ]
       },
       "B3": {
@@ -2084,7 +2084,7 @@
           "ren1000-art-356::caput",
           "df7888-art-4",
           "ren1000-art-342::p2",
-          "ren1000-art-324::p2"
+          "ren956-mod8-s82-178-179"
         ]
       }
     },
@@ -2251,7 +2251,7 @@
           "df7888-art-4",
           "ren1000-art-290::p4",
           "ren1000-art-323::p2",
-          "df7888-art-2-iii::inc-iii"
+          "ren956-mod8-s82-219-227"
         ]
       },
       "B3": {
@@ -2264,7 +2264,7 @@
           "df7888-art-4",
           "ren1000-art-290::p4",
           "ren1000-art-323::p2",
-          "df7888-art-2-iii::inc-iii"
+          "ren956-mod8-s82-219-227"
         ]
       }
     },
@@ -2400,8 +2400,8 @@
           "ren1000-art-343::p3",
           "ren1000-art-327::caput",
           "ren1000-art-338::p2",
-          "ren1000-art-342::p4",
-          "ren1000-art-323::caput"
+          "reh3614-tab5-servicos",
+          "reh3614-tab2-b1"
         ]
       },
       "B3": {
@@ -2413,8 +2413,8 @@
           "ren1000-art-343::p3",
           "ren1000-art-327::caput",
           "ren1000-art-338::p2",
-          "ren1000-art-342::p4",
-          "ren1000-art-323::caput"
+          "reh3614-tab5-servicos",
+          "reh3614-tab2-b1"
         ]
       }
     },
@@ -2431,7 +2431,7 @@
           "ren1000-art-323::p2",
           "ren1000-art-281::pu",
           "cdc-art-42-pu",
-          "ren1000-art-338::caput"
+          "ren956-mod8-s82-170-173"
         ]
       },
       "B3": {
@@ -2444,7 +2444,7 @@
           "ren1000-art-323::p2",
           "ren1000-art-281::pu",
           "cdc-art-42-pu",
-          "ren1000-art-338::caput"
+          "ren956-mod8-s82-170-173"
         ]
       }
     },
@@ -2460,8 +2460,8 @@
           "ren1000-art-343::p1",
           "ren1000-art-356::caput",
           "ren1000-art-360::p3",
-          "ren1000-art-323::p3",
-          "cdc-art-42"
+          "ren956-mod8-s82-219-227",
+          "ren956-mod8-s82-234-235"
         ]
       },
       "B3": {
@@ -2473,8 +2473,8 @@
           "ren1000-art-343::p1",
           "ren1000-art-356::caput",
           "ren1000-art-360::p3",
-          "ren1000-art-323::p3",
-          "cdc-art-42"
+          "ren956-mod8-s82-219-227",
+          "ren956-mod8-s82-234-235"
         ]
       }
     },
@@ -2491,7 +2491,7 @@
           "ren1000-art-343::caput",
           "ren1000-art-323::p1",
           "ren1000-art-324::caput",
-          "ren1000-art-327::caput"
+          "reh3614-tab5-servicos"
         ]
       },
       "B3": {
@@ -2504,7 +2504,7 @@
           "ren1000-art-343::caput",
           "ren1000-art-323::p1",
           "ren1000-art-324::caput",
-          "ren1000-art-327::caput"
+          "reh3614-tab5-servicos"
         ]
       }
     },
@@ -2520,8 +2520,8 @@
           "ren1000-art-337",
           "ren1000-art-360::p1",
           "ren1000-art-358",
-          "ren1000-art-290::p3",
-          "ren1000-art-177"
+          "reh3614-tab2-b1",
+          "ren1000-art-290::p3"
         ]
       },
       "B3": {
@@ -2533,8 +2533,8 @@
           "ren1000-art-337",
           "ren1000-art-360::p1",
           "ren1000-art-358",
-          "ren1000-art-290::p3",
-          "ren1000-art-177"
+          "reh3614-tab2-b1",
+          "ren1000-art-290::p3"
         ]
       }
     },
@@ -2548,10 +2548,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-337",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-327::caput",
           "ren1000-art-357::caput",
-          "ren1000-art-338::p2",
-          "ren1000-art-360::p3"
+          "ren1000-art-338::p2"
         ]
       },
       "B3": {
@@ -2561,10 +2561,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-337",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-327::caput",
           "ren1000-art-357::caput",
-          "ren1000-art-338::p2",
-          "ren1000-art-360::p3"
+          "ren1000-art-338::p2"
         ]
       }
     },
@@ -2638,10 +2638,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-338::caput",
+          "ren956-mod8-s82-234-235",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-356::caput",
-          "ren1000-art-337",
-          "ren1000-art-327::caput",
-          "ren1000-art-323::p3"
+          "ren1000-art-337"
         ]
       },
       "B3": {
@@ -2651,10 +2651,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-338::caput",
+          "ren956-mod8-s82-234-235",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-356::caput",
-          "ren1000-art-337",
-          "ren1000-art-327::caput",
-          "ren1000-art-323::p3"
+          "ren1000-art-337"
         ]
       }
     },
@@ -2668,10 +2668,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-343::p1",
-          "ren1000-art-327::caput",
           "ren1000-art-323::caput",
-          "ren1000-art-357::pu",
-          "ren1000-art-324::caput"
+          "ren956-mod8-s82-219-227",
+          "ren1000-art-327::caput",
+          "reh3614-art-11::pu"
         ]
       },
       "B3": {
@@ -2681,10 +2681,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-343::p1",
-          "ren1000-art-327::caput",
           "ren1000-art-323::caput",
-          "ren1000-art-357::pu",
-          "ren1000-art-324::caput"
+          "ren956-mod8-s82-219-227",
+          "ren1000-art-327::caput",
+          "reh3614-art-11::pu"
         ]
       }
     },
@@ -2701,7 +2701,7 @@
           "ren1000-art-327::caput",
           "ren1000-art-342::p5",
           "ren1000-art-338::p1",
-          "ren1000-art-356::caput"
+          "ren956-mod8-s82-178-179"
         ]
       },
       "B3": {
@@ -2714,7 +2714,7 @@
           "ren1000-art-327::caput",
           "ren1000-art-342::p5",
           "ren1000-art-338::p1",
-          "ren1000-art-356::caput"
+          "ren956-mod8-s82-178-179"
         ]
       }
     },
@@ -2759,9 +2759,9 @@
         "top5": [
           "ren1000-art-343::caput",
           "ren1000-art-324::p1",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-323::p2",
-          "ren1000-art-342::p4",
-          "ren1000-art-347"
+          "ren1000-art-342::p4"
         ]
       },
       "B3": {
@@ -2772,9 +2772,9 @@
         "top5": [
           "ren1000-art-343::caput",
           "ren1000-art-324::p1",
+          "ren956-mod8-s82-219-227",
           "ren1000-art-323::p2",
-          "ren1000-art-342::p4",
-          "ren1000-art-347"
+          "ren1000-art-342::p4"
         ]
       }
     },
@@ -2821,7 +2821,7 @@
           "ren1000-art-356::p2",
           "ren1000-art-361",
           "ren1000-art-358",
-          "ren1000-art-260::p2"
+          "ren956-mod8-s82-178-179"
         ]
       },
       "B3": {
@@ -2834,7 +2834,7 @@
           "ren1000-art-356::p2",
           "ren1000-art-361",
           "ren1000-art-358",
-          "ren1000-art-260::p2"
+          "ren956-mod8-s82-178-179"
         ]
       }
     },
@@ -2879,9 +2879,9 @@
         "top5": [
           "ren1000-art-360::p3",
           "ren1000-art-356::caput",
+          "ren956-mod8-s82-234-235",
           "ren1000-art-323::p3",
-          "ren1000-art-357::caput",
-          "ren1000-art-324::p4"
+          "ren956-mod8-s82-178-179"
         ]
       },
       "B3": {
@@ -2892,9 +2892,9 @@
         "top5": [
           "ren1000-art-360::p3",
           "ren1000-art-356::caput",
+          "ren956-mod8-s82-234-235",
           "ren1000-art-323::p3",
-          "ren1000-art-357::caput",
-          "ren1000-art-324::p4"
+          "ren956-mod8-s82-178-179"
         ]
       }
     },
@@ -2908,10 +2908,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-360::p1",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-358",
           "ren1000-art-357::pu",
-          "ren1000-art-356::p2",
-          "ren1000-art-323::p2"
+          "ren1000-art-356::p2"
         ]
       },
       "B3": {
@@ -2921,10 +2921,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-360::p1",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-358",
           "ren1000-art-357::pu",
-          "ren1000-art-356::p2",
-          "ren1000-art-323::p2"
+          "ren1000-art-356::p2"
         ]
       }
     },
@@ -2940,8 +2940,8 @@
           "ren1000-art-360::caput",
           "ren1000-art-356::p2",
           "ren1000-art-361",
-          "df7888-art-4",
-          "ren1000-art-327::caput"
+          "ren956-mod8-s82-234-235",
+          "df7888-art-4"
         ]
       },
       "B3": {
@@ -2953,8 +2953,8 @@
           "ren1000-art-360::caput",
           "ren1000-art-356::p2",
           "ren1000-art-361",
-          "df7888-art-4",
-          "ren1000-art-327::caput"
+          "ren956-mod8-s82-234-235",
+          "df7888-art-4"
         ]
       }
     },
@@ -2968,10 +2968,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-361",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-360::caput",
           "ren1000-art-322",
-          "ren1000-art-356::caput",
-          "ren1000-art-323::p1"
+          "ren956-mod8-s82-170-173"
         ]
       },
       "B3": {
@@ -2981,10 +2981,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-361",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-360::caput",
           "ren1000-art-322",
-          "ren1000-art-356::caput",
-          "ren1000-art-323::p1"
+          "ren956-mod8-s82-170-173"
         ]
       }
     },
@@ -3030,8 +3030,8 @@
           "ren1000-art-360::p2",
           "ren1000-art-361",
           "ren1000-art-356::p2",
-          "ren1000-art-323::p3",
-          "ren1000-art-358"
+          "ren956-mod8-s82-178-179",
+          "ren1000-art-323::p3"
         ]
       },
       "B3": {
@@ -3043,8 +3043,8 @@
           "ren1000-art-360::p2",
           "ren1000-art-361",
           "ren1000-art-356::p2",
-          "ren1000-art-323::p3",
-          "ren1000-art-358"
+          "ren956-mod8-s82-178-179",
+          "ren1000-art-323::p3"
         ]
       }
     },
@@ -3059,9 +3059,9 @@
         "top5": [
           "ren1000-art-356::caput",
           "ren1000-art-360::p1",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-358",
-          "ren1000-art-323::caput",
-          "ren1000-art-322"
+          "ren956-mod8-s82-219-227"
         ]
       },
       "B3": {
@@ -3072,9 +3072,9 @@
         "top5": [
           "ren1000-art-356::caput",
           "ren1000-art-360::p1",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-358",
-          "ren1000-art-323::caput",
-          "ren1000-art-322"
+          "ren956-mod8-s82-219-227"
         ]
       }
     },
@@ -3089,9 +3089,9 @@
         "top5": [
           "ren1000-art-360::p2",
           "ren1000-art-356::p2",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-357::caput",
-          "ren1000-art-361",
-          "ren1000-art-322"
+          "ren1000-art-361"
         ]
       },
       "B3": {
@@ -3102,9 +3102,9 @@
         "top5": [
           "ren1000-art-360::p2",
           "ren1000-art-356::p2",
+          "ren956-mod8-s82-178-179",
           "ren1000-art-357::caput",
-          "ren1000-art-361",
-          "ren1000-art-322"
+          "ren1000-art-361"
         ]
       }
     },
@@ -3178,10 +3178,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-358",
-          "ren1000-art-177",
           "ren1000-art-361",
-          "ren1000-art-290::p3",
-          "ren1000-art-357::pu"
+          "ren1000-art-177",
+          "ren1000-art-357::pu",
+          "ren1000-art-356::p2"
         ]
       },
       "B3": {
@@ -3191,10 +3191,10 @@
         "violacoes_vigencia": 0,
         "top5": [
           "ren1000-art-358",
-          "ren1000-art-177",
           "ren1000-art-361",
-          "ren1000-art-290::p3",
-          "ren1000-art-357::pu"
+          "ren1000-art-177",
+          "ren1000-art-357::pu",
+          "ren1000-art-356::p2"
         ]
       }
     },
@@ -3239,8 +3239,8 @@
         "top5": [
           "ren1000-art-361",
           "ren1000-art-356::caput",
-          "ren1000-art-357::caput",
           "cdc-art-42-pu",
+          "ren1000-art-357::caput",
           "ren1000-art-358"
         ]
       },
@@ -3252,8 +3252,8 @@
         "top5": [
           "ren1000-art-361",
           "ren1000-art-356::caput",
-          "ren1000-art-357::caput",
           "cdc-art-42-pu",
+          "ren1000-art-357::caput",
           "ren1000-art-358"
         ]
       }
@@ -3271,7 +3271,7 @@
           "ren1000-art-360::caput",
           "df7888-art-4",
           "ren1000-art-323::p3",
-          "ren1000-art-361"
+          "reh3614-tab5-servicos"
         ]
       },
       "B3": {
@@ -3284,7 +3284,7 @@
           "ren1000-art-360::caput",
           "df7888-art-4",
           "ren1000-art-323::p3",
-          "ren1000-art-361"
+          "reh3614-tab5-servicos"
         ]
       }
     },
@@ -3301,7 +3301,7 @@
           "cdc-art-6::inc-viii",
           "ren1000-art-260::p1",
           "ren1000-art-358",
-          "ren1000-art-357::caput"
+          "reh3614-tab2-b1"
         ]
       },
       "B3": {
@@ -3314,7 +3314,7 @@
           "cdc-art-6::inc-viii",
           "ren1000-art-260::p1",
           "ren1000-art-358",
-          "ren1000-art-357::caput"
+          "reh3614-tab2-b1"
         ]
       }
     },
@@ -3357,10 +3357,10 @@
         "violacoes_vigencia": 3,
         "top5": [
           "ren1000-art-358",
+          "reh3614-tab2-b1",
           "ren1000-art-177",
           "ren1000-art-290::p3",
-          "ren1000-art-361",
-          "ren1000-art-260::p1"
+          "ren956-mod8-s82-178-179"
         ]
       },
       "B3": {
@@ -3418,7 +3418,7 @@
           "ren1000-art-260::caput",
           "ren1000-art-290::caput",
           "ren1000-art-357::caput",
-          "ren1000-art-322"
+          "reh3614-tab5-servicos"
         ]
       },
       "B3": {
@@ -3444,10 +3444,10 @@
         "violacoes_vigencia": 1,
         "top5": [
           "ren1000-art-343::p1",
-          "ren1000-art-260::p1",
           "ren1000-art-347",
+          "ren1000-art-260::p1",
           "ren1000-art-285",
-          "ren1000-art-323::p1"
+          "reh3614-art-2"
         ]
       },
       "B3": {
@@ -3504,8 +3504,8 @@
           "ren1000-art-358",
           "ren1000-art-177",
           "ren1000-art-290::p3",
-          "cdc-art-6::inc-vi",
-          "df7888-art-4"
+          "reh3614-tab2-b1",
+          "cdc-art-6::inc-vi"
         ]
       },
       "B3": {
@@ -3533,8 +3533,8 @@
           "ren1000-art-290::p4",
           "ren1000-art-322",
           "ren1000-art-285",
-          "df7888-art-4",
-          "ren1000-art-323::p2"
+          "reh3614-tab5-servicos",
+          "df7888-art-4"
         ]
       },
       "B3": {
@@ -3557,13 +3557,13 @@
         "acerto": false,
         "recuperou_canonico": false,
         "abstencao": false,
-        "violacoes_vigencia": 2,
+        "violacoes_vigencia": 3,
         "top5": [
           "ren1000-art-307::caput",
+          "reh3614-art-3::p3",
           "ren1000-art-327::p2",
-          "ren1000-art-285",
-          "ren1000-art-290::p3",
-          "ren1000-art-358"
+          "reh3614-art-5::p3",
+          "ren1000-art-285"
         ]
       },
       "B3": {
@@ -3586,13 +3586,13 @@
         "acerto": false,
         "recuperou_canonico": false,
         "abstencao": false,
-        "violacoes_vigencia": 1,
+        "violacoes_vigencia": 3,
         "top5": [
           "ren1000-art-327::caput",
+          "reh3614-art-5::p2",
+          "reh3614-art-3::p3",
           "ren1000-art-307::p1",
-          "ren1000-art-323::caput",
-          "ren1000-art-324::caput",
-          "ren1000-art-289"
+          "ren1000-art-323::caput"
         ]
       },
       "B3": {
@@ -3644,12 +3644,12 @@
         "acerto": false,
         "recuperou_canonico": false,
         "abstencao": false,
-        "violacoes_vigencia": 2,
+        "violacoes_vigencia": 3,
         "top5": [
           "ren1000-art-342::p2",
           "ren1000-art-323::p1",
-          "cdc-art-42-pu",
           "ren1000-art-324::p2",
+          "cdc-art-42-pu",
           "ren1000-art-290::p1"
         ]
       },
