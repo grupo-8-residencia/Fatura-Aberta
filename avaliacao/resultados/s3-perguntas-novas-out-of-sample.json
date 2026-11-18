@@ -65,31 +65,31 @@
         {
           "id": "ren1000-art-322",
           "dispositivo": "art. 322, caput e incisos I e II",
-          "score": 0.2847,
+          "score": 0.2848,
           "vigente": true
         },
         {
           "id": "ren1000-art-361",
           "dispositivo": "art. 361, caput e incisos I, I-A e II",
-          "score": 0.2805,
+          "score": 0.2811,
           "vigente": true
         },
         {
           "id": "ren1000-art-360::p3",
           "dispositivo": "art. 360, § 3º",
-          "score": 0.2783,
+          "score": 0.2784,
           "vigente": true
         },
         {
           "id": "ren1000-art-356::caput",
           "dispositivo": "art. 356, caput",
-          "score": 0.2746,
+          "score": 0.2748,
           "vigente": true
         },
         {
           "id": "ren1000-art-357::caput",
           "dispositivo": "art. 357, caput",
-          "score": 0.2136,
+          "score": 0.215,
           "vigente": true
         }
       ],
@@ -111,31 +111,31 @@
         {
           "id": "ren1000-art-360::p2",
           "dispositivo": "art. 360, § 2º",
-          "score": 0.4278,
+          "score": 0.4409,
           "vigente": true
         },
         {
           "id": "ren1000-art-361",
           "dispositivo": "art. 361, caput e incisos I, I-A e II",
-          "score": 0.4271,
+          "score": 0.4402,
           "vigente": true
         },
         {
           "id": "ren1000-art-356::p2",
           "dispositivo": "art. 356, § 2º",
-          "score": 0.3414,
+          "score": 0.3506,
           "vigente": true
         },
         {
           "id": "ren1000-art-357::pu",
           "dispositivo": "art. 357, parágrafo único",
-          "score": 0.3203,
+          "score": 0.3275,
           "vigente": true
         },
         {
           "id": "ren1000-art-358",
           "dispositivo": "art. 358",
-          "score": 0.2495,
+          "score": 0.2567,
           "vigente": true
         }
       ],
@@ -156,33 +156,33 @@
       "recuperou_top5": false,
       "top5": [
         {
+          "id": "reh3614-tab5-servicos",
+          "dispositivo": "art. 6º e Anexo, Tabela 5 (Grupo B)",
+          "score": 0.2163,
+          "vigente": true
+        },
+        {
           "id": "ren1000-art-323::p3",
           "dispositivo": "art. 323, § 3º",
-          "score": 0.214,
+          "score": 0.2144,
           "vigente": true
         },
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.2088,
+          "score": 0.2091,
           "vigente": true
         },
         {
           "id": "ren1000-art-324::p2",
           "dispositivo": "art. 324, § 2º",
-          "score": 0.2044,
+          "score": 0.2048,
           "vigente": true
         },
         {
           "id": "ren1000-art-360::caput",
           "dispositivo": "art. 360, caput",
-          "score": 0.1872,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-260::caput",
-          "dispositivo": "art. 260, caput",
-          "score": 0.1703,
+          "score": 0.1876,
           "vigente": true
         }
       ],
@@ -204,31 +204,31 @@
         {
           "id": "ren1000-art-337",
           "dispositivo": "art. 337",
-          "score": 0.4932,
+          "score": 0.5005,
           "vigente": true
         },
         {
           "id": "ren1000-art-177",
           "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.3408,
+          "score": 0.3315,
           "vigente": true
         },
         {
           "id": "ren1000-art-358",
           "dispositivo": "art. 358",
-          "score": 0.335,
+          "score": 0.331,
           "vigente": true
         },
         {
           "id": "ren1000-art-327::caput",
           "dispositivo": "art. 327, caput",
-          "score": 0.3212,
+          "score": 0.324,
           "vigente": true
         },
         {
           "id": "ren1000-art-357::caput",
           "dispositivo": "art. 357, caput",
-          "score": 0.3085,
+          "score": 0.317,
           "vigente": true
         }
       ],
@@ -251,31 +251,31 @@
         {
           "id": "ren1000-art-323::caput",
           "dispositivo": "art. 323, caput",
-          "score": 0.4842,
+          "score": 0.4935,
           "vigente": true
         },
         {
           "id": "ren1000-art-324::caput",
           "dispositivo": "art. 324, caput",
-          "score": 0.3755,
+          "score": 0.3807,
           "vigente": true
         },
         {
           "id": "cdc-art-42-pu",
           "dispositivo": "art. 42, parágrafo único",
-          "score": 0.3522,
+          "score": 0.3607,
           "vigente": true
         },
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.348,
+          "score": 0.3485,
           "vigente": true
         },
         {
-          "id": "cdc-art-42",
-          "dispositivo": "art. 42, caput",
-          "score": 0.2311,
+          "id": "ren956-mod8-s82-219-227",
+          "dispositivo": "Seção 8.2, itens 219, 222 a 224 e 227",
+          "score": 0.2684,
           "vigente": true
         }
       ],
@@ -297,31 +297,31 @@
         {
           "id": "ren1000-art-327::caput",
           "dispositivo": "art. 327, caput",
-          "score": 0.2488,
+          "score": 0.2441,
           "vigente": true
         },
         {
-          "id": "ren1000-art-307::p1",
-          "dispositivo": "art. 307, § 1º",
-          "score": 0.176,
+          "id": "reh3614-art-5::p3",
+          "dispositivo": "art. 5º, § 3º",
+          "score": 0.1915,
           "vigente": true
         },
         {
           "id": "ren1000-art-356::caput",
           "dispositivo": "art. 356, caput",
-          "score": 0.1753,
-          "vigente": true
-        },
-        {
-          "id": "df7888-art-4",
-          "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.1693,
+          "score": 0.1771,
           "vigente": true
         },
         {
           "id": "ren1000-art-361",
           "dispositivo": "art. 361, caput e incisos I, I-A e II",
-          "score": 0.1683,
+          "score": 0.17,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-307::p1",
+          "dispositivo": "art. 307, § 1º",
+          "score": 0.1694,
           "vigente": true
         }
       ],
@@ -343,31 +343,31 @@
         {
           "id": "ren1000-art-343::caput",
           "dispositivo": "art. 343, caput",
-          "score": 0.5332,
+          "score": 0.5377,
           "vigente": true
         },
         {
           "id": "ren1000-art-347",
           "dispositivo": "art. 347",
-          "score": 0.3452,
+          "score": 0.3517,
           "vigente": true
         },
         {
           "id": "ren1000-art-323::p3",
           "dispositivo": "art. 323, § 3º",
-          "score": 0.2816,
+          "score": 0.2864,
           "vigente": true
         },
         {
           "id": "ren1000-art-324::caput",
           "dispositivo": "art. 324, caput",
-          "score": 0.2581,
+          "score": 0.2629,
           "vigente": true
         },
         {
           "id": "ren1000-art-356::caput",
           "dispositivo": "art. 356, caput",
-          "score": 0.2145,
+          "score": 0.2193,
           "vigente": true
         }
       ],
@@ -389,31 +389,31 @@
         {
           "id": "ren1000-art-177",
           "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.4171,
+          "score": 0.4145,
           "vigente": true
         },
         {
           "id": "ren1000-art-323::caput",
           "dispositivo": "art. 323, caput",
-          "score": 0.3518,
+          "score": 0.3546,
           "vigente": true
         },
         {
           "id": "ren1000-art-324::caput",
           "dispositivo": "art. 324, caput",
-          "score": 0.2995,
+          "score": 0.3024,
           "vigente": true
         },
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.268,
+          "score": 0.2693,
           "vigente": true
         },
         {
           "id": "ren1000-art-343::caput",
           "dispositivo": "art. 343, caput",
-          "score": 0.2174,
+          "score": 0.2213,
           "vigente": true
         }
       ],
@@ -435,31 +435,31 @@
         {
           "id": "ren1000-art-327::caput",
           "dispositivo": "art. 327, caput",
-          "score": 0.4288,
+          "score": 0.4217,
+          "vigente": true
+        },
+        {
+          "id": "ren956-mod8-s82-234-235",
+          "dispositivo": "Seção 8.2, itens 234 e 235",
+          "score": 0.2799,
           "vigente": true
         },
         {
           "id": "ren1000-art-281::caput",
           "dispositivo": "art. 281, caput",
-          "score": 0.2419,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-177",
-          "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.2399,
+          "score": 0.2406,
           "vigente": true
         },
         {
           "id": "ren1000-art-260::p2",
           "dispositivo": "art. 260, § 2º",
-          "score": 0.2371,
+          "score": 0.2358,
           "vigente": true
         },
         {
-          "id": "ren1000-art-323::caput",
-          "dispositivo": "art. 323, caput",
-          "score": 0.2135,
+          "id": "ren1000-art-177",
+          "dispositivo": "art. 177, caput e incisos I a III",
+          "score": 0.2348,
           "vigente": true
         }
       ],
@@ -479,31 +479,31 @@
         {
           "id": "df7888-art-1",
           "dispositivo": "art. 1º, caput",
-          "score": 0.397,
+          "score": 0.4023,
           "vigente": true
         },
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.3937,
+          "score": 0.3959,
           "vigente": true
         },
         {
           "id": "df7888-art-2-iii::inc-iii",
           "dispositivo": "art. 2º, inciso III",
-          "score": 0.3448,
+          "score": 0.3501,
           "vigente": true
         },
         {
           "id": "ren1000-art-337",
           "dispositivo": "art. 337",
-          "score": 0.0905,
+          "score": 0.0919,
           "vigente": true
         },
         {
           "id": "ren1000-art-290::p1",
           "dispositivo": "art. 290, § 1º",
-          "score": 0.0848,
+          "score": 0.0853,
           "vigente": true
         }
       ],
@@ -523,31 +523,31 @@
         {
           "id": "ren1000-art-177",
           "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.081,
+          "score": 0.0796,
+          "vigente": true
+        },
+        {
+          "id": "reh3614-tab2-b1",
+          "dispositivo": "Anexo, Tabela 2 (B1) e Tabela 3",
+          "score": 0.0586,
           "vigente": true
         },
         {
           "id": "ren1000-art-322",
           "dispositivo": "art. 322, caput e incisos I e II",
-          "score": 0.0519,
+          "score": 0.0518,
           "vigente": true
         },
         {
           "id": "ren1000-art-327::caput",
           "dispositivo": "art. 327, caput",
-          "score": 0.0478,
+          "score": 0.0477,
           "vigente": true
         },
         {
           "id": "ren1000-art-290::p3",
           "dispositivo": "art. 290, § 3º",
-          "score": 0.0469,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-356::caput",
-          "dispositivo": "art. 356, caput",
-          "score": 0.0453,
+          "score": 0.0456,
           "vigente": true
         }
       ],
@@ -567,13 +567,19 @@
         {
           "id": "ren1000-art-177",
           "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.2857,
+          "score": 0.2833,
+          "vigente": true
+        },
+        {
+          "id": "reh3614-tab2-b1",
+          "dispositivo": "Anexo, Tabela 2 (B1) e Tabela 3",
+          "score": 0.1712,
           "vigente": true
         },
         {
           "id": "ren1000-art-290::p3",
           "dispositivo": "art. 290, § 3º",
-          "score": 0.1541,
+          "score": 0.1508,
           "vigente": true
         },
         {
@@ -586,12 +592,6 @@
           "id": "ren1000-art-323::p3",
           "dispositivo": "art. 323, § 3º",
           "score": 0.139,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-338::p1",
-          "dispositivo": "art. 338, § 1º",
-          "score": 0.1323,
           "vigente": true
         }
       ],
@@ -611,31 +611,31 @@
         {
           "id": "ren1000-art-327::caput",
           "dispositivo": "art. 327, caput",
-          "score": 0.2196,
+          "score": 0.2211,
           "vigente": true
         },
         {
           "id": "ren1000-art-323::caput",
           "dispositivo": "art. 323, caput",
-          "score": 0.1929,
+          "score": 0.193,
           "vigente": true
         },
         {
           "id": "ren1000-art-360::p3",
           "dispositivo": "art. 360, § 3º",
-          "score": 0.1826,
+          "score": 0.1819,
           "vigente": true
         },
         {
           "id": "cdc-art-6::inc-vi",
           "dispositivo": "art. 6º, inciso VI",
-          "score": 0.1777,
+          "score": 0.1799,
           "vigente": true
         },
         {
           "id": "ren1000-art-361",
           "dispositivo": "art. 361, caput e incisos I, I-A e II",
-          "score": 0.1753,
+          "score": 0.1768,
           "vigente": true
         }
       ],
@@ -653,33 +653,33 @@
       "recuperou_top5": false,
       "top5": [
         {
+          "id": "reh3614-art-5::p3",
+          "dispositivo": "art. 5º, § 3º",
+          "score": 0.2634,
+          "vigente": true
+        },
+        {
           "id": "ren1000-art-177",
           "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.246,
+          "score": 0.2419,
+          "vigente": true
+        },
+        {
+          "id": "ren956-mod8-s82-219-227",
+          "dispositivo": "Seção 8.2, itens 219, 222 a 224 e 227",
+          "score": 0.2366,
+          "vigente": true
+        },
+        {
+          "id": "ren956-mod8-s82-234-235",
+          "dispositivo": "Seção 8.2, itens 234 e 235",
+          "score": 0.2132,
           "vigente": true
         },
         {
           "id": "ren1000-art-360::p3",
           "dispositivo": "art. 360, § 3º",
-          "score": 0.2215,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-307::caput",
-          "dispositivo": "art. 307, caput",
-          "score": 0.2098,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-290::p3",
-          "dispositivo": "art. 290, § 3º",
-          "score": 0.2011,
-          "vigente": true
-        },
-        {
-          "id": "df7888-art-4",
-          "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.1927,
+          "score": 0.213,
           "vigente": true
         }
       ],
@@ -701,31 +701,31 @@
         {
           "id": "ren1000-art-260::p1",
           "dispositivo": "art. 260, § 1º",
-          "score": 0.4366,
+          "score": 0.4289,
           "vigente": true
         },
         {
           "id": "ren1000-art-360::p3",
           "dispositivo": "art. 360, § 3º",
-          "score": 0.4037,
+          "score": 0.4097,
           "vigente": true
         },
         {
           "id": "ren1000-art-285",
           "dispositivo": "art. 285",
-          "score": 0.3707,
+          "score": 0.3636,
           "vigente": true
         },
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.2496,
+          "score": 0.2541,
           "vigente": true
         },
         {
           "id": "ren1000-art-337",
           "dispositivo": "art. 337",
-          "score": 0.2371,
+          "score": 0.2447,
           "vigente": true
         }
       ],
@@ -748,31 +748,31 @@
         {
           "id": "cdc-art-6::inc-viii",
           "dispositivo": "art. 6º, inciso VIII",
-          "score": 0.4076,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-357::caput",
-          "dispositivo": "art. 357, caput",
-          "score": 0.3419,
+          "score": 0.4075,
           "vigente": true
         },
         {
           "id": "cdc-art-42-pu",
           "dispositivo": "art. 42, parágrafo único",
-          "score": 0.3376,
+          "score": 0.3408,
+          "vigente": true
+        },
+        {
+          "id": "ren1000-art-357::caput",
+          "dispositivo": "art. 357, caput",
+          "score": 0.3404,
           "vigente": true
         },
         {
           "id": "ren1000-art-361",
           "dispositivo": "art. 361, caput e incisos I, I-A e II",
-          "score": 0.3182,
+          "score": 0.3229,
           "vigente": true
         },
         {
           "id": "ren1000-art-324::caput",
           "dispositivo": "art. 324, caput",
-          "score": 0.2804,
+          "score": 0.2861,
           "vigente": true
         }
       ],
@@ -794,31 +794,31 @@
         {
           "id": "cdc-art-39::inc-v",
           "dispositivo": "art. 39, inciso V",
-          "score": 0.7457,
+          "score": 0.7465,
           "vigente": true
         },
         {
           "id": "ren1000-art-324::p4",
           "dispositivo": "art. 324, § 4º",
-          "score": 0.2192,
+          "score": 0.219,
           "vigente": true
         },
         {
           "id": "cdc-art-42-pu",
           "dispositivo": "art. 42, parágrafo único",
-          "score": 0.2158,
+          "score": 0.2175,
           "vigente": true
         },
         {
-          "id": "ren1000-art-323::p3",
-          "dispositivo": "art. 323, § 3º",
-          "score": 0.2049,
+          "id": "ren956-mod8-s82-234-235",
+          "dispositivo": "Seção 8.2, itens 234 e 235",
+          "score": 0.2147,
           "vigente": true
         },
         {
-          "id": "df7888-art-4",
-          "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.1959,
+          "id": "ren956-mod8-s82-219-227",
+          "dispositivo": "Seção 8.2, itens 219, 222 a 224 e 227",
+          "score": 0.2084,
           "vigente": true
         }
       ],
@@ -831,8 +831,8 @@
       "categoria": "cip_cosip",
       "data_referencia": "2026-11-09",
       "canonicos": [
-        "df7888-art-4",
-        "df7888-art-3"
+        "df7888-art-3",
+        "df7888-art-4"
       ],
       "espera_abstencao": false,
       "recuperou_top1": true,
@@ -841,31 +841,31 @@
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.6402,
+          "score": 0.6396,
           "vigente": true
         },
         {
           "id": "df7888-art-1",
           "dispositivo": "art. 1º, caput",
-          "score": 0.4222,
+          "score": 0.4256,
           "vigente": true
         },
         {
           "id": "df7888-art-2-iii::inc-iii",
           "dispositivo": "art. 2º, inciso III",
-          "score": 0.406,
+          "score": 0.411,
           "vigente": true
         },
         {
           "id": "ren1000-art-337",
           "dispositivo": "art. 337",
-          "score": 0.102,
+          "score": 0.104,
           "vigente": true
         },
         {
           "id": "ren1000-art-290::p1",
           "dispositivo": "art. 290, § 1º",
-          "score": 0.0911,
+          "score": 0.0932,
           "vigente": true
         }
       ],
@@ -887,31 +887,31 @@
         {
           "id": "ren1000-art-177",
           "dispositivo": "art. 177, caput e incisos I a III",
-          "score": 0.4281,
+          "score": 0.4175,
           "vigente": true
         },
         {
           "id": "ren1000-art-290::caput",
           "dispositivo": "art. 290, caput",
-          "score": 0.3655,
+          "score": 0.3549,
           "vigente": true
         },
         {
           "id": "ren1000-art-327::p2",
           "dispositivo": "art. 327, § 2º",
-          "score": 0.3578,
-          "vigente": true
-        },
-        {
-          "id": "ren1000-art-307::p1",
-          "dispositivo": "art. 307, § 1º",
-          "score": 0.342,
+          "score": 0.3451,
           "vigente": true
         },
         {
           "id": "df7888-art-4",
           "dispositivo": "art. 4º, caput e incisos I a IV",
-          "score": 0.321,
+          "score": 0.3306,
+          "vigente": true
+        },
+        {
+          "id": "reh3614-art-5::p3",
+          "dispositivo": "art. 5º, § 3º",
+          "score": 0.3298,
           "vigente": true
         }
       ],
@@ -933,7 +933,7 @@
         {
           "id": "cdc-art-6::inc-viii",
           "dispositivo": "art. 6º, inciso VIII",
-          "score": 0.1399,
+          "score": 0.1327,
           "vigente": true
         },
         {

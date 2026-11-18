@@ -46,11 +46,22 @@ from urllib.request import Request, urlopen
 
 _BLOCOS = {"p", "div", "br", "li", "tr", "h1", "h2", "h3", "h4", "h5", "h6", "table", "section"}
 _IGNORAR = {"script", "style", "head", "noscript"}
-_ARTIGO = re.compile(r"^\s*Art(?:igo|\.)?\s*(\d+)\s*[º°o]?(-[A-Z](?!\w))?\.?(?=\s|$)", re.I)
+_SEM_FECHAMENTO = {"br", "hr", "img", "meta", "link", "input", "col", "wbr"}
+_TACHADO_TAGS = {"s", "strike", "del"}
+_TACHADO_ESTILO = re.compile(r"text-decoration\s*:[^;\"']*line-through", re.I)
+_ARTIGO = re.compile(
+    r"^\s*(?:Art(?:igo)?|ART(?:IGO)?)\.?\s*(\d+)\s*[º°o]?(-[A-Z](?!\w))?\.?(?=\s|$)"
+)
 _INICIO_DISPOSITIVO = re.compile(
-    r"^\s*(?:Art(?:igo|\.)|§|Parágrafo\s+único|[IVXLCDM]+\s*[-–—]|[a-z]\)|CAPÍTULO|SEÇÃO|TÍTULO)",
+    r"^\s*(?:(?-i:Art\.|ART\.|Artigo\b|ARTIGO\b)|§|Parágrafo\s+único|[IVXLCDM]+\s*[-–—]"
+    r"|[a-z]\)|CAPÍTULO|SEÇÃO|TÍTULO)",
     re.I,
 )
+_TITULO_ESTRUTURAL = re.compile(
+    r"^\s*(?:CAP[ÍI]TULO|SUBSE[ÇC][ÃA]O|SE[ÇC][ÃA]O|T[ÍI]TULO|LIVRO)\s+(?:[IVXLCDM]+|[ÚU]NICO)\b",
+    re.I,
+)
+_ORDINAL_COLADO = re.compile(r"((?:§§?|\bArt\.)\s*\d+(?:-[A-Z])?)o(?=[A-ZÀ-Ý]|\s)")
 _LIMITE_TIMEOUT_S = 60
 _MIN_CHARS_CABECALHO = 25
 _MIN_REPETICOES_CABECALHO = 4
@@ -77,21 +88,37 @@ class _ExtratorHtml(HTMLParser):
         super().__init__(convert_charrefs=True)
         self._partes: list[str] = []
         self._ignorando = 0
+        # Pilha das tags abertas, com a marca de "tachada". Texto tachado é redação antiga que a
+        # versão consolidada mantém na página para mostrar o histórico, e não faz parte do texto
+        # vigente.
+        self._pilha: list[tuple[str, bool]] = []
+        self._tachados = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag not in _SEM_FECHAMENTO:
+            estilo = dict(attrs).get("style") or ""
+            tachada = tag in _TACHADO_TAGS or bool(_TACHADO_ESTILO.search(estilo))
+            self._pilha.append((tag, tachada))
+            self._tachados += tachada
         if tag in _IGNORAR:
             self._ignorando += 1
         elif tag in _BLOCOS:
             self._partes.append("\n")
 
     def handle_endtag(self, tag: str) -> None:
+        for i in range(len(self._pilha) - 1, -1, -1):
+            if self._pilha[i][0] == tag:
+                for _, tachada in self._pilha[i:]:
+                    self._tachados -= tachada
+                del self._pilha[i:]
+                break
         if tag in _IGNORAR and self._ignorando:
             self._ignorando -= 1
         elif tag in _BLOCOS:
             self._partes.append("\n")
 
     def handle_data(self, data: str) -> None:
-        if not self._ignorando:
+        if not self._ignorando and not self._tachados:
             self._partes.append(data)
 
     def texto(self) -> str:
@@ -181,7 +208,8 @@ def _remover_ruido(linhas: list[str]) -> list[str]:
 def limpar(texto: str, *, religar_linhas: bool, remover_ruido: bool = True) -> str:
     texto = texto.replace("\xa0", " ").replace("\u00ad", "").replace("\r", "")
     linhas = [" ".join(linha.split()) for linha in texto.split("\n")]
-    linhas = [linha for linha in linhas if linha]
+    linhas = [_ORDINAL_COLADO.sub(r"\1º ", linha) for linha in linhas]
+    linhas = [" ".join(linha.split()) for linha in linhas if linha]
     if remover_ruido:
         linhas = _remover_ruido(linhas)
     if not religar_linhas:
@@ -212,6 +240,9 @@ def separar_artigos(texto: str) -> dict[str, str]:
     ignorando_repetido = False
     for linha in texto.split("\n"):
         achado = _ARTIGO.match(linha)
+        if _TITULO_ESTRUTURAL.match(linha) and not achado:
+            atual, ignorando_repetido = None, False
+            continue
         if achado:
             numero = _numero(achado.group(1) + (achado.group(2) or ""))
             if numero in artigos:
