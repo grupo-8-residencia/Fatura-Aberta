@@ -166,8 +166,10 @@ contra o T1: 18 × 11, sem diferença significativa (p = 0,265). O T4 contra o T
    `dados/golden-set/anotacoes/revisao-perguntas.csv`. As correções **não** foram aplicadas ao gabarito
    congelado (o hash foi mantido); aplicá-las exige recongelar o conjunto e refazer as rodadas. O recálculo
    independente das 200 faturas (consumo, energia, bandeira, total, ICMS e item duplicado) confirma os 200
-   gabaritos, e todas as citações canônicas existem no corpus. Ressalva: a maioria das anotações de
-   faturas não tem comentário, então a concordância alta não prova revisão independente.
+   gabaritos, e todas as citações canônicas existem no corpus. Ressalvas: a maioria das anotações de
+   faturas não tem comentário, então a concordância alta não prova revisão independente; e 4 das 116
+   concordâncias da revisão (GS-Q019, GS-Q031, GS-Q110 e GS-Q116) foram feitas pelo autor das perguntas,
+   no lugar das pessoas designadas que não devolveram a revisão (#161), então não são revisão independente.
 3. **Juiz LLM reprovado na calibração.** Em 39 dos 40 itens (o GS-Q114 ficou sem veredito válido do juiz,
    que travou duas vezes), o κ entre o juiz (`qwen3:14b`) e cada avaliador humano foi **0,029** (acurácia
    56,4%, IC 95% [41,0%; 71,8%]), muito abaixo do critério de 0,75. O juiz marcou `sem_suporte` em 17
