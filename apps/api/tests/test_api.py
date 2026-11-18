@@ -109,3 +109,60 @@ def test_timeout_dos_agentes_preserva_analise_deterministica(
 
     assert adicionais == []
     assert aviso == "A análise adicional não respondeu a tempo; os achados A seguem disponíveis."
+
+
+def test_perguntar_passa_pelos_quatro_agentes_e_cita_a_norma() -> None:
+    resposta = TestClient(app).post(
+        "/perguntar",
+        json={
+            "pergunta": "Posso ser cobrado pela média quando não conseguem ler o medidor?",
+            "data_referencia": "2026-03-01",
+            "persona": "celina",
+        },
+    )
+    assert resposta.status_code == 200
+    corpo = resposta.json()
+    assert resposta.headers["cache-control"] == "no-store"
+    assert not corpo["abstencao"] and corpo["citacoes"]
+    assert corpo["persona"] == "celina"
+    agentes = [p["agente"] for p in corpo["rastro"]]
+    assert agentes[0] == "Pesquisador" and agentes[-1] == "Comunicador"
+
+
+def test_perguntar_abstem_antes_da_vigencia_da_norma() -> None:
+    corpo = (
+        TestClient(app)
+        .post(
+            "/perguntar",
+            json={
+                "pergunta": "Como se calcula o custo de disponibilidade?",
+                "data_referencia": "2021-06-01",
+            },
+        )
+        .json()
+    )
+    assert corpo["abstencao"] and corpo["origem"] == "abstencao"
+    assert corpo["citacoes"] == []
+
+
+def test_analisar_explica_item_divergente_sem_mudar_o_nivel_a() -> None:
+    corpo = (
+        TestClient(app)
+        .post(
+            "/analisar",
+            json={
+                "distribuidora": "Distribuidora Sintética",
+                "mes_referencia": "2026-03-01",
+                "leitura_anterior": "100",
+                "leitura_atual": "150",
+                "consumo_kwh": "50",
+                "itens": [{"descricao": "Energia", "valor": "40"}],
+                "total": "55",
+            },
+        )
+        .json()
+    )
+    niveis = {(a["item"], a["nivel"]) for a in corpo["achados"]}
+    assert ("Total da fatura", "A") in niveis
+    explicacoes = [a for a in corpo["achados"] if a["nivel"] in ("B", "C")]
+    assert explicacoes and all(a["item"] == "Total da fatura" for a in explicacoes)

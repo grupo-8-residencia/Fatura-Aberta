@@ -5,7 +5,8 @@ Regras (todas determinísticas; o juiz LLM é opcional e só pode rejeitar, nunc
 1. a afirmação tem citação, e todo ``id`` citado é um dispositivo realmente recuperado;
 2. a citação copiada é a do dispositivo e o dispositivo estava vigente na data de referência;
 3. o texto tem lastro nos dispositivos citados (palavras de conteúdo e números);
-4. nenhuma expressão proibida pelo RF-15.
+4. nenhuma expressão proibida pelo RF-15;
+5. no fluxo de fatura, o texto não contradiz o veredito do motor determinístico.
 
 Política estrita: se qualquer afirmação reprovar, a resposta final vira abstenção.
 """
@@ -49,6 +50,32 @@ class Motivo(StrEnum):
     SEM_SUPORTE = "sem_suporte"
     LINGUAGEM_PROIBIDA = "linguagem_proibida"
     JUIZ_REJEITOU = "juiz_rejeitou"
+    VEREDITO_ALTERADO = "veredito_alterado"
+
+
+_DIZ_QUE_CONFERE = re.compile(
+    r"(?<!não )\b(confere|est[aá] corret[ao]|n[aã]o h[aá] (diverg[eê]ncia|erro))", re.I
+)
+_DIZ_QUE_DIVERGE = re.compile(r"\b(n[aã]o confere|diverg|cobran[cç]a indevida|erro)", re.I)
+
+
+def divergente(achado: Achado) -> bool:
+    """O motor apontou diferença entre o valor calculado e o informado (mesma regra da S3)."""
+    return (
+        not achado.abstencao
+        and achado.valor_esperado is not None
+        and achado.valor_cobrado is not None
+        and achado.valor_esperado != achado.valor_cobrado
+    )
+
+
+def contradiz_motor(texto: str, achado: Achado) -> bool:
+    """O texto afirma o oposto do veredito do motor para o item."""
+    if achado.abstencao:
+        return False
+    if divergente(achado):
+        return bool(_DIZ_QUE_CONFERE.search(texto)) and not _DIZ_QUE_DIVERGE.search(texto)
+    return bool(_DIZ_QUE_DIVERGE.search(texto))
 
 
 @dataclass(frozen=True, slots=True)
@@ -147,13 +174,20 @@ class Auditor:
         except (ValueError, KeyError, TypeError):
             return False  # juiz ilegível não aprova
 
-    def auditar(self, relatorio: RelatorioAnalise) -> ResultadoAuditoria:
-        """Aprova só o que tem suporte; qualquer reprovação ou ausência de afirmação abstém."""
+    def auditar(
+        self, relatorio: RelatorioAnalise, *, achado: Achado | None = None
+    ) -> ResultadoAuditoria:
+        """Aprova só o que tem suporte; qualquer reprovação ou ausência de afirmação abstém.
+
+        Com ``achado`` (fluxo de fatura), também barra texto que contradiz o veredito do motor.
+        """
         contexto = {d.id: d for d in relatorio.dispositivos}
         problemas: list[Problema] = []
         aprovadas: list[Afirmacao] = []
         for a in relatorio.afirmacoes:
             achados = self._conferir(a, contexto, relatorio.data_referencia)
+            if achado is not None and contradiz_motor(a.texto, achado):
+                achados.append(Problema(a.texto, Motivo.VEREDITO_ALTERADO, achado.item))
             if achados:
                 problemas.extend(achados)
             else:
