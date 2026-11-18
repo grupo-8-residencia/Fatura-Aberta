@@ -3,10 +3,10 @@
 !!! warning "Resultado negativo para o B5 como foi construído"
     O Auditor da #36 elimina as afirmações sem suporte (15,0% das respostas do B4 → 0%), mas ao custo de
     **14,2 pontos de acerto** (91,7% → 77,5%; McNemar exato p = 1,5×10⁻⁵, 17 perguntas perdidas e nenhuma
-    ganha). Pelo gate da S4 (`index.md`: reduzir sem perda de correção), **o B5 não passa e o B4 vira o
-    produto**. A anotação das falhas sugere que a maior parte da perda vem de falsos positivos de uma regra
-    do Auditor, e não de erros do modelo (veja [A causa da perda](#a-causa-da-perda)); isso é hipótese
-    para a próxima rodada, não resultado.
+    ganha). Pelo gate da S4 (`index.md`: reduzir sem perda de correção), **o B5 não passa**. A revisão
+    humana das 17 perdas (18/11) confirmou que 12 eram respostas fiéis barradas por regras do Auditor e 5
+    tinham extrapolação real (veja [Falhas anotadas](#falhas-anotadas)). **Decisão de 18/11/2026: o produto
+    adota o T5** (4 agentes; seção T5), que mantém o Auditor sem o custo de acerto.
 
 !!! success "Rodada T5 (18/11/2026): o sistema multiagentes resolve a perda do B5"
     Com os 4 agentes (política T5: o rascunho barrado pelo Auditor cai na resposta extrativa do
@@ -103,11 +103,25 @@ gate da S4 no protocolo exige redução **sem perda de correção**, e a perda �
 
 ## Falhas anotadas
 
-!!! warning "Anotação preliminar, feita por Claude (agente), sem revisão humana"
-    A classificação abaixo foi feita lendo cada afirmação ao lado do texto do dispositivo citado. Os rótulos
-    "falso positivo" e "extrapolação" são **julgamento do agente** e precisam de confirmação de um humano
-    antes de entrarem no relatório científico (o mesmo procedimento da calibração do juiz, com dupla
-    anotação, ainda não foi feito para a S4).
+!!! info "Revisão humana das 17 perdas do B5 (Pedro, 18/11/2026)"
+    A classificação foi proposta pelo agente, lendo cada afirmação ao lado do dispositivo citado, e
+    **revisada por uma pessoa (Pedro)**, que concordou com as 17: **12 fiéis** (o Auditor errou ao barrar) e
+    **5 com extrapolação** (o Auditor acertou). Não houve dupla anotação: é uma revisão de um só
+    avaliador. As tabelas das 3 respostas erradas não detectadas e das 6 sem resposta, mais abaixo,
+    continuam só com o rótulo do agente.
+
+    **Nuances registradas na revisão:**
+
+    - **Granularidade de id (GS-Q014 e GS-Q040):** os sufixos `327::VI` e `322::I` não existem porque o
+      corpus indexa o caput com os incisos num só trecho. O conteúdo é fiel (no GS-Q040, a regra vale para
+      o grupo B); o Auditor tratou uma diferença de granularidade como citação inventada.
+    - **Falsos positivos do RF-15 (GS-Q045 e GS-Q074):** as respostas só descrevem direitos previstos na
+      norma ("devolução em dobro", "restituição"), sem calcular valor nem aconselhar; o filtro de linguagem
+      barrou indevidamente.
+    - **Premissa ausente e resposta parcial (GS-Q099 e GS-Q070):** no GS-Q099 a resposta está
+      materialmente certa, mas o art. 360 (que exige a notificação prévia) não estava na evidência
+      recuperada para sustentar a ligação com o art. 361; o Auditor acertou ao barrar. No GS-Q070 a citação
+      do art. 4º, IV é fiel, mas o trecho não responde se a contestação ocorre junto com a conta.
 
 ### Auditor barrou resposta que o B4 acertou (17 perguntas)
 
@@ -240,7 +254,8 @@ Comunicador. Latência média de 15,7 s por fatura com chamada ao LLM.
 
 ## Limites e próximos passos
 
-1. **Rótulos de falha são do agente**, não de humanos. Falta a dupla anotação das 17 + 3 + 6 perguntas acima.
+1. **Revisão das falhas por um só avaliador.** As 17 perdas do B5 foram revisadas por uma pessoa (18/11);
+   as 3 + 6 das outras tabelas seguem só com o rótulo do agente. Falta a dupla anotação.
 2. **A taxa do B5 é zero por construção.** Sem juiz calibrado ou anotação completa, "afirmação sem suporte"
    mede só o que as regras determinísticas veem.
 3. **Uma só rodada, temperatura 0, semente 42:** não há variância entre execuções; o IC do bootstrap cobre
