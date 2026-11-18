@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-A arquitetura mínima combina um **pipeline determinístico** (extração, depois motor tarifário) com **dois agentes**: o Analista Normativo, que busca e cita normas via RAG, e o Auditor, que confere as afirmações e força a abstenção quando não há suporte.
+A arquitetura mínima combina um **pipeline determinístico** (extração, depois motor tarifário) com **quatro agentes** coordenados por um Orquestrador: o Pesquisador, que busca a norma vigente com citação; o Analista Normativo, que redige com o LLM; o Auditor, que confere cada afirmação; e o Comunicador, que adapta a resposta à persona. O LLM só redige; o veredito é do motor ([Sistema multiagentes](agentes.md)).
 
 ```mermaid
 flowchart TB
