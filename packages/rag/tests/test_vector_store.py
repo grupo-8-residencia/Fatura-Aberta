@@ -338,3 +338,47 @@ def test_chunkar_dispositivo_preserva_nao_cobre() -> None:
     chunks = chunkar_dispositivo(doc)
     assert len(chunks) == 2
     assert all(chunk.nao_cobre == ("aliquota", "multa") for chunk in chunks)
+
+
+def test_prodist_e_reh_3614_no_corpus_e_respeitam_vigencia() -> None:
+    corpus = {d.id: d for d in carregar_corpus()}
+    assert {
+        "ren956-mod8-s82-170-173",
+        "ren956-mod8-s82-178-179",
+        "ren956-mod8-s82-214-216",
+        "ren956-mod8-s82-219-227",
+        "ren956-mod8-s82-234-235",
+        "reh3614-art-2",
+        "reh3614-art-3",
+        "reh3614-art-5",
+        "reh3614-art-11",
+        "reh3614-tab2-b1",
+        "reh3614-tab5-servicos",
+    } <= set(corpus)
+
+    ix = IndiceHibrido.do_corpus()
+    # Em novembro de 2026, PRODIST Módulo 8 e REH 3.614/2026 estão vigentes e recuperáveis
+    top_prodist = ix.buscar(
+        "compensação automática na fatura por violação de DIC FIC DMIC",
+        data_referencia=date(2026, 11, 9),
+        top_k=5,
+        um_por_dispositivo=True,
+    )
+    assert any(r.documento.id.startswith("ren956-") for r in top_prodist)
+
+    top_reh = ix.buscar(
+        "tarifa de aplicação B1 TUSD TE Neoenergia Brasília 2026",
+        data_referencia=date(2026, 11, 9),
+        top_k=5,
+        um_por_dispositivo=True,
+    )
+    assert any(r.documento.id == "reh3614-tab2-b1" for r in top_reh)
+
+    # Antes de 22/10/2026, a REH 3.614/2026 não pode aparecer nas buscas vigentes
+    antes_reh = ix.buscar(
+        "tarifa de aplicação B1 TUSD TE Neoenergia Brasília",
+        data_referencia=date(2026, 10, 1),
+        top_k=20,
+        um_por_dispositivo=True,
+    )
+    assert not any(r.documento.id.startswith("reh3614-") for r in antes_reh)
