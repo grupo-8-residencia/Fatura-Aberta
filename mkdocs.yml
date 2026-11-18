@@ -116,6 +116,7 @@ nav:
       - "F6 — Plataforma, DevOps e AppSec": frentes/f6.md
   - Conformidade:
       - conformidade/index.md
+      - Recomendações jurídico-regulatórias: conformidade/recomendacoes-juridico-regulatorias.md
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
       - Roteiro do parecer jurídico: conformidade/roteiro-parecer-juridico.md
