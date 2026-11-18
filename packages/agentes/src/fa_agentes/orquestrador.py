@@ -26,7 +26,8 @@ from datetime import date
 
 from fa_agentes.analista import AnalistaNormativo, consulta_do_achado
 from fa_agentes.auditor import Auditor, Problema, divergente
-from fa_agentes.comunicador import Comunicador, Mensagem, Persona
+from fa_agentes.comunicador import Comunicador, Mensagem, Persona, texto_so_referencias
+from fa_agentes.linguagem import verificar_linguagem
 from fa_agentes.llm import ClienteLLM
 from fa_agentes.pesquisador import Evidencias, Pesquisador
 from fa_contratos import Achado, Citacao, Fatura, Nivel
@@ -163,10 +164,20 @@ class Orquestrador:
         if not auditoria.abstencao:
             afirm = tuple((a.texto, a.citacoes) for a in auditoria.afirmacoes_aprovadas)
             return auditoria.resposta, Origem.ANALISTA_AUDITADO, afirm, auditoria.problemas, ev
-        rastro.passos.append(
-            Passo("Orquestrador", "fallback", "usa a resposta extrativa do Pesquisador", 0.0)
-        )
         extr = ev.resposta_extrativa
+        proibidas = sorted({v.termo for v in verificar_linguagem(extr.texto)})
+        if proibidas:
+            # O trecho literal da norma traz termo vedado pelo RF-15 (ex.: "devolução em dobro"):
+            # entrega só a referência aos dispositivos, sem transcrever o trecho.
+            extr = Resposta(
+                texto_so_referencias(extr.citacoes), extr.citacoes, False, extr.ids_fontes
+            )
+            nota = (
+                f"usa a referência do Pesquisador sem transcrever (RF-15: {', '.join(proibidas)})"
+            )
+        else:
+            nota = "usa a resposta extrativa do Pesquisador"
+        rastro.passos.append(Passo("Orquestrador", "fallback", nota, 0.0))
         return (
             extr,
             Origem.PESQUISADOR_EXTRATIVO,
@@ -217,7 +228,13 @@ class Orquestrador:
         achados = tuple(achados_motor)
         veredito = "diverge_A" if any(divergente(a) for a in achados) else "confere"
         rastro.passos.append(Passo("Motor", "veredito", veredito, 0.0))
-        alvo = [a for a in achados if divergente(a) or a.abstencao][:max_itens]
+        candidatos = [a for a in achados if divergente(a) or a.abstencao]
+        alvo = candidatos[:max_itens]
+        if len(candidatos) > max_itens:
+            sem = ", ".join(a.item for a in candidatos[max_itens:])
+            rastro.passos.append(
+                Passo("Orquestrador", "limite", f"sem explicação (limite {max_itens}): {sem}", 0.0)
+            )
         explicacoes: list[Achado] = []
         origens: dict[str, str] = {}
         motivos: dict[str, tuple[str, ...]] = {}
@@ -243,7 +260,7 @@ class Orquestrador:
                 explicacoes.append(
                     Achado(
                         item=a.item,
-                        nivel=Nivel.B,
+                        nivel=Nivel.C,  # análise normativa citada; B é a tabela da ANEEL
                         descricao=resposta.texto,
                         citacoes=list(resposta.citacoes),
                     )

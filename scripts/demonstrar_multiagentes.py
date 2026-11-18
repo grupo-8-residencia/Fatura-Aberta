@@ -90,8 +90,13 @@ CENARIOS = (
 
 def _primeira_frase(texto: str) -> str:
     plano = re.sub(r"^Art\. \d+[º°]?\.?\s*", "", " ".join(texto.split()))
-    corte = re.split(r"(?<=[;:])\s|(?<=\.)\s(?=[A-ZÀ-Ú])", plano, maxsplit=1)[0]
-    return corte[:300]
+    # Corta no primeiro ponto final que encerra a frase; se a frase for longa, no primeiro ";"
+    # depois de 80 caracteres (nunca em ":", que deixaria a frase pendurada).
+    frase = re.split(r"(?<=\.)\s(?=[A-ZÀ-Ú])", plano, maxsplit=1)[0]
+    if len(frase) > 300:
+        fim = frase.find(";", 80)
+        frase = frase[: fim + 1] if fim != -1 else frase[:300]
+    return frase
 
 
 def analista_simulado(comportamento: str, fonte: str | None = None) -> Callable[[str, str], str]:

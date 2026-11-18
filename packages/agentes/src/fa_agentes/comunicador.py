@@ -65,6 +65,17 @@ def _citacoes_unicas(citacoes: Sequence[Citacao]) -> tuple[Citacao, ...]:
     return tuple(unicas)
 
 
+def texto_so_referencias(citacoes: Sequence[Citacao]) -> str:
+    """Resposta neutra que só aponta os dispositivos, sem transcrever o texto."""
+    if not citacoes:
+        return "Não há texto que possa ser exibido sem ferir a regra de linguagem (RF-15)."
+    refs = "; ".join(formatar_citacao(c) for c in citacoes)
+    return (
+        f"O tema é tratado em: {refs}. Consulte o texto oficial do dispositivo; o trecho não é "
+        "transcrito aqui porque usa termos que o Fatura Aberta não emprega (RF-15)."
+    )
+
+
 def _fonte_curta(c: Citacao) -> str:
     return f"{c.ato}, {c.dispositivo}"
 
@@ -87,14 +98,17 @@ class Comunicador:
     ) -> Mensagem:
         proibidas = [v.termo for v in verificar_linguagem(texto)]
         novos = _numeros(texto) - entrada
-        if proibidas or novos:
-            motivo = (
-                f"linguagem proibida: {', '.join(proibidas)}"
-                if proibidas
-                else f"número fora da entrada: {', '.join(sorted(novos))}"
-            )
-            return Mensagem(persona, original, cit, adaptada=False, motivo=motivo)
-        return Mensagem(persona, texto, cit, adaptada=True)
+        if not proibidas and not novos:
+            return Mensagem(persona, texto, cit, adaptada=True)
+        motivo = (
+            f"linguagem proibida: {', '.join(proibidas)}"
+            if proibidas
+            else f"número fora da entrada: {', '.join(sorted(novos))}"
+        )
+        # Sem adaptação, entrega o original, mas nunca com termo vedado pelo RF-15: nesse caso,
+        # só a referência aos dispositivos.
+        reserva = original if not verificar_linguagem(original) else texto_so_referencias(cit)
+        return Mensagem(persona, reserva, cit, adaptada=False, motivo=motivo)
 
     def comunicar_resposta(
         self,
@@ -110,7 +124,7 @@ class Comunicador:
         """Resposta a uma pergunta normativa, já auditada (ou extrativa, ou abstenção)."""
         p = Persona(persona)
         cit = _citacoes_unicas([c for _, cs in afirmacoes for c in cs])
-        if abstencao:
+        if abstencao or not afirmacoes:
             if p is Persona.CELINA:
                 texto = (
                     "Não encontrei uma regra em vigor que responda a isso com segurança. "

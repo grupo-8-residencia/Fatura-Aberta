@@ -21,6 +21,17 @@ from fa_motor import analisar_nivel_a
 logger = logging.getLogger("fa_api")
 # Com LLM local cada chamada leva ~25 s; sem LLM (padrão) os agentes respondem em milissegundos.
 TEMPO_MAXIMO_AGENTES_SEGUNDOS = float(os.getenv("FA_AGENTES_TIMEOUT_S", "15"))
+# Thread não se cancela: quem estoura o tempo continua rodando até o fim. O semáforo limita
+# quantas análises dos agentes ocupam o pool ao mesmo tempo; o excedente espera e, se o tempo
+# acabar na fila, recebe a resposta de timeout sem abrir thread nova.
+_VAGAS_AGENTES = asyncio.Semaphore(int(os.getenv("FA_AGENTES_CONCORRENCIA", "2")))
+
+
+async def _com_vaga[T](trabalho: Callable[[], Awaitable[T]]) -> T:
+    async with _VAGAS_AGENTES:
+        return await trabalho()
+
+
 ExecutarAgentes = Callable[[Fatura], Awaitable[list[Achado]]]
 
 
@@ -130,7 +141,9 @@ async def _executar_agentes(
     fatura: Fatura, executar: ExecutarAgentes
 ) -> tuple[list[Achado], str | None]:
     try:
-        return await asyncio.wait_for(executar(fatura), timeout=TEMPO_MAXIMO_AGENTES_SEGUNDOS), None
+        return await asyncio.wait_for(
+            _com_vaga(lambda: executar(fatura)), timeout=TEMPO_MAXIMO_AGENTES_SEGUNDOS
+        ), None
     except TimeoutError:
         logger.warning("agentes excederam o tempo limite")
         return [], "A análise adicional não respondeu a tempo; os achados A seguem disponíveis."
@@ -156,11 +169,13 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
     response.headers["Cache-Control"] = "no-store"
     try:
         r = await asyncio.wait_for(
-            asyncio.to_thread(
-                obter_orquestrador().responder_pergunta,
-                pedido.pergunta,
-                data_referencia=pedido.data_referencia,
-                persona=pedido.persona,
+            _com_vaga(
+                lambda: asyncio.to_thread(
+                    obter_orquestrador().responder_pergunta,
+                    pedido.pergunta,
+                    data_referencia=pedido.data_referencia,
+                    persona=pedido.persona,
+                )
             ),
             timeout=TEMPO_MAXIMO_AGENTES_SEGUNDOS,
         )
