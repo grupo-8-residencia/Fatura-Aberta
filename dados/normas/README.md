@@ -16,7 +16,7 @@ da Neoenergia Brasília. É a única fonte que entra no índice do RAG (`package
   `www2.aneel.gov.br/cedoc/ren20211000.html`.
 - **REN ANEEL nº 956/2021 — PRODIST Módulo 8** (vigência base a partir de 01/01/2022): Seção 8.2
   (itens 170–173, 177–179, 214, 216, 219, 222–224, 227, 234 e 235) e Anexo 8.B (Tabelas 4 e 5 para
-  baixa tensão ≤ 2,3 kV). Texto conferido no PDF oficial `aren20251137_Prodist_modulo_8_v14.pdf`
+  baixa tensão ≤ 2,3 kV). Texto conferido no PDF oficial `aren2021956_prodist_modulo_8_v13.pdf`
   vinculado em `gov.br/aneel`.
 - **REH ANEEL nº 3.614/2026 — Neoenergia Brasília** (vigência de 22/10/2026 a 21/10/2027): arts. 2º,
   3º (e § 3º sobre adicional de bandeiras), 5º, 6º, 11 e Tabelas 2, 3 e 5 (tarifas B1 e serviços
@@ -43,8 +43,8 @@ cobrança de atraso (art. 343), suspensão (arts. 356 a 361), faturamento incorr
 - **Ato Normativo:** Resolução Normativa ANEEL nº 956, de 7 de dezembro de 2021.
 - **Publicação Oficial:** Diário Oficial da União (DOU) de 15/12/2021, Seção 1, Página 111.
 - **Dispositivo de Vigência:** *Art. 16. Esta Resolução entra em vigor em 1º de janeiro de 2022.*
-- **Esclarecimento sobre a Data-Base 01/01/2022:** A data-base de 01/01/2022 é fixada expressamente no Art. 16 da Resolução Normativa instituidora (REN ANEEL nº 956/2021), ato que revogou as normas esparsas anteriores e consolidou a estrutura geral do PRODIST. Os arquivos em formato anexo (como o Anexo do Módulo 8) não trazem dispositivo próprio de vigência no corpo técnico das seções porque sua força cogente decorre do art. 16 da resolução consolidante. As alterações subsequentes foram promovidas pela REN ANEEL nº 1.000/2021 e pela REN ANEEL nº 1.137/2025 (versão 14 consolidada, em vigor, que inseriu o indicador de Situação de Emergência — DISE nos itens 172 e 173).
-- **Objeto:** Consolida os Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional (PRODIST). O Módulo 8 (Qualidade do Fornecimento de Energia Elétrica, versão 14 consolidada pela REN 1.137/2025) disciplina na Seção 8.2 os indicadores de continuidade individual (DIC, FIC, DMIC, DICRI e DISE) e o cálculo da compensação por violação de metas a ser creditada na fatura em até 2 meses após o mês de apuração (item 214). O Anexo 8.B fixa os padrões de continuidade para baixa tensão.
+- **Esclarecimento sobre a Data-Base 01/01/2022:** A data-base de 01/01/2022 é fixada expressamente no Art. 16 da Resolução Normativa instituidora (REN ANEEL nº 956/2021), ato que revogou as normas esparsas anteriores e consolidou a estrutura geral do PRODIST. Os arquivos em formato anexo (como o Anexo do Módulo 8) não trazem dispositivo próprio de vigência no corpo técnico das seções porque sua força cogente decorre do art. 16 da resolução consolidante. O PDF consolidado (versão 13) registra alterações posteriores, como as da REN ANEEL nº 1.095/2024, nº 1.137/2025 e nº 1.147/2025, e já traz o indicador de Situação de Emergência (DISE) nos itens 172 e 173.
+- **Objeto:** Consolida os Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional (PRODIST). O Módulo 8 (Qualidade do Fornecimento de Energia Elétrica, versão 13 consolidada) disciplina na Seção 8.2 os indicadores de continuidade individual (DIC, FIC, DMIC, DICRI e DISE) e o cálculo da compensação por violação de metas a ser creditada na fatura em até 2 meses após o mês de apuração (item 214). O Anexo 8.B fixa os padrões de continuidade para baixa tensão.
 
 ### 2. REH ANEEL nº 3.614/2026 — Tarifas da Neoenergia Distribuição Brasília
 - **Ato Homologatório:** Resolução Homologatória ANEEL nº 3.614, de 20 de outubro de 2026.
