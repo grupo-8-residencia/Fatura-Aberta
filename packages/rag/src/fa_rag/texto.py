@@ -85,8 +85,129 @@ _STOPWORDS = frozenset(
         "deste",
         "dessa",
         "desse",
+        "fica",
+        "ficam",
+        "quanto",
+        "quanta",
+        "quantos",
+        "quantas",
+        "tempo",
+        "devo",
+        "preciso",
+        "precisa",
+        "quero",
+        "queria",
+        "gostaria",
+        "saber",
+        "tenho",
+        "tinha",
+        "estou",
+        "estao",
+        "fazer",
+        "faz",
+        "faco",
+        "fiz",
+        "sera",
+        "algum",
+        "alguma",
+        "alguns",
+        "algumas",
+        "varios",
+        "varias",
+        "outro",
+        "outra",
+        "outros",
+        "outras",
+        "mesmo",
+        "mesma",
+        "cada",
+        "todo",
+        "toda",
+        "todos",
+        "todas",
+        "poderia",
+        "deveria",
+        "entra",
+        "sofre",
+        "vale",
+        "exige",
+        "existe",
+        "existem",
+        "haver",
+        "tiver",
+        "houver",
+        "mim",
+        "comigo",
+        "dele",
+        "dela",
+        "deles",
+        "delas",
+        "porque",
+        "entao",
+        "agora",
+        "ainda",
+        "apenas",
+        "somente",
+        "tambem",
+        "assim",
+        "caso",
     }
 )
+
+_FRASES: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bde\s+quanto\s+em\s+quanto\s+tempo\b"), "intervalo leitura"),
+    (re.compile(r"\bquantas\s+vezes\b"), "intervalo frequencia"),
+    (re.compile(r"\bduas\s+vezes\b"), "duplicidade"),
+    (re.compile(r"\btaxa\s+de\s+iluminacao\b"), "cip iluminacao"),
+    (re.compile(r"\bma\s+fe\b"), "dolo"),
+    (re.compile(r"\bfalta\s+de\s+pagamento\b"), "inadimplemento"),
+    (re.compile(r"\bgrupo\s+([ab])\b"), r"grupo grupo\1"),
+    (re.compile(r"\bpor\s+estimativa\b"), "estimativa media"),
+    (re.compile(r"\bconta\s+de\s+(luz|energia)\b"), "fatura energia"),
+    (re.compile(r"\b(?:fim|final)\s+de\s+semana\b"), "sabado domingo"),
+)
+
+_SINONIMOS: dict[str, str] = {
+    "cosip": "cip",
+    "cortar": "suspensao",
+    "cortou": "suspensao",
+    "cortado": "suspensao",
+    "cortada": "suspensao",
+    "corte": "suspensao",
+    "desligar": "suspensao",
+    "desligamento": "suspensao",
+    "avisar": "notificacao",
+    "avisado": "notificacao",
+    "avisada": "notificacao",
+    "aviso": "notificacao",
+    "comunicar": "notificacao",
+    "comunicado": "notificacao",
+    "lido": "leitura",
+    "lida": "leitura",
+    "ler": "leitura",
+    "medidor": "medicao",
+    "relogio": "medicao",
+    "paguei": "pagamento",
+    "pagou": "pagamento",
+    "pagar": "pagamento",
+    "pago": "pagamento",
+    "duplicado": "duplicidade",
+    "duplicada": "duplicidade",
+    "errada": "erro",
+    "errado": "erro",
+    "luz": "energia",
+    "conta": "fatura",
+    "empresa": "distribuidora",
+    "concessionaria": "distribuidora",
+    "religar": "religacao",
+    "religado": "religacao",
+    "religada": "religacao",
+    "vencer": "vencimento",
+    "vence": "vencimento",
+    "venceu": "vencimento",
+    "parcelar": "parcelamento",
+    "parcelado": "parcelamento",
+}
 
 
 def sem_acentos(texto: str) -> str:
@@ -94,12 +215,21 @@ def sem_acentos(texto: str) -> str:
     return "".join(c for c in decomposto if not unicodedata.combining(c))
 
 
+def normalizar_texto(texto: str) -> str:
+    """Minúsculas, sem acentos e com normalização de expressões leigas."""
+    limpo = " ".join(sem_acentos(texto).lower().split())
+    for padrao, subst in _FRASES:
+        limpo = padrao.sub(subst, limpo)
+    return limpo
+
+
 def tokenizar(texto: str, *, radical: int = 5) -> list[str]:
-    """Minúsculas, sem acentos, sem stopwords, com radical truncado (stemming leve)."""
-    bruto = re.findall(r"[a-z0-9]+", sem_acentos(texto).lower())
+    """Normaliza expressões e sinônimos, remove stopwords e aplica radical truncado."""
+    bruto = re.findall(r"[a-z0-9]+", normalizar_texto(texto))
     saida: list[str] = []
     for token in bruto:
         if token in _STOPWORDS or (len(token) < 2 and not token.isdigit()):
             continue
-        saida.append(token[:radical] if len(token) > radical else token)
+        canonico = _SINONIMOS.get(token, token)
+        saida.append(canonico[:radical] if len(canonico) > radical else canonico)
     return saida

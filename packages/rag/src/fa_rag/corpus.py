@@ -38,6 +38,7 @@ def _documento(item: dict[str, Any]) -> DocumentoNormativo:
         subgrupos=tuple(item["subgrupos"]),
         tags=tuple(item["tags"]),
         observacoes=str(item.get("observacoes") or ""),
+        nao_cobre=tuple(item.get("nao_cobre") or ()),
     )
 
 
