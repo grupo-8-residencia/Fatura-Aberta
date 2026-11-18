@@ -94,6 +94,7 @@ class ResultadoFatura:
     origens: dict[str, str]
     mensagem: Mensagem
     rastro: tuple[Passo, ...]
+    motivos_auditor: dict[str, tuple[str, ...]] = field(default_factory=dict)
 
 
 def _afirmacoes_extrativas(r: Resposta) -> tuple[tuple[str, tuple[Citacao, ...]], ...]:
@@ -219,11 +220,13 @@ class Orquestrador:
         alvo = [a for a in achados if divergente(a) or a.abstencao][:max_itens]
         explicacoes: list[Achado] = []
         origens: dict[str, str] = {}
+        motivos: dict[str, tuple[str, ...]] = {}
         for a in alvo:
-            resposta, origem, _, _, ev = self._resolver(
+            resposta, origem, _, problemas, ev = self._resolver(
                 consulta_do_achado(a), fatura.mes_referencia, rastro, achado=a
             )
             origens[a.item] = origem
+            motivos[a.item] = tuple(sorted({p.motivo.value for p in problemas}))
             if resposta.abstencao:
                 explicacoes.append(
                     Achado(
@@ -251,5 +254,5 @@ class Orquestrador:
             )
             d.append("adaptada" if msg.adaptada else f"sem adaptação ({msg.motivo})")
         return ResultadoFatura(
-            veredito, achados, tuple(explicacoes), origens, msg, tuple(rastro.passos)
+            veredito, achados, tuple(explicacoes), origens, msg, tuple(rastro.passos), motivos
         )
