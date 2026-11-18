@@ -21,7 +21,12 @@
   "semente_bootstrap": 42,
   "limite": null,
   "faturas_llm": 200,
-  "faturas_llm_puro": 111
+  "faturas_llm_puro": 200,
+  "t1_faturas_complemento": {
+   "data_utc": "2026-11-18T14:34:42Z",
+   "commit": "275abe7",
+   "nota": "T1 completado nas 89 faturas restantes em 18/11/2026 (mesmo modelo, digest, prompt e semente; as 111 primeiras saem do cache e são idênticas às de 13/11)."
+  }
  },
  "perguntas": {
   "B2": {
@@ -173,26 +178,26 @@
    "latencia_media_s": 67.324
   },
   "LLM": {
-   "n": 111,
+   "n": 200,
    "acerto": {
-    "estimativa": 0.7387387387387387,
-    "ic95_inf": 0.6576576576576577,
-    "ic95_sup": 0.8198198198198198
+    "estimativa": 0.755,
+    "ic95_inf": 0.695,
+    "ic95_sup": 0.815
    },
    "deteccao": {
-    "estimativa": 0.5625,
-    "ic95_inf": 0.4375,
-    "ic95_sup": 0.6875
+    "estimativa": 0.5154639175257731,
+    "ic95_inf": 0.422680412371134,
+    "ic95_sup": 0.6185567010309279
    },
    "falso_alarme": {
-    "estimativa": 0.02127659574468085,
+    "estimativa": 0.019417475728155338,
     "ic95_inf": 0.0,
-    "ic95_sup": 0.06382978723404255
+    "ic95_sup": 0.04854368932038835
    },
    "abstencoes": 0,
    "invalidas": 0,
    "rf15": 0,
-   "latencia_media_s": 37.455
+   "latencia_media_s": 36.432
   }
  },
  "mcnemar_perguntas": {
@@ -233,11 +238,25 @@
   }
  },
  "mcnemar_faturas": {
+  "B2_vs_LLM": {
+   "n01_primeiro_erra_segundo_acerta": 18,
+   "n10_primeiro_acerta_segundo_erra": 11,
+   "p_valor": 0.26520539259150755,
+   "p_exato": 0.26493089646101,
+   "significativo_5pct": false
+  },
   "B3_vs_B2": {
    "n01_primeiro_erra_segundo_acerta": 34,
    "n10_primeiro_acerta_segundo_erra": 85,
    "p_valor": 4.572733255137275e-06,
    "p_exato": 3.283757237397982e-06,
+   "significativo_5pct": true
+  },
+  "B3_vs_LLM": {
+   "n01_primeiro_erra_segundo_acerta": 47,
+   "n10_primeiro_acerta_segundo_erra": 91,
+   "p_valor": 0.0002518187915030057,
+   "p_exato": 0.00022530022137317706,
    "significativo_5pct": true
   },
   "B3_vs_B1": {
@@ -304,8 +323,8 @@
     "completo": true
    },
    "faturas/LLM": {
-    "esperado": 111,
-    "concluidos": 111,
+    "esperado": 200,
+    "concluidos": 200,
     "invalidos": [],
     "duplicados": [],
     "pendentes": [],
