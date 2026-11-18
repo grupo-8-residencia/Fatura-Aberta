@@ -59,7 +59,8 @@ perguntas foi concluída (116 concordam, 4 com correção proposta, não aplicad
 ## Limitações
 
 - Seis pessoas anotando 30 itens cobrem 180 dos 320 itens; o restante fica com o gabarito de construção.
-  TODO: decidir sobre uma segunda rodada de anotação e sobre aplicar as 4 correções num gabarito v2.
+  Decisão de 18/11/2026: sem segunda rodada de anotação; as 4 correções da revisão entram num gabarito v2
+  (com novo hash) na S5, e as rodadas afetadas são refeitas sobre ele. Até lá, o gabarito congelado vale.
 - As perguntas dependem de um corpus de 28 dispositivos (REN 1.000/2021, CDC e Lei Distrital
   7.888/2026); PRODIST e a REH de tarifas estão pendentes.
 - As faturas não têm layout de PDF nem foto; servem às checagens do nível A, não à extração.
