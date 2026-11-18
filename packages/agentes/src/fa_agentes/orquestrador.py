@@ -165,7 +165,10 @@ class Orquestrador:
             afirm = tuple((a.texto, a.citacoes) for a in auditoria.afirmacoes_aprovadas)
             return auditoria.resposta, Origem.ANALISTA_AUDITADO, afirm, auditoria.problemas, ev
         extr = ev.resposta_extrativa
-        proibidas = sorted({v.termo for v in verificar_linguagem(extr.texto)})
+        # O trecho extrativo é texto literal da norma entre aspas, com a citação: exceção do RF-15.
+        proibidas = sorted(
+            {v.termo for v in verificar_linguagem(extr.texto, permitir_citacao_literal=True)}
+        )
         if proibidas:
             # O trecho literal da norma traz termo vedado pelo RF-15 (ex.: "devolução em dobro"):
             # entrega só a referência aos dispositivos, sem transcrever o trecho.
