@@ -166,3 +166,49 @@ def test_analisar_explica_item_divergente_sem_mudar_o_nivel_a() -> None:
     assert ("Total da fatura", "A") in niveis
     explicacoes = [a for a in corpo["achados"] if a["nivel"] in ("B", "C")]
     assert explicacoes and all(a["item"] == "Total da fatura" for a in explicacoes)
+
+
+def test_vaga_so_volta_quando_o_trabalho_termina_mesmo_apos_timeout(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Chamadas que estouram o tempo não podem abrir mais threads que o limite de concorrência."""
+    import threading
+    import time
+
+    ativas = 0
+    pico = 0
+    trava = threading.Lock()
+
+    def lento() -> list[Achado]:
+        nonlocal ativas, pico
+        with trava:
+            ativas += 1
+            pico = max(pico, ativas)
+        time.sleep(0.15)
+        with trava:
+            ativas -= 1
+        return []
+
+    async def agentes_lentos(_: Fatura) -> list[Achado]:
+        return await asyncio.to_thread(lento)
+
+    fatura = Fatura(
+        distribuidora="Distribuidora Sintética",
+        mes_referencia=date(2026, 3, 1),
+        consumo_kwh=Decimal("50"),
+        total=Decimal("40"),
+    )
+
+    async def cenario() -> list[str | None]:
+        monkeypatch.setattr(api_main, "_VAGAS_AGENTES", asyncio.Semaphore(1))
+        monkeypatch.setattr(api_main, "TEMPO_MAXIMO_AGENTES_SEGUNDOS", 0.03)
+        avisos = []
+        for _ in range(4):  # requisições sucessivas, todas estouram o tempo
+            _, aviso = await _executar_agentes(fatura, agentes_lentos)
+            avisos.append(aviso)
+        await asyncio.sleep(0.4)  # deixa terminar o que já começou
+        return avisos
+
+    avisos = asyncio.run(cenario())
+    assert all(a and "não respondeu a tempo" in a for a in avisos)
+    assert pico == 1  # nunca mais de uma thread de agentes ativa com limite 1

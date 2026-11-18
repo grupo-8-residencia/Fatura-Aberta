@@ -7,6 +7,7 @@ from collections.abc import Awaitable, Callable
 from datetime import date
 from threading import Lock
 from time import perf_counter
+from typing import Any
 from urllib.parse import urlsplit
 
 from fastapi import FastAPI, HTTPException, Response
@@ -21,15 +22,28 @@ from fa_motor import analisar_nivel_a
 logger = logging.getLogger("fa_api")
 # Com LLM local cada chamada leva ~25 s; sem LLM (padrão) os agentes respondem em milissegundos.
 TEMPO_MAXIMO_AGENTES_SEGUNDOS = float(os.getenv("FA_AGENTES_TIMEOUT_S", "15"))
-# Thread não se cancela: quem estoura o tempo continua rodando até o fim. O semáforo limita
-# quantas análises dos agentes ocupam o pool ao mesmo tempo; o excedente espera e, se o tempo
-# acabar na fila, recebe a resposta de timeout sem abrir thread nova.
+# Thread não se cancela: quem estoura o tempo continua rodando até o fim. A vaga do semáforo só é
+# devolvida quando o trabalho real termina (mesmo depois de a resposta já ter saído por timeout),
+# então nunca há mais de FA_AGENTES_CONCORRENCIA análises dos agentes rodando ao mesmo tempo. Quem
+# espera vaga gasta o próprio prazo na fila e, se ele acabar, recebe timeout sem abrir thread nova.
 _VAGAS_AGENTES = asyncio.Semaphore(int(os.getenv("FA_AGENTES_CONCORRENCIA", "2")))
 
 
-async def _com_vaga[T](trabalho: Callable[[], Awaitable[T]]) -> T:
-    async with _VAGAS_AGENTES:
-        return await trabalho()
+def _devolver_vaga(tarefa: "asyncio.Future[Any]") -> None:
+    _VAGAS_AGENTES.release()
+    if not tarefa.cancelled():
+        tarefa.exception()  # já tratada por quem esperou; evita o aviso de exceção não lida
+
+
+async def _com_vaga[T](trabalho: Callable[[], Awaitable[T]], timeout: float) -> T:
+    """Roda ``trabalho`` numa vaga até ele terminar; quem chama espera no máximo ``timeout``."""
+    loop = asyncio.get_running_loop()
+    prazo = loop.time() + timeout
+    await asyncio.wait_for(_VAGAS_AGENTES.acquire(), timeout=timeout)
+    tarefa = asyncio.ensure_future(trabalho())
+    tarefa.add_done_callback(_devolver_vaga)
+    # shield: o timeout encerra a espera de quem chamou, mas não cancela o trabalho nem a vaga.
+    return await asyncio.wait_for(asyncio.shield(tarefa), timeout=max(prazo - loop.time(), 0))
 
 
 ExecutarAgentes = Callable[[Fatura], Awaitable[list[Achado]]]
@@ -141,9 +155,7 @@ async def _executar_agentes(
     fatura: Fatura, executar: ExecutarAgentes
 ) -> tuple[list[Achado], str | None]:
     try:
-        return await asyncio.wait_for(
-            _com_vaga(lambda: executar(fatura)), timeout=TEMPO_MAXIMO_AGENTES_SEGUNDOS
-        ), None
+        return await _com_vaga(lambda: executar(fatura), TEMPO_MAXIMO_AGENTES_SEGUNDOS), None
     except TimeoutError:
         logger.warning("agentes excederam o tempo limite")
         return [], "A análise adicional não respondeu a tempo; os achados A seguem disponíveis."
@@ -168,16 +180,14 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
     """Pergunta regulatória respondida pelos 4 agentes (Pesquisador a Comunicador)."""
     response.headers["Cache-Control"] = "no-store"
     try:
-        r = await asyncio.wait_for(
-            _com_vaga(
-                lambda: asyncio.to_thread(
-                    obter_orquestrador().responder_pergunta,
-                    pedido.pergunta,
-                    data_referencia=pedido.data_referencia,
-                    persona=pedido.persona,
-                )
+        r = await _com_vaga(
+            lambda: asyncio.to_thread(
+                obter_orquestrador().responder_pergunta,
+                pedido.pergunta,
+                data_referencia=pedido.data_referencia,
+                persona=pedido.persona,
             ),
-            timeout=TEMPO_MAXIMO_AGENTES_SEGUNDOS,
+            TEMPO_MAXIMO_AGENTES_SEGUNDOS,
         )
     except TimeoutError as erro:
         raise HTTPException(504, "Os agentes não responderam a tempo.") from erro
