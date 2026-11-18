@@ -160,6 +160,21 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
    56,4%, IC 95% [41,0%; 71,8%]), muito abaixo do critério de 0,75. O juiz marcou `sem_suporte` em 17
    itens, contra 4 dos humanos: ele trata como "sem lastro" frases genéricas que repetem o que a norma exige
    da fatura. Pelo protocolo, o prompt do juiz deve ser refinado, ou a avaliação final passa a ser humana.
+   **Recalibração (18/11/2026, `avaliacao/recalibrar_juiz.py`, resultado em `avaliacao/resultados/s3-recalibracao-juiz.json`).**
+   Dividimos os 40 itens em desenvolvimento (20, onde se olharam os erros) e retida (20, só medida) e
+   escrevemos um prompt v2 (conta aritmética refeita, abstenção suportada quando a evidência não traz o dado,
+   proposições só da saída). O GS-Q114 passou a contar como erro do juiz, com timeout de 2 min. Resultado:
+
+   | Prompt | κ nos 40 | κ retida | Acurácia retida [IC 95%] | `sem_suporte` (juiz/humano) |
+   |---|---|---|---|---|
+   | v1 (original) | 0,022 | −0,019 | 45% [25%; 65%] | 18 / 4 |
+   | v2 | 0,125 | −0,136 | 75% [55%; 90%] | 5 / 4 |
+
+   O v2 corrigiu o excesso de "sem suporte" (acurácia de 55% para 82,5% nos 40), mas o κ na metade retida
+   segue negativo e **muito abaixo de 0,75**: com apenas 4 itens `sem_suporte` nos 40 (2 na retida), o κ é
+   instável e quase qualquer erro o derruba. Conclusão: o juiz `qwen3:14b` **não está calibrado**, e a
+   métrica de "afirmações sem suporte" continua fora dos números confiáveis; a avaliação final dessa
+   dimensão deve ser humana ou usar um juiz maior, com mais itens `sem_suporte` anotados.
    Ressalva de proveniência: as 80 decisões humanas foram consolidadas e entregues pelo Pedro, não
    exportadas individualmente pela página, e os dois avaliadores concordam em todos os itens (κ humano ×
    humano = 1,000). Esse valor não deve ser citado como concordância independente.
@@ -185,7 +200,7 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 
 | Item | Quem | Efeito nos números |
 |---|---|---|
-| Refinar o prompt do juiz e repetir a calibração (e obter veredito válido para o GS-Q114) | Pedro | habilita "afirmações sem suporte" |
+| Juiz: prompt v2 testado em 18/11 e ainda reprovado (κ retida −0,14). Próximo passo: juiz maior ou avaliação humana, com mais itens `sem_suporte` | Pedro | habilita "afirmações sem suporte" |
 | Anotação do golden set (30 itens por pessoa, 0/30 hoje) | 6 pessoas | pode mudar gabaritos e exigir recongelar o conjunto |
 | Medir modelos alternativos para o produto (ADR-003), na S4 | Pedro | muda a escolha do modelo, não a do método |
 | Investigar as 16 respostas inválidas do T4 | Pedro | pode elevar o T4 acima do T2 |
