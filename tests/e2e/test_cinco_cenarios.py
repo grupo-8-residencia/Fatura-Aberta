@@ -53,7 +53,16 @@ def test_cinco_cenarios_ponta_a_ponta(
         },
     )
     assert resposta.status_code == 200
-    achados = {item["item"]: item for item in resposta.json()["achados"]}
+    todos = resposta.json()["achados"]
+    # Os agentes acrescentam explicações (nível B ou C) com o mesmo nome de item; o veredito é o A.
+    achados = {item["item"]: item for item in todos if item["nivel"] == "A"}
+    explicados = {item["item"] for item in todos if item["nivel"] in ("B", "C")}
+    divergentes = {
+        n
+        for n, ok in (("Consumo medido", consumo_confere), ("Total da fatura", total_confere))
+        if not ok
+    }
+    assert divergentes <= explicados
     consumo_medido = achados["Consumo medido"]
     total_fatura = achados["Total da fatura"]
 
