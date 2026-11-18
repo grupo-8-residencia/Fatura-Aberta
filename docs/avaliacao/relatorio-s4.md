@@ -179,7 +179,7 @@ e o Auditor corretamente o barrou (resposta errada convertida em abstenção, se
 
 ## Rodada T5: sistema multiagentes (corpus de 39 dispositivos)
 
-Rodada de 18/11/2026 com o sistema de 4 agentes ([arquitetura](../arquitetura/agentes.md)), sobre o
+Rodada de 18/11/2026 com o sistema de 4 agentes (`packages/agentes/src/fa_agentes/orquestrador.py`), sobre o
 **corpus atual de 39 dispositivos** (PR #139) e a recuperação atual (PR #135). B4, B5 e T5 partilham a
 mesma chamada do Analista por pergunta; T2 é a resposta extrativa do Pesquisador na mesma recuperação.
 Fonte: `avaliacao/resultados/s4-t5.json` e `s4-t5-comparacao.json` (hash do corpus no cabeçalho).
