@@ -15,7 +15,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from estatistica import B_PADRAO, SEMENTE_PADRAO, Intervalo, bootstrap_ic
+from estatistica import B_PADRAO, SEMENTE_AMOSTRA, SEMENTE_PADRAO, Intervalo, bootstrap_ic
 
 from fa_rag import IndiceHibrido
 
@@ -32,7 +32,7 @@ def _artigo(doc_id: str) -> str:
 
 
 def amostra_estratificada(
-    perguntas: list[dict[str, Any]], n: int, semente: int = SEMENTE_PADRAO
+    perguntas: list[dict[str, Any]], n: int, semente: int = SEMENTE_AMOSTRA
 ) -> list[dict[str, Any]]:
     """Amostra de n perguntas, proporcional ao tamanho de cada categoria, com semente fixa.
 
@@ -123,7 +123,7 @@ def medir_recall_s2(
         "sprint": "S2",
         "frente": "F2",
         "n_perguntas": len(perguntas_gate),
-        "amostra": "estratificada por categoria, semente " + str(SEMENTE_PADRAO),
+        "amostra": "estratificada por categoria, semente " + str(SEMENTE_AMOSTRA),
         "ids_amostra": [p["id"] for p in perguntas_gate],
         "composicao_por_categoria": {
             c: sum(1 for p in perguntas_gate if p.get("categoria") == c)

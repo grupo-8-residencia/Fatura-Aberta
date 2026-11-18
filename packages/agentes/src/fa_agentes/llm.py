@@ -75,7 +75,7 @@ class ClienteOllama:
     temperatura: float = TEMPERATURA
     semente: int = SEMENTE
     timeout_s: float = 600.0
-    contexto: int = 8192
+    contexto: int = 6144
     pensar: bool | str | None = None
     cache_dir: Path | None = None
     provedor: str = field(default="ollama", init=False)

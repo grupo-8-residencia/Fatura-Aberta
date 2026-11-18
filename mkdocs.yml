@@ -105,6 +105,7 @@ nav:
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
           - "ADR-002 — LLM local (Ollama)": arquitetura/decisoes/adr-002-llm-local.md
+          - "ADR-003 — Modelo do produto": arquitetura/decisoes/adr-003-modelo-produto.md
   - Frentes:
       - frentes/index.md
       - "F1 — Produto, Pesquisa e Conformidade": frentes/f1.md
@@ -126,7 +127,9 @@ nav:
       - Métricas: avaliacao/metricas.md
       - Golden set: avaliacao/golden-set.md
       - Como anotar: avaliacao/anotacao.md
+      - Divergências do golden set: avaliacao/divergencias-golden-set.md
       - Resultados: avaliacao/resultados.md
+      - Relatório S3 (LLM × RAG): avaliacao/relatorio-s3-final.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
   - Sprints:
