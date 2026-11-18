@@ -137,13 +137,13 @@ real ou ambígua que o Auditor acertou em barrar.
 ### A causa da perda
 
 A perda tem **duas partes**, não uma. Dos 17 casos em que só o B4 acerta: 12 foram barrados apenas por
-`sem_suporte` (regra de números, abaixo); 3 por `linguagem_proibida` (GS-Q045 e GS-Q063 por "devolução em
+`sem_suporte` (regra de números ou de cobertura de palavras); 3 por `linguagem_proibida` (GS-Q045 e GS-Q063 por "devolução em
 dobro", GS-Q074 por "restituição"); 2 por citação com id inventado (`::VI` e `::I`). "Devolução em dobro"
 é o termo literal do art. 323, § 2º da REN 1.000, e a lista do RF-15 barra o termo de direito, não só a
 estimativa de valor: é um **segundo defeito de regra**, a tratar na próxima rodada, também sem ajustar com
 este golden set.
 
-**Regra de números (12 dos 17).** A regra de números compara todo número da afirmação com o texto de `titulo + texto` dos dispositivos
+**Regra de números.** A regra de números compara todo número da afirmação com o texto de `titulo + texto` dos dispositivos
 citados. Quando o modelo escreve "REN ANEEL nº 1.000/2021, art. 323" ou "Lei nº 7.888/2026", esses
 números estão na **citação** (ato e dispositivo), que não entra no texto de comparação, e a afirmação é
 reprovada mesmo sendo fiel. É um defeito de projeto da regra do Auditor (#36), observado aqui, e não um
@@ -234,8 +234,9 @@ Comunicador. Latência média de 15,7 s por fatura com chamada ao LLM.
       dependem disso.
     - **"Sem suporte" é a medida determinística do Auditor**, não um juiz: o juiz LLM foi reprovado na
       calibração (PR #162). Erro factual que passe nas regras determinísticas não aparece aqui.
-    - **Explicações das faturas:** só 18 de 84 saíram com o texto do LLM; nas outras, a regra de números
-      do Auditor barrou o rascunho (a mesma causa da perda do B5) e entrou o trecho literal.
+    - **Explicações das faturas:** só 18 de 84 saíram com o texto do LLM. Nas outras 66 entrou o trecho
+      literal: em 33 o Auditor barrou o rascunho por `sem_suporte` (regra de números ou de cobertura de
+      palavras, as mesmas da perda do B5) e nas demais o Analista não propôs afirmação aproveitável.
 
 ## Limites e próximos passos
 
