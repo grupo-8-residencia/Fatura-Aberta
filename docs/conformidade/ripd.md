@@ -25,7 +25,7 @@ A análise está organizada em três níveis:
 
 Durante a preparação dos testes, a frente F1 realizou a coleta de 15 faturas reais, identificadas pelos códigos F001 a F015. Os documentos foram disponibilizados voluntariamente e seus respectivos termos de consentimento foram conferidos e vinculados individualmente, conforme a informação atualizada pela F1.
 
-O formulário de consentimento recebeu 22 respostas, enquanto a pesquisa com consumidores contabilizou 21 participantes. A pesquisa foi utilizada para compreender dificuldades relacionadas à leitura das contas, à identificação de cobranças e à conferência de possíveis divergências. Essas respostas não substituem a autorização individual necessária para utilização das faturas reais.
+O formulário de consentimento registrou 22 respostas, enquanto a pesquisa com consumidores contabilizou 21 participantes. Esses quantitativos correspondem a instrumentos de coleta distintos e não representam necessariamente as mesmas pessoas. Entre os 21 participantes da pesquisa, 17 informaram receber a conta de energia impressa e 12 relataram dificuldade para compreender como os valores são calculados. As respostas aos formulários não substituem a autorização individual necessária para utilização das 15 faturas reais recebidas para testes.
 
 **Base legal — TODO (F1):** confirmar com a Talita e, se possível, com o docente de Direito vinculado à atividade #4, quais hipóteses legais se aplicam ao funcionamento do produto e à utilização das faturas cedidas para testes. O consentimento, previsto no art. 7º, I, da Lei nº 13.709/2018, é uma hipótese a ser avaliada para os documentos disponibilizados voluntariamente.
 
@@ -45,7 +45,11 @@ O fluxo de tratamento previsto na arquitetura do Fatura Aberta compreende as seg
 
 5. **Armazenamento:** a arquitetura documentada prevê que a API não persista o arquivo original da fatura e que o resultado permaneça na sessão do usuário. Os registros de erro devem conter apenas informações necessárias ao diagnóstico, sem reproduzir o conteúdo do documento. Essas condições precisam ser confirmadas por meio de testes e revisão da implementação.
 
-6. **Faturas reais utilizadas nos testes:** as 15 faturas recebidas pela F1 estão organizadas em uma pasta privada no Google Drive, fora do repositório GitHub. O controle da coleta registra os documentos recebidos, a conferência dos termos de consentimento e a vinculação individual das autorizações. O acesso à pasta está registrado como restrito, permanecendo necessária a confirmação das permissões e dos responsáveis autorizados.
+6. **Faturas reais utilizadas nos testes:** as 15 faturas recebidas pela F1 estão organizadas em uma pasta privada no Google Drive, fora do repositório GitHub. O controle da coleta registra os documentos recebidos, a conferência dos termos de consentimento e a vinculação individual das autorizações.
+
+A configuração efetiva das permissões de compartilhamento ainda precisa ser verificada, assim como a relação de pessoas autorizadas a acessar os documentos. Portanto, não é possível afirmar que o acesso esteja efetivamente restrito até que essa verificação seja concluída.
+
+**TODO (F1):** conferir as permissões de compartilhamento, identificar os responsáveis autorizados e documentar a verificação no controle privado da equipe.
 
 Os arquivos reais são destinados exclusivamente aos testes abrangidos pelas autorizações concedidas. No repositório público, a política de dados permite apenas documentos sintéticos ou efetivamente anonimizados.
 
@@ -64,7 +68,7 @@ O tratamento de faturas reais exige cuidados porque os documentos podem conter i
 | Envio de dados pessoais a serviços externos | A arquitetura prevê processamento local de imagens e execução local do modelo de linguagem com Ollama, conforme ADR-002. Os documentos públicos de benchmark devem utilizar dados sintéticos. |
 | Dados pessoais encaminhados pelo analisador | O contrato `Fatura` não possui campos destinados à identificação pessoal e o componente de extração utiliza uma lista definida de informações necessárias à análise. |
 | Instruções maliciosas inseridas em imagens | Estão previstas a higienização do texto extraído e verificações específicas de injeção de prompt, conforme `docs/seguranca/injecao-por-imagem.md`. |
-| Acesso indevido às faturas reais | Os documentos foram organizados em pasta privada no Google Drive, com acesso registrado como restrito. A relação de pessoas autorizadas e as permissões precisam ser confirmadas. |
+| Acesso indevido às faturas reais | Os documentos estão organizados em pasta privada no Google Drive, fora do repositório público. A efetividade das restrições de acesso ainda não foi confirmada. A F1 deverá verificar as permissões de compartilhamento e registrar os responsáveis autorizados. |
 | Utilização de fatura sem autorização correspondente | A F1 informou a conclusão da conferência e da vinculação individual dos termos às 15 faturas. Essa situação deverá permanecer documentada no controle da coleta. |
 | Permanência de cópias locais após os testes | Está prevista a exclusão dos arquivos ao término do Challenge, incluindo cópias locais. Ainda é necessário definir prazo, responsáveis e registro da exclusão. |
 | Orientação incorreta sobre cobranças ou direitos do consumidor | O produto utiliza níveis de análise A, B e C, referências oficiais e linguagem baseada em evidências, respeitando os limites definidos em `docs/conformidade/fronteira-juridica.md` e os requisitos relacionados à comunicação dos resultados, incluindo RF-15. |
