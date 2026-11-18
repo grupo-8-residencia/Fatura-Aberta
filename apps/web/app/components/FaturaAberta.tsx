@@ -7,7 +7,7 @@ import { Botao, SeloNivel } from "./ui";
 import {
   analisarFatura,
   formatarData,
-  paraDecisao,
+  montarDecisoes,
   somarItens,
   type DadosConfirmados,
   type ItemDigitado,
@@ -370,11 +370,43 @@ function IconeResultado({ resultado }: { resultado: Resultado }) {
       <circle cx="10" cy="10" r="7.5" stroke="currentColor" />
       {resultado === "Confere" ? (
         <path d="m6.5 10 2.25 2.25 4.75-4.75" stroke="currentColor" />
+      ) : resultado === "Norma aplicável" ? (
+        <path d="M10 9v4.5M10 6.5v.25" stroke="currentColor" />
       ) : (
         <path d="M10 6.5v4M10 13.5v.25" stroke="currentColor" />
       )}
     </svg>
   );
+}
+
+function ListaFontes({ decisao }: { decisao: Decisao }) {
+  return (
+    <div className="decision-source">
+      <strong>Fonte:</strong>{" "}
+      {decisao.fontes.length === 0 ? (
+        "dados informados nesta fatura."
+      ) : (
+        <ul>
+          {decisao.fontes.map((c) => (
+            <li key={`${c.ato}-${c.dispositivo}`}>
+              <a href={c.url} target="_blank" rel="noreferrer">
+                {c.ato}, {c.dispositivo}
+              </a>
+              , vigente desde {formatarData(c.vigencia_inicio)}
+              {c.vigencia_fim ? ` até ${formatarData(c.vigencia_fim)}` : ""}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function classeResultado(resultado: Resultado): string {
+  if (resultado === "Não foi possível concluir") return "decision-result--inconclusive";
+  if (resultado === "Divergência encontrada") return "decision-result--divergence";
+  if (resultado === "Norma aplicável") return "decision-result--norma";
+  return "";
 }
 
 function CartaoDecisao({
@@ -396,35 +428,32 @@ function CartaoDecisao({
         <h3>{decisao.titulo}</h3>
         <SeloNivel nivel={decisao.nivel} />
       </div>
-      <p
-        className={`decision-result ${
-          semConclusao ? "decision-result--inconclusive" : diverge ? "decision-result--divergence" : ""
-        }`}
-      >
+      <p className={`decision-result ${classeResultado(decisao.resultado)}`}>
         <IconeResultado resultado={decisao.resultado} />
         <strong>{decisao.resultado}</strong>
       </p>
       <p className="decision-explanation">{decisao.explicacao}</p>
       {decisao.valores && <p className="decision-values">{decisao.valores}</p>}
       {(diverge || semConclusao) && <p className="decision-guidance">{ORIENTACAO}</p>}
-      <div className="decision-source">
-        <strong>Fonte:</strong>{" "}
-        {decisao.fontes.length === 0 ? (
-          "dados informados nesta fatura."
-        ) : (
-          <ul>
-            {decisao.fontes.map((c) => (
-              <li key={`${c.ato}-${c.dispositivo}`}>
-                <a href={c.url} target="_blank" rel="noreferrer">
-                  {c.ato}, {c.dispositivo}
-                </a>
-                , vigente desde {formatarData(c.vigencia_inicio)}
-                {c.vigencia_fim ? ` até ${formatarData(c.vigencia_fim)}` : ""}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <ListaFontes decisao={decisao} />
+      {decisao.explicacoes.length > 0 && (
+        <section className="agent-explanations" aria-label={`Explicação dos agentes sobre ${decisao.titulo}`}>
+          <h4>Explicação dos agentes</h4>
+          {decisao.explicacoes.map((e) => (
+            <div className="agent-explanation" key={e.chave}>
+              <div className="agent-explanation-heading">
+                <SeloNivel nivel={e.nivel} />
+                <p className={`decision-result ${classeResultado(e.resultado)}`}>
+                  <IconeResultado resultado={e.resultado} />
+                  <strong>{e.resultado}</strong>
+                </p>
+              </div>
+              <p className="decision-explanation">{e.explicacao}</p>
+              <ListaFontes decisao={e} />
+            </div>
+          ))}
+        </section>
+      )}
       <div className="decision-actions">
         {(diverge || semConclusao) && (
           <Botao variante="secondary" onClick={aoPedir}>
@@ -737,7 +766,18 @@ function passaFiltro(d: Decisao, filtro: Filtro): boolean {
   if (filtro === "confere") return d.resultado === "Confere";
   if (filtro === "divergencia") return d.resultado === "Divergência encontrada";
   if (filtro === "sem_conclusao") return d.resultado === "Não foi possível concluir";
-  return d.nivel === filtro;
+  return d.nivel === filtro || d.explicacoes.some((e) => e.nivel === filtro);
+}
+
+function textoBusca(d: Decisao): string {
+  return [d, ...d.explicacoes]
+    .map((x) => `${x.titulo} ${x.resultado} ${x.explicacao}`)
+    .join(" ")
+    .toLocaleLowerCase("pt-BR");
+}
+
+function pedeAtencao(d: Decisao): boolean {
+  return d.resultado === "Divergência encontrada" || d.resultado === "Não foi possível concluir";
 }
 
 export default function FaturaAberta() {
@@ -748,6 +788,11 @@ export default function FaturaAberta() {
   const [dados, setDados] = useState<DadosConfirmados>(DADOS_EXEMPLO);
   const [estado, setEstado] = useState<Estado>("editando");
   const [decisoes, setDecisoes] = useState<Decisao[]>([]);
+  // Dados que geraram os cartões: o resumo e o pedido de esclarecimento usam esta cópia.
+  const [conferidos, setConferidos] = useState<DadosConfirmados>(DADOS_EXEMPLO);
+  // Sobe a cada edição e a cada nova conferência: uma resposta que chega depois de uma edição
+  // pertence a dados antigos e é descartada.
+  const versaoRef = useRef(0);
   const [aviso, setAviso] = useState<string | null>(null);
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<Filtro>("todos");
@@ -791,15 +836,20 @@ export default function FaturaAberta() {
   }, [destino]);
 
   async function conferir() {
+    const versao = ++versaoRef.current;
+    const enviados = dados;
     setEstado("conferindo");
     setAviso(null);
     try {
-      const resposta = await analisarFatura(dados);
-      setDecisoes(resposta.achados.map(paraDecisao));
+      const resposta = await analisarFatura(enviados);
+      if (versao !== versaoRef.current) return;
+      setDecisoes(montarDecisoes(resposta.achados));
+      setConferidos(enviados);
       setAviso(resposta.aviso ?? null);
       setRevisados([]);
       setEstado("pronto");
     } catch {
+      if (versao !== versaoRef.current) return;
       setEstado("erro");
     }
     setDestino("conferencia");
@@ -813,7 +863,20 @@ export default function FaturaAberta() {
     window.requestAnimationFrame(() => document.getElementById("conteudo")?.focus());
   }
 
+  /** Qualquer edição invalida o resultado anterior: ele valia para os dados de antes. */
+  function alterarDados(mudar: (atual: DadosConfirmados) => DadosConfirmados) {
+    versaoRef.current += 1;
+    setDados(mudar);
+    if (estado !== "editando") {
+      setDecisoes([]);
+      setAviso(null);
+      setRevisados([]);
+      setEstado("editando");
+    }
+  }
+
   function limpar() {
+    versaoRef.current += 1;
     setDados(DADOS_EXEMPLO);
     setDecisoes([]);
     setAviso(null);
@@ -827,11 +890,10 @@ export default function FaturaAberta() {
   const visiveis = decisoes.filter(
     (d) =>
       passaFiltro(d, filtro) &&
-      (!termo ||
-        `${d.titulo} ${d.resultado} ${d.explicacao}`.toLocaleLowerCase("pt-BR").includes(termo)),
+      (!termo || textoBusca(d).includes(termo)),
   );
   const proximoTema: Tema = tema === "light" ? "dark" : "light";
-  const totalTexto = `R$ ${dados.total}`;
+  const totalTexto = `R$ ${conferidos.total}`;
   const mascote: Record<Destino, { estado: EstadoFaisca; mensagem: string }> = {
     fatura: { estado: "idle", mensagem: "Comece confirmando os dados da fatura." },
     conferencia: {
@@ -840,7 +902,7 @@ export default function FaturaAberta() {
           ? "alert"
           : estado === "conferindo"
             ? "thinking"
-            : decisoes.some((d) => d.resultado !== "Confere")
+            : decisoes.some(pedeAtencao)
               ? "guiding"
               : decisoes.length
                 ? "happy"
@@ -848,7 +910,7 @@ export default function FaturaAberta() {
       mensagem:
         estado === "erro"
           ? "Não consegui conferir agora."
-          : decisoes.some((d) => d.resultado !== "Confere")
+          : decisoes.some(pedeAtencao)
             ? "Veja os itens destacados."
             : decisoes.length
               ? "Tudo certo com os itens conferidos."
@@ -935,11 +997,11 @@ export default function FaturaAberta() {
             </div>
             <div>
               <span className="summary-strip-label">Mês de referência</span>
-              <strong>{dados.mesReferencia}</strong>
+              <strong>{conferidos.mesReferencia}</strong>
             </div>
             <div>
               <span className="summary-strip-label">Consumo</span>
-              <strong>{dados.consumo} kWh</strong>
+              <strong>{conferidos.consumo} kWh</strong>
             </div>
           </section>
         )}
@@ -956,9 +1018,9 @@ export default function FaturaAberta() {
                   dados={dados}
                   online={online}
                   conferindo={estado === "conferindo"}
-                  aoMudar={(campo, valor) => setDados((atual) => ({ ...atual, [campo]: valor }))}
+                  aoMudar={(campo, valor) => alterarDados((atual) => ({ ...atual, [campo]: valor }))}
                   aoMudarItem={(id, campo, valor) =>
-                    setDados((atual) => ({
+                    alterarDados((atual) => ({
                       ...atual,
                       itens: atual.itens.map((item) =>
                         item.id === id ? { ...item, [campo]: valor } : item,
@@ -966,7 +1028,7 @@ export default function FaturaAberta() {
                     }))
                   }
                   aoAdicionarItem={() =>
-                    setDados((atual) => ({
+                    alterarDados((atual) => ({
                       ...atual,
                       itens: [
                         ...atual.itens,
@@ -981,7 +1043,7 @@ export default function FaturaAberta() {
                     }))
                   }
                   aoRemoverItem={(id) =>
-                    setDados((atual) => ({
+                    alterarDados((atual) => ({
                       ...atual,
                       itens: atual.itens.filter((item) => item.id !== id),
                     }))
@@ -994,7 +1056,7 @@ export default function FaturaAberta() {
             {destino === "conferencia" && (
               <>
                 <div className="page-heading">
-                  <p className="eyebrow">Fatura de {dados.mesReferencia}</p>
+                  <p className="eyebrow">Fatura de {conferidos.mesReferencia}</p>
                   <h1 ref={tituloConferenciaRef} tabIndex={-1}>
                     Conferência
                   </h1>
@@ -1051,7 +1113,7 @@ export default function FaturaAberta() {
                         {aviso}
                       </p>
                     )}
-                    <ItensConferidos dados={dados} />
+                    <ItensConferidos dados={conferidos} />
                     <section className="content-card search-controls" aria-labelledby="busca-titulo">
                       <h2 id="busca-titulo">Encontre uma checagem</h2>
                       <div className="search-field">
@@ -1223,11 +1285,11 @@ export default function FaturaAberta() {
             <Faisca estado="guiding" mensagem="Use os dados da fatura no pedido." />
             <p className="clarification-intro">Texto baseado só no que a fatura informa:</p>
             <blockquote className="clarification-copy">
-              {textoPedido(pedido, dados.mesReferencia)}
+              {textoPedido(pedido, conferidos.mesReferencia)}
             </blockquote>
             <Botao
               onClick={() => {
-                const texto = textoPedido(pedido, dados.mesReferencia);
+                const texto = textoPedido(pedido, conferidos.mesReferencia);
                 if (!navigator.clipboard) {
                   setCopiado("Selecione o texto para copiar.");
                   return;

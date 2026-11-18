@@ -43,7 +43,11 @@ export type DadosConfirmados = {
   total: string;
 };
 
-export type Resultado = "Confere" | "Divergência encontrada" | "Não foi possível concluir";
+export type Resultado =
+  | "Confere"
+  | "Divergência encontrada"
+  | "Não foi possível concluir"
+  | "Norma aplicável";
 
 export type Decisao = {
   chave: string;
@@ -53,6 +57,8 @@ export type Decisao = {
   explicacao: string;
   valores?: string;
   fontes: Citacao[];
+  /** Explicações dos agentes (níveis B/C) para o mesmo item, mostradas dentro deste cartão. */
+  explicacoes: Decisao[];
 };
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -120,12 +126,20 @@ function divergente(a: Achado): boolean {
   );
 }
 
+/**
+ * Resultado do cartão. Um achado fora do nível A, sem abstenção e sem valores para comparar, é a
+ * explicação de um agente (norma aplicável ao item), e não uma conclusão de que o item confere.
+ */
+function resultadoDe(a: Achado): Resultado {
+  if (a.abstencao) return "Não foi possível concluir";
+  if (divergente(a)) return "Divergência encontrada";
+  const semValores = a.valor_esperado == null || a.valor_cobrado == null;
+  if (a.nivel !== "A" && semValores) return "Norma aplicável";
+  return "Confere";
+}
+
 export function paraDecisao(a: Achado, indice: number): Decisao {
-  const resultado: Resultado = a.abstencao
-    ? "Não foi possível concluir"
-    : divergente(a)
-      ? "Divergência encontrada"
-      : "Confere";
+  const resultado = resultadoDe(a);
   const valores =
     a.valor_esperado != null && a.valor_cobrado != null
       ? `Valor calculado: ${formatarNumero(a.valor_esperado)} · Valor na fatura: ${formatarNumero(a.valor_cobrado)}`
@@ -138,7 +152,31 @@ export function paraDecisao(a: Achado, indice: number): Decisao {
     explicacao: a.descricao,
     valores,
     fontes: a.citacoes ?? [],
+    explicacoes: [],
   };
+}
+
+/**
+ * Converte a resposta do `/analisar` em cartões: cada explicação dos agentes (nível B ou C, para
+ * o mesmo `item` de um achado do motor) entra dentro do cartão desse achado, em vez de virar um
+ * cartão separado.
+ */
+export function montarDecisoes(achados: Achado[]): Decisao[] {
+  const todas = achados.map(paraDecisao);
+  const doMotor = new Map<string, Decisao>();
+  for (const d of todas) {
+    if (d.nivel === "A" && !doMotor.has(d.titulo)) doMotor.set(d.titulo, d);
+  }
+  const cartoes: Decisao[] = [];
+  for (const d of todas) {
+    const principal = doMotor.get(d.titulo);
+    if (d.nivel !== "A" && principal) {
+      principal.explicacoes.push(d);
+    } else {
+      cartoes.push(d);
+    }
+  }
+  return cartoes;
 }
 
 export async function analisarFatura(dados: DadosConfirmados): Promise<RespostaAnalise> {
