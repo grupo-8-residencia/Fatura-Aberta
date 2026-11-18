@@ -64,19 +64,45 @@ def rotular(props: list[dict[str, Any]]) -> str:
     return "sem_suporte" if any(not p.get("suportada", False) for p in props) else "suportada"
 
 
-def metricas(humano: list[str], juiz: list[str]) -> dict[str, Any]:
+def metricas(humano: list[str], juiz: list[str | None]) -> dict[str, Any]:
+    """Acurácia em todos os itens (sem veredito do juiz conta como erro); κ e contagens de classe
+    só nos vereditos que o juiz de fato devolveu (não mistura valor fabricado com observado)."""
     n = len(humano)
     if n == 0:
         return {"n": 0}
-    iguais = [int(h == j) for h, j in zip(humano, juiz, strict=True)]
+    iguais = [int(j is not None and h == j) for h, j in zip(humano, juiz, strict=True)]
     ic = bootstrap_ic(iguais, semente=SEMENTE_PADRAO)
+    validos = [(h, j) for h, j in zip(humano, juiz, strict=True) if j is not None]
+    hv = [h for h, _ in validos]
+    jv = [j for _, j in validos]
     return {
         "n": n,
-        "kappa": kappa_cohen(humano, juiz),
-        "acuracia": acuracia(humano, juiz),
+        "acuracia": sum(iguais) / n,
         "acuracia_ic95": [ic.inferior, ic.superior],
+        "sem_veredito_do_juiz": n - len(validos),
+        "n_vereditos_validos": len(validos),
+        "kappa": kappa_cohen(hv, jv) if validos else None,
+        "acuracia_nos_validos": acuracia(hv, jv) if validos else None,
         "sem_suporte_humano": humano.count("sem_suporte"),
-        "sem_suporte_juiz": juiz.count("sem_suporte"),
+        "sem_suporte_humano_nos_validos": hv.count("sem_suporte"),
+        "sem_suporte_juiz": jv.count("sem_suporte"),
+    }
+
+
+def resumir(
+    linhas: list[dict[str, str]], itens: dict[str, dict[str, Any]], so: str = "todos"
+) -> dict[str, Any]:
+    """Métricas nos 40, no desenvolvimento e na retida, a partir dos vereditos gravados."""
+    dev, retida = dividir(linhas)
+
+    def pares(ids: set[str]) -> tuple[list[str], list[str | None]]:
+        sel = [x for x in linhas if x["item_id"] in ids and x["item_id"] in itens]
+        return [x["veredito_humano_1"] for x in sel], [itens[x["item_id"]]["veredito"] for x in sel]
+
+    return {
+        "todos": metricas(*pares({x["item_id"] for x in linhas})),
+        "desenvolvimento": metricas(*pares(dev)),
+        "retida": metricas(*pares(retida)) if so == "todos" else "não medida",
     }
 
 
@@ -117,19 +143,6 @@ def main(argv: list[str] | None = None) -> int:
 
     args.saida.write_text(json.dumps({"itens": itens}, ensure_ascii=False, indent=1), "utf-8")
 
-    def pares(ids: set[str]) -> tuple[list[str], list[str]]:
-        # Item sem veredito válido do juiz conta como erro (oposto do humano), nunca é excluído.
-        h = [
-            x["veredito_humano_1"] for x in linhas if x["item_id"] in ids and x["item_id"] in itens
-        ]
-        j = [
-            itens[x["item_id"]]["veredito"]
-            or ("suportada" if x["veredito_humano_1"] == "sem_suporte" else "sem_suporte")
-            for x in linhas
-            if x["item_id"] in ids and x["item_id"] in itens
-        ]
-        return h, j
-
     resultado = {
         "variante": args.variante,
         "prompt_sha256": __import__("hashlib")
@@ -138,9 +151,7 @@ def main(argv: list[str] | None = None) -> int:
         "limiar_kappa": LIMIAR_KAPPA,
         "humanos_concordam": all(x["veredito_humano_1"] == x["veredito_humano_2"] for x in linhas),
         "invalidos": sorted(i for i, v in itens.items() if not v["valido"]),
-        "todos": metricas(*pares({x["item_id"] for x in linhas})),
-        "desenvolvimento": metricas(*pares(dev)),
-        "retida": metricas(*pares(retida)) if args.so == "todos" else "não medida",
+        **resumir(linhas, itens, args.so),
         "itens": itens,
     }
     args.saida.write_text(json.dumps(resultado, ensure_ascii=False, indent=1) + "\n", "utf-8")

@@ -163,12 +163,14 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
    **Recalibração (18/11/2026, `avaliacao/recalibrar_juiz.py`, resultado em `avaliacao/resultados/s3-recalibracao-juiz.json`).**
    Dividimos os 40 itens em desenvolvimento (20, onde se olharam os erros) e retida (20, só medida) e
    escrevemos um prompt v2 (conta aritmética refeita, abstenção suportada quando a evidência não traz o dado,
-   proposições só da saída). O GS-Q114 passou a contar como erro do juiz, com timeout de 2 min. Resultado:
+   proposições só da saída). O GS-Q114, em que o juiz não devolve veredito (timeout de 2 min), conta como erro na
+   acurácia, mas fica fora do κ e das contagens de classe, que usam só os 39 vereditos observados.
+   Resultado:
 
-   | Prompt | κ nos 40 | κ retida | Acurácia retida [IC 95%] | `sem_suporte` (juiz/humano) |
+   | Prompt | κ (39 vereditos) | κ retida (20) | Acurácia retida [IC 95%] | `sem_suporte` juiz / humano (39) |
    |---|---|---|---|---|
-   | v1 (original) | 0,022 | −0,019 | 45% [25%; 65%] | 18 / 4 |
-   | v2 | 0,125 | −0,136 | 75% [55%; 90%] | 5 / 4 |
+   | v1 (original) | 0,029 | −0,019 | 45% [25%; 65%] | 17 / 4 |
+   | v2 | 0,164 | −0,136 | 75% [55%; 90%] | 4 / 4 |
 
    O v2 corrigiu o excesso de "sem suporte" (acurácia de 55% para 82,5% nos 40), mas o κ na metade retida
    segue negativo e **muito abaixo de 0,75**: com apenas 4 itens `sem_suporte` nos 40 (2 na retida), o κ é

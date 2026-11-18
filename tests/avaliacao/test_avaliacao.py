@@ -257,3 +257,7 @@ def test_recalibracao_divide_sem_vazar_e_rotula() -> None:
     assert rj.rotular([{"suportada": True}, {"suportada": False}]) == "sem_suporte"
     assert rj.rotular([{"suportada": True}]) == "suportada"
     assert rj.metricas(["suportada"] * 3, ["suportada"] * 3)["acuracia"] == 1.0
+    # Sem veredito do juiz: erro na acurácia, mas fora do κ e das contagens de classe.
+    m = rj.metricas(["suportada", "sem_suporte", "suportada"], ["suportada", "sem_suporte", None])
+    assert m["acuracia"] == 2 / 3 and m["sem_veredito_do_juiz"] == 1
+    assert m["n_vereditos_validos"] == 2 and m["kappa"] == 1.0 and m["sem_suporte_juiz"] == 1

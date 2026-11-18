@@ -13,35 +13,47 @@
   ],
   "todos": {
    "n": 40,
-   "kappa": 0.02173913043478263,
    "acuracia": 0.55,
    "acuracia_ic95": [
     0.4,
     0.7
    ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 39,
+   "kappa": 0.02928257686676434,
+   "acuracia_nos_validos": 0.5641025641025641,
    "sem_suporte_humano": 4,
-   "sem_suporte_juiz": 18
+   "sem_suporte_humano_nos_validos": 4,
+   "sem_suporte_juiz": 17
   },
   "desenvolvimento": {
    "n": 20,
-   "kappa": 0.0789473684210527,
    "acuracia": 0.65,
    "acuracia_ic95": [
     0.45,
     0.85
    ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 19,
+   "kappa": 0.10937499999999992,
+   "acuracia_nos_validos": 0.6842105263157895,
    "sem_suporte_humano": 2,
-   "sem_suporte_juiz": 7
+   "sem_suporte_humano_nos_validos": 2,
+   "sem_suporte_juiz": 6
   },
   "retida": {
    "n": 20,
-   "kappa": -0.018518518518518535,
    "acuracia": 0.45,
    "acuracia_ic95": [
     0.25,
     0.65
    ],
+   "sem_veredito_do_juiz": 0,
+   "n_vereditos_validos": 20,
+   "kappa": -0.018518518518518535,
+   "acuracia_nos_validos": 0.45,
    "sem_suporte_humano": 2,
+   "sem_suporte_humano_nos_validos": 2,
    "sem_suporte_juiz": 11
   },
   "itens": {
@@ -852,35 +864,47 @@
   ],
   "todos": {
    "n": 40,
-   "kappa": 0.12499999999999958,
    "acuracia": 0.825,
    "acuracia_ic95": [
     0.7,
     0.925
    ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 39,
+   "kappa": 0.16428571428571415,
+   "acuracia_nos_validos": 0.8461538461538461,
    "sem_suporte_humano": 4,
-   "sem_suporte_juiz": 5
+   "sem_suporte_humano_nos_validos": 4,
+   "sem_suporte_juiz": 4
   },
   "desenvolvimento": {
    "n": 20,
-   "kappa": 0.4444444444444447,
    "acuracia": 0.9,
    "acuracia_ic95": [
     0.75,
     1.0
    ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 19,
+   "kappa": 0.6415094339622639,
+   "acuracia_nos_validos": 0.9473684210526315,
    "sem_suporte_humano": 2,
-   "sem_suporte_juiz": 2
+   "sem_suporte_humano_nos_validos": 2,
+   "sem_suporte_juiz": 1
   },
   "retida": {
    "n": 20,
-   "kappa": -0.1363636363636365,
    "acuracia": 0.75,
    "acuracia_ic95": [
     0.55,
     0.9
    ],
+   "sem_veredito_do_juiz": 0,
+   "n_vereditos_validos": 20,
+   "kappa": -0.1363636363636365,
+   "acuracia_nos_validos": 0.75,
    "sem_suporte_humano": 2,
+   "sem_suporte_humano_nos_validos": 2,
    "sem_suporte_juiz": 3
   },
   "itens": {
@@ -1476,5 +1500,6 @@
     ]
    }
   }
- }
+ },
+ "metodo_metricas": "Acurácia em todos os itens, com o item sem veredito do juiz (GS-Q114, timeout) contado como erro; κ de Cohen e contagens de classe só nos vereditos que o juiz de fato devolveu (39 nos 40)."
 }
