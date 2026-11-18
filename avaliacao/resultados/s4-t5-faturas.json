@@ -1,0 +1,4969 @@
+{
+ "cabecalho": {
+  "data_utc": "2026-11-18T18:46:25Z",
+  "commit": "57eb505",
+  "temperatura": 0.0,
+  "semente": 42,
+  "sha256_checksums_golden_set": "87aae5275aad9c9f3a73ea4e33abe5dbea3cd6800431cf1ca094db32bd40f453",
+  "modelos": {
+   "gerador": {
+    "provedor": "ollama",
+    "modelo": "gpt-oss:20b",
+    "versao": "17052f91a42e"
+   }
+  },
+  "semente_bootstrap": 42,
+  "persona": "marcia",
+  "max_itens_explicados_por_fatura": 3,
+  "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
+  "documentos_corpus": 78,
+  "limite": null,
+  "nota_latencia": "Latências da primeira execução (18/11, chamadas ao LLM sem cache). A reexecução com o código final (explicações em nível C e RF-15 no fallback) usou as mesmas respostas do LLM, do cache; origens e vereditos idênticos."
+ },
+ "itens": [
+  {
+   "id": "GS-F001",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F002",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F003",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 12.613
+  },
+  {
+   "id": "GS-F004",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.177
+  },
+  {
+   "id": "GS-F005",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.041
+  },
+  {
+   "id": "GS-F006",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F007",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F008",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.873
+  },
+  {
+   "id": "GS-F009",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F010",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F011",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F012",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.268
+  },
+  {
+   "id": "GS-F013",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F014",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F015",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F016",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F017",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F018",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.82
+  },
+  {
+   "id": "GS-F019",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 14.418
+  },
+  {
+   "id": "GS-F020",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.798
+  },
+  {
+   "id": "GS-F021",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.924
+  },
+  {
+   "id": "GS-F022",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F023",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F024",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F025",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F026",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F027",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F028",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F029",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.508
+  },
+  {
+   "id": "GS-F030",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F031",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F032",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.172
+  },
+  {
+   "id": "GS-F033",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 22.527
+  },
+  {
+   "id": "GS-F034",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.923
+  },
+  {
+   "id": "GS-F035",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F036",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F037",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 17.98
+  },
+  {
+   "id": "GS-F038",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 11.626
+  },
+  {
+   "id": "GS-F039",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 19.417
+  },
+  {
+   "id": "GS-F040",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F041",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 21.619
+  },
+  {
+   "id": "GS-F042",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 20.08
+  },
+  {
+   "id": "GS-F043",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F044",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F045",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.794
+  },
+  {
+   "id": "GS-F046",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F047",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F048",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.781
+  },
+  {
+   "id": "GS-F049",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F050",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F051",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.825
+  },
+  {
+   "id": "GS-F052",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.74
+  },
+  {
+   "id": "GS-F053",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 29.352
+  },
+  {
+   "id": "GS-F054",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F055",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F056",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.395
+  },
+  {
+   "id": "GS-F057",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 20.924
+  },
+  {
+   "id": "GS-F058",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F059",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F060",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F061",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F062",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F063",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 19.639
+  },
+  {
+   "id": "GS-F064",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F065",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 25.121
+  },
+  {
+   "id": "GS-F066",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F067",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 21.406
+  },
+  {
+   "id": "GS-F068",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F069",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 21.557
+  },
+  {
+   "id": "GS-F070",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F071",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 25.897
+  },
+  {
+   "id": "GS-F072",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 28.163
+  },
+  {
+   "id": "GS-F073",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F074",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 23.842
+  },
+  {
+   "id": "GS-F075",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 39.825
+  },
+  {
+   "id": "GS-F076",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 56.781
+  },
+  {
+   "id": "GS-F077",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F078",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F079",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F080",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F081",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 23.388
+  },
+  {
+   "id": "GS-F082",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F083",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F084",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.102
+  },
+  {
+   "id": "GS-F085",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F086",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 19.022
+  },
+  {
+   "id": "GS-F087",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 14.28
+  },
+  {
+   "id": "GS-F088",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.754
+  },
+  {
+   "id": "GS-F089",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F090",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 11.235
+  },
+  {
+   "id": "GS-F091",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.69
+  },
+  {
+   "id": "GS-F092",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F093",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 17.535
+  },
+  {
+   "id": "GS-F094",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F095",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F096",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F097",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.585
+  },
+  {
+   "id": "GS-F098",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F099",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F100",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 17.199
+  },
+  {
+   "id": "GS-F101",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F102",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F103",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F104",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 14.406
+  },
+  {
+   "id": "GS-F105",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F106",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F107",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F108",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F109",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.632
+  },
+  {
+   "id": "GS-F110",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 10.564
+  },
+  {
+   "id": "GS-F111",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 11.62
+  },
+  {
+   "id": "GS-F112",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F113",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.009
+  },
+  {
+   "id": "GS-F114",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.011
+  },
+  {
+   "id": "GS-F115",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 14.235
+  },
+  {
+   "id": "GS-F116",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.357
+  },
+  {
+   "id": "GS-F117",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F118",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F119",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 22.251
+  },
+  {
+   "id": "GS-F120",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 11.806
+  },
+  {
+   "id": "GS-F121",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F122",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F123",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 11.545
+  },
+  {
+   "id": "GS-F124",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 12.806
+  },
+  {
+   "id": "GS-F125",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.581
+  },
+  {
+   "id": "GS-F126",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F127",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F128",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F129",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.96
+  },
+  {
+   "id": "GS-F130",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F131",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F132",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F133",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.694
+  },
+  {
+   "id": "GS-F134",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F135",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F136",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F137",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 11.318
+  },
+  {
+   "id": "GS-F138",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.383
+  },
+  {
+   "id": "GS-F139",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F140",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F141",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F142",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 19.883
+  },
+  {
+   "id": "GS-F143",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F144",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F145",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F146",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F147",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 12.542
+  },
+  {
+   "id": "GS-F148",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 19.37
+  },
+  {
+   "id": "GS-F149",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F150",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F151",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F152",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F153",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.455
+  },
+  {
+   "id": "GS-F154",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F155",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.007
+  },
+  {
+   "id": "GS-F156",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.906
+  },
+  {
+   "id": "GS-F157",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F158",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F159",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F160",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 14.671
+  },
+  {
+   "id": "GS-F161",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F162",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F163",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F164",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F165",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F166",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F167",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F168",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 16.956
+  },
+  {
+   "id": "GS-F169",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_energia_incoerente",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Consumo de energia": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Consumo de energia": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.858
+  },
+  {
+   "id": "GS-F170",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F171",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 18.352
+  },
+  {
+   "id": "GS-F172",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F173",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F174",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F175",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F176",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "total_nao_fecha",
+   "itens_explicados": 2,
+   "origens": {
+    "Total da fatura": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Total da fatura": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 15.192
+  },
+  {
+   "id": "GS-F177",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F178",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F179",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "bandeira_adicional_incorreto",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha: Adicional de bandeira": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha: Adicional de bandeira": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 13.855
+  },
+  {
+   "id": "GS-F180",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F181",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F182",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F183",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F184",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F185",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F186",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F187",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [
+     "sem_suporte"
+    ],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 20.582
+  },
+  {
+   "id": "GS-F188",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F189",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "consumo_diverge_das_leituras",
+   "itens_explicados": 2,
+   "origens": {
+    "Consumo medido": "analista_auditado",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Consumo medido": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 22.121
+  },
+  {
+   "id": "GS-F190",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.006
+  },
+  {
+   "id": "GS-F191",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F192",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F193",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "aliquota_icms_incoerente",
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.004
+  },
+  {
+   "id": "GS-F194",
+   "gabarito": "diverge_A",
+   "veredito": "diverge_A",
+   "acerto": true,
+   "anomalia": "item_duplicado",
+   "itens_explicados": 2,
+   "origens": {
+    "Linha duplicada: Contribuição municipal (sintética)": "pesquisador_extrativo",
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "Linha duplicada: Contribuição municipal (sintética)": [],
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C",
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 1,
+   "duracao_s": 0.005
+  },
+  {
+   "id": "GS-F195",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F196",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.003
+  },
+  {
+   "id": "GS-F197",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F198",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F199",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  },
+  {
+   "id": "GS-F200",
+   "gabarito": "confere",
+   "veredito": "confere",
+   "acerto": true,
+   "anomalia": null,
+   "itens_explicados": 1,
+   "origens": {
+    "ICMS": "abstencao"
+   },
+   "motivos_auditor": {
+    "ICMS": []
+   },
+   "nivel_explicacoes": [
+    "C"
+   ],
+   "mensagem_adaptada": true,
+   "motivo_sem_adaptacao": "",
+   "linguagem_mensagem": [],
+   "linguagem_explicacoes": [],
+   "chamadas_llm": 0,
+   "duracao_s": 0.002
+  }
+ ],
+ "resumo": {
+  "n": 200,
+  "acerto_veredito": {
+   "estimativa": 1.0,
+   "ic95_inf": 1.0,
+   "ic95_sup": 1.0
+  },
+  "deteccao_anomalia": 1.0,
+  "falso_alarme": 0.0,
+  "itens_explicados": 284,
+  "origem_das_explicacoes": {
+   "abstencao": 200,
+   "pesquisador_extrativo": 66,
+   "analista_auditado": 18
+  },
+  "motivos_do_auditor": {
+   "sem_suporte": 33
+  },
+  "veredito_alterado_barrado": 0,
+  "mensagens_nao_adaptadas": 0,
+  "violacoes_rf15_mensagem": 0,
+  "violacoes_rf15_explicacoes": 0,
+  "chamadas_llm": 84,
+  "latencia_media_s_faturas_com_llm": 15.69
+ },
+ "parcial": false
+}
