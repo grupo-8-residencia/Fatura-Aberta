@@ -215,7 +215,8 @@ DOBRO = _doc(
 )
 
 
-def test_fallback_nao_transcreve_trecho_com_termo_vedado_pelo_rf15() -> None:
+def test_fallback_transcreve_trecho_literal_com_termo_da_norma_entre_aspas() -> None:
+    """Exceção do RF-15 (18/11/2026): citação literal entre aspas, com a referência, é permitida."""
     indice = IndiceHibrido([DOBRO])
     pergunta = "O que a distribuidora deve fazer com o valor pago a maior pelo consumidor?"
     for persona in Persona:
@@ -223,9 +224,18 @@ def test_fallback_nao_transcreve_trecho_com_termo_vedado_pelo_rf15() -> None:
             pergunta, data_referencia=DATA, persona=persona
         )
         assert r.origem == Origem.PESQUISADOR_EXTRATIVO and not r.abstencao
-        assert verificar_linguagem(r.resposta.texto) == []
-        assert verificar_linguagem(r.mensagem.texto) == []
+        assert "“" in r.resposta.texto and "devolução em dobro" in r.resposta.texto
+        assert verificar_linguagem(r.resposta.texto, permitir_citacao_literal=True) == []
+        assert verificar_linguagem(r.mensagem.texto, permitir_citacao_literal=True) == []
         assert r.resposta.citacoes[0].dispositivo == "art. 323, § 2º"
+
+
+def test_termo_vedado_fora_das_aspas_continua_bloqueado() -> None:
+    assert verificar_linguagem("Cabe devolução em dobro.", permitir_citacao_literal=True)
+    assert verificar_linguagem("“devolução em dobro”")  # sem a exceção ligada, bloqueia
+    assert verificar_linguagem(
+        "O texto diz “devolução em dobro”, logo é ilegal.", permitir_citacao_literal=True
+    )
 
 
 def test_comunicador_nunca_devolve_original_com_termo_vedado() -> None:

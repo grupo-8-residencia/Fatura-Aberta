@@ -96,7 +96,9 @@ class Comunicador:
         original: str,
         cit: tuple[Citacao, ...],
     ) -> Mensagem:
-        proibidas = [v.termo for v in verificar_linguagem(texto)]
+        # Exceção do RF-15: trecho literal da norma entre aspas, se a mensagem traz a citação.
+        literal = bool(cit)
+        proibidas = [v.termo for v in verificar_linguagem(texto, permitir_citacao_literal=literal)]
         novos = _numeros(texto) - entrada
         if not proibidas and not novos:
             return Mensagem(persona, texto, cit, adaptada=True)
@@ -107,7 +109,8 @@ class Comunicador:
         )
         # Sem adaptação, entrega o original, mas nunca com termo vedado pelo RF-15: nesse caso,
         # só a referência aos dispositivos.
-        reserva = original if not verificar_linguagem(original) else texto_so_referencias(cit)
+        limpo = not verificar_linguagem(original, permitir_citacao_literal=literal)
+        reserva = original if limpo else texto_so_referencias(cit)
         return Mensagem(persona, reserva, cit, adaptada=False, motivo=motivo)
 
     def comunicar_resposta(
