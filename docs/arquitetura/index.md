@@ -43,4 +43,5 @@ flowchart TB
 ## Mais detalhes
 
 - [Contratos](contratos.md)
+- [Agentes](agentes.md)
 - [Decisões (ADRs)](decisoes/index.md)
