@@ -834,8 +834,8 @@
     ],
     "conferido": "sim",
     "conferido_em": "2026-11-16",
-    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel (vigência base da REN 956/2021: 01/01/2022)",
-    "observacoes": "Equações 29 a 33 omitidas por serem notação matemática. Redação vigente consolidada do Módulo 8 (versão 14 alterada pela REN ANEEL nº 1.137/2025, incorporando o indicador DISE)."
+    "fonte_conferencia": "PDF oficial da ANEEL aren2021956_prodist_modulo_8_v13.pdf vinculado em gov.br/aneel (vigência base da REN 956/2021: 01/01/2022)",
+    "observacoes": "Equações 29 a 33 omitidas por serem notação matemática. Redação consolidada do Módulo 8 conforme o PDF oficial (versão 13), que já traz o indicador DISE."
   },
   {
     "id": "ren956-mod8-s82-178-179",
@@ -865,7 +865,7 @@
     ],
     "conferido": "sim",
     "conferido_em": "2026-11-11",
-    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "fonte_conferencia": "PDF oficial da ANEEL aren2021956_prodist_modulo_8_v13.pdf vinculado em gov.br/aneel",
     "observacoes": null
   },
   {
@@ -897,7 +897,7 @@
     ],
     "conferido": "sim",
     "conferido_em": "2026-11-11",
-    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "fonte_conferencia": "PDF oficial da ANEEL aren2021956_prodist_modulo_8_v13.pdf vinculado em gov.br/aneel",
     "observacoes": "Resumo das Tabelas 4 e 5 do Anexo 8.B omitindo os limites de DISE e as faixas intermediárias linha a linha."
   },
   {
@@ -929,7 +929,7 @@
     ],
     "conferido": "sim",
     "conferido_em": "2026-11-11",
-    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "fonte_conferencia": "PDF oficial da ANEEL aren2021956_prodist_modulo_8_v13.pdf vinculado em gov.br/aneel",
     "observacoes": "Itens 221 (dupla redação com alteração escalonada da REN 1.147/2025), 225 e 225.1 (equações e baixa renda) omitidos até confirmação pontual da data de efeito de cada dispositivo da REN 1.147/2025."
   },
   {
@@ -959,7 +959,7 @@
     ],
     "conferido": "sim",
     "conferido_em": "2026-11-11",
-    "fonte_conferencia": "PDF oficial da ANEEL aren20251137_Prodist_modulo_8_v14.pdf vinculado em gov.br/aneel",
+    "fonte_conferencia": "PDF oficial da ANEEL aren2021956_prodist_modulo_8_v13.pdf vinculado em gov.br/aneel",
     "observacoes": null
   },
   {
