@@ -89,7 +89,7 @@ da recalibração de 18/11, PR #162).
 |---|---|
 | **Entrada** | a resposta aprovada (ou a extrativa, ou a abstenção) e a persona; no fluxo de fatura, os achados do motor e as explicações |
 | **Faz** | reescreve para a [persona](../produto/personas.md): **Celina** (curta, linguagem simples e o que fazer), **Rafael** (item a item), **Márcia** (citação completa com vigência e minuta neutra de pedido de esclarecimento) |
-| **Autoconferência** | antes de entregar, confere que o texto não tem expressão proibida pelo RF-15 e **não contém número que não estivesse na entrada**; se falhar, entrega o texto original e registra o motivo |
+| **Autoconferência** | antes de entregar, confere que o texto não tem expressão proibida pelo RF-15 e **não contém número que não estivesse na entrada**; se falhar, registra o motivo e entrega o texto original sem adaptação, **desde que o original não tenha expressão proibida**; se tiver, não o transcreve e entrega só as referências aos dispositivos |
 | **Não faz** | não usa LLM (modelos de texto determinísticos), para não reabrir o risco que o Auditor fechou |
 
 ### Orquestrador (`orquestrador.py`)
@@ -99,9 +99,10 @@ detalhe, duração), que volta na API e aparece na demonstração.
 
 **Política T5 (LLM como redator restrito):** se o Auditor barra o rascunho do Analista, o usuário
 recebe a **resposta extrativa do Pesquisador**, e não uma abstenção. Se o trecho literal da norma tiver
-termo vedado pelo RF-15 (por exemplo, "devolução em dobro"), sai só a referência ao dispositivo. Assim o fluxo nunca responde
-menos do que o RAG extrativo (o T2, vencedor da S3), e o LLM só entra quando o texto dele passa em
-todas as verificações.
+termo vedado pelo RF-15 (por exemplo, "devolução em dobro"), sai só a referência ao dispositivo, sem
+transcrever o trecho. Com essa exceção, o fluxo entrega pelo menos o que o RAG extrativo (o T2, vencedor
+da S3) entregaria: as mesmas fontes, mas, no caso do termo vedado, só a referência em vez do texto. O LLM
+só entra quando o texto dele passa em todas as verificações.
 
 ## Fluxo de interação
 
