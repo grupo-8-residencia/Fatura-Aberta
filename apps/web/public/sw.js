@@ -1,7 +1,7 @@
 // Service worker do Fatura Aberta: a página vem da rede (com o cache só para o modo offline),
 // e os arquivos estáticos vêm do cache. Respostas da API (outra origem) nunca são guardadas.
 const CACHE = "fatura-aberta-v1";
-const SHELL = ["/", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png"];
+const SHELL = ["/", "/manifest.webmanifest", "/icones/192.png", "/icones/512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
