@@ -10,7 +10,7 @@ Também foi elaborada uma lista de controle com identificadores de F001 a F015, 
 
 O projeto prevê que a análise das faturas no produto seja realizada no dispositivo do usuário, mantendo apenas os resultados das verificações. As faturas reais coletadas nesta etapa serão utilizadas exclusivamente para testes e deverão ser excluídas ao término do Challenge, conforme o prazo definido pela equipe. No repositório público, serão utilizados apenas documentos sintéticos ou devidamente anonimizados.
 
-A coleta das 15 faturas e sua organização no Google Drive foram concluídas. Permanecem como etapas de conferência a vinculação individual dos consentimentos às respectivas faturas, a confirmação das permissões de acesso à pasta e a definição da data de exclusão dos arquivos.
+A coleta das 15 faturas e sua organização no Google Drive foram concluídas, e a F1 concluiu a conferência dos termos e a vinculação individual de cada consentimento à respectiva fatura (registrado no [RIPD simplificado](../conformidade/ripd.md)). A exclusão dos arquivos está prevista para 18/12/2026. Permanecem pendentes a revisão formal das permissões de acesso à pasta e o registro do formato de cada fatura.
 
 Esse trabalho contribui para a preparação dos testes com documentos reais e para a organização das evidências do projeto, considerando os cuidados necessários com a privacidade dos voluntários.
 
@@ -20,16 +20,16 @@ Esse trabalho contribui para a preparação dos testes com documentos reais e pa
 
 | Código | Fatura recebida | No Drive privado | Consentimento vinculado | Termo conferido | Acesso restrito | Exclusão confirmada | Observações (sem dados pessoais) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| F001 a F015 | Sim (15/15) | Sim (15/15) | A verificar | A verificar | A verificar | Não (0/15) | — |
+| F001 a F015 | Sim (15/15) | Sim (15/15) | Sim (15/15) | Sim (15/15) | A verificar (revisão formal pendente) | Não (prazo: 18/12/2026) | — |
 
 Os identificadores vão de F001 a F015. A situação é a mesma para as 15 faturas.
 
-**TODO:**
+**Pendências da F1:**
 
-- [ ] Vincular individualmente os termos de consentimento às faturas F001 a F015.
-- [ ] Conferir os termos e confirmar, ou auditar, as permissões de acesso restrito à pasta do Google Drive.
-- [ ] Definir e registrar a data limite para a exclusão definitiva das faturas reais, no Drive e nas cópias locais de quem as baixar para testar.
-- [ ] Registrar o formato de cada fatura (PDF com texto selecionável, foto ou digitalização), sem dados pessoais.
+- [x] Vincular individualmente os termos de consentimento às faturas F001 a F015.
+- [ ] TODO (F1): confirmar e registrar a revisão formal das permissões de acesso à pasta do Google Drive.
+- [x] Definir a data limite para a exclusão definitiva das faturas reais: **18/12/2026** (encerramento do semestre), no Drive e nas cópias locais, comprovada por registro de exclusão da F1 com evidência da lixeira esvaziada anexada na issue #3.
+- [ ] TODO (F1): registrar o formato de cada fatura (PDF com texto selecionável, foto ou digitalização), sem dados pessoais.
 
 ## Pesquisa de consumidores: síntese agregada
 
