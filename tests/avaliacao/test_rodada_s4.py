@@ -71,6 +71,73 @@ def test_citacao_inventada_o_b4_emite_e_o_b5_se_abstem(
     assert b5["n_afirmacoes"] == 0
 
 
+def test_t5_cai_no_extrativo_quando_o_auditor_barra(
+    indice: IndiceHibrido, perguntas: list[dict[str, Any]]
+) -> None:
+    p = perguntas[1]
+    cliente = rs.ClienteRobusto(ClienteFalso(resposta=_resposta((TEXTO_177, ["ren1000-art-999"]))))
+    reg = rs.registrar_analise(AnalistaNormativo(indice, cliente), cliente, p)
+    assert "extrativo" in reg and not reg["extrativo"]["abstencao"]
+    rel = rs.reconstruir(reg, {d.id: d for d in indice.documentos}, p)
+    medidor = Auditor(None)
+    t2 = rs.avaliar_braco("T2", rel, p, medidor, reg["extrativo"])
+    t5 = rs.avaliar_braco("T5", rel, p, medidor, reg["extrativo"])
+    b5 = rs.avaliar_braco("B5", rel, p, medidor)
+    assert b5["abstencao"] and t5["origem"] == "pesquisador_extrativo"
+    assert t5["acerto"] == t2["acerto"] and not t5["emitiu_sem_suporte"]
+
+
+def test_t5_entrega_o_rascunho_aprovado(
+    indice: IndiceHibrido, perguntas: list[dict[str, Any]]
+) -> None:
+    p = perguntas[1]
+    fiel = _doc_texto(indice, "ren1000-art-177")[:160]
+    cliente = rs.ClienteRobusto(ClienteFalso(resposta=_resposta((fiel, ["ren1000-art-177"]))))
+    reg = rs.registrar_analise(AnalistaNormativo(indice, cliente), cliente, p)
+    rel = rs.reconstruir(reg, {d.id: d for d in indice.documentos}, p)
+    t5 = rs.avaliar_braco("T5", rel, p, Auditor(None), reg["extrativo"])
+    assert t5["origem"] == "analista_auditado" and t5["acerto"]
+
+
+def test_rf15_e_medido_no_trecho_extrativo() -> None:
+    from datetime import date
+
+    from fa_contratos import Citacao
+    from fa_rag import DocumentoNormativo
+
+    c = Citacao(ato="REN 1.000/2021", dispositivo="art. 323, § 2º",
+                vigencia_inicio=date(2022, 1, 3), url="https://exemplo.invalid/ato")  # fmt: skip
+    doc = DocumentoNormativo(
+        id="ren1000-art-323::p2",
+        titulo="art. 323, § 2º",
+        texto="A distribuidora deve fazer a devolução em dobro do valor pago a maior.",
+        citacao=c,
+        subgrupos=("B1",),
+    )
+    indice = IndiceHibrido([doc])
+    p = {"id": "GS-X", "tipo": "normativa", "pergunta": "O que fazer com o valor pago a maior?",
+         "data_referencia": "2024-05-10", "abstencao_esperada": False,
+         "citacao_canonica": ["ren1000-art-323"]}  # fmt: skip
+    cliente = rs.ClienteRobusto(ClienteFalso(resposta=_resposta()))
+    reg = rs.registrar_analise(AnalistaNormativo(indice, cliente), cliente, p)
+    rel = rs.reconstruir(reg, {doc.id: doc}, p)
+    t2 = rs.avaliar_braco("T2", rel, p, Auditor(None), reg["extrativo"])
+    t5 = rs.avaliar_braco("T5", rel, p, Auditor(None), reg["extrativo"])
+    assert t2["linguagem"] and t2["trecho_com_termo_vedado"]
+    assert t5["linguagem"] == [] and t5["trecho_com_termo_vedado"]  # o Orquestrador não transcreve
+
+
+def test_registros_antigos_sem_extrativo_so_tem_b4_e_b5(
+    indice: IndiceHibrido, perguntas: list[dict[str, Any]]
+) -> None:
+    p = perguntas[1]
+    cliente = rs.ClienteRobusto(ClienteFalso(resposta=_resposta((TEXTO_177, ["ren1000-art-177"]))))
+    reg = rs.registrar_analise(AnalistaNormativo(indice, cliente), cliente, p)
+    reg.pop("extrativo")
+    bracos = rs.avaliar_tudo([reg], {p["id"]: p}, {d.id: d for d in indice.documentos})
+    assert set(bracos) == {"B4", "B5", "B5_estrutural"}
+
+
 def test_json_invalido_conta_como_abstencao_e_fica_marcado(
     indice: IndiceHibrido, perguntas: list[dict[str, Any]]
 ) -> None:
