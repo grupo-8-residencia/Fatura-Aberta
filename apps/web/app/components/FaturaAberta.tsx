@@ -376,8 +376,10 @@ function Guia() {
           <h3>Níveis A, B e C</h3>
           <p>
             A é conta feita com os dados da própria fatura. B compara com a tabela oficial da
-            ANEEL, com ato, vigência e fonte. C reúne situações que os dados da fatura não
-            permitem confirmar, com abstenção explícita e apoio informativo.
+            ANEEL, com ato, vigência e fonte. C é a análise complementar: a referência normativa
+            sobre o item ou, quando os dados não permitem concluir, a abstenção explícita. Uma
+            divergência constatada no nível A continua constatada; a referência normativa
+            isolada não conclui sobre a legalidade da cobrança.
           </p>
         </section>
       </div>
@@ -1210,8 +1212,9 @@ export default function FaturaAberta() {
                       <p className="aviso-conformidade">{AVISO_RESULTADO}</p>
                       <p className="level-legend">
                         <strong>Legenda:</strong> A é conta com os dados da fatura; B compara com a
-                        tabela oficial da ANEEL; C reúne situações que os dados da fatura não permitem
-                        confirmar.
+                        tabela oficial da ANEEL; C é a análise complementar: referência normativa sobre
+                        o item ou abstenção, quando os dados não permitem concluir. A referência
+                        isolada não conclui sobre a legalidade e não muda o resultado do nível A.
                       </p>
                       <div className={`decision-list decision-list--${visao}`}>
                         {visiveis.map((d) => (
