@@ -364,6 +364,26 @@ a {
   font-weight: 700;
 }
 
+.navigation-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navigation-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+.navigation-icon path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
 .navigation-item[aria-current="page"] {
   border-color: var(--color-primary);
   color: var(--color-primary);
@@ -588,6 +608,113 @@ a {
   border-radius: 50%;
   font-size: 0.72rem;
   font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- itens */
+
+.items-fieldset {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--color-control-border);
+  border-radius: 12px;
+}
+
+.items-fieldset legend {
+  padding-inline: 4px;
+  font-weight: 700;
+}
+
+.item-row {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--color-divider);
+  border-radius: 8px;
+  background: var(--color-background);
+}
+
+.item-row-heading,
+.items-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.items-footer p {
+  margin: 0;
+}
+
+.item-row-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.bill-items-list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bill-item,
+.bill-total-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+  padding-block: 12px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.bill-item h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.bill-item p {
+  margin: 4px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.89rem;
+}
+
+.bill-item strong,
+.bill-total-row strong {
+  white-space: nowrap;
+}
+
+.bill-total-row {
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- instalação */
+
+.pwa-card {
+  padding: 24px;
+  border: 1px solid var(--color-divider);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.pwa-card h2 {
+  margin: 0;
+  font-size: 1.11rem;
+}
+
+.pwa-card > p {
+  margin: 8px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.89rem;
+}
+
+.pwa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 /* ---------------------------------------------------------------- busca e filtros */
@@ -1242,6 +1369,8 @@ a {
 
   .navigation-item {
     min-height: 44px;
+    flex-direction: row;
+    gap: 8px;
     padding: 8px 16px;
     font-size: 1rem;
   }
@@ -1258,7 +1387,12 @@ a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .item-row-fields {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+
   .confirmation-form .field:first-child,
+  .confirmation-form .items-fieldset,
   .confirmation-form .privacy-note,
   .confirmation-actions {
     grid-column: 1 / -1;

@@ -8,7 +8,9 @@ import {
   analisarFatura,
   formatarData,
   paraDecisao,
+  somarItens,
   type DadosConfirmados,
+  type ItemDigitado,
   type Decisao,
   type Resultado,
 } from "../lib/api";
@@ -68,54 +70,75 @@ const DESTINOS: { id: Destino; rotulo: string }[] = [
   { id: "ajuda", rotulo: "Ajuda" },
 ];
 
+type CampoSimples = Exclude<keyof DadosConfirmados, "itens">;
+type CampoItem = Exclude<keyof ItemDigitado, "id">;
+type Erros = Record<string, string>;
+
+const ITENS_EXEMPLO: ItemDigitado[] = [
+  { id: 1, descricao: "Energia elétrica", quantidade: "262", tarifa: "0,78000", valor: "204,36" },
+  {
+    id: 2,
+    descricao: "Adicional de bandeira amarela",
+    quantidade: "262",
+    tarifa: "0,01885",
+    valor: "4,94",
+  },
+  { id: 3, descricao: "Contribuição de iluminação pública", quantidade: "", tarifa: "", valor: "18,70" },
+];
+
 const DADOS_EXEMPLO: DadosConfirmados = {
   distribuidora: "Neoenergia Brasília",
   mesReferencia: "10/2026",
   leituraAnterior: "14.250",
   leituraAtual: "14.512",
   consumo: "262",
-  somaItens: "228,00",
+  itens: ITENS_EXEMPLO,
   total: "228,00",
 };
 
-const CAMPOS: Record<
-  keyof DadosConfirmados,
-  { rotulo: string; ajuda: string; modo: "text" | "numeric" | "decimal" }
-> = {
-  distribuidora: {
-    rotulo: "Distribuidora",
-    ajuda: "Confira o nome impresso no topo da fatura.",
-    modo: "text",
-  },
-  mesReferencia: {
-    rotulo: "Mês de referência",
-    ajuda: "Use o formato MM/AAAA, como 10/2026.",
-    modo: "numeric",
-  },
-  leituraAnterior: {
-    rotulo: "Leitura anterior",
-    ajuda: "Só números; o ponto de milhar é opcional.",
-    modo: "numeric",
-  },
-  leituraAtual: {
-    rotulo: "Leitura atual",
-    ajuda: "Só números; o ponto de milhar é opcional.",
-    modo: "numeric",
-  },
-  consumo: { rotulo: "Consumo (kWh)", ajuda: "O consumo total impresso na fatura.", modo: "numeric" },
-  somaItens: {
-    rotulo: "Soma dos itens (R$)",
-    ajuda: "Use vírgula para os centavos, como 228,00.",
-    modo: "decimal",
-  },
-  total: { rotulo: "Total (R$)", ajuda: "Use vírgula para os centavos, como 228,00.", modo: "decimal" },
+const CAMPOS: Record<CampoSimples, { rotulo: string; ajuda: string; modo: "text" | "numeric" | "decimal" }> =
+  {
+    distribuidora: {
+      rotulo: "Distribuidora",
+      ajuda: "Confira o nome impresso no topo da fatura.",
+      modo: "text",
+    },
+    mesReferencia: {
+      rotulo: "Mês de referência",
+      ajuda: "Use o formato MM/AAAA, como 10/2026.",
+      modo: "numeric",
+    },
+    leituraAnterior: {
+      rotulo: "Leitura anterior",
+      ajuda: "Só números; o ponto de milhar é opcional.",
+      modo: "numeric",
+    },
+    leituraAtual: {
+      rotulo: "Leitura atual",
+      ajuda: "Só números; o ponto de milhar é opcional.",
+      modo: "numeric",
+    },
+    consumo: { rotulo: "Consumo (kWh)", ajuda: "O consumo total impresso na fatura.", modo: "numeric" },
+    total: {
+      rotulo: "Total da fatura (R$)",
+      ajuda: "Use vírgula para os centavos, como 228,00.",
+      modo: "decimal",
+    },
+  };
+
+const CAMPOS_ITEM: Record<CampoItem, { rotulo: string; modo: "text" | "numeric" | "decimal" }> = {
+  descricao: { rotulo: "Descrição", modo: "text" },
+  quantidade: { rotulo: "Quantidade (kWh, opcional)", modo: "decimal" },
+  tarifa: { rotulo: "Tarifa (R$, opcional)", modo: "decimal" },
+  valor: { rotulo: "Valor (R$)", modo: "decimal" },
 };
 
 const LEITURA = /^(?:\d+|\d{1,3}(?:\.\d{3})+)$/;
 const MOEDA = /^(?:\d+|\d{1,3}(?:\.\d{3})+),\d{2}$/;
+const DECIMAL = /^(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d{1,6})?$/;
 
-function validar(d: DadosConfirmados): Partial<Record<keyof DadosConfirmados, string>> {
-  const erros: Partial<Record<keyof DadosConfirmados, string>> = {};
+function validar(d: DadosConfirmados): Erros {
+  const erros: Erros = {};
   if (!d.distribuidora.trim()) erros.distribuidora = "Informe o nome da distribuidora.";
   if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(d.mesReferencia))
     erros.mesReferencia = "Informe o mês com números, como 10/2026.";
@@ -124,8 +147,17 @@ function validar(d: DadosConfirmados): Partial<Record<keyof DadosConfirmados, st
   if (!LEITURA.test(d.leituraAtual))
     erros.leituraAtual = "Informe a leitura atual com números, como 14.512.";
   if (!LEITURA.test(d.consumo)) erros.consumo = "Informe o consumo em números, como 262.";
-  if (!MOEDA.test(d.somaItens)) erros.somaItens = "Informe a soma dos itens, como 228,00.";
   if (!MOEDA.test(d.total)) erros.total = "Informe o total, como 228,00.";
+  if (d.itens.length === 0) erros.itens = "Informe pelo menos um item cobrado.";
+  d.itens.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.descricao.trim()) erros[`item-${item.id}-descricao`] = `Informe a descrição do item ${n}.`;
+    if (item.quantidade.trim() && !DECIMAL.test(item.quantidade))
+      erros[`item-${item.id}-quantidade`] = `Use só números na quantidade do item ${n}, como 262.`;
+    if (item.tarifa.trim() && !DECIMAL.test(item.tarifa))
+      erros[`item-${item.id}-tarifa`] = `Use vírgula na tarifa do item ${n}, como 0,78000.`;
+    if (!MOEDA.test(item.valor)) erros[`item-${item.id}-valor`] = `Informe o valor do item ${n}, como 204,36.`;
+  });
   return erros;
 }
 
@@ -407,21 +439,84 @@ function CartaoDecisao({
   );
 }
 
+function Campo({
+  id,
+  rotulo,
+  ajuda,
+  modo,
+  valor,
+  erro,
+  aoMudar,
+}: {
+  id: string;
+  rotulo: string;
+  ajuda?: string;
+  modo: "text" | "numeric" | "decimal";
+  valor: string;
+  erro?: string;
+  aoMudar: (valor: string) => void;
+}) {
+  const descritores = [ajuda ? `${id}-ajuda` : "", erro ? `${id}-erro` : ""].filter(Boolean).join(" ");
+  return (
+    <div className="field">
+      <label htmlFor={id}>{rotulo}</label>
+      <input
+        className="input"
+        id={id}
+        value={valor}
+        inputMode={modo}
+        autoComplete="off"
+        onChange={(e) => aoMudar(e.target.value)}
+        aria-describedby={descritores || undefined}
+        aria-invalid={Boolean(erro)}
+      />
+      {ajuda && (
+        <span className="field-hint" id={`${id}-ajuda`}>
+          {ajuda}
+        </span>
+      )}
+      {erro && (
+        <span className="field-error" id={`${id}-erro`}>
+          {erro}
+        </span>
+      )}
+    </div>
+  );
+}
+
 function FormularioConfirmacao({
   dados,
   online,
   conferindo,
   aoMudar,
+  aoMudarItem,
+  aoAdicionarItem,
+  aoRemoverItem,
   aoConfirmar,
 }: {
   dados: DadosConfirmados;
   online: boolean;
   conferindo: boolean;
-  aoMudar: (campo: keyof DadosConfirmados, valor: string) => void;
+  aoMudar: (campo: CampoSimples, valor: string) => void;
+  aoMudarItem: (id: number, campo: CampoItem, valor: string) => void;
+  aoAdicionarItem: () => void;
+  aoRemoverItem: (id: number) => void;
   aoConfirmar: () => void;
 }) {
   const erros = validar(dados);
   const valido = Object.keys(erros).length === 0;
+  const campo = (nome: CampoSimples) => (
+    <Campo
+      key={nome}
+      id={nome}
+      rotulo={CAMPOS[nome].rotulo}
+      ajuda={CAMPOS[nome].ajuda}
+      modo={CAMPOS[nome].modo}
+      valor={dados[nome]}
+      erro={erros[nome]}
+      aoMudar={(valor) => aoMudar(nome, valor)}
+    />
+  );
   return (
     <section className="content-card confirmation-card" aria-labelledby="confirmacao-titulo">
       <div className="confirmation-intro">
@@ -442,34 +537,57 @@ function FormularioConfirmacao({
           if (valido && online && !conferindo) aoConfirmar();
         }}
       >
-        {(Object.keys(CAMPOS) as (keyof DadosConfirmados)[]).map((campo) => {
-          const { rotulo, ajuda, modo } = CAMPOS[campo];
-          const erro = erros[campo];
-          return (
-            <div className="field" key={campo}>
-              <label htmlFor={campo}>{rotulo}</label>
-              <input
-                className="input"
-                id={campo}
-                name={campo}
-                value={dados[campo]}
-                inputMode={modo}
-                autoComplete="off"
-                onChange={(e) => aoMudar(campo, e.target.value)}
-                aria-describedby={`${campo}-ajuda${erro ? ` ${campo}-erro` : ""}`}
-                aria-invalid={Boolean(erro)}
-              />
-              <span className="field-hint" id={`${campo}-ajuda`}>
-                {ajuda}
-              </span>
-              {erro && (
-                <span className="field-error" id={`${campo}-erro`}>
-                  {erro}
-                </span>
-              )}
+        {(["distribuidora", "mesReferencia", "leituraAnterior", "leituraAtual", "consumo"] as const).map(
+          campo,
+        )}
+
+        <fieldset className="items-fieldset">
+          <legend>Itens cobrados</legend>
+          <p className="field-hint">
+            Copie cada linha da fatura. Com quantidade e tarifa, a conferência também refaz a conta
+            de cada linha.
+          </p>
+          {dados.itens.map((item, i) => (
+            <div className="item-row" key={item.id}>
+              <div className="item-row-heading">
+                <strong>Item {i + 1}</strong>
+                <Botao
+                  variante="secondary"
+                  onClick={() => aoRemoverItem(item.id)}
+                  disabled={dados.itens.length === 1}
+                  aria-label={`Remover o item ${i + 1}${item.descricao ? `, ${item.descricao}` : ""}`}
+                >
+                  Remover
+                </Botao>
+              </div>
+              <div className="item-row-fields">
+                {(Object.keys(CAMPOS_ITEM) as CampoItem[]).map((nome) => (
+                  <Campo
+                    key={nome}
+                    id={`item-${item.id}-${nome}`}
+                    rotulo={CAMPOS_ITEM[nome].rotulo}
+                    modo={CAMPOS_ITEM[nome].modo}
+                    valor={item[nome]}
+                    erro={erros[`item-${item.id}-${nome}`]}
+                    aoMudar={(valor) => aoMudarItem(item.id, nome, valor)}
+                  />
+                ))}
+              </div>
             </div>
-          );
-        })}
+          ))}
+          {erros.itens && <p className="field-error">{erros.itens}</p>}
+          <div className="items-footer">
+            <Botao variante="secondary" onClick={aoAdicionarItem}>
+              Adicionar item
+            </Botao>
+            <p aria-live="polite">
+              Soma dos itens: <strong>R$ {somarItens(dados.itens)}</strong>
+            </p>
+          </div>
+        </fieldset>
+
+        {campo("total")}
+
         <p className="privacy-note">
           <span aria-hidden="true">i</span>
           Nome, endereço, CPF e número da instalação não são pedidos nem guardados.
@@ -487,6 +605,119 @@ function FormularioConfirmacao({
           </p>
         </div>
       </form>
+    </section>
+  );
+}
+
+function IconeDestino({ destino }: { destino: Destino }) {
+  const caminhos: Record<Destino, string> = {
+    fatura: "M6 3h10l2 2v16l-3-1.5L12 21l-3-1.5L6 21V3ZM9 8h6M9 12h6M9 16h3",
+    conferencia: "M17 11a6 6 0 1 1-12 0 6 6 0 0 1 12 0ZM8 11l2 2 4-4M15.5 15.5 20 20",
+    historico: "M4 7h16v13H4zM7 4h10v3M8 11h8M8 15h5",
+    ajuda: "M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.7.25-.7.9-.7 1.6M12 17v.1",
+  };
+  return (
+    <svg className="navigation-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d={caminhos[destino]} stroke="currentColor" />
+    </svg>
+  );
+}
+
+type EventoInstalacao = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+};
+
+const CHAVE_INSTALACAO = "fatura-aberta-instalacao-dispensada";
+
+function CartaoInstalacao() {
+  const [evento, setEvento] = useState<EventoInstalacao | null>(null);
+  const [dispensado, setDispensado] = useState(() => ler(CHAVE_INSTALACAO) === "1");
+  const [retorno, setRetorno] = useState("");
+
+  useEffect(() => {
+    const guardar = (e: Event) => {
+      e.preventDefault();
+      setEvento(e as EventoInstalacao);
+    };
+    const instalado = () => {
+      setEvento(null);
+      setRetorno("Aplicativo instalado neste aparelho.");
+    };
+    window.addEventListener("beforeinstallprompt", guardar);
+    window.addEventListener("appinstalled", instalado);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", guardar);
+      window.removeEventListener("appinstalled", instalado);
+    };
+  }, []);
+
+  // Só aparece quando o navegador oferece a instalação e a pessoa não dispensou.
+  if (dispensado || (!evento && !retorno)) return null;
+
+  return (
+    <section className="pwa-card" aria-labelledby="instalar-titulo">
+      <h2 id="instalar-titulo">Instalar aplicativo (PWA)</h2>
+      <p>Use o Fatura Aberta como aplicativo neste aparelho.</p>
+      {evento && (
+        <div className="pwa-actions">
+          <Botao
+            onClick={() => {
+              void evento.prompt().then(() =>
+                evento.userChoice.then(({ outcome }) => {
+                  setRetorno(outcome === "accepted" ? "Instalação iniciada." : "Instalação adiada.");
+                  setEvento(null);
+                }),
+              );
+            }}
+          >
+            Instalar
+          </Botao>
+          <Botao
+            variante="secondary"
+            onClick={() => {
+              gravar(CHAVE_INSTALACAO, "1");
+              setDispensado(true);
+            }}
+          >
+            Agora não
+          </Botao>
+        </div>
+      )}
+      <p className="pwa-feedback" role="status">
+        {retorno}
+      </p>
+    </section>
+  );
+}
+
+function ItensConferidos({ dados }: { dados: DadosConfirmados }) {
+  return (
+    <section className="content-card" aria-labelledby="itens-titulo">
+      <h2 id="itens-titulo">Itens cobrados</h2>
+      <ul className="bill-items-list">
+        {dados.itens.map((item) => (
+          <li className="bill-item" key={item.id}>
+            <div>
+              <h3>{item.descricao}</h3>
+              {item.quantidade && item.tarifa && (
+                <p>
+                  {item.quantidade} kWh × R$ {item.tarifa}
+                </p>
+              )}
+            </div>
+            <strong>R$ {item.valor}</strong>
+          </li>
+        ))}
+        <li className="bill-total-row">
+          <span>Soma dos itens</span>
+          <strong>R$ {somarItens(dados.itens)}</strong>
+        </li>
+        <li className="bill-total-row">
+          <span>Total impresso</span>
+          <strong>R$ {dados.total}</strong>
+        </li>
+      </ul>
     </section>
   );
 }
@@ -682,7 +913,8 @@ export default function FaturaAberta() {
               aria-current={destino === id ? "page" : undefined}
               onClick={() => setDestino(id)}
             >
-              {rotulo}
+              <IconeDestino destino={id} />
+              <span>{rotulo}</span>
             </button>
           ))}
         </div>
@@ -725,6 +957,35 @@ export default function FaturaAberta() {
                   online={online}
                   conferindo={estado === "conferindo"}
                   aoMudar={(campo, valor) => setDados((atual) => ({ ...atual, [campo]: valor }))}
+                  aoMudarItem={(id, campo, valor) =>
+                    setDados((atual) => ({
+                      ...atual,
+                      itens: atual.itens.map((item) =>
+                        item.id === id ? { ...item, [campo]: valor } : item,
+                      ),
+                    }))
+                  }
+                  aoAdicionarItem={() =>
+                    setDados((atual) => ({
+                      ...atual,
+                      itens: [
+                        ...atual.itens,
+                        {
+                          id: Math.max(0, ...atual.itens.map((item) => item.id)) + 1,
+                          descricao: "",
+                          quantidade: "",
+                          tarifa: "",
+                          valor: "",
+                        },
+                      ],
+                    }))
+                  }
+                  aoRemoverItem={(id) =>
+                    setDados((atual) => ({
+                      ...atual,
+                      itens: atual.itens.filter((item) => item.id !== id),
+                    }))
+                  }
                   aoConfirmar={() => void conferir()}
                 />
               </>
@@ -790,6 +1051,7 @@ export default function FaturaAberta() {
                         {aviso}
                       </p>
                     )}
+                    <ItensConferidos dados={dados} />
                     <section className="content-card search-controls" aria-labelledby="busca-titulo">
                       <h2 id="busca-titulo">Encontre uma checagem</h2>
                       <div className="search-field">
@@ -939,6 +1201,7 @@ export default function FaturaAberta() {
               <h2 id="dica-titulo">Dica do Faísca</h2>
               <Faisca estado={mascote[destino].estado} mensagem={mascote[destino].mensagem} />
             </section>
+            <CartaoInstalacao />
           </aside>
         </div>
       </main>

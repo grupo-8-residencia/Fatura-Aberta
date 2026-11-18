@@ -25,13 +25,21 @@ export type Achado = {
 
 export type RespostaAnalise = { achados: Achado[]; aviso?: string | null };
 
+export type ItemDigitado = {
+  id: number;
+  descricao: string;
+  quantidade: string;
+  tarifa: string;
+  valor: string;
+};
+
 export type DadosConfirmados = {
   distribuidora: string;
   mesReferencia: string;
   leituraAnterior: string;
   leituraAtual: string;
   consumo: string;
-  somaItens: string;
+  itens: ItemDigitado[];
   total: string;
 };
 
@@ -52,6 +60,15 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000
 /** "14.512" -> "14512"; "1.234,56" -> "1234.56". */
 export function numeroParaApi(valor: string): string {
   return valor.trim().replaceAll(".", "").replace(",", ".");
+}
+
+/** Soma dos valores digitados, em centavos, para mostrar ao lado do total. */
+export function somarItens(itens: ItemDigitado[]): string {
+  const centavos = itens.reduce((soma, item) => {
+    const n = Number(numeroParaApi(item.valor));
+    return Number.isFinite(n) ? soma + Math.round(n * 100) : soma;
+  }, 0);
+  return new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2 }).format(centavos / 100);
 }
 
 /** "10/2026" -> "2026-10-01". */
@@ -84,7 +101,12 @@ export function montarFatura(dados: DadosConfirmados) {
     leitura_anterior: numeroParaApi(dados.leituraAnterior),
     leitura_atual: numeroParaApi(dados.leituraAtual),
     consumo_kwh: numeroParaApi(dados.consumo),
-    itens: [{ descricao: "Soma dos itens informada", valor: numeroParaApi(dados.somaItens) }],
+    itens: dados.itens.map((item) => ({
+      descricao: item.descricao.trim(),
+      ...(item.quantidade.trim() ? { quantidade: numeroParaApi(item.quantidade), unidade: "kWh" } : {}),
+      ...(item.tarifa.trim() ? { tarifa: numeroParaApi(item.tarifa) } : {}),
+      valor: numeroParaApi(item.valor),
+    })),
     total: numeroParaApi(dados.total),
   };
 }
