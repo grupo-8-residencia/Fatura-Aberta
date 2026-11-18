@@ -209,3 +209,29 @@ def test_rodape_do_diario_oficial_e_removido_no_ultimo_artigo() -> None:
         "o publicado no D.O. de 14.03.2024, seção 1, p. 50, v. 161, n. 51."
     )
     assert item["texto"] == "Art. 3º Esta Resolução entra em vigor em 1º de abril de 2024."
+
+
+def test_referencia_em_minuscula_no_inicio_da_linha_nao_e_cabecalho() -> None:
+    texto = "Art. 5º Primeira regra, conforme o\nart. 9.\nArt. 9º Nona regra."
+    artigos = conv.separar_artigos(conv.limpar(texto, religar_linhas=True))
+    assert list(artigos) == ["5", "9"]
+    assert "conforme o art. 9." in artigos["5"]
+    assert artigos["9"] == "Art. 9º Nona regra."
+
+
+def test_titulo_estrutural_nao_vaza_para_o_artigo_anterior() -> None:
+    texto = "Art. 1º Primeira.\nSeção II\nDo Parcelamento do Débito\nArt. 2º Segunda."
+    for religar in (True, False):
+        artigos = conv.separar_artigos(conv.limpar(texto, religar_linhas=religar))
+        assert artigos["1"] == "Art. 1º Primeira."
+        assert artigos["2"] == "Art. 2º Segunda."
+
+
+def test_ordinal_colado_do_pdf_e_normalizado() -> None:
+    texto = (
+        "Art. 3º Regra.\n§ 2oA multa incide.\n§ 3o O prazo vale.\nArt. 4oA norma entra em vigor."
+    )
+    artigos = conv.separar_artigos(conv.limpar(texto, religar_linhas=False))
+    assert "§ 2º A multa incide." in artigos["3"]
+    assert "§ 3º O prazo vale." in artigos["3"]
+    assert artigos["4"] == "Art. 4º A norma entra em vigor."
