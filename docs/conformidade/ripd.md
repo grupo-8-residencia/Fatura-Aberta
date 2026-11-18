@@ -27,9 +27,9 @@ Durante a preparação dos testes, a frente F1 realizou a coleta de 15 faturas r
 
 O formulário de consentimento registrou 22 respostas, enquanto a pesquisa com consumidores contabilizou 21 participantes. Esses quantitativos correspondem a instrumentos de coleta distintos e não representam necessariamente as mesmas pessoas. Entre os 21 participantes da pesquisa, 17 informaram receber a conta de energia impressa e 12 relataram dificuldade para compreender como os valores são calculados. As respostas aos formulários não substituem a autorização individual necessária para utilização das 15 faturas reais recebidas para testes.
 
-**Base legal — TODO (F1):** confirmar com a Talita e, se possível, com o docente de Direito vinculado à atividade #4, quais hipóteses legais se aplicam ao funcionamento do produto e à utilização das faturas cedidas para testes. O consentimento, previsto no art. 7º, I, da Lei nº 13.709/2018, é uma hipótese a ser avaliada para os documentos disponibilizados voluntariamente.
+**Base legal (decisão de 18/11/2026):** consentimento do titular (Lei nº 13.709/2018, art. 7º, I), tanto para a cessão das 15 faturas reais usadas na validação acadêmica quanto para o uso do produto pelo usuário final, com processamento efêmero no MVP. A leitura será apresentada ao docente de Direito na conversa da #4 (previsão até 27/11/2026).
 
-**Controlador e operadores — TODO (F1):** definir formalmente quem exerce a função de controlador no contexto do projeto acadêmico e identificar eventuais operadores envolvidos no tratamento, considerando também os serviços utilizados na infraestrutura.
+**Controlador e operadores (decisão de 18/11/2026):** o controlador é a equipe acadêmica do projeto Fatura Aberta (UnB/FGA). Operadores: o Google Drive (armazenamento restrito das faturas cedidas) e os serviços de hospedagem da aplicação (por exemplo, a Vercel no front-end). Nas avaliações da S3 e da S4 os modelos de linguagem rodaram localmente (Ollama), sem envio de dados a APIs externas.
 
 ## 2. Fluxo dos dados
 
@@ -49,13 +49,13 @@ O fluxo de tratamento previsto na arquitetura do Fatura Aberta compreende as seg
 
 A configuração efetiva das permissões de compartilhamento ainda precisa ser verificada, assim como a relação de pessoas autorizadas a acessar os documentos. Portanto, não é possível afirmar que o acesso esteja efetivamente restrito até que essa verificação seja concluída.
 
-**TODO (F1):** conferir as permissões de compartilhamento, identificar os responsáveis autorizados e documentar a verificação no controle privado da equipe.
+O acesso é restrito aos integrantes da equipe autorizados na coleta. **TODO (F1):** confirmar e registrar a revisão formal das permissões de compartilhamento no controle privado da equipe.
 
 Os arquivos reais são destinados exclusivamente aos testes abrangidos pelas autorizações concedidas. No repositório público, a política de dados permite apenas documentos sintéticos ou efetivamente anonimizados.
 
 Ao término do Challenge, as faturas reais deverão ser excluídas conforme o procedimento definido pela equipe. A exclusão também deverá abranger as cópias locais realizadas pelos integrantes durante os testes, com registro da execução.
 
-**TODO (F1):** definir a data limite de exclusão, confirmar a relação de pessoas com acesso à pasta privada e estabelecer como será comprovada a exclusão dos documentos e das cópias locais.
+**Prazo e comprovação da exclusão (decisão de 18/11/2026):** até **18/12/2026** (encerramento do semestre letivo), no Drive e nas cópias locais, comprovada por registro de exclusão da F1 com evidência da lixeira do Google Drive esvaziada, anexado na issue #3.
 
 ## 3. Riscos e medidas
 
@@ -87,9 +87,7 @@ Esses direitos incluem obter informações sobre o tratamento, solicitar acesso 
 
 A F1 realizou a conferência e a vinculação dos termos às 15 faturas recebidas, o que permite identificar, no controle privado, qual autorização corresponde a cada documento sem divulgar informações pessoais no repositório.
 
-Ainda será necessário formalizar o canal de atendimento aos titulares, identificar os responsáveis pelas solicitações e estabelecer os procedimentos e prazos aplicáveis.
-
-**TODO (F1):** definir o canal de contato dos titulares, o procedimento de atendimento e as informações de privacidade que serão apresentadas aos usuários da ferramenta.
+**Canal dos titulares (decisão de 18/11/2026):** o e-mail oficial do grupo, com resposta em até **5 dias úteis** (dentro do limite de 15 dias do art. 19, II, da LGPD). **TODO (F1):** inserir o e-mail de contato do grupo e redigir as informações de privacidade apresentadas aos usuários da ferramenta.
 
 ## 5. Revisão
 
