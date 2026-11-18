@@ -8,6 +8,14 @@
     do Auditor, e não de erros do modelo (veja [A causa da perda](#a-causa-da-perda)); isso é hipótese
     para a próxima rodada, não resultado.
 
+!!! success "Rodada T5 (18/11/2026): o sistema multiagentes resolve a perda do B5"
+    Com os 4 agentes (política T5: o rascunho barrado pelo Auditor cai na resposta extrativa do
+    Pesquisador, em vez de abstenção), o acerto nas 120 perguntas foi **93,3% [88,3%; 97,5%]**, com
+    **0 JSON inválido** em 106 chamadas ao LLM, **0% de respostas com afirmação sem suporte**, 0 violação do
+    RF-15, 0 citação inventada e 0 fora de vigência. O T5 supera o B5 (23 × 3, McNemar exato p = 8,8×10⁻⁵)
+    e empata, sem diferença significativa, com o B4 (7 × 3, p = 0,34) e com o T2 (2 × 0, p = 0,50).
+    Detalhes na [seção T5](#rodada-t5-sistema-multiagentes-corpus-de-39-dispositivos).
+
 Fonte: [`avaliacao/resultados/s4-b4-b5.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s4-b4-b5.json)
 (registros e braços por pergunta) e
 [`s4-b4-b5-comparacao.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s4-b4-b5-comparacao.json)
@@ -143,7 +151,7 @@ teste. A correção (incluir ato e dispositivo da citação no texto de compara�
 validada em perguntas novas, fora deste golden set (por exemplo, o conjunto de
 `avaliacao/resultados/s3-perguntas-novas-out-of-sample.json`).
 
-!!! warning "Repetir a rodada depois do #139"
+!!! warning "Repetir a rodada depois do #139 (feito em 18/11: veja a seção T5)"
     Os níveis absolutos dependem de um corpus de 28 dispositivos; o #139 leva o corpus a 39. A rodada
     precisa ser repetida depois dele. Para isso o script grava o hash do corpus (`sha256_corpus`) e
     **recusa** retomar ou recomputar as métricas se o corpus mudou, em vez de misturar respostas antigas
@@ -168,6 +176,60 @@ entre os recuperados (B4 e B5 abstêm-se por igual). GS-Q018 e GS-Q024 se abstiv
 não trouxe o dispositivo canônico (art. 307; no GS-Q024 nenhum dispositivo passou do limiar). O GS-Q066
 foi respondido pelo B4 com afirmação **sem lastro** (art. 360 § 2º citado para "corrigir fatura errada"),
 e o Auditor corretamente o barrou (resposta errada convertida em abstenção, sem custo de acerto).
+
+## Rodada T5: sistema multiagentes (corpus de 39 dispositivos)
+
+Rodada de 18/11/2026 com o sistema de 4 agentes ([arquitetura](../arquitetura/agentes.md)), sobre o
+**corpus atual de 39 dispositivos** (PR #139) e a recuperação atual (PR #135). B4, B5 e T5 partilham a
+mesma chamada do Analista por pergunta; T2 é a resposta extrativa do Pesquisador na mesma recuperação.
+Fonte: `avaliacao/resultados/s4-t5.json` e `s4-t5-comparacao.json` (hash do corpus no cabeçalho).
+
+| Braço | Acerto [IC 95%] | Abstenção | Respostas com afirmação sem suporte | RF-15 | Cit. inventada |
+|---|---|---|---|---|---|
+| B4 (Analista sem Auditor) | 90,0% [84,2%; 95,0%] | 20,0% | 14,2% | 2 | 1 |
+| B5 (Auditor estrito) | 76,7% [69,2%; 84,2%] | 34,2% | 0% (por construção) | 0 | 0 |
+| T2 (extrativo do Pesquisador) | 91,7% [86,7%; 96,7%] | 11,7% | 0% (trecho literal) | 0 | 0 |
+| **T5 (4 agentes)** | **93,3% [88,3%; 97,5%]** | 11,7% | **0%** | **0** | **0** |
+
+| Comparação (McNemar, pareado) | Só o primeiro acerta | Só o segundo acerta | p exato |
+|---|---|---|---|
+| B4 × B5 | 16 | 0 | 3,1×10⁻⁵ |
+| T5 × B5 | 23 | 3 | 8,8×10⁻⁵ |
+| T5 × B4 | 7 | 3 | 0,34 |
+| T5 × T2 | 2 | 0 | 0,50 |
+
+**De onde veio a resposta do T5:** 79 perguntas com o texto do Analista aprovado pelo Auditor, 27 com a
+resposta extrativa (o Auditor barrou o rascunho) e 14 com abstenção (o Pesquisador não achou dispositivo
+vigente acima do limiar, e o LLM nem foi chamado). Por tipo: normativa 96,9%, vigência 83,3%, lacuna
+83,3% e fora do corpus 60,0%.
+
+**Leitura:**
+
+1. **A política T5 elimina o custo do Auditor.** O B5 perde 16 perguntas para o B4; o T5 não perde
+   nenhuma para o T2 e entrega o texto do LLM em 79 das 120, sempre com fonte e sem afirmação sem suporte.
+2. **O ganho sobre o T2 não é significativo** (2 perguntas). O que o T5 acrescenta ao T2 é a redação
+   (afirmações curtas em vez de trechos longos da norma), não acerto; a legibilidade só é medida com
+   usuários na S7.
+3. **Nenhuma resposta inválida.** Nas 106 chamadas do Analista, o JSON veio sempre no esquema. Na S3, o T4
+   teve 16 inválidas com outro prompt e mais contexto (veja o diagnóstico no relatório S3).
+4. **B4 × B5 se repete no corpus novo** (90,0% × 76,7%, 16 × 0), o que confirma o resultado da rodada de
+   28 dispositivos.
+
+**Faturas (200, `s4-t5-faturas.json`).** O veredito vem do motor e acerta 200/200 (o mesmo 100% circular
+do B1 na S3). Os agentes explicaram 284 itens: os 84 divergentes receberam norma citada (18 com o texto do
+Analista aprovado, 66 com a resposta extrativa) e os 200 itens de ICMS ficaram em abstenção, porque o
+corpus não tem norma de ICMS. **Nenhum rascunho contradisse o veredito do motor** (`veredito_alterado` = 0),
+nenhuma mensagem teve termo vedado pelo RF-15 e todas as mensagens passaram na autoconferência do
+Comunicador. Latência média de 15,7 s por fatura com chamada ao LLM.
+
+!!! warning "Limites desta rodada"
+    - **Dentro da amostra.** O limiar de 0,30 e os ajustes de recuperação do #135 usaram erros do próprio
+      golden set; os níveis absolutos são otimistas. As comparações entre braços são pareadas e não
+      dependem disso.
+    - **"Sem suporte" é a medida determinística do Auditor**, não um juiz: o juiz LLM foi reprovado na
+      calibração (PR #162). Erro factual que passe nas regras determinísticas não aparece aqui.
+    - **Explicações das faturas:** só 18 de 84 saíram com o texto do LLM; nas outras, a regra de números
+      do Auditor barrou o rascunho (a mesma causa da perda do B5) e entrou o trecho literal.
 
 ## Limites e próximos passos
 

@@ -56,7 +56,9 @@ class Motivo(StrEnum):
 _DIZ_QUE_CONFERE = re.compile(
     r"(?<!não )\b(confere|est[aá] corret[ao]|n[aã]o h[aá] (diverg[eê]ncia|erro))", re.I
 )
-_DIZ_QUE_DIVERGE = re.compile(r"\b(n[aã]o confere|diverg|cobran[cç]a indevida|erro)", re.I)
+_DIZ_QUE_DIVERGE = re.compile(
+    r"\b(n[aã]o confere|diverg[eêi]\w*|cobran[cç]a indevida|erros?)\b", re.I
+)
 
 
 def divergente(achado: Achado) -> bool:
@@ -212,8 +214,12 @@ class Auditor:
 
 
 def para_achado(item: str, resultado: ResultadoAuditoria) -> Achado:
-    """Converte a resposta auditada em ``Achado``: abstenção vira nível C; senão, nível B."""
+    """Converte a resposta auditada em ``Achado`` de nível C (análise normativa com citação).
+
+    O nível B é reservado ao confronto com a tabela tarifária oficial da ANEEL (motor); a
+    exposição da norma com ato, dispositivo e vigência é nível C (RF-12, fronteira jurídica).
+    """
     r = resultado.resposta
     if r.abstencao:
         return Achado(item=item, nivel=Nivel.C, descricao=r.texto, abstencao=True)
-    return Achado(item=item, nivel=Nivel.B, descricao=r.texto, citacoes=list(r.citacoes))
+    return Achado(item=item, nivel=Nivel.C, descricao=r.texto, citacoes=list(r.citacoes))

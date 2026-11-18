@@ -181,7 +181,7 @@ def test_fatura_divergente_recebe_norma_e_minuta_sem_mudar_o_veredito() -> None:
     assert res.veredito == "diverge_A"
     assert res.origens["Total da fatura"] == Origem.ANALISTA_AUDITADO
     explic = res.explicacoes[0]
-    assert explic.nivel is Nivel.B and explic.citacoes[0].dispositivo == "art. 327"
+    assert explic.nivel is Nivel.C and explic.citacoes[0].dispositivo == "art. 327"
     assert "Minuta de pedido de esclarecimento" in res.mensagem.texto
     assert "40" in res.mensagem.texto and "55" in res.mensagem.texto
 
@@ -205,3 +205,53 @@ def test_auditor_barra_texto_que_contradiz_o_motor() -> None:
 def test_orquestrador_sem_motor_exige_achados() -> None:
     with pytest.raises(ValueError, match="motor"):
         Orquestrador(_indice(), _llm()).analisar_fatura(_fatura("40"))
+
+
+DOBRO = _doc(
+    "ren1000-art-323::p2",
+    "A distribuidora deve fazer a devolução em dobro do valor pago a maior pelo consumidor.",
+    "art. 323, § 2º",
+    date(2022, 1, 3),
+)
+
+
+def test_fallback_nao_transcreve_trecho_com_termo_vedado_pelo_rf15() -> None:
+    indice = IndiceHibrido([DOBRO])
+    pergunta = "O que a distribuidora deve fazer com o valor pago a maior pelo consumidor?"
+    for persona in Persona:
+        r = Orquestrador(indice, _llm()).responder_pergunta(
+            pergunta, data_referencia=DATA, persona=persona
+        )
+        assert r.origem == Origem.PESQUISADOR_EXTRATIVO and not r.abstencao
+        assert verificar_linguagem(r.resposta.texto) == []
+        assert verificar_linguagem(r.mensagem.texto) == []
+        assert r.resposta.citacoes[0].dispositivo == "art. 323, § 2º"
+
+
+def test_comunicador_nunca_devolve_original_com_termo_vedado() -> None:
+    c = DOBRO.citacao
+    msg = Comunicador().comunicar_resposta(
+        Persona.CELINA,
+        pergunta="Valor pago a maior?",
+        afirmacoes=[("Cabe devolução em dobro do valor pago a maior.", (c,))],
+        texto_original="Cabe devolução em dobro do valor pago a maior.",
+        abstencao=False,
+    )
+    assert not msg.adaptada and "linguagem proibida" in msg.motivo
+    assert verificar_linguagem(msg.texto) == [] and "art. 323" in msg.texto
+
+
+def test_comunicador_sem_afirmacao_trata_como_abstencao() -> None:
+    msg = Comunicador().comunicar_resposta(
+        Persona.RAFAEL, pergunta="?", afirmacoes=[], texto_original="", abstencao=False
+    )
+    assert "absteve" in msg.texto
+
+
+def test_itens_alem_do_limite_ficam_registrados_no_rastro() -> None:
+    achados = _motor(_fatura("55")) * 2
+    achados = [achados[0], achados[0].model_copy(update={"item": "Outro total"})]
+    res = Orquestrador(_indice(), _llm()).analisar_fatura(
+        _fatura("55"), achados_motor=achados, max_itens=1
+    )
+    assert any(p.acao == "limite" and "Outro total" in p.detalhe for p in res.rastro)
