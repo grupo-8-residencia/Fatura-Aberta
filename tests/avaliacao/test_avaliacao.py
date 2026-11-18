@@ -242,3 +242,22 @@ def test_calibracao_abstencao_sem_vazamento_e_reprodutivel() -> None:
     assert r["configuracao"]["limiar_padrao_pacote"] == LIMIAR_PADRAO == 0.30
     assert r["teste"]["abstencao"]["precisao"] == 1.0
     assert r["teste"]["ranking_com_norma"]["recall@5"]["estimativa"] >= 0.95
+
+
+def test_recalibracao_divide_sem_vazar_e_rotula() -> None:
+    import recalibrar_juiz as rj
+
+    linhas = [
+        {"item_id": f"GS-{i:02d}", "veredito_humano_1": "sem_suporte" if i < 4 else "suportada"}
+        for i in range(12)
+    ]
+    dev, retida = rj.dividir(linhas)
+    assert dev.isdisjoint(retida) and len(dev | retida) == 12
+    assert sum(1 for i in dev if int(i[3:]) < 4) == 2  # estratificada pelo veredito humano
+    assert rj.rotular([{"suportada": True}, {"suportada": False}]) == "sem_suporte"
+    assert rj.rotular([{"suportada": True}]) == "suportada"
+    assert rj.metricas(["suportada"] * 3, ["suportada"] * 3)["acuracia"] == 1.0
+    # Sem veredito do juiz: erro na acurácia, mas fora do κ e das contagens de classe.
+    m = rj.metricas(["suportada", "sem_suporte", "suportada"], ["suportada", "sem_suporte", None])
+    assert m["acuracia"] == 2 / 3 and m["sem_veredito_do_juiz"] == 1
+    assert m["n_vereditos_validos"] == 2 and m["kappa"] == 1.0 and m["sem_suporte_juiz"] == 1
