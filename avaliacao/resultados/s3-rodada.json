@@ -21,7 +21,12 @@
   "semente_bootstrap": 42,
   "limite": null,
   "faturas_llm": 200,
-  "faturas_llm_puro": 111
+  "faturas_llm_puro": 200,
+  "t1_faturas_complemento": {
+   "data_utc": "2026-11-18T14:34:42Z",
+   "commit": "275abe7",
+   "nota": "T1 completado nas 89 faturas restantes em 18/11/2026 (mesmo modelo, digest, prompt e semente; as 111 primeiras saem do cache e são idênticas às de 13/11)."
+  }
  },
  "faturas": {
   "B1": [
@@ -18027,7 +18032,7 @@
     "contexto_ids": [],
     "duracao_s": 23.279,
     "tokens_saida": 197,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual menos leitura anterior = 478 kWh, que confere com consumo informado de 478 kWh. O valor da linha \"Consumo de energia\" (478 × 0,80) resulta em R$ 382,40; a linha \"Adicional de bandeira\" (478 × 0,02) resulta em R$ 9,56. Somando as linhas: 382,40 + 9,56 + 12,00 = R$ 403,96, que difere do total informado de R$ 408,96.",
@@ -18052,7 +18057,7 @@
     "contexto_ids": [],
     "duracao_s": 38.698,
     "tokens_saida": 203,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual (62816) - leitura anterior (62509) = 307 kWh, que corresponde ao consumo informado de 307 kWh. O valor da linha \"Consumo de energia\" é 307 × R$ 0.80 = R$ 245.60; a linha \"Adicional de bandeira\" resulta em R$ 0.00 (bandeira verde). Somando as linhas: 245.60 + 0.00 + 12.00 = R$ 257.60, que coincide com o total informado. A alíquota de ICMS informada é 0.20, conforme indicado na fatura.",
@@ -18077,7 +18082,7 @@
     "contexto_ids": [],
     "duracao_s": 36.811,
     "tokens_saida": 218,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual (3506) - leitura anterior (3341) = 165 kWh, que corresponde ao consumo informado de 165 kWh. O valor da tarifa base é 0,80 × 165 = R$132,00; o adicional de bandeira vermelha 2 é 0,08 × 165 = R$13,20. Somando: 132,00 + 13,20 + 12,00 (contribuição municipal) = R$157,20, que coincide com o total informado. A alíquota de ICMS indicada na fatura é 0,35, mas não há cálculo aplicado no valor apresentado.",
@@ -18102,7 +18107,7 @@
     "contexto_ids": [],
     "duracao_s": 39.039,
     "tokens_saida": 225,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual menos leitura anterior = 72792 - 72463 = 329 kWh, que confere com o consumo informado de 329 kWh.\nConsumo de energia: 329 × 0.80 = R$ 263.20 (confere).\nAdicional de bandeira: 329 × 0.02 = R$ 6.58 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 263.20 + 6.58 + 12.00 = R$ 281.78, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
@@ -18127,7 +18132,7 @@
     "contexto_ids": [],
     "duracao_s": 37.518,
     "tokens_saida": 197,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual (14514) - leitura anterior (14080) = 434 kWh, que corresponde ao consumo informado de 434 kWh. O valor da linha \"Consumo de energia\" é 434 × R$0,80 = R$347,20; a linha \"Adicional de bandeira\" é 434 × R$0,08 = R$34,72. Somando as três linhas: 347,20 + 34,72 + 12,00 = R$393,92, que coincide com o total informado.",
@@ -18152,7 +18157,7 @@
     "contexto_ids": [],
     "duracao_s": 37.544,
     "tokens_saida": 229,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual menos leitura anterior = 423 kWh, que confere com consumo informado de 423 kWh. O valor da linha \"Consumo de energia\" (423 × 0.80) resulta em R$ 338.40; a linha \"Adicional de bandeira\" (423 × 0.02) resulta em R$ 8.46. Somando as três linhas: 338.40 + 8.46 + 12.00 = R$ 358.86, que difere do total informado de R$ 367.86. A alíquota de ICMS informada (0.20) não aparece aplicada nas linhas apresentadas.",
@@ -18177,7 +18182,7 @@
     "contexto_ids": [],
     "duracao_s": 43.538,
     "tokens_saida": 275,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual (16565) - leitura anterior (16326) = 239 kWh, que corresponde ao consumo informado de 239 kWh. O valor da linha \"Consumo de energia\" é 239 × R$ 0.80 = R$ 191.20, não R$ 219.88 como indicado na fatura. A soma das linhas (191.20 + 0.00 + 12.00) dá R$ 203.20, que difere do total informado de R$ 231.88. O ICMS informado é 0.20, mas não há cálculo aplicado nas linhas apresentadas.",
@@ -18208,7 +18213,7 @@
     "contexto_ids": [],
     "duracao_s": 51.217,
     "tokens_saida": 288,
-    "do_cache": false,
+    "do_cache": true,
     "valido": true,
     "dados": {
      "analise": "Leitura atual menos leitura anterior = 43350 - 42902 = 448 kWh, que corresponde ao consumo informado de 448 kWh. O valor da linha \"Consumo de energia\" (448 × 0,80) resulta em R$ 358,40; a linha \"Adicional de bandeira\" (448 × 0,05) resulta em R$ 22,40, não em R$ 47,80 como informado. A soma das linhas corretas (R$ 358,40 + R$ 22,40 + R$ 12,00) dá R$ 392,80, que difere do total informado de R$ 418,20.",
@@ -18228,6 +18233,2261 @@
      ]
     },
     "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F112",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 24.398,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (49288) - leitura anterior (49119) = 169 kWh, que corresponde ao consumo informado de 169 kWh.\nConsumo de energia: 169 × 0.80 = R$ 135.20 – confirmado.\nAdicional de bandeira: 169 × 0.05 = R$ 8.45 – confirmado.\nContribuição municipal (sintética): R$ 12,00 – confirmado.\nSomatório das linhas: 135.20 + 8.45 + 12.00 = R$ 155.65, que coincide com o total informado.\nAlíquota de ICMS informada: 0.20 – não há cálculo adicional na fatura para verificar.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F113",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 13.868,
+    "tokens_saida": 227,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 54301 - 54082 = 219 kWh, que coincide com o consumo informado de 219 kWh.\nConsumo de energia: 219 × 0.80 = R$ 175.20 (confere).\nAdicional de bandeira: 219 × 0.02 = R$ 11.76 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSoma das linhas: 175.20 + 11.76 + 12.00 = R$ 198.96, que coincide com o total informado.\nAlíquota de ICMS informada é 0.20, mas não há cálculo de ICMS aplicado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações fornecidas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F114",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 25.842,
+    "tokens_saida": 249,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 54244 - 53966 = 278 kWh, que confere com o consumo informado de 278 kWh.\nConsumo de energia: 278 × 0.80 = R$ 222.40 (confere).\nAdicional de bandeira: 278 × 0.08 = R$ 22.24 (confere).\nContribuição municipal sintética aparece duas vezes, cada uma R$ 12.00, totalizando R$ 24.00.\nSomatório das linhas: 222.40 + 22.24 + 12.00 + 12.00 = R$ 268.64, que confere com o total informado de R$ 268.64.\nAlíquota de ICMS informada é 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F115",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 24.61,
+    "tokens_saida": 192,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 27813 - 27648 = 165 kWh, que corresponde ao consumo informado de 165 kWh. O valor da linha \"Consumo de energia\" (165 × 0,80) resulta em R$132,00; a linha \"Adicional de bandeira\" (165 × 0,05) resulta em R$19,50. Somando as linhas: 132,00 + 19,50 + 12,00 = R$163,50, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as informações da fatura. Não há divergências detectadas nos números apresentados.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F116",
+    "baseline": "LLM",
+    "anomalia": "item_energia_incoerente",
+    "contexto_ids": [],
+    "duracao_s": 26.352,
+    "tokens_saida": 291,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 27798 - 27597 = 201 kWh, que corresponde ao consumo informado de 201 kWh.\nConsumo de energia: 201 × 0,80 = R$ 160,80 (não R$ 184,92).\nAdicional de bandeira: 201 × 0,00 = R$ 0,00.\nContribuição municipal: R$ 12,00.\nSoma das linhas = 160,80 + 0,00 + 12,00 = R$ 172,80, que difere do total informado de R$ 196,92.\nAlíquota de ICMS informada é 0,20 (20%).",
+     "achados": [
+      {
+       "item": "Consumo de energia",
+       "veredito": "diverge_A",
+       "descricao": "O valor calculado deveria ser R$ 160,80, não R$ 184,92.",
+       "citacoes": []
+      },
+      {
+       "item": "Total das linhas",
+       "veredito": "diverge_A",
+       "descricao": "A soma das linhas resulta em R$ 172,80, diferente do total informado de R$ 196,92.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F117",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.282,
+    "tokens_saida": 208,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 9187 - 8727 = 460 kWh, que corresponde ao consumo informado de 460 kWh. O valor da linha \"Consumo de energia\" (460 × 0,80) resulta em R$ 368,00; a linha \"Adicional de bandeira\" (460 × 0,05) resulta em R$ 23,00; somando essas duas linhas dá R$ 391,00. Somado à Contribuição municipal de R$ 12,00 obtém‑se R$ 403,00, que é exatamente o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e somas conferem com os valores informados na fatura. Não há divergências detectadas nos números apresentados.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F118",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 22.965,
+    "tokens_saida": 202,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 14857 - 14517 = 340 kWh, que corresponde ao consumo informado de 340 kWh. O valor da linha \"Consumo de energia\" é 340 × R$0,80 = R$272,00; a linha \"Adicional de bandeira\" resulta em R$0,00 (bandeira verde). Somando as linhas: 272 + 0 + 12 = R$284,00, que coincide com o total informado. A alíquota de ICMS indicada é 0,20, conforme declarado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida. Não há divergências detectadas nos números apresentados.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F119",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 24.091,
+    "tokens_saida": 229,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (90023) - leitura anterior (89960) = 63 kWh, que corresponde ao consumo informado de 63 kWh. O valor da tarifa base é R$0,80 por kWh; 63 × 0,80 = R$50,40, igual ao item \"Consumo de energia\". A bandeira vermelha 1 aplica um adicional de R$0,05 por kWh; 63 × 0,05 = R$9,30, igual ao item \"Adicional de bandeira\". Somando os itens: 50,40 + 9,30 + 12,00 = R$71,70, que corresponde exatamente ao total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as leituras e tarifas indicadas na fatura. Não há divergências numéricas detectadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F120",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 28.462,
+    "tokens_saida": 174,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior (38973‑38788) resulta em 185 kWh, igual ao consumo informado. O cálculo de cada linha corresponde aos valores apresentados: 185×0.80 = R$148,00; 185×0.05 = R$9,25; duas contribuições municipais de R$12,00 somam R$24,00. A soma das linhas (148 + 9,25 + 24) dá R$181,25, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura apresentada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F121",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.317,
+    "tokens_saida": 194,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 88 kWh, que confere com consumo informado de 88 kWh. O valor da linha \"Consumo de energia\" (88 × 0.80) = R$70,40; a linha \"Adicional de bandeira\" (88 × 0.02) = R$1,76; somando as duas linhas dá R$72,16, mais a contribuição municipal de R$12,00 resulta em R$84,16, que confere com o total informado. A alíquota de ICMS informada é 0,20 (20%).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura apresentada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F122",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 25.75,
+    "tokens_saida": 221,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 17141 - 16768 = 373 kWh, que coincide com o consumo informado de 373 kWh.\nConsumo de energia: 373 × 0.80 = R$ 298.40 (confere).\nAdicional de bandeira: 373 × 0.05 = R$ 18.65 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 298.40 + 18.65 + 12.00 = R$ 329.05, igual ao total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras de cálculo apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F123",
+    "baseline": "LLM",
+    "anomalia": "total_nao_fecha",
+    "contexto_ids": [],
+    "duracao_s": 28.878,
+    "tokens_saida": 217,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 44300 - 43949 = 351 kWh, que coincide com o consumo informado de 351 kWh.\nO valor da linha \"Consumo de energia\" é 351 × 0.80 = R$ 280.80, conforme indicado.\nO valor da linha \"Adicional de bandeira\" é 351 × 0.02 = R$ 7.02, conforme indicado.\nA soma das linhas: 280.80 + 7.02 + 12.00 = R$ 299.82, que difere do total informado de R$ 312.82.\nO ICMS informado é 0.20 (ou 20%).",
+     "achados": [
+      {
+       "item": "Total das linhas",
+       "veredito": "diverge_A",
+       "descricao": "A soma das linhas não corresponde ao total informado na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F124",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 29.669,
+    "tokens_saida": 200,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (29546) - leitura anterior (29172) = 374 kWh, que corresponde ao consumo informado de 374 kWh. O valor da linha \"Consumo de energia\" é 374 × 0,80 = R$ 299,20; a linha \"Adicional de bandeira\" é 374 × 0,02 = R$ 17,96. Somando as três linhas: 299,20 + 17,96 + 12,00 = R$ 329,16, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as leituras e valores apresentados na fatura. Não há divergências detectadas nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F125",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 28.711,
+    "tokens_saida": 215,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (13587) - leitura anterior (13392) = 195 kWh, que corresponde ao consumo informado de 195 kWh.\nConsumo de energia: 195 × 0.80 = R$156.00 – confirmado.\nAdicional de bandeira: 195 × 0.02 = R$3.90, mas a fatura mostra R$10.80 (divergência).\nContribuição municipal: R$12.00 – confirmado.\nSoma das linhas: 156.00 + 10.80 + 12.00 = R$178.80, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Adicional de bandeira",
+       "veredito": "diverge_A",
+       "descricao": "O valor calculado (R$3.90) difere do valor informado (R$10.80).",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F126",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.365,
+    "tokens_saida": 205,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 39677 - 39349 = 328 kWh, que corresponde ao consumo informado de 328 kWh. O valor da linha \"Consumo de energia\" (328 × 0.80) resulta em R$ 262.40; a linha \"Adicional de bandeira\" (328 × 0.05) resulta em R$ 16.40. Somando as linhas: 262.40 + 16.40 + 12.00 = R$ 290.80, que coincide com o total informado. A alíquota de ICMS informada é 0.20, conforme indicado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F127",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 29.167,
+    "tokens_saida": 251,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (17391) - leitura anterior (16957) = 434 kWh, que corresponde ao consumo informado de 434 kWh.\nO valor da linha \"Consumo de energia\" é 434 × R$ 0,80 = R$ 347,20, igual ao indicado. O adicional de bandeira é 434 × R$ 0,00 = R$ 0,00. A contribuição municipal fixa é R$ 12,00.\nSomando as linhas: 347,20 + 0,00 + 12,00 = R$ 359,20, que coincide com o total informado.\nA alíquota de ICMS informada (0,20) não aparece aplicada em nenhuma linha, mas está listada corretamente na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura apresentada. No entanto, a alíquota de ICMS não foi aplicada em nenhuma linha, apenas listada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F128",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 28.813,
+    "tokens_saida": 198,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (29812) - leitura anterior (29700) = 112 kWh, que corresponde ao consumo informado de 112 kWh. O valor da linha \"Consumo de energia\" é 112 × 0,80 = R$ 89,60; a linha \"Adicional de bandeira\" é 112 × 0,02 = R$ 2,24. Somando as linhas: 89,60 + 2,24 + 12,00 = R$ 103,84, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as leituras e valores apresentados na fatura. Não há divergências detectadas nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F129",
+    "baseline": "LLM",
+    "anomalia": "consumo_diverge_das_leituras",
+    "contexto_ids": [],
+    "duracao_s": 26.33,
+    "tokens_saida": 203,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 85536 - 85145 = 391 kWh, mas consumo informado é 333 kWh (diferença de 58 kWh). Consumo x tarifa: 333 × 0.80 = R$266.40 (confere). Adicional bandeira: 333 × 0.02 = R$6.66 (confere). Contribuição municipal: R$12.00 (confere). Soma das linhas: 266.40 + 6.66 + 12.00 = R$285.06, que corresponde ao total informado.",
+     "achados": [
+      {
+       "item": "Consumo",
+       "veredito": "diverge_A",
+       "descricao": "O consumo calculado a partir das leituras (391 kWh) difere do consumo informado (333 kWh).",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F130",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.613,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 54780 - 54562 = 218 kWh, que confere com o consumo informado de 218 kWh.\nConsumo de energia: 218 × 0.80 = R$ 174.40 (confere).\nAdicional de bandeira: 218 × 0.02 = R$ 4.36 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 174.40 + 4.36 + 12.00 = R$ 190.76, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há linha para verificar).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras e cálculos apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F131",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.951,
+    "tokens_saida": 210,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (58099) - leitura anterior (57836) = 263 kWh, que corresponde ao consumo informado de 263 kWh.\nO valor da linha \"Consumo de energia\" é 263 × R$ 0.80 = R$ 210.40; a linha \"Adicional de bandeira\" é 263 × R$ 0.00 = R$ 0.00; somando as linhas dá R$ 222.40, igual ao total informado.\nA alíquota de ICMS informada (20%) não aparece aplicada nas linhas apresentadas, mas não há inconsistência numérica nos valores mostrados.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as leituras e tarifas indicadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F132",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.041,
+    "tokens_saida": 204,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 83338 - 82883 = 455 kWh, que corresponde ao consumo informado de 455 kWh. O valor da linha \"Consumo de energia\" é 455 × 0,80 = R$ 364,00; a linha \"Adicional de bandeira\" é 455 × 0,02 = R$ 9,10; somando as três linhas (364,00 + 9,10 + 12,00) resulta em R$ 385,10, que coincide com o total informado. A alíquota de ICMS indicada na fatura é 0,20, conforme declarado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F133",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 27.927,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 16605 - 16296 = 309 kWh, que confere com o consumo informado de 309 kWh.\nConsumo de energia: 309 × 0.80 = R$ 247.20 (confere).\nAdicional de bandeira: 309 × 0.08 = R$ 52.44 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSoma das linhas: 247.20 + 52.44 + 12.00 = R$ 311.64, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F134",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 28.112,
+    "tokens_saida": 202,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 33497 - 33170 = 327 kWh, que corresponde ao consumo informado de 327 kWh. O valor da linha \"Consumo de energia\" (327 × 0,80) = R$ 261,60; o adicional de bandeira (327 × 0,08) = R$ 26,16; somando com a contribuição municipal (R$ 12,00) resulta em R$ 299,76, igual ao total informado. A alíquota de ICMS informada é 0,20.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com as leituras e tarifas indicadas na fatura. Não há divergências detectadas nos números apresentados.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F135",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.022,
+    "tokens_saida": 198,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (15079) - leitura anterior (14618) = 461 kWh, que corresponde ao consumo informado de 461 kWh.\nConsumo de energia: 461 × 0.80 = R$ 368.80 – confirmado.\nAdicional de bandeira: 461 × 0.02 = R$ 9.22 – confirmado.\nContribuição municipal (sintética): R$ 12,00 – confirmado.\nSomatório das linhas: 368.80 + 9.22 + 12.00 = R$ 390.02, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F136",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 29.985,
+    "tokens_saida": 229,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 20683 - 20399 = 284 kWh, que corresponde ao consumo informado de 284 kWh. O valor da linha \"Consumo de energia\" é 284 × 0,80 = R$227,20; a linha \"Adicional de bandeira\" é 284 × 0,02 = R$5,68. Somando as linhas: 227,20 + 5,68 + 12,00 = R$244,88, que coincide com o total informado. A alíquota de ICMS informada (0,20) não aparece em cálculo direto das linhas apresentadas, mas está listada corretamente na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos apresentados na fatura conferem com as leituras e tarifas indicadas. Não há divergências detectáveis nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F137",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 31.031,
+    "tokens_saida": 207,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 26027 - 25681 = 346 kWh, que corresponde ao consumo informado de 346 kWh. O valor da linha \"Consumo de energia\" (346 × 0,80) resulta em R$ 276,80; a linha \"Adicional de bandeira\" (346 × 0,08) resulta em R$ 27,68. A soma das duas linhas dá R$ 304,48. Somando as contribuições municipais (12 + 12 = 24) obtém‑se R$ 328,48, que é exatamente o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e somas conferem com os valores apresentados na fatura. Não há divergências nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F138",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 29.595,
+    "tokens_saida": 221,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (71074) - leitura anterior (70960) = 114 kWh, que corresponde ao consumo informado de 114 kWh.\nConsumo de energia: 114 × 0.80 = R$ 91.20 – confirmado.\nAdicional de bandeira: 114 × 0.02 = R$ 7.56 – confirmado.\nContribuição municipal (sintética): R$ 12,00 – confirmado.\nSomatório das linhas: 91.20 + 7.56 + 12.00 = R$ 110.76 – igual ao total informado.\nAlíquota de ICMS informada: 0.20 – não há cálculo adicional na fatura para verificar.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações da fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F139",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 27.251,
+    "tokens_saida": 167,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (70538) - leitura anterior (70447) = 91 kWh, que corresponde ao consumo informado de 91 kWh. O valor da linha \"Consumo de energia\" é 91 × R$0,80 = R$72,80; a linha \"Adicional de bandeira\" resulta em R$0,00 e a contribuição municipal fixa é R$12,00. A soma das linhas dá R$84,80, igual ao total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F140",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 28.545,
+    "tokens_saida": 241,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 10681 - 10485 = 196 kWh, que coincide com o consumo informado de 196 kWh.\nConsumo de energia: 196 × 0.80 = R$ 156.80 (confere).\nAdicional de bandeira: 196 × 0.05 = R$ 9.80 (confere).\nContribuição municipal: R$ 12,00 (confere).\nSomatório das linhas: 156.80 + 9.80 + 12.00 = R$ 178.60, que corresponde ao total informado.\nAlíquota de ICMS informada é 0.20, mas não há cálculo de ICMS aplicado na fatura apresentada.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores apresentados conferem com as fórmulas e cálculos indicados na fatura. Não foram identificadas divergências nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F141",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 29.901,
+    "tokens_saida": 187,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (19876) - leitura anterior (19760) = 116 kWh, que corresponde ao consumo informado de 116 kWh. O valor da linha \"Consumo de energia\" é 116 × 0,80 = R$ 92,80; a linha \"Adicional de bandeira\" é 116 × 0,02 = R$ 2,32. Somando as linhas: 92,80 + 2,32 + 12,00 = R$ 107,12, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as leituras e valores apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F142",
+    "baseline": "LLM",
+    "anomalia": "consumo_diverge_das_leituras",
+    "contexto_ids": [],
+    "duracao_s": 30.779,
+    "tokens_saida": 249,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 21372 - 21162 = 210 kWh, mas consumo informado é 194 kWh (diferença de 16 kWh). Consumo x tarifa: 194 × 0.80 = R$155.20 (confere). Adicional bandeira: 194 × 0.05 = R$9.70 (confere). Soma das linhas: 155.20 + 9.70 + 12.00 = R$176.90, igual ao total informado. ICMS de 0.20 não aparece aplicado nas linhas.",
+     "achados": [
+      {
+       "item": "Consumo",
+       "veredito": "diverge_A",
+       "descricao": "O consumo calculado a partir das leituras (210 kWh) difere do consumo informado (194 kWh).",
+       "citacoes": []
+      },
+      {
+       "item": "ICMS",
+       "veredito": "abstem",
+       "descricao": "Não há aplicação da alíquota de ICMS nas linhas apresentadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F143",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 31.131,
+    "tokens_saida": 192,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (7729) - leitura anterior (7634) = 95 kWh, que corresponde ao consumo informado de 95 kWh.\nConsumo de energia: 95 × 0.80 = R$ 76.00 – confirmado.\nAdicional de bandeira: 95 × 0.05 = R$ 4.75 – confirmado.\nContribuição municipal: R$ 12.00 – confirmado.\nSomatório das linhas: 76.00 + 4.75 + 12.00 = R$ 92.75, igual ao total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F144",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 30.495,
+    "tokens_saida": 237,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (33833) - leitura anterior (33526) = 307 kWh, que corresponde ao consumo informado de 307 kWh.\nConsumo de energia: 307 × 0,80 = R$ 245,60 – valor informado coincide.\nAdicional de bandeira: 307 × 0,02 = R$ 6,14 – valor informado coincide.\nContribuição municipal (sintética): R$ 12,00 – valor informado coincide.\nSomatório das linhas: 245,60 + 6,14 + 12,00 = R$ 263,74 – total informado coincide.\nAlíquota de ICMS informada: 0,20 – não há cálculo adicional na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as leituras e cálculos apresentados na fatura. Não há divergências detectadas nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F145",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 33.797,
+    "tokens_saida": 218,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (12094) - leitura anterior (11642) = 452 kWh, que corresponde ao consumo informado de 452 kWh. O valor da linha \"Consumo de energia\" é 452 × 0,80 = R$ 361,60; a linha \"Adicional de bandeira\" é 452 × 0,08 = R$ 36,16. Somando as linhas: 361,60 + 36,16 + 12,00 = R$ 409,76, que coincide com o total informado. A alíquota de ICMS informada (20%) não aparece aplicada nas linhas apresentadas, mas está listada corretamente na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores apresentados estão consistentes com as leituras e tarifas indicadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F146",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 36.554,
+    "tokens_saida": 224,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 71612 - 71546 = 66 kWh, que confere com o consumo informado de 66 kWh.\nConsumo de energia: 66 × 0.80 = R$ 52.80 (confere).\nAdicional de bandeira: 66 × 0.05 = R$ 3.30 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSoma das linhas: 52.80 + 3.30 + 12.00 = R$ 68.10, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional a verificar).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras e cálculos apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F147",
+    "baseline": "LLM",
+    "anomalia": "total_nao_fecha",
+    "contexto_ids": [],
+    "duracao_s": 41.995,
+    "tokens_saida": 296,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 82961 - 82746 = 215 kWh, que confere com o consumo informado de 215 kWh.\nConsumo de energia: 215 × 0.80 = R$ 172.00 (confere).\nAdicional de bandeira: 215 × 0.08 = R$ 17.20 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSoma das linhas: 172.00 + 17.20 + 12.00 = R$ 201.20, que difere do total informado de R$ 228.20.\nAlíquota de ICMS informada é 0.20, mas não há aplicação visível nas linhas apresentadas.",
+     "achados": [
+      {
+       "item": "Total das linhas",
+       "veredito": "diverge_A",
+       "descricao": "A soma das linhas (R$ 201.20) não corresponde ao total informado (R$ 228.20).",
+       "citacoes": []
+      },
+      {
+       "item": "ICMS",
+       "veredito": "abstem",
+       "descricao": "Não há indicação de aplicação da alíquota de ICMS nas linhas apresentadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F148",
+    "baseline": "LLM",
+    "anomalia": "consumo_diverge_das_leituras",
+    "contexto_ids": [],
+    "duracao_s": 46.96,
+    "tokens_saida": 302,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 74474 - 74362 = 112 kWh, mas consumo informado é 94 kWh → divergência de 18 kWh.\nConsumo x tarifa: 94 × 0.80 = R$ 75.20 (confere).\nAdicional bandeira: 94 × 0.00 = R$ 0.00 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 75.20 + 0.00 + 12.00 = R$ 87.20, que corresponde ao total informado.\nAlíquota de ICMS informada é 0.20, mas não há aplicação no cálculo apresentado.",
+     "achados": [
+      {
+       "item": "Leitura",
+       "veredito": "diverge_A",
+       "descricao": "O consumo calculado a partir das leituras difere do consumo informado na fatura em 18 kWh. Isso indica divergência nos números da fatura.",
+       "citacoes": []
+      },
+      {
+       "item": "ICMS",
+       "veredito": "diverge_A",
+       "descricao": "A alíquota de ICMS informada (0,20) não foi aplicada no cálculo do total apresentado na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F149",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 42.131,
+    "tokens_saida": 220,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (62437) - leitura anterior (62063) = 374 kWh, que corresponde ao consumo informado de 374 kWh. O valor da linha \"Consumo de energia\" é 374 × R$ 0,80 = R$ 299,20; a linha \"Adicional de bandeira\" é 374 × R$ 0,05 = R$ 18,70. Somando as linhas: 299,20 + 18,70 + 12,00 = R$ 329,90, que coincide com o total informado. A alíquota de ICMS indicada na fatura (0,20) não aparece em nenhuma linha de cálculo, portanto não há divergência aparente.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura fornecida. ",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F150",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 39.266,
+    "tokens_saida": 225,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 27811 - 27357 = 454 kWh, que confere com o consumo informado de 454 kWh.\nConsumo de energia: 454 × 0.80 = R$ 363.20 (confere).\nAdicional de bandeira: 454 × 0.05 = R$ 22.70 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 363.20 + 22.70 + 12.00 = R$ 397.90, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras de cálculo apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F151",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 38.306,
+    "tokens_saida": 205,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 61555 - 61412 = 143 kWh, que corresponde ao consumo informado de 143 kWh. O valor da linha \"Consumo de energia\" (143 × 0.80) resulta em R$ 114.40; a linha \"Adicional de bandeira\" (143 × 0.05) resulta em R$ 7.15. Somando as linhas: 114.40 + 7.15 + 12.00 = R$ 133.55, que coincide com o total informado. A alíquota de ICMS informada é 0.20, conforme indicado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F152",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 31.878,
+    "tokens_saida": 187,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 208 kWh, que confere com consumo informado de 208 kWh. O valor da linha \"Consumo de energia\" (208 × 0.80) = R$166.40; a linha \"Adicional de bandeira\" (208 × 0.08) = R$16.64; soma das linhas = 166.40 + 16.64 + 12.00 = R$195.04, que confere com o total informado. A alíquota de ICMS informada é 0.20.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F153",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 33.739,
+    "tokens_saida": 236,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 7925 - 7769 = 156 kWh, que confere com o consumo informado de 156 kWh.\nConsumo de energia: 156 × 0.80 = R$ 124.80 (confere).\nAdicional de bandeira: 156 × 0.08 = R$ 12.48 (confere).\nContribuição municipal (sintética): duas linhas de R$ 12,00 cada somam R$ 24,00.\nSomatório das linhas: 124.80 + 12.48 + 24.00 = R$ 161.28, que confere com o total informado.\nAlíquota de ICMS informada é 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com a fatura apresentada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F154",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 39.627,
+    "tokens_saida": 275,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (16283) - leitura anterior (16000) = 283 kWh, que corresponde ao consumo informado de 283 kWh. O valor da tarifa de energia é R$0,80; multiplicado por 283 kWh dá R$226,40, igual ao item \"Consumo de energia\". A bandeira vermelha 2 aplica um adicional de R$0,08 por kWh: 283 × 0,08 = R$22,64, conforme o item \"Adicional de bandeira\". Somando os três itens: 226,40 + 22,64 + 12,00 = R$261,04, que coincide com o total informado. A alíquota de ICMS informada (0,20) não aparece aplicada nos cálculos apresentados, mas não há inconsistência numérica visível.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações da fatura. No entanto, a alíquota de ICMS não foi aplicada nos itens listados, mas isso não gera divergência numérica no total apresentado.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F155",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 36.706,
+    "tokens_saida": 205,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 26566‑26488 = 78 kWh, que confere com o consumo informado de 78 kWh. O valor da linha \"Consumo de energia\" (78×0.80) é R$ 62.40; a linha \"Adicional de bandeira\" (78×0.00) é R$ 0.00. A soma das linhas: 62.40 + 0.00 + 12.00 + 12.00 = R$ 86.40, que corresponde ao total informado. A alíquota de ICMS informada está em 0.20 (20%).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura apresentada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F156",
+    "baseline": "LLM",
+    "anomalia": "total_nao_fecha",
+    "contexto_ids": [],
+    "duracao_s": 35.337,
+    "tokens_saida": 228,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (80478) - leitura anterior (80049) = 429 kWh, que corresponde ao consumo informado de 429 kWh. O valor da tarifa base é R$0,80/kWh; multiplicado por 429 kWh resulta em R$343,20, igual ao item \"Consumo de energia\". O adicional de bandeira amarela (R$0,02/kWh) aplicado a 429 kWh dá R$8,58, conforme o item. A contribuição municipal fixa é R$12,00. Somando os três valores: 343,20 + 8,58 + 12,00 = R$363,78, que difere do total informado de R$390,78.",
+     "achados": [
+      {
+       "item": "Total",
+       "veredito": "diverge_A",
+       "descricao": "A soma dos itens (R$363,78) não corresponde ao total informado (R$390,78).",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F157",
+    "baseline": "LLM",
+    "anomalia": "aliquota_icms_incoerente",
+    "contexto_ids": [],
+    "duracao_s": 39.415,
+    "tokens_saida": 227,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 79499 - 79198 = 301 kWh, que confere com o consumo informado de 301 kWh.\nConsumo de energia: 301 × 0.80 = R$ 240.80 (confere).\nAdicional de bandeira: 301 × 0.05 = R$ 15.05 (confere).\nContribuição municipal: R$ 12,00 (confere).\nSomatório das linhas: 240.80 + 15.05 + 12.00 = R$ 267.85, que confere com o total informado.\nAlíquota de ICMS informada: 0.35 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos apresentados na fatura conferem com as informações fornecidas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F158",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 44.953,
+    "tokens_saida": 259,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (66817) - leitura anterior (66688) = 129 kWh, que corresponde ao consumo informado de 129 kWh. O valor da tarifa por kWh é R$0,80; multiplicado pelo consumo dá R$103,20, igual à linha \"Consumo de energia\". A bandeira vermelha 2 aplica um adicional de R$0,08 por kWh: 129 × 0,08 = R$10,32, conforme a linha \"Adicional de bandeira\". Somando as três linhas (103,20 + 10,32 + 12,00) resulta em R$125,52, que é exatamente o total informado. A alíquota de ICMS indicada na fatura é 0,20, mas não há cálculo visível nesta fatura para verificar sua aplicação.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos apresentados na fatura conferem com as leituras e tarifas indicadas, sem divergências detectáveis nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F159",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 45.492,
+    "tokens_saida": 226,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 50117 - 49877 = 240 kWh, que confere com o consumo informado de 240 kWh.\nConsumo de energia: 240 × 0.80 = R$ 192.00 (confere).\nAdicional de bandeira: 240 × 0.08 = R$ 19.20 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 192.00 + 19.20 + 12.00 = R$ 223.20, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras aplicáveis e a soma total está correta.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F160",
+    "baseline": "LLM",
+    "anomalia": "total_nao_fecha",
+    "contexto_ids": [],
+    "duracao_s": 41.034,
+    "tokens_saida": 244,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 63162 - 63055 = 107 kWh, que confere com o consumo informado de 107 kWh.\nConsumo de energia: 107 × 0.80 = R$ 85.60 (confere).\nAdicional de bandeira: 107 × 0.05 = R$ 5.35 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 85.60 + 5.35 + 12.00 = R$ 102.95, que difere do total informado de R$ 128.95.\nAlíquota de ICMS informada: 0.20 (não há cálculo aplicado na fatura).",
+     "achados": [
+      {
+       "item": "Total das linhas",
+       "veredito": "diverge_A",
+       "descricao": "O somatório das linhas é R$ 102.95, não correspondendo ao total informado de R$ 128.95.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F161",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 36.954,
+    "tokens_saida": 192,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 31361 - 31191 = 170 kWh, que corresponde ao consumo informado de 170 kWh. O valor da linha \"Consumo de energia\" é 170 × 0,80 = R$136,00; a linha \"Adicional de bandeira\" resulta em R$0,00 (bandeira verde). Somando as linhas: 136 + 0 + 12 = R$148,00, que coincide com o total informado. A alíquota de ICMS informada é 0,20, conforme indicado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F162",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 34.485,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 7267 - 6938 = 329 kWh, que confere com o consumo informado de 329 kWh.\nConsumo de energia: 329 × 0.80 = R$ 263.20 (confere).\nAdicional de bandeira: 329 × 0.08 = R$ 26.32 (confere).\nContribuição municipal: R$ 12,00 (confere).\nSomatório das linhas: 263.20 + 26.32 + 12.00 = R$ 301.52, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F163",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 33.722,
+    "tokens_saida": 176,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 221 kWh, que confere com consumo informado de 221 kWh. O valor da linha \"Consumo de energia\" (221 × 0.80) resulta em R$176,80; a linha \"Adicional de bandeira\" (221 × 0.08) resulta em R$17,68. Somando as três linhas: 176,80 + 17,68 + 12,00 = R$206,48, que corresponde ao total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com os valores apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F164",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 35.331,
+    "tokens_saida": 227,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 10772‑10372 = 400 kWh, que corresponde ao consumo informado de 400 kWh.\nConsumo de energia: 400 × R$0,80 = R$320,00 – confirmado. \nAdicional de bandeira: 400 × R$0,05 = R$20,00 – confirmado. \nContribuição municipal (sintética) aparece duas vezes; cada uma é R$12,00, totalizando R$24,00.\nSomatório das linhas: 320 + 20 + 12 + 12 = R$364,00 – igual ao total informado.\nAlíquota de ICMS informada: 0.20 (20 %).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras de cálculo e o total informado está correto.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F165",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 35.979,
+    "tokens_saida": 190,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 331 kWh, que confere com consumo informado de 331 kWh. O valor da linha \"Consumo de energia\" (331 × 0.80) resulta em R$ 264.80; a linha \"Adicional de bandeira\" (331 × 0.02) resulta em R$ 6.62. Somando as linhas: 264.80 + 6.62 + 12.00 = R$ 283.42, que corresponde ao total informado. A alíquota de ICMS informada é 0.20.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura apresentada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F166",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 36.477,
+    "tokens_saida": 234,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (48092) - leitura anterior (47806) = 286 kWh, que corresponde ao consumo informado de 286 kWh.\nConsumo de energia: 286 × 0.80 = R$ 228.80 – valor informado está correto.\nAdicional de bandeira: 286 × 0.00 = R$ 0.00 – valor informado está correto.\nContribuição municipal (sintética): R$ 12.00 – valor informado está correto.\nSomatório das linhas: 228.80 + 0.00 + 12.00 = R$ 240.80, que coincide com o total informado de R$ 240.80.\nAlíquota de ICMS informada: 0.20 (20%).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as leituras e cálculos apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F167",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 39.099,
+    "tokens_saida": 234,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 10334 - 10059 = 275 kWh, que confere com o consumo informado de 275 kWh.\nConsumo de energia: 275 × 0.80 = R$ 220.00, conforme item.\nAdicional de bandeira: 275 × 0.00 = R$ 0.00, conforme item.\nContribuição municipal (sintética): R$ 12.00, conforme item.\nSoma das linhas: 220.00 + 0.00 + 12.00 = R$ 232.00, que confere com o total informado de R$ 232.00.\nAlíquota de ICMS informada: 0.20 (não aparece em cálculo da fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as informações fornecidas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F168",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 33.979,
+    "tokens_saida": 187,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 378 kWh, que confere com consumo informado de 378 kWh. O valor da linha \"Consumo de energia\" (378 × 0,80) resulta em R$302,40; a linha \"Adicional de bandeira\" (378 × 0,05) resulta em R$40,80. Somando as linhas: 302,40 + 40,80 + 12,00 = R$355,20, que corresponde ao total informado. A alíquota de ICMS informada é 0,20.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura apresentada.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F169",
+    "baseline": "LLM",
+    "anomalia": "item_energia_incoerente",
+    "contexto_ids": [],
+    "duracao_s": 32.81,
+    "tokens_saida": 230,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (2193) - leitura anterior (2038) = 155 kWh, que corresponde ao consumo informado de 155 kWh.\nO valor da linha \"Consumo de energia\" é 155 × 0.80 = R$ 142.60, conforme indicado.\nO adicional de bandeira amarela é 155 × 0.02 = R$ 3.10, também correto.\nA soma das linhas: 142.60 + 3.10 + 12.00 = R$ 157.70, que coincide com o total informado.\nA alíquota de ICMS informada (20%) não aparece aplicada nas linhas apresentadas, mas está listada na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos apresentados na fatura conferem com as informações fornecidas e não há divergências numéricas detectadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F170",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 33.869,
+    "tokens_saida": 201,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 22534 - 22354 = 180 kWh, que confere com o consumo informado de 180 kWh. O valor da linha \"Consumo de energia\" (180 × 0.80) = R$144,00 e a linha \"Adicional de bandeira\" (180 × 0.08) = R$14,40; somando dá R$158,40. Acrescentado o valor fixo de contribuição municipal (R$12,00) resulta em R$170,40, que corresponde ao total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e somas conferem com os valores informados na fatura. Não há divergências detectadas nos números apresentados.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F171",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 33.221,
+    "tokens_saida": 217,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 4749 - 4306 = 443 kWh, que corresponde ao consumo informado de 443 kWh. O valor da linha \"Consumo de energia\" (443 × 0.80) resulta em R$ 354,40; a linha \"Adicional de bandeira\" (443 × 0.00) deveria ser R$ 0,00, mas está listada como R$ 3,00. A soma das linhas informadas é 354,40 + 3,00 + 12,00 = R$ 369,40, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Adicional de bandeira",
+       "veredito": "diverge_A",
+       "descricao": "O valor calculado deveria ser zero, mas aparece como R$ 3,00 na fatura. Isso indica divergência nos números da fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F172",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 36.014,
+    "tokens_saida": 221,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (79484) - leitura anterior (79402) = 82 kWh, que corresponde ao consumo informado de 82 kWh.\nConsumo de energia: 82 × 0.80 = R$ 65.60 – valor confirmado.\nAdicional de bandeira: 82 × 0.00 = R$ 0.00 – valor confirmado.\nContribuição municipal (sintética): R$ 12.00 – valor confirmado.\nSomatório das linhas: 65.60 + 0.00 + 12.00 = R$ 77.60, igual ao total informado.\nAlíquota de ICMS informada: 0.20 – não há cálculo adicional a verificar.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações da fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F173",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 42.21,
+    "tokens_saida": 310,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (29876) - leitura anterior (29445) = 431 kWh, que corresponde ao consumo informado de 431 kWh. O valor da linha \"Consumo de energia\" é 431 × R$0,80 = R$344,80; a linha \"Adicional de bandeira\" deveria ser 431 × R$0,00 = R$0,00 (o valor apresentado de R$3,00 está incorreto). A soma das linhas corretas seria R$344,80 + R$0,00 + R$12,00 = R$356,80, que difere do total informado de R$359,80. O ICMS informado é 20% (0,20), mas não há linha específica para esse imposto na fatura apresentada.",
+     "achados": [
+      {
+       "item": "Adicional de bandeira",
+       "veredito": "diverge_A",
+       "descricao": "O valor calculado deveria ser R$0,00, mas consta R$3,00 na fatura. Isso gera divergência no total informado.",
+       "citacoes": []
+      },
+      {
+       "item": "Total geral",
+       "veredito": "diverge_A",
+       "descricao": "A soma das linhas corretas (R$356,80) não corresponde ao total informado de R$359,80.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F174",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 43.279,
+    "tokens_saida": 231,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 64122‑64024 = 98 kWh, que confere com o consumo informado de 98 kWh. O valor da linha \"Consumo de energia\" (98×0.80) = R$78.40; a linha \"Adicional de bandeira\" (98×0.08) = R$7.84; somando as duas linhas dá R$86.24, mais a contribuição municipal de R$12.00 resulta em R$98.24, que é exatamente o total informado. A alíquota de ICMS informada (20%) não aparece aplicada nas linhas apresentadas, mas está listada corretamente na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores apresentados estão consistentes com as leituras e tarifas indicadas na fatura. Não há divergências detectáveis nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F175",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 34.523,
+    "tokens_saida": 175,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 50845 - 50371 = 474 kWh, que corresponde ao consumo informado de 474 kWh. O valor da linha \"Consumo de energia\" (474 × 0.80) é R$ 379,20; o adicional de bandeira (474 × 0.02) é R$ 9,48; somando com a contribuição municipal de R$ 12,00 dá R$ 400,68, igual ao total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as leituras e valores apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F176",
+    "baseline": "LLM",
+    "anomalia": "total_nao_fecha",
+    "contexto_ids": [],
+    "duracao_s": 30.717,
+    "tokens_saida": 197,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 72746‑72446 = 300 kWh, que corresponde ao consumo informado de 300 kWh. O valor da linha \"Consumo de energia\" (300×0.80) é R$240,00; a linha \"Adicional de bandeira\" (300×0.08) é R$24,00; somando as duas linhas dá R$264,00, ao qual se adiciona a contribuição municipal de R$12,00, resultando em R$276,00, não R$286,00 informado.",
+     "achados": [
+      {
+       "item": "Total",
+       "veredito": "diverge_A",
+       "descricao": "O total calculado (R$276,00) difere do total informado (R$286,00).",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F177",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 34.622,
+    "tokens_saida": 227,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 79214 - 78957 = 257 kWh, que confere com o consumo informado de 257 kWh.\nConsumo de energia: 257 × 0.80 = R$ 205.60 (confere).\nAdicional de bandeira: 257 × 0.08 = R$ 20.56 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 205.60 + 20.56 + 12.00 = R$ 238.16, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional a verificar).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as fórmulas e somas indicadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F178",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 34.67,
+    "tokens_saida": 197,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 175 kWh, que confere com consumo informado de 175 kWh. O valor da linha \"Consumo de energia\" (175 × 0.80) resulta em R$140,00; a linha \"Adicional de bandeira\" (175 × 0.00) é R$0,00 e a contribuição municipal fixa é R$12,00. A soma das linhas dá R$152,00, igual ao total informado. O ICMS informado de 20% não aparece aplicado nas linhas, mas está declarado corretamente.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e totais conferem com as informações da fatura. Não há divergências detectadas nos números apresentados.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F179",
+    "baseline": "LLM",
+    "anomalia": "bandeira_adicional_incorreto",
+    "contexto_ids": [],
+    "duracao_s": 35.795,
+    "tokens_saida": 250,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 67379 - 67062 = 317 kWh, que confere com o consumo informado de 317 kWh.\nConsumo de energia: 317 × 0.80 = R$ 253.60 (confere).\nAdicional de bandeira: 317 × 0.02 = R$ 15.68 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 253.60 + 15.68 + 12.00 = R$ 281.28, que confere com o total informado.\nAlíquota de ICMS informada é 0.20, mas não há linha específica para ICMS na fatura; portanto não há divergência aparente.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as fórmulas e somas apresentadas na fatura. Não há divergências detectáveis nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F180",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 37.201,
+    "tokens_saida": 215,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (24844) - leitura anterior (24758) = 86 kWh, que corresponde ao consumo informado de 86 kWh.\nConsumo de energia: 86 × 0.80 = R$ 68.80 – confirmado.\nAdicional de bandeira: 86 × 0.02 = R$ 1.72 – confirmado.\nContribuição municipal: R$ 12.00 – confirmado.\nSomatório das linhas: 68.80 + 1.72 + 12.00 = R$ 82.52, igual ao total informado.\nAlíquota de ICMS informada: 0.20 (não aparece em cálculo).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as leituras e cálculos apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F181",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 35.558,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (77768) - leitura anterior (77623) = 145 kWh, que corresponde ao consumo informado de 145 kWh.\nConsumo de energia: 145 × 0.80 = R$ 116.00 – confirmado.\nAdicional de bandeira: 145 × 0.02 = R$ 2.90 – confirmado.\nContribuição municipal (sintética): R$ 12.00 – confirmado.\nSomatório das linhas: 116.00 + 2.90 + 12.00 = R$ 130.90, igual ao total informado.\nAlíquota de ICMS informada: 0.20 – não há cálculo adicional na fatura para verificar.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações fornecidas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F182",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 39.867,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 1372 - 1222 = 150 kWh, que confere com o consumo informado de 150 kWh.\nConsumo de energia: 150 × 0.80 = R$ 120.00 (confere).\nAdicional de bandeira: 150 × 0.02 = R$ 3.00 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSoma das linhas: 120.00 + 3.00 + 12.00 = R$ 135.00, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F183",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 43.567,
+    "tokens_saida": 217,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (14696) - leitura anterior (14333) = 363 kWh, que corresponde ao consumo informado de 363 kWh. O valor da linha \"Consumo de energia\" é 363 × 0,80 = R$ 290,40; a linha \"Adicional de bandeira\" é 363 × 0,02 = R$ 7,26. Somando as linhas: 290,40 + 7,26 + 12,00 = R$ 309,66, que coincide com o total informado. A alíquota de ICMS indicada na fatura (20%) não aparece aplicada em nenhuma linha, mas está listada corretamente no cabeçalho.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores apresentados na fatura conferem com as informações fornecidas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F184",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 43.383,
+    "tokens_saida": 201,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 76177 - 75994 = 183 kWh, que corresponde ao consumo informado de 183 kWh. O valor da linha \"Consumo de energia\" (183 × 0.80) resulta em R$ 146.40; a linha \"Adicional de bandeira\" (183 × 0.02) resulta em R$ 3.66. Somando as linhas: 146.40 + 3.66 + 12.00 = R$ 162.06, que é exatamente o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com as informações da fatura e a alíquota de ICMS informada está correta (0,20).",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F185",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 43.061,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (90405) - leitura anterior (89937) = 468 kWh, que corresponde ao consumo informado de 468 kWh.\nConsumo de energia: 468 × 0.80 = R$ 374.40 – valor confirmado.\nAdicional de bandeira: 468 × 0.00 = R$ 0.00 – valor confirmado.\nContribuição municipal (sintética): R$ 12.00 – valor confirmado.\nSoma das linhas: 374.40 + 0.00 + 12.00 = R$ 386.40, que coincide com o total informado.\nAlíquota de ICMS informada: 0.20 – não há cálculo adicional a verificar.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações da fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F186",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 46.85,
+    "tokens_saida": 220,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 3745 - 3303 = 442 kWh, que confere com o consumo informado de 442 kWh.\nConsumo de energia: 442 × 0.80 = R$ 353.60 (confere).\nAdicional de bandeira: 442 × 0.08 = R$ 35.36 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSoma das linhas: 353.60 + 35.36 + 12.00 = R$ 400.96, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras apresentadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F187",
+    "baseline": "LLM",
+    "anomalia": "consumo_diverge_das_leituras",
+    "contexto_ids": [],
+    "duracao_s": 47.328,
+    "tokens_saida": 218,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 57180 - 57082 = 98 kWh, mas consumo informado é 66 kWh → divergência. Consumo x tarifa: 66 × 0.80 = R$52.80 (confere). Adicional de bandeira: 66 × 0.08 = R$5.28 (confere). Contribuição municipal: R$12,00 (confere). Soma das linhas: 52.80 + 5.28 + 12.00 = R$70.08 (confere). Alíquota de ICMS informada: 0.20 (não aparece em cálculo).",
+     "achados": [
+      {
+       "item": "Consumo informado",
+       "veredito": "diverge_A",
+       "descricao": "O consumo calculado a partir das leituras é 98 kWh, diferente dos 66 kWh informados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F188",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 56.045,
+    "tokens_saida": 217,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 34928 - 34796 = 132 kWh, que corresponde ao consumo informado de 132 kWh.\nConsumo de energia: 132 × 0.80 = R$ 105.60 (confere).\nAdicional de bandeira: 132 × 0.02 = R$ 2.64 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 105.60 + 2.64 + 12.00 = R$ 120.24, igual ao total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras de cálculo apresentadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F189",
+    "baseline": "LLM",
+    "anomalia": "consumo_diverge_das_leituras",
+    "contexto_ids": [],
+    "duracao_s": 47.819,
+    "tokens_saida": 118,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 36301 - 36172 = 129 kWh, mas o consumo informado é 91 kWh, indicando divergência numérica na fatura.",
+     "achados": [
+      {
+       "item": "Consumo de energia",
+       "veredito": "diverge_A",
+       "descricao": "O consumo calculado a partir das leituras (129 kWh) difere do consumo informado (91 kWh).",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F190",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 37.653,
+    "tokens_saida": 217,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (10796) - leitura anterior (10527) = 269 kWh, que corresponde ao consumo informado de 269 kWh.\nO valor da linha \"Consumo de energia\" é 269 × R$0,80 = R$215,20, igual ao informado. O adicional de bandeira é 269 × R$0,00 = R$0,00. A contribuição municipal está fixa em R$12,00. Somando as linhas: 215,20 + 0,00 + 12,00 = R$227,20, que coincide com o total informado.\nA alíquota de ICMS informada é 0,20 (ou 20%).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as leituras e cálculos apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F191",
+    "baseline": "LLM",
+    "anomalia": "aliquota_icms_incoerente",
+    "contexto_ids": [],
+    "duracao_s": 45.748,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual (79831) - leitura anterior (79704) = 127 kWh, que corresponde ao consumo informado de 127 kWh.\nConsumo de energia: 127 × 0.80 = R$ 101.60 – confirmado.\nAdicional de bandeira: 127 × 0.08 = R$ 10.16 – confirmado.\nContribuição municipal (sintética): R$ 12.00 – confirmado.\nSomatório das linhas: 101.60 + 10.16 + 12.00 = R$ 123.76, igual ao total informado.\nAlíquota de ICMS informada: 0.35 – não há cálculo adicional na fatura para verificar.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e cálculos conferem com as informações fornecidas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F192",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 44.505,
+    "tokens_saida": 218,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 13387 - 13178 = 209 kWh, que coincide com o consumo informado de 209 kWh.\nConsumo de energia: 209 × 0.80 = R$ 167.20 (confere).\nAdicional de bandeira: 209 × 0.02 = R$ 4.18 (confere).\nContribuição municipal: R$ 12.00 (confere).\nSomatório das linhas: 167.20 + 4.18 + 12.00 = R$ 183.38, igual ao total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras de cálculo apresentadas.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F193",
+    "baseline": "LLM",
+    "anomalia": "aliquota_icms_incoerente",
+    "contexto_ids": [],
+    "duracao_s": 43.64,
+    "tokens_saida": 226,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 89165 - 88983 = 182 kWh, que corresponde ao consumo informado de 182 kWh. O valor da linha \"Consumo de energia\" (182 × R$ 0.80) resulta em R$ 145.60; o adicional de bandeira é zero e a contribuição municipal fixa é R$ 12.00. A soma das linhas dá R$ 145.60 + 0.00 + 12.00 = R$ 157.60, igual ao total informado. O ICMS informado (35%) não aparece aplicado nas linhas, mas está presente na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida. No entanto, o ICMS não foi aplicado nas linhas de consumo ou adicional de bandeira, apenas informado no cabeçalho.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F194",
+    "baseline": "LLM",
+    "anomalia": "item_duplicado",
+    "contexto_ids": [],
+    "duracao_s": 45.312,
+    "tokens_saida": 218,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 14515 - 14288 = 227 kWh, que confere com o consumo informado de 227 kWh.\nConsumo de energia: 227 × 0.80 = R$ 181.60 (confere).\nAdicional de bandeira: 227 × 0.08 = R$ 18.16 (confere).\nContribuição municipal sintética aparece duas vezes, cada uma R$ 12.00, totalizando R$ 24.00.\nSomatório das linhas: 181.60 + 18.16 + 12.00 + 12.00 = R$ 223.76, que confere com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores e somatórios conferem com as informações da fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F195",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 45.646,
+    "tokens_saida": 219,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 4693 - 4554 = 139 kWh, que confere com o consumo informado de 139 kWh.\nConsumo de energia: 139 × 0.80 = R$111.20 (confere).\nAdicional de bandeira: 139 × 0.08 = R$11.12 (confere).\nContribuição municipal: R$12.00 (confere).\nSomatório das linhas: 111.20 + 11.12 + 12.00 = R$134.32, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F196",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 43.63,
+    "tokens_saida": 194,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 77454 - 77028 = 426 kWh, que corresponde ao consumo informado de 426 kWh. O valor da linha \"Consumo de energia\" (426 × 0,80) resulta em R$ 340,80; a linha \"Adicional de bandeira\" (426 × 0,02) resulta em R$ 8,52. Somando as linhas: 340,80 + 8,52 + 12,00 = R$ 361,32, que coincide com o total informado.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura apresentada. Não há divergências detectadas nos números fornecidos.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F197",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 43.856,
+    "tokens_saida": 208,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 81660 - 81462 = 198 kWh, que corresponde ao consumo informado de 198 kWh. O valor da linha \"Consumo de energia\" (198 × R$ 0.80) resulta em R$ 158.40; o adicional de bandeira é zero e a contribuição municipal fixa é R$ 12.00. A soma das linhas dá R$ 170.40, igual ao total informado. A alíquota de ICMS indicada na fatura (20%) não aparece aplicada nas linhas apresentadas.",
+     "achados": [
+      {
+       "item": "ICMS",
+       "veredito": "diverge_A",
+       "descricao": "A alíquota de ICMS informada (0.20) não foi aplicada nos valores das linhas da fatura, resultando em divergência entre a informação e o cálculo apresentado.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "diverge_A",
+    "acerto": false,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F198",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 45.951,
+    "tokens_saida": 223,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 54103 - 53787 = 316 kWh, que confere com o consumo informado de 316 kWh.\nConsumo de energia: 316 × 0.80 = R$ 252.80 (confere).\nAdicional de bandeira: 316 × 0.08 = R$ 25.28 (confere).\nContribuição municipal: R$ 12,00 (confere).\nSoma das linhas: 252.80 + 25.28 + 12.00 = R$ 290.08, que confere com o total informado.\nAlíquota de ICMS informada: 0.20 (não há cálculo adicional na fatura).",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as regras apresentadas na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F199",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 44.909,
+    "tokens_saida": 201,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 3980 - 3629 = 351 kWh, que corresponde ao consumo informado de 351 kWh. O valor da linha \"Consumo de energia\" é 351 × 0,80 = R$ 280,80; a linha \"Adicional de bandeira\" resulta em R$ 0,00 (bandeira verde). Somando as linhas: 280,80 + 0,00 + 12,00 = R$ 292,80, que coincide com o total informado. A alíquota de ICMS informada é 0,20, conforme indicado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os cálculos e valores conferem com a fatura fornecida.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
+    "acerto": true,
+    "linguagem": [],
+    "citacoes_inventadas": []
+   },
+   {
+    "id": "GS-F200",
+    "baseline": "LLM",
+    "anomalia": null,
+    "contexto_ids": [],
+    "duracao_s": 38.256,
+    "tokens_saida": 213,
+    "do_cache": true,
+    "valido": true,
+    "dados": {
+     "analise": "Leitura atual menos leitura anterior = 30700 - 30246 = 454 kWh, que confere com o consumo informado de 454 kWh.\nConsumo de energia: 454 × 0.80 = R$ 363.20 (confere).\nAdicional de bandeira: 454 × 0.08 = R$ 36.32 (confere).\nSomatório das linhas: 363.20 + 36.32 + 12.00 = R$ 411.52, que confere com o total informado.\nAlíquota de ICMS informada é 0.20, mas não há cálculo de ICMS aplicado na fatura.",
+     "achados": [
+      {
+       "item": "Fatura",
+       "veredito": "confere",
+       "descricao": "Todos os valores conferem com as leituras e cálculos apresentados na fatura.",
+       "citacoes": []
+      }
+     ]
+    },
+    "veredito": "confere",
     "acerto": true,
     "linguagem": [],
     "citacoes_inventadas": []

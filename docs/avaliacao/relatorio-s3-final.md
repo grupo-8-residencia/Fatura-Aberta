@@ -2,7 +2,8 @@
 
 !!! warning "Entrega da S3 (decisões do time em 16/11/2026)"
     Os números abaixo vêm da rodada completa de 13/11/2026 (`avaliacao/resultados/s3-rodada.json`),
-    com o corpus congelado de 28 dispositivos e o limiar de abstenção 0,30.
+    com o corpus congelado de 28 dispositivos e o limiar de abstenção 0,30. Atualizado em 18/11/2026:
+    T1 nas 200 faturas, anotação humana concluída e causa das respostas inválidas.
     **O juiz LLM foi reprovado na calibração** (κ humano × juiz ≈ 0,03, abaixo de 0,75; veja os limites).
     Por isso a métrica de "afirmações sem suporte" **não entra** neste relatório como número confiável.
 
@@ -17,8 +18,9 @@ Comparamos quatro formas de responder a perguntas regulatórias de energia elét
   só **13,3%** [7,5%; 20,0%]. O melhor dos que usam LLM é o T4, com 78,3% [70,8%; 85,8%], mas com 16 respostas
   inválidas.
 - **Faturas (200):** o **motor determinístico (B1) acerta 100%**, mas isso tem uma ressalva importante
-  (seção de limites). Entre os testes com LLM, o T3 acerta 79,0% e o **T4 só 53,5%**, porque o modelo se
-  abstém em 93 das 200 faturas, embora detecte 99% das anomalias.
+  (seção de limites). Entre os testes com LLM, o T3 acerta 79,0%, o T1 75,5% (completado nas 200 faturas
+  em 18/11) e o **T4 só 53,5%**, porque o modelo se abstém em 93 das 200 faturas, embora detecte 99% das
+  anomalias. Quando o T4 responde (107 faturas), acerta todas.
 - **Escolha para o produto (provisória):** RAG com filtro de vigência e resposta extrativa para as
   perguntas, e o motor determinístico para a conferência das faturas. O LLM entra, se entrar, só como
   redator sobre essa base, e isso ainda não foi testado.
@@ -93,17 +95,25 @@ McNemar pareado (p exato):
 | T4 × T2 | 11 (T4) | 17 (T2) | 0,345 | não |
 | T3 × T2 | 12 (T3) | 23 (T2) | 0,090 | não |
 
-### Faturas (n = 200; T1 em 111)
+### Faturas (n = 200)
 
 | Teste | Acerto [IC 95%] | Detecção de anomalia | Falso alarme | Abstenções | Latência média |
 |---|---|---|---|---|---|
 | B1 motor (sem LLM) | 100% [100%; 100%] | 100% | 0% | 0 | 0 s |
-| T1 LLM sem RAG (n = 111) | 73,9% [65,8%; 82,0%] | 56,3% | 2,1% | 0 | 37,5 s |
+| T1 LLM sem RAG | 75,5% [69,5%; 81,5%] | 51,5% | 1,9% | 0 | 36,4 s |
 | T3 LLM + RAG (B2) | 79,0% [73,5%; 84,5%] | 67,0% | 9,7% | 0 | 55,0 s |
 | T4 LLM + RAG + motor (B3) | 53,5% [46,5%; 60,0%] | **99,0%** | 0% | **93** | 67,3 s |
 
 T4 contra T3 (McNemar): em 85 faturas o T3 acerta e o T4 erra, e em 34 ocorre o contrário (p = 3,3e-6).
 O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contrário.
+O T1 contra o B1: 49 faturas em que o B1 acerta e o T1 erra, e nenhuma ao contrário (p = 3,6e-15). O T3
+contra o T1: 18 × 11, sem diferença significativa (p = 0,265). O T4 contra o T1: o T1 acerta e o T4 erra em
+91 faturas, e o contrário em 47 (p = 2,3e-4).
+
+!!! note "T1 completado em 18/11/2026"
+    Na versão de 16/11 o T1 tinha rodado só nas 111 primeiras faturas (73,9%). As 89 restantes rodaram em
+    18/11 com o mesmo modelo, digest, prompt e semente; as 111 primeiras saem do cache e são idênticas.
+    Com n = 200, o T1 fica em 75,5% (151/200) e passa a ser pareável com os outros testes.
 
 ## O que muda e por quê
 
@@ -137,7 +147,7 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 
 | Decisão | Resultado |
 |---|---|
-| Corte do T1 nas faturas | Aceito: 111 faturas, declarado. O T1 é só linha de base; T2 e B1 definem a escolha |
+| Corte do T1 nas faturas | Aceito em 16/11 (111 faturas); completado em 18/11 (n = 200). O T1 é só linha de base; T2 e B1 definem a escolha |
 | Corpus | Congelado em 28 dispositivos nesta rodada. O PR #139 (39 itens) entra na abertura da S4, com nova rodada de recuperação |
 | Limiar de abstenção | 0,30, exatamente o que rodou. Na S4, calibrar para os casos fora do corpus e lacuna (PR #135) |
 | Escolha do produto | T2 nas perguntas e B1 nas faturas; modelo híbrido como primeira tarefa da S4 |
@@ -148,26 +158,54 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 1. **O 100% do motor é circular.** As 200 faturas sintéticas e seus gabaritos foram geradas com o mesmo
    conhecimento do motor (gerador de erros injetados). O B1 mede se ele acerta o que foi construído para
    ele acertar, não o desempenho em faturas reais.
-2. **Golden set com revisão humana incompleta.** As 120 perguntas foram escritas a partir do texto dos
-   próprios dispositivos, o que tende a inflar o recall. Em 16/11, 5 das 6 pessoas tinham concluído os 30
-   itens (150 anotações, 0 divergências) e a revisão das 120 perguntas estava em 76. Verificação por
-   amostragem dessas anotações: o recálculo independente das 200 faturas (consumo, energia, bandeira,
-   total, ICMS e item duplicado) confirma os 200 gabaritos, e todas as citações canônicas existem no corpus.
-   Ressalva: 72 das 90 anotações de faturas não têm comentário, então só as 18 com conta registrada
-   mostram a conferência feita; "0 divergências" não deve ser lido como prova de revisão independente.
+2. **Golden set: revisão humana concluída, com ressalvas.** As 120 perguntas foram escritas a partir do
+   texto dos próprios dispositivos, o que tende a inflar o recall. Em 18/11 as 6 pessoas tinham concluído
+   os 30 itens: **178 de 180 anotações concordam com o gabarito (98,9%)**; as 2 discordâncias são perguntas
+   (70 de 72 perguntas e 108 de 108 faturas). A revisão das 120 perguntas foi concluída (#161): **116
+   concordam e 4 discordam com correção** (GS-Q049, GS-Q066, GS-Q091 e GS-Q094), registradas em
+   `dados/golden-set/anotacoes/revisao-perguntas.csv`. As correções **não** foram aplicadas ao gabarito
+   congelado (o hash foi mantido); aplicá-las exige recongelar o conjunto e refazer as rodadas. O recálculo
+   independente das 200 faturas (consumo, energia, bandeira, total, ICMS e item duplicado) confirma os 200
+   gabaritos, e todas as citações canônicas existem no corpus. Ressalvas: a maioria das anotações de
+   faturas não tem comentário, então a concordância alta não prova revisão independente; e 4 das 116
+   concordâncias da revisão (GS-Q019, GS-Q031, GS-Q110 e GS-Q116) foram feitas pelo autor das perguntas,
+   no lugar das pessoas designadas que não devolveram a revisão (#161), então não são revisão independente.
 3. **Juiz LLM reprovado na calibração.** Em 39 dos 40 itens (o GS-Q114 ficou sem veredito válido do juiz,
    que travou duas vezes), o κ entre o juiz (`qwen3:14b`) e cada avaliador humano foi **0,029** (acurácia
    56,4%, IC 95% [41,0%; 71,8%]), muito abaixo do critério de 0,75. O juiz marcou `sem_suporte` em 17
    itens, contra 4 dos humanos: ele trata como "sem lastro" frases genéricas que repetem o que a norma exige
    da fatura. Pelo protocolo, o prompt do juiz deve ser refinado, ou a avaliação final passa a ser humana.
+   **Recalibração (18/11/2026, `avaliacao/recalibrar_juiz.py`, resultado em `avaliacao/resultados/s3-recalibracao-juiz.json`).**
+   Dividimos os 40 itens em desenvolvimento (20, onde se olharam os erros) e retida (20, só medida) e
+   escrevemos um prompt v2 (conta aritmética refeita, abstenção suportada quando a evidência não traz o dado,
+   proposições só da saída). O GS-Q114, em que o juiz não devolve veredito (timeout de 2 min), conta como erro na
+   acurácia, mas fica fora do κ e das contagens de classe, que usam só os 39 vereditos observados.
+   Resultado:
+
+   | Prompt | κ (39 vereditos) | κ retida (20) | Acurácia retida [IC 95%] | `sem_suporte` juiz / humano (39) |
+   |---|---|---|---|---|
+   | v1 (original) | 0,029 | −0,019 | 45% [25%; 65%] | 17 / 4 |
+   | v2 | 0,164 | −0,136 | 75% [55%; 90%] | 4 / 4 |
+
+   O v2 corrigiu o excesso de "sem suporte" (acurácia de 55% para 82,5% nos 40), mas o κ na metade retida
+   segue negativo e **muito abaixo de 0,75**: com apenas 4 itens `sem_suporte` nos 40 (2 na retida), o κ é
+   instável e quase qualquer erro o derruba. Conclusão: o juiz `qwen3:14b` **não está calibrado**, e a
+   métrica de "afirmações sem suporte" continua fora dos números confiáveis; a avaliação final dessa
+   dimensão deve ser humana ou usar um juiz maior, com mais itens `sem_suporte` anotados.
    Ressalva de proveniência: as 80 decisões humanas foram consolidadas e entregues pelo Pedro, não
    exportadas individualmente pela página, e os dois avaliadores concordam em todos os itens (κ humano ×
    humano = 1,000). Esse valor não deve ser citado como concordância independente.
-4. **Cobertura desigual do T1 nas faturas.** O T1 rodou em 111 das 200 faturas (as 111 primeiras por id,
-   corte declarado no cabeçalho da rodada, por custo de tempo). Por isso o T1 não é pareável com os outros
-   nas faturas, e o IC dele é mais largo.
+4. **Cobertura do T1 nas faturas.** Resolvido em 18/11: o T1 rodou nas 200 faturas (era 111).
 5. **Respostas inválidas.** Há 8 (T1), 11 (T3) e 16 (T4) perguntas com JSON fora do esquema. Elas contam como
-   erro. Parte do desempenho baixo do LLM é de formato, não de conteúdo.
+   erro. **Causa (diagnóstico de 18/11, `avaliacao/diagnosticar_invalidas_s3.py`):** as 27 inválidas do T3
+   e do T4 têm **conteúdo vazio**: o `gpt-oss:20b` (raciocínio `low`) gastou de 17 a 56 tokens só no
+   raciocínio e terminou sem escrever o JSON. Não há JSON truncado, aspas sem escape nem chave renomeada.
+   O Ollama já recebe o esquema (`format`), então "forçar o esquema" não muda nada. Uma nova tentativa só nessas
+   perguntas, com o mesmo prompt e corpus e raciocínio `medium` (`s3-diagnostico-invalidas.json`),
+   recuperou parte delas: no T4, 6 das 16 passaram a ser válidas e 4 acertaram (o T4 iria de 94 para 98
+   acertos, 81,7%); no T3, 4 das 11 ficaram válidas e 2 acertaram (91 acertos, 75,8%). Mesmo assim os dois
+   continuam abaixo do T2 (83,3%) e com respostas inválidas (10 no T4 e 7 no T3), então a escolha não muda.
+   Esses números são de uma nova tentativa parcial, não de uma rodada nova, e não substituem a tabela.
 6. **Abstenção.** As 5 perguntas de CIP/COSIP que a lei distrital não responde dão 0 de 5 nos testes com
    recuperação: a busca acha a própria lei, que trata do mesmo tema.
 7. **Embedder sem semântica.** O embedder padrão (hashing) só captura sobreposição de palavras.
@@ -185,16 +223,17 @@ O T4 contra o B1: 93 faturas em que o B1 acerta e o T4 erra, e nenhuma ao contr�
 
 | Item | Quem | Efeito nos números |
 |---|---|---|
-| Refinar o prompt do juiz e repetir a calibração (e obter veredito válido para o GS-Q114) | Pedro | habilita "afirmações sem suporte" |
-| Anotação do golden set (30 itens por pessoa, 0/30 hoje) | 6 pessoas | pode mudar gabaritos e exigir recongelar o conjunto |
+| Juiz: prompt v2 testado em 18/11 e ainda reprovado (κ retida −0,14). Próximo passo: juiz maior ou avaliação humana, com mais itens `sem_suporte` | Pedro | habilita "afirmações sem suporte" |
+| Anotação do golden set | 6 pessoas | **Concluída** (180/180 e 120/120). Decidir se as 4 correções da revisão entram num gabarito v2 (exige recongelar) |
 | Medir modelos alternativos para o produto (ADR-003), na S4 | Pedro | muda a escolha do modelo, não a do método |
-| Investigar as 16 respostas inválidas do T4 | Pedro | pode elevar o T4 acima do T2 |
+| Respostas inválidas do T3/T4 | Pedro | **Diagnosticadas** (conteúdo vazio do modelo; ver limite 5) |
 
 ## Reproduzir
 
 ```bash
 FA_LLM_PROVEDOR=ollama .venv/bin/python avaliacao/rodada_s3.py --etapa completa --paralelo 2 \
-    --limite-faturas-llm-puro 111
+    --limite-faturas-llm-puro 200
+FA_LLM_PROVEDOR=ollama .venv/bin/python avaliacao/diagnosticar_invalidas_s3.py --pensar medium
 .venv/bin/python avaliacao/relatorio_s3.py
 .venv/bin/python avaliacao/auditar_cobertura.py
 ```

@@ -1,9 +1,10 @@
-"""Analista Normativo (B4/B5): recupera dispositivos vigentes e redige afirmações citadas.
+"""Analista Normativo (B4/B5/T5): redige afirmações citadas sobre dispositivos vigentes.
 
-O Analista só enxerga o que o ``IndiceHibrido`` devolve para a data de referência (filtro de
-vigência) e acima do limiar de abstenção. O LLM redige as afirmações e aponta os ``id`` dos
-dispositivos que as sustentam; a ``Citacao`` de cada afirmação é sempre copiada do dispositivo
-recuperado, nunca escrita pelo modelo. Quem confere o lastro é o Auditor (``auditor.py``).
+O Analista só enxerga o que o Pesquisador (``IndiceHibrido``) devolve para a data de
+referência (filtro de vigência) e acima do limiar de abstenção. O LLM redige as afirmações e
+aponta os ``id`` dos dispositivos que as sustentam; a ``Citacao`` de cada afirmação é sempre
+copiada do dispositivo recuperado, nunca escrita pelo modelo. Quem confere o lastro é o
+Auditor (``auditor.py``).
 """
 
 from __future__ import annotations
@@ -14,6 +15,7 @@ from datetime import date
 from typing import Any
 
 from fa_agentes.llm import ClienteLLM
+from fa_agentes.pesquisador import Evidencias, Pesquisador
 from fa_contratos import Achado, Citacao
 from fa_rag import DocumentoNormativo, IndiceHibrido
 from fa_rag.sintese import LIMIAR_PADRAO
@@ -25,6 +27,12 @@ SISTEMA_ANALISTA = (
     "dos dispositivos que a sustentam. Use linguagem de evidência: nunca qualifique uma cobrança "
     "como ilegal, não estime restituição e não oriente ação judicial. Se os dispositivos não "
     'cobrirem a pergunta, devolva {"afirmacoes": []}. Responda apenas em JSON.'
+)
+
+REGRA_MOTOR = (
+    "O resultado do motor determinístico abaixo é definitivo: não refaça a conta, não mude o "
+    "veredito e não escreva números que não estejam nele ou nos dispositivos. Explique qual "
+    "regra dos dispositivos se aplica ao item."
 )
 
 ESQUEMA_ANALISTA: dict[str, Any] = {
@@ -90,6 +98,15 @@ def _prompt(consulta: str, dispositivos: tuple[DocumentoNormativo, ...], data: d
     )
 
 
+def _bloco_motor(achado: Achado) -> str:
+    linhas = [REGRA_MOTOR, f"Item: {achado.item}", f"Resultado do motor: {achado.descricao}"]
+    if achado.valor_esperado is not None:
+        linhas.append(f"Valor calculado pelo motor: {achado.valor_esperado}")
+    if achado.valor_cobrado is not None:
+        linhas.append(f"Valor informado na fatura: {achado.valor_cobrado}")
+    return "\n".join(linhas)
+
+
 def _ler_afirmacoes(bruto: str, por_id: dict[str, DocumentoNormativo]) -> tuple[Afirmacao, ...]:
     try:
         dados = json.loads(bruto)
@@ -113,7 +130,12 @@ def _ler_afirmacoes(bruto: str, por_id: dict[str, DocumentoNormativo]) -> tuple[
 
 
 class AnalistaNormativo:
-    """Recupera dispositivos vigentes e pede ao LLM afirmações com fonte."""
+    """Redator restrito: recebe as evidências do Pesquisador e pede ao LLM afirmações com fonte.
+
+    ``analisar`` mantém o comportamento do B4/B5 (busca e redige numa chamada); ``redigir`` é o
+    passo usado pelo Orquestrador, que entrega evidências já recuperadas e, no fluxo de fatura,
+    o achado do motor que o Analista só pode explicar.
+    """
 
     def __init__(
         self,
@@ -129,6 +151,7 @@ class AnalistaNormativo:
         self.limiar = limiar
         self.top_k = top_k
         self.subgrupos = subgrupos
+        self.pesquisador = Pesquisador(indice, limiar=limiar, top_k=top_k, subgrupos=subgrupos)
 
     def analisar(
         self,
@@ -141,26 +164,26 @@ class AnalistaNormativo:
         if pergunta is None and achado is None:
             raise ValueError("informe uma pergunta ou um achado")
         consulta = pergunta if pergunta is not None else consulta_do_achado(achado)  # type: ignore[arg-type]
-        resultados = self.indice.buscar(
-            consulta,
-            data_referencia=data_referencia,
-            subgrupos=self.subgrupos,
-            top_k=self.top_k,
+        evidencias = self.pesquisador.buscar_com_citacao(consulta, data_referencia=data_referencia)
+        return self.redigir(evidencias)
+
+    def redigir(self, evidencias: Evidencias, *, achado: Achado | None = None) -> RelatorioAnalise:
+        """Redige afirmações citadas sobre as evidências; sem dispositivo, nem chama o LLM."""
+        consulta, data, dispositivos = (
+            evidencias.consulta,
+            evidencias.data_referencia,
+            evidencias.dispositivos,
         )
-        dispositivos = tuple(r.documento for r in resultados if r.score >= self.limiar)
         if not dispositivos:
             # Sem dispositivo vigente acima do limiar não há o que redigir: nem chama o LLM.
-            return RelatorioAnalise(consulta, data_referencia, (), ())
+            return RelatorioAnalise(consulta, data, (), ())
+        prompt = _prompt(consulta, dispositivos, data)
+        if achado is not None:
+            prompt = f"{_bloco_motor(achado)}\n\n{prompt}"
         resposta = self.cliente.gerar(
-            sistema=SISTEMA_ANALISTA,
-            prompt=_prompt(consulta, dispositivos, data_referencia),
-            esquema=ESQUEMA_ANALISTA,
+            sistema=SISTEMA_ANALISTA, prompt=prompt, esquema=ESQUEMA_ANALISTA
         )
         por_id = {d.id: d for d in dispositivos}
         return RelatorioAnalise(
-            consulta,
-            data_referencia,
-            dispositivos,
-            _ler_afirmacoes(resposta.texto, por_id),
-            resposta.texto,
+            consulta, data, dispositivos, _ler_afirmacoes(resposta.texto, por_id), resposta.texto
         )
