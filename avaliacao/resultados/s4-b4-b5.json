@@ -17,6 +17,8 @@
   "bootstrap_b": 10000,
   "limiar": 0.3,
   "top_k": 5,
+  "sha256_corpus": "b44006c21543b08668cd5eecce49acd435ff3688f4d966a78894606ee35ac7fa",
+  "documentos_corpus": 78,
   "cobertura_minima": 0.6,
   "juiz_llm": "não usado (reprovado na calibração da S3)",
   "sha256_prompt_analista": "8666300ad28b33eefc1b9af169f1dbf0cc9303c947d7887fc2a14e695451a8e6",

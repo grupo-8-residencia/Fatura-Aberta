@@ -32,6 +32,7 @@ import sys
 import time
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
+from dataclasses import asdict
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -416,13 +417,27 @@ def _sha256_arquivo(caminho: Path) -> str:
     return hashlib.sha256(caminho.read_bytes()).hexdigest()
 
 
+def sha256_corpus(documentos: Sequence[DocumentoNormativo]) -> str:
+    """Impressão digital do corpus indexado (ids, textos, citações, vigências), em ordem estável."""
+    itens = sorted((asdict(d) for d in documentos), key=lambda d: str(d["id"]))
+    bruto = json.dumps(itens, sort_keys=True, ensure_ascii=False, default=str)
+    return hashlib.sha256(bruto.encode("utf-8")).hexdigest()
+
+
 def caminho_comparacao(saida: Path) -> Path:
     return saida.with_name(saida.stem + "-comparacao.json")
 
 
 def conferir_cabecalho(antigo: Mapping[str, Any], novo: Mapping[str, Any]) -> None:
-    """A retomada só é válida com o mesmo modelo, digest, golden set e prompt do Analista."""
-    for chave in ("sha256_checksums_golden_set", "sha256_prompt_analista", "limiar", "top_k"):
+    """A retomada e a recomputação só valem com o mesmo modelo, digest, golden set, prompt do
+    Analista e corpus: mudar o corpus invalida as respostas já gravadas."""
+    for chave in (
+        "sha256_checksums_golden_set",
+        "sha256_prompt_analista",
+        "sha256_corpus",
+        "limiar",
+        "top_k",
+    ):
         if antigo.get(chave) != novo.get(chave):
             raise RuntimeError(
                 f"Não retomo: {chave} mudou ({antigo.get(chave)} -> {novo.get(chave)})"
@@ -455,6 +470,8 @@ def executar(args: argparse.Namespace, say: Callable[[str], None] = print) -> in
             "cobertura_minima": COBERTURA_MINIMA,
             "juiz_llm": "não usado (reprovado na calibração da S3)",
             "sha256_prompt_analista": hashlib.sha256(SISTEMA_ANALISTA.encode()).hexdigest(),
+            "sha256_corpus": sha256_corpus(indice.documentos),
+            "documentos_corpus": len(indice.documentos),
             "conjunto": "120 perguntas (golden set congelado); faturas fora do escopo da S4",
         }
     )

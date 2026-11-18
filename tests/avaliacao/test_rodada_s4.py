@@ -169,14 +169,50 @@ def test_rodada_e_retomavel_e_nao_toca_nos_resultados_reais(
     assert (real.read_bytes() if real.exists() else None) == antes
 
 
+_CABECALHO = {
+    "sha256_checksums_golden_set": "a",
+    "sha256_prompt_analista": "p",
+    "sha256_corpus": "c",
+    "limiar": 0.3,
+    "top_k": 5,
+    "modelos": {"gerador": {"versao": "1"}},
+}
+
+
 def test_retomada_recusa_mudanca_de_prompt_ou_modelo() -> None:
-    antigo = {"sha256_checksums_golden_set": "a", "sha256_prompt_analista": "p", "limiar": 0.3,
-              "top_k": 5, "modelos": {"gerador": {"versao": "1"}}}  # fmt: skip
+    antigo = _CABECALHO
     rs.conferir_cabecalho(antigo, antigo)
     with pytest.raises(RuntimeError, match="prompt_analista"):
         rs.conferir_cabecalho(antigo, {**antigo, "sha256_prompt_analista": "q"})
     with pytest.raises(RuntimeError, match="modelo"):
         rs.conferir_cabecalho(antigo, {**antigo, "modelos": {"gerador": {"versao": "2"}}})
+
+
+def test_retomada_e_recomputacao_recusam_corpus_alterado(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    antigo = _CABECALHO
+    with pytest.raises(RuntimeError, match="sha256_corpus"):
+        rs.conferir_cabecalho(antigo, {**antigo, "sha256_corpus": "outro"})
+
+    cliente = ClienteFalso(resposta=_resposta(("texto sem lastro algum aqui", ["ren1000-art-999"])))
+    monkeypatch.setattr(rs, "criar_cliente", lambda *a, **k: cliente)
+    saida = tmp_path / "s4.json"
+    assert rs.executar(_args(saida, 2), lambda _: None) == 0
+    gravado = json.loads(saida.read_text(encoding="utf-8"))
+    assert gravado["cabecalho"]["sha256_corpus"]
+
+    original = IndiceHibrido.do_corpus
+
+    def corpus_menor(*a: Any, **k: Any) -> Any:
+        indice = original(*a, **k)
+        return IndiceHibrido(indice.documentos[:-1])
+
+    monkeypatch.setattr(IndiceHibrido, "do_corpus", corpus_menor)
+    for etapa in ("metricas", "tudo"):
+        with pytest.raises(RuntimeError, match="sha256_corpus"):
+            rs.executar(_args(saida, 2, etapa), lambda _: None)
+    assert json.loads(saida.read_text(encoding="utf-8")) == gravado  # nada foi sobrescrito
 
 
 def test_cobertura_por_id() -> None:

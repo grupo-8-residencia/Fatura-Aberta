@@ -20,7 +20,7 @@ Fonte: [`avaliacao/resultados/s4-b4-b5.json`](https://github.com/grupo-8-residen
 | Conjunto | as **120 perguntas** do golden set (cobertura 120/120 por id, nenhuma inválida, nenhuma duplicada). As 200 faturas ficam fora: o Analista responde sobre a norma, e nas faturas o motor determinístico já venceu na S3 |
 | Gerador | `gpt-oss:20b` (digest `17052f91a42e`), via Ollama, temperatura 0, semente 42 |
 | SHA-256 do `checksums.sha256` do golden set | `87aae527…f40453` |
-| Recuperação | `IndiceHibrido`, B1, top-5, limiar de abstenção 0,30 (corpus de 28 dispositivos) |
+| Recuperação | `IndiceHibrido`, B1, top-5, limiar de abstenção 0,30 (corpus de 28 dispositivos; hash do corpus gravado no cabeçalho dos resultados) |
 | Estatística | bootstrap percentil B = 10.000, semente 42; McNemar pareado (qui-quadrado de Edwards e binomial exato) |
 | Chamadas ao LLM | 106 (nas outras 14 perguntas nenhum dispositivo passou do limiar e o Analista nem chama o LLM); 0 JSON inválido; 8,9 s por chamada em média |
 
@@ -49,7 +49,7 @@ dispositivos citados, ou expressão proibida do RF-15.
 
 | Critério | B4 | B5 | Diferença B5 − B4 [IC 95%] | Veredito |
 |---|---|---|---|---|
-| Respostas com afirmação sem suporte | 15,0% [9,2; 21,7] (18 de 120) | 0,0% | −15,0 pp [−21,7; −9,2] | B5 não é pior (IC inteiro abaixo de 0) |
+| Respostas com afirmação sem suporte | 15,0% [9,2; 21,7] (18 de 120) | 0,0% | −15,0 pp [−21,7; −9,2] | não aplicável: 0% por construção (o B5 só emite o que o Auditor aprova); não é evidência de que o B5 seja melhor |
 | Redução relativa | | | 100% (IC 100%; 100%) | ≥ 30% atingida |
 | Acerto | 91,7% [86,7; 95,8] | 77,5% [70,0; 85,0] | −14,2 pp [−20,8; −8,3] | perda significativa |
 | McNemar (B4 acerta e B5 erra / o inverso) | | | 17 / 0; χ² = 15,06; p = 1,0×10⁻⁴; exato p = 1,5×10⁻⁵ | significativo |
@@ -127,7 +127,14 @@ real ou ambígua que o Auditor acertou em barrar.
 
 ### A causa da perda
 
-A regra de números compara todo número da afirmação com o texto de `titulo + texto` dos dispositivos
+A perda tem **duas partes**, não uma. Dos 17 casos em que só o B4 acerta: 12 foram barrados apenas por
+`sem_suporte` (regra de números, abaixo); 3 por `linguagem_proibida` (GS-Q045 e GS-Q063 por "devolução em
+dobro", GS-Q074 por "restituição"); 2 por citação com id inventado (`::VI` e `::I`). "Devolução em dobro"
+é o termo literal do art. 323, § 2º da REN 1.000, e a lista do RF-15 barra o termo de direito, não só a
+estimativa de valor: é um **segundo defeito de regra**, a tratar na próxima rodada, também sem ajustar com
+este golden set.
+
+**Regra de números (12 dos 17).** A regra de números compara todo número da afirmação com o texto de `titulo + texto` dos dispositivos
 citados. Quando o modelo escreve "REN ANEEL nº 1.000/2021, art. 323" ou "Lei nº 7.888/2026", esses
 números estão na **citação** (ato e dispositivo), que não entra no texto de comparação, e a afirmação é
 reprovada mesmo sendo fiel. É um defeito de projeto da regra do Auditor (#36), observado aqui, e não um
@@ -135,6 +142,12 @@ erro do gerador. **Não foi corrigido nesta rodada**, para não ajustar a regra 
 teste. A correção (incluir ato e dispositivo da citação no texto de comparação e medir de novo) deve ser
 validada em perguntas novas, fora deste golden set (por exemplo, o conjunto de
 `avaliacao/resultados/s3-perguntas-novas-out-of-sample.json`).
+
+!!! warning "Repetir a rodada depois do #139"
+    Os níveis absolutos dependem de um corpus de 28 dispositivos; o #139 leva o corpus a 39. A rodada
+    precisa ser repetida depois dele. Para isso o script grava o hash do corpus (`sha256_corpus`) e
+    **recusa** retomar ou recomputar as métricas se o corpus mudou, em vez de misturar respostas antigas
+    com recuperação nova.
 
 ### Respostas erradas que o Auditor não detecta (B4 e B5 iguais)
 
