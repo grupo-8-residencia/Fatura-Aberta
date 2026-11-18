@@ -206,7 +206,7 @@ dispositivos. Detalhes, intervalos e limites no [relatório S4](../avaliacao/rel
 | Nas 120 perguntas | B4 (sem Auditor) | B5 (Auditor estrito) | T2 (só Pesquisador) | **T5 (4 agentes)** |
 |---|---|---|---|---|
 | Acerto [IC 95%] | 90,0% [84,2; 95,0] | 76,7% [69,2; 84,2] | 91,7% [86,7; 96,7] | **93,3% [88,3; 97,5]** |
-| Respostas com afirmação sem suporte | 14,2% | 0% | 0% | **0%** |
+| Respostas com afirmação sem suporte | 14,2% | 0% (por construção) | 0% (trecho literal) | 0% (por construção) |
 | Violações do RF-15 | 2 | 0 | 0 | **0** |
 
 - O T5 supera o B5 (23 × 3 perguntas, p = 8,8×10⁻⁵) e empata com o B4 e o T2 (diferenças não
