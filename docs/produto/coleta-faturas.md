@@ -2,7 +2,7 @@
 
 Como parte das atividades da frente F1 — Produto, Pesquisa e Conformidade, foi realizada a coleta de 15 faturas reais de energia elétrica, disponibilizadas por voluntários para apoiar os testes do projeto Fatura Aberta.
 
-Para organizar essa etapa, foi disponibilizado um formulário de consentimento, no qual os participantes puderam registrar sua autorização para utilização das faturas. Também foi realizada uma pesquisa com consumidores, que contou com 19 respostas e permitiu identificar dificuldades relacionadas à compreensão dos valores cobrados, ao consumo de energia e à conferência de possíveis divergências.
+Para organizar essa etapa, foi disponibilizado um formulário de consentimento, no qual os participantes puderam registrar sua autorização para utilização das faturas. Também foi realizada uma pesquisa com consumidores (19 respostas na síntese detalhada abaixo; 21 respostas no total registrado no [RIPD simplificado](../conformidade/ripd.md)), que permitiu identificar dificuldades relacionadas à compreensão dos valores cobrados, ao consumo de energia e à conferência de possíveis divergências.
 
 As 15 faturas recebidas foram organizadas em uma pasta no Google Drive destinada à equipe, fora do repositório GitHub. Essa separação foi adotada para evitar a exposição de informações pessoais presentes nos documentos, como nomes, endereços e números de instalação.
 
@@ -34,6 +34,7 @@ Os identificadores vão de F001 a F015. A situação é a mesma para as 15 fatur
 ## Pesquisa de consumidores: síntese agregada
 
 > Pesquisa anônima. Ela não substitui nem comprova o termo de consentimento individual para uso das faturas.
+> Os números detalhados abaixo referem-se ao corte de **19 respostas**; no [RIPD simplificado](../conformidade/ripd.md) já constam **21 respostas** (17 com conta impressa e 12 relatando dificuldade para compreender o cálculo). **TODO (F1):** atualizar a tabela abaixo com o detalhamento completo das 21 respostas.
 
 | Indicador | Resultado |
 | :--- | :---: |
