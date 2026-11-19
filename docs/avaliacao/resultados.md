@@ -226,12 +226,13 @@ semântico externo mudaria esse número.
 
 | Item | Meta | Situação |
 |---|---|---|
-| Itens com anotação humana | 40 | TODO: modelo gerado em `avaliacao/anotacoes/juiz-40.csv`, sem anotações |
-| Kappa de Cohen juiz × humano | ≥ 0,75 | TODO: aguarda anotação humana e rodada do juiz |
-| Acurácia juiz × humano | reportar com IC 95% | TODO |
+| Itens com anotação humana | 40 | 40 itens × 2 avaliadores em `avaliacao/anotacoes/juiz-40.csv` (consolidados por uma pessoa; os dois concordam em todos) |
+| Kappa de Cohen juiz × humano | ≥ 0,75 | **Não atingido.** 13/11: κ = 0,029 em 39 itens. Recalibração de 18/11 (prompt v2, #162): κ = 0,164 nos 39 vereditos válidos e −0,136 na metade retida |
+| Acurácia juiz × humano | reportar com IC 95% | 13/11: 56,4% [41,0%; 71,8%]. v2 na metade retida: 75% [55%; 90%] |
 
-`.venv/bin/python avaliacao/calibrar_juiz.py` só calcula quando os 40 itens estiverem preenchidos e
-não produz número nenhum antes disso.
+Resultado negativo: o juiz LLM não é usado nas métricas de "afirmação sem suporte". Detalhes no
+[relatório S3](relatorio-s3-final.md) e em `avaliacao/resultados/s3-calibracao-juiz.json` e
+`s3-recalibracao-juiz.json`.
 
 ## Demais rodadas
 
