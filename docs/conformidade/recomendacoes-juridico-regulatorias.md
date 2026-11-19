@@ -1,7 +1,7 @@
 # Recomendações Jurídico-Regulatórias para o Produto
 
 > [!NOTE] Natureza do Documento
-> Este documento consolida a análise acadêmica e técnico-regulatória desenvolvida no âmbito da Frente F1 (Produto, Pesquisa e Conformidade) do projeto **Fatura Aberta** (Grupo 8 — Residência em IA UnB/Instituto Eldorado, Novembro de 2026). O estudo baseia-se no relatório técnico de 35 páginas [`analise-juridico-regulatoria-fatura-aberta.pdf`](analise-juridico-regulatoria-fatura-aberta.pdf).
+> Este documento consolida a análise acadêmica e técnico-regulatória desenvolvida no âmbito da Frente F1 (Produto, Pesquisa e Conformidade) do projeto **Fatura Aberta** (Grupo 8 — Residência em IA UnB/Instituto Eldorado, Novembro de 2026). O estudo baseia-se no relatório técnico de 35 páginas [`analise-juridico-regulatoria-fatura-aberta.pdf`](../assets/analise-juridico-regulatoria-fatura-aberta.pdf).
 >
 > **Ressalva Fundamental:** Esta análise tem natureza estritamente acadêmica, técnica e informativa. Não constitui parecer jurídico formal, não substitui consulta profissional individualizada e não representa manifestação oficial da ANEEL, da Neoenergia Brasília, do Procon-DF, da Defensoria Pública ou de qualquer órgão regulador.
 
