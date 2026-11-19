@@ -28,4 +28,7 @@
 
 ## Onde ficam as faturas reais
 
-TODO: local seguro combinado pelo time, fora do Git, com acesso restrito.
+Em uma **pasta privada do Google Drive do projeto**, fora do Git, com acesso restrito aos integrantes
+autorizados na coleta. Base legal, controlador e operadores, prazo de exclusão (18/12/2026) e canal dos
+titulares estão no [RIPD simplificado](ripd.md). TODO (F1): registrar a revisão formal das permissões da
+pasta.
