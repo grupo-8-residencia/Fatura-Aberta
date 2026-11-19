@@ -3,7 +3,8 @@
 
 - B2: RAG híbrido SEM filtro de vigência.
 - B3: RAG híbrido COM filtro de vigência (e de subgrupo).
-- B1 (LLM sem RAG) não roda aqui: exige um LLM configurado. TODO.
+- B1 (motor determinístico) e a rodada com LLM estão em `rodada_s3.py`. Este script mede só a
+  recuperação, sem LLM.
 
 Um item é "acerto" quando:
 - a pergunta tem norma esperada: algum artigo canônico está no top-5 e estava vigente na data;
@@ -30,6 +31,7 @@ from estatistica import (  # noqa: E402
 )
 
 from fa_rag import IndiceHibrido, responder  # noqa: E402
+from fa_rag.sintese import LIMIAR_PADRAO  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[1]
 PERGUNTAS = RAIZ / "dados" / "golden-set" / "perguntas.jsonl"
@@ -111,7 +113,7 @@ def rodar() -> dict[str, Any]:
             "embedder": "hash (determinístico, sem LLM gerador)",
             "alpha": indice.alpha,
             "top_k": TOP_K,
-            "limiar_abstencao": 0.30,
+            "limiar_abstencao": LIMIAR_PADRAO,
             "bootstrap_B": B_PADRAO,
             "semente": SEMENTE_PADRAO,
             "n_itens": len(itens),

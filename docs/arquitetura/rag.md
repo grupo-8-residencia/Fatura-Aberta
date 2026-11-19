@@ -30,9 +30,11 @@ flowchart LR
     C -. "não conferido" .-> X["Fora do índice<br/>(A verificar)"]
 ```
 
-A coleta e a limpeza hoje são manuais e conferidas por pessoa; o resultado é o `corpus_b1.json`, que
-é a entrada reproduzível do restante do pipeline. TODO: conversão automática de PDFs de normas em
-texto limpo (etapa 1 e 2), prevista para a frente F4.
+A coleta e a limpeza são assistidas por `scripts/converter_norma.py` (F4) e conferidas por pessoa; o
+resultado é o `corpus_b1.json`, que é a entrada reproduzível do restante do pipeline. O conversor lê
+PDF ou HTML, separa por artigo, tira cabeçalhos, rodapés e notas de redação, e grava itens
+candidatos com `conferido = "A verificar"`: nada entra no índice sem conferência humana. O inventário
+dos atos está em `dados/normas/manifesto_atos.json`.
 
 1. **Curadoria.** Cada dispositivo é transcrito do texto oficial e conferido. O item guarda `id`,
    `titulo`, `texto`, `citacao` (`ato`, `dispositivo`, `vigencia_inicio`, `vigencia_fim`, `url`),

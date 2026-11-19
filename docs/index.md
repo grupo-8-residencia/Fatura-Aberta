@@ -38,7 +38,7 @@ Todo resultado do produto carrega um nível. Nenhum deles diz "ilegal" nem estim
 
     ---
 
-    Pipeline determinístico, os dois agentes, contratos e decisões (ADRs).
+    Pipeline determinístico, os quatro agentes com o Orquestrador, contratos e decisões (ADRs).
 
 -   :material-chart-box-outline: **[Avaliação](avaliacao/index.md)**
 

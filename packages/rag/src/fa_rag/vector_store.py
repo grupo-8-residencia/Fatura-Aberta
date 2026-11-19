@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 from collections import Counter
 from collections.abc import Collection, Sequence
 from datetime import date
@@ -14,7 +15,31 @@ from fa_rag.chunker import chunkar_dispositivo
 from fa_rag.corpus import carregar_corpus
 from fa_rag.embeddings import Embedder, criar_embedder
 from fa_rag.models import DocumentoNormativo, ResultadoBusca
-from fa_rag.texto import tokenizar
+from fa_rag.texto import normalizar_texto, tokenizar
+
+_ENTIDADES_DISTINTIVAS = frozenset(
+    tok
+    for termo in ("cip", "iluminacao", "icms", "pis", "cofins", "bandeira")
+    for tok in tokenizar(termo)
+)
+
+
+def _fator_aderencia(
+    consulta_norm: str,
+    consulta_tokens: set[str],
+    doc: DocumentoNormativo,
+    doc_tokens: Counter[str],
+) -> float:
+    """Atenua trechos que omitem entidade específica da consulta ou que declaram ``nao_cobre``."""
+    fator = 1.0
+    if (_ENTIDADES_DISTINTIVAS & consulta_tokens) - set(doc_tokens):
+        fator *= 0.35
+    for padrao in doc.nao_cobre:
+        alvo = normalizar_texto(padrao)
+        if alvo and re.search(rf"\b{re.escape(alvo)}\b", consulta_norm):
+            fator *= 0.25
+            break
+    return fator
 
 
 def _texto_indexavel(doc: DocumentoNormativo) -> str:
@@ -157,11 +182,14 @@ class IndiceHibrido:
         if not candidatos:
             return []
         tokens = tokenizar(consulta)
+        consulta_unicos = set(tokens)
+        consulta_norm = normalizar_texto(consulta)
         vetoriais = self._vetorial.similaridades(consulta, [d.id for d in candidatos])
         resultados: list[ResultadoBusca] = []
         for d in candidatos:
-            vet = vetoriais[d.id]
-            lex = self._lexico(tokens, d.id)
+            fator = _fator_aderencia(consulta_norm, consulta_unicos, d, self._tokens[d.id])
+            vet = vetoriais[d.id] * fator
+            lex = self._lexico(tokens, d.id) * fator
             score = peso * vet + (1.0 - peso) * lex
             if score > 0.0:
                 resultados.append(ResultadoBusca(d, score, score_vetorial=vet, score_lexico=lex))

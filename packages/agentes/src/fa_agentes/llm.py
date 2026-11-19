@@ -75,7 +75,8 @@ class ClienteOllama:
     temperatura: float = TEMPERATURA
     semente: int = SEMENTE
     timeout_s: float = 600.0
-    contexto: int = 8192
+    contexto: int = 6144
+    max_tokens: int | None = None
     pensar: bool | str | None = None
     cache_dir: Path | None = None
     provedor: str = field(default="ollama", init=False)
@@ -108,6 +109,10 @@ class ClienteOllama:
                 "num_ctx": self.contexto,
             },
         }
+        if self.max_tokens is not None:
+            # Só entra quando definido: assim o corpo (e a chave do cache) das rodadas antigas
+            # continua o mesmo.
+            corpo["options"]["num_predict"] = self.max_tokens
         if esquema is not None:
             corpo["format"] = dict(esquema)
         if self.pensar is not None:
@@ -175,8 +180,9 @@ def criar_cliente(
     """Escolhe o cliente por variáveis de ambiente (padrão: ``falso``).
 
     ``FA_LLM_PROVEDOR`` (``falso`` ou ``ollama``), ``FA_LLM_MODELO`` (gerador),
-    ``FA_LLM_JUIZ_MODELO`` (juiz), ``FA_LLM_URL``. O juiz usa, por padrão, um modelo de outra
-    família que o gerador, para reduzir o viés de autoavaliação.
+    ``FA_LLM_JUIZ_MODELO`` (juiz), ``FA_LLM_URL``, ``FA_LLM_TIMEOUT_S`` (padrão 600) e
+    ``FA_LLM_MAX_TOKENS`` (vira ``num_predict``; sem ela, o Ollama decide). O juiz usa, por
+    padrão, um modelo de outra família que o gerador, para reduzir o viés de autoavaliação.
     """
     ambiente = os.environ if env is None else env
     provedor = ambiente.get("FA_LLM_PROVEDOR", "falso").lower()
@@ -189,9 +195,11 @@ def criar_cliente(
         else:
             modelo = ambiente.get("FA_LLM_MODELO", MODELO_GERADOR_PADRAO)
             pensar = "low" if modelo.startswith("gpt-oss") else False
+        max_tokens = ambiente.get("FA_LLM_MAX_TOKENS")
         return ClienteOllama(
             modelo=modelo, url=ambiente.get("FA_LLM_URL", URL_PADRAO), pensar=pensar,
-            cache_dir=cache_dir,
+            cache_dir=cache_dir, timeout_s=float(ambiente.get("FA_LLM_TIMEOUT_S", "600")),
+            max_tokens=int(max_tokens) if max_tokens else None,
         )  # fmt: skip
     raise ValueError(f"Provedor desconhecido: {provedor!r} (disponíveis: falso, ollama)")
 

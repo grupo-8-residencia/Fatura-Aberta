@@ -1,0 +1,201 @@
+{
+ "cabecalho": {
+  "data_utc": "2026-11-16T13:13:10Z",
+  "commit": "53cf531",
+  "temperatura": 0.0,
+  "semente": 42,
+  "sha256_checksums_golden_set": "87aae5275aad9c9f3a73ea4e33abe5dbea3cd6800431cf1ca094db32bd40f453",
+  "modelos": {
+   "gerador": {
+    "provedor": "ollama",
+    "modelo": "gpt-oss:20b",
+    "versao": "17052f91a42e"
+   }
+  },
+  "semente_llm": 42,
+  "semente_bootstrap": 42,
+  "bootstrap_b": 10000,
+  "limiar": 0.3,
+  "top_k": 5,
+  "sha256_corpus": "6acbc2ec6c7d5a6634dbaa46d797765f0d93554d88a635e87f56e5c2ec0390ea",
+  "documentos_corpus": 62,
+  "nota_corpus": "Hash corrigido em 18/11/2026: corpus de 28 dispositivos (62 trechos) do commit 53cf531, o usado na rodada. O valor gravado antes era o do corpus de 39 dispositivos.",
+  "cobertura_minima": 0.6,
+  "juiz_llm": "não usado (reprovado na calibração da S3)",
+  "sha256_prompt_analista": "8666300ad28b33eefc1b9af169f1dbf0cc9303c947d7887fc2a14e695451a8e6",
+  "conjunto": "120 perguntas (golden set congelado); faturas fora do escopo da S4",
+  "limite": null
+ },
+ "cobertura": {
+  "esperado": 120,
+  "concluidos": 120,
+  "invalidos": [],
+  "duplicados": [],
+  "pendentes": [],
+  "fora_do_conjunto": [],
+  "completo": true
+ },
+ "analista": {
+  "perguntas_validas": 120,
+  "chamadas_llm": 106,
+  "sem_dispositivo_acima_do_limiar": 14,
+  "json_invalido": 0,
+  "duracao_media_s": 8.87
+ },
+ "bracos": {
+  "B4": {
+   "n": 120,
+   "acerto": {
+    "estimativa": 0.9166666666666666,
+    "ic95_inf": 0.8666666666666667,
+    "ic95_sup": 0.9583333333333334
+   },
+   "acerto_por_tipo": {
+    "fora_do_corpus": 1.0,
+    "lacuna": 0.5,
+    "normativa": 0.9381443298969072,
+    "vigencia": 0.9166666666666666
+   },
+   "taxa_abstencao": 0.18333333333333332,
+   "abstencao_correta_nas_que_exigem": 0.9411764705882353,
+   "abstencao_indevida_nas_respondiveis": 0.05825242718446602,
+   "respostas_com_afirmacao_sem_suporte": {
+    "estimativa": 0.15,
+    "ic95_inf": 0.09166666666666666,
+    "ic95_sup": 0.21666666666666667
+   },
+   "afirmacoes_emitidas": 134,
+   "afirmacoes_sem_suporte": 18,
+   "perguntas_com_citacao_inventada": 2,
+   "perguntas_com_citacao_fora_de_vigencia": 0,
+   "violacoes_rf15": 3,
+   "motivos": {
+    "citacao_inventada": 2,
+    "linguagem_proibida": 3,
+    "sem_suporte": 16
+   }
+  },
+  "B5": {
+   "n": 120,
+   "acerto": {
+    "estimativa": 0.775,
+    "ic95_inf": 0.7,
+    "ic95_sup": 0.85
+   },
+   "acerto_por_tipo": {
+    "fora_do_corpus": 1.0,
+    "lacuna": 0.16666666666666666,
+    "normativa": 0.7835051546391752,
+    "vigencia": 0.9166666666666666
+   },
+   "taxa_abstencao": 0.3333333333333333,
+   "abstencao_correta_nas_que_exigem": 0.9411764705882353,
+   "abstencao_indevida_nas_respondiveis": 0.23300970873786409,
+   "respostas_com_afirmacao_sem_suporte": {
+    "estimativa": 0.0,
+    "ic95_inf": 0.0,
+    "ic95_sup": 0.0
+   },
+   "afirmacoes_emitidas": 114,
+   "afirmacoes_sem_suporte": 0,
+   "perguntas_com_citacao_inventada": 0,
+   "perguntas_com_citacao_fora_de_vigencia": 0,
+   "violacoes_rf15": 0,
+   "motivos": {}
+  },
+  "B5_estrutural": {
+   "n": 120,
+   "acerto": {
+    "estimativa": 0.7916666666666666,
+    "ic95_inf": 0.7166666666666667,
+    "ic95_sup": 0.8583333333333333
+   },
+   "acerto_por_tipo": {
+    "fora_do_corpus": 1.0,
+    "lacuna": 0.16666666666666666,
+    "normativa": 0.8041237113402062,
+    "vigencia": 0.9166666666666666
+   },
+   "taxa_abstencao": 0.31666666666666665,
+   "abstencao_correta_nas_que_exigem": 0.9411764705882353,
+   "abstencao_indevida_nas_respondiveis": 0.21359223300970873,
+   "respostas_com_afirmacao_sem_suporte": {
+    "estimativa": 0.016666666666666666,
+    "ic95_inf": 0.0,
+    "ic95_sup": 0.041666666666666664
+   },
+   "afirmacoes_emitidas": 116,
+   "afirmacoes_sem_suporte": 2,
+   "perguntas_com_citacao_inventada": 0,
+   "perguntas_com_citacao_fora_de_vigencia": 0,
+   "violacoes_rf15": 0,
+   "motivos": {
+    "sem_suporte": 2
+   }
+  }
+ },
+ "B5_vs_B4": {
+  "n_pares": 120,
+  "sem_suporte_diferenca_B5_menos_B4": {
+   "estimativa": -0.15,
+   "ic95_inf": -0.21666666666666667,
+   "ic95_sup": -0.09166666666666666
+  },
+  "sem_suporte_reducao_relativa": {
+   "estimativa": 1.0,
+   "ic95_inf": 1.0,
+   "ic95_sup": 1.0,
+   "reamostras_validas": 10000
+  },
+  "sem_suporte_B5_nao_pior_que_B4": true,
+  "reducao_de_30pct_atingida": true,
+  "acerto_diferenca_B5_menos_B4": {
+   "estimativa": -0.14166666666666666,
+   "ic95_inf": -0.20833333333333334,
+   "ic95_sup": -0.08333333333333333
+  },
+  "acerto_mcnemar_B4_vs_B5": {
+   "n01_B4_erra_B5_acerta": 0,
+   "n10_B4_acerta_B5_erra": 17,
+   "chi2_edwards": 15.058823529411764,
+   "p_valor": 0.00010421194515808898,
+   "p_exato": 1.52587890625e-05,
+   "significativo_5pct": true
+  },
+  "perda_de_acerto_significativa": true,
+  "gate_s4_aprovado": false,
+  "ressalva": "B5 emite apenas afirmações aprovadas pelas mesmas verificações usadas para medir 'sem suporte'; por construção a taxa do B5 é zero. A redução mede quanto do que o B4 emitiria o Auditor barra, e o acerto mede o preço em abstenções. A medida não captura erro factual que passe nas verificações determinísticas (isso depende da anotação humana)."
+ },
+ "B5_estrutural_vs_B4": {
+  "n_pares": 120,
+  "sem_suporte_diferenca_B5_menos_B4": {
+   "estimativa": -0.13333333333333333,
+   "ic95_inf": -0.2,
+   "ic95_sup": -0.075
+  },
+  "sem_suporte_reducao_relativa": {
+   "estimativa": 0.8888888888888888,
+   "ic95_inf": 0.7222222222222222,
+   "ic95_sup": 1.0,
+   "reamostras_validas": 10000
+  },
+  "sem_suporte_B5_nao_pior_que_B4": true,
+  "reducao_de_30pct_atingida": true,
+  "acerto_diferenca_B5_menos_B4": {
+   "estimativa": -0.125,
+   "ic95_inf": -0.18333333333333332,
+   "ic95_sup": -0.06666666666666667
+  },
+  "acerto_mcnemar_B4_vs_B5": {
+   "n01_B4_erra_B5_acerta": 0,
+   "n10_B4_acerta_B5_erra": 15,
+   "chi2_edwards": 13.066666666666666,
+   "p_valor": 0.0003005976074404512,
+   "p_exato": 6.103515625e-05,
+   "significativo_5pct": true
+  },
+  "perda_de_acerto_significativa": true,
+  "gate_s4_aprovado": false,
+  "ressalva": "B5 emite apenas afirmações aprovadas pelas mesmas verificações usadas para medir 'sem suporte'; por construção a taxa do B5 é zero. A redução mede quanto do que o B4 emitiria o Auditor barra, e o acerto mede o preço em abstenções. A medida não captura erro factual que passe nas verificações determinísticas (isso depende da anotação humana)."
+ }
+}
