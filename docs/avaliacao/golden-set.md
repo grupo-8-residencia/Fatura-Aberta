@@ -52,13 +52,14 @@ incorreto, item duplicado e alíquota de ICMS incoerente. O gabarito vem da cons
 ## Anotação humana
 
 O kit de anotação (um CSV por pessoa e a revisão das 120 perguntas) está em
-`dados/golden-set/anotacoes/`. Instruções para quem anota: [Como anotar](anotacao.md). Enquanto o time
-não devolver os CSV preenchidos, a revisão humana segue **pendente**.
+`dados/golden-set/anotacoes/`. Instruções para quem anota: [Como anotar](anotacao.md). **Situação em
+18/11/2026:** as 6 pessoas devolveram os 30 itens (178 de 180 concordam com o gabarito) e a revisão das 120
+perguntas foi concluída (116 concordam, 4 com correção proposta, não aplicada ao gabarito congelado).
 
 ## Limitações
 
-- Revisão humana pendente em todos os itens. Seis pessoas anotando 30 itens cobrem 180 dos 320; o
-  restante fica com o gabarito de construção. TODO: decidir sobre uma segunda rodada.
+- Seis pessoas anotando 30 itens cobrem 180 dos 320 itens; o restante fica com o gabarito de construção.
+  TODO: decidir sobre uma segunda rodada de anotação e sobre aplicar as 4 correções num gabarito v2.
 - As perguntas dependem de um corpus de 28 dispositivos (REN 1.000/2021, CDC e Lei Distrital
   7.888/2026); PRODIST e a REH de tarifas estão pendentes.
 - As faturas não têm layout de PDF nem foto; servem às checagens do nível A, não à extração.
