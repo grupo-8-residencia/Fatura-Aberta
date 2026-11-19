@@ -60,8 +60,8 @@ async def analisar_com_agentes(
 ) -> list[Achado]:
     """Explica, com norma citada, os itens que o motor marcou como divergentes ou sem dados.
 
-    Não altera o nível A: devolve só achados B (norma aplicável) ou C (abstenção). Sem os achados
-    do motor não há o que explicar.
+    Não altera o nível A: devolve só achados de nível C (explicação com norma citada ou abstenção).
+    O nível B (tabela da ANEEL) não é gerado aqui. Sem os achados do motor não há o que explicar.
     """
     if not achados_motor:
         return []

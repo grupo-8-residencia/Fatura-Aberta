@@ -111,7 +111,7 @@ Comparação consolidada da recuperação entre o gate da **Sprint S2**, a **lin
 
 ## S4: B4 × B5
 
-O Auditor elimina as afirmações sem suporte (15,0% → 0%) mas reduz o acerto de 91,7% para 77,5% (McNemar p < 0,001): pelo gate da S4, o B4 é o produto. Detalhes, ablação e falhas anotadas em [Relatório S4](relatorio-s4.md).
+O Auditor elimina as afirmações sem suporte (14,2% → 0%) mas reduz o acerto de 90,0% para 76,7% (McNemar exato p = 3,05×10⁻⁵, 16 × 0 pares). Pelo gate da S4, o B5 cai no pivot, e o produto adota o T5 (93,3% de acerto), conforme a [decisão de 18/11/2026](../sprints/s4.md). Detalhes, ablação e falhas anotadas em [Relatório S4](relatorio-s4.md).
 
 ## Métricas ampliadas de recuperação e fundamentação (S3)
 
@@ -241,6 +241,6 @@ Resultado negativo: o juiz LLM não é usado nas métricas de "afirmação sem s
 | recall@5 em 30 perguntas | S2 | RAG | recall@5 de 1,000 [1,000; 1,000] (30 de 30) na amostra estratificada e 0,995 [0,985; 1,000] nas 103 perguntas com norma | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-recall-gate.json) |
 | LLM × RAG | S3 | B2, B3 | Tabela acima; B1 e juiz pendentes | acima |
 | Calibração de abstenção (60/60) | S3 | B3 | Calibração 60/60 sem vazamento; limiar 0,30 mantido no pacote (F1 = 0,800 no teste cego vs 0,714 com 0,25) | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-calibracao-abstencao.json) |
-| Agentes | S4 | B4, B5 | Aguardando execução da S4 | — |
+| Agentes | S4 | B4, B5, T5 | Executada em 18/11/2026: B4 90,0%, B5 76,7%, T5 93,3% (produto adota T5) | [Relatório S4](relatorio-s4.md) |
 | Campos-chave em 40 fotos | S5 | extração | Aguardando execução da S5 | — |
 | Rodada final | S7 | B1–B5 | Aguardando execução da S7 | — |
