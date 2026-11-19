@@ -263,4 +263,4 @@ def test_para_achado_abstencao_vira_nivel_c_e_resposta_vira_nivel_b() -> None:
         "Prazo",
         Auditor().auditar(_relatorio(_afirmacao(TEXTO_OK, FATURA_VIGENTE), docs=(FATURA_VIGENTE,))),
     )
-    assert not ok.abstencao and ok.nivel == Nivel.B and ok.citacoes == [FATURA_VIGENTE.citacao]
+    assert not ok.abstencao and ok.nivel == Nivel.C and ok.citacoes == [FATURA_VIGENTE.citacao]

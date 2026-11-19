@@ -1,0 +1,381 @@
+{
+ "commit_da_rodada": "165b229",
+ "configuracao_original": "gpt-oss:20b, think=low, temp. 0, semente 42, format=esquema",
+ "nova_tentativa": "mesmo prompt e corpus, think=medium",
+ "bracos": {
+  "T3": {
+   "teste": "T3",
+   "invalidas": 11,
+   "causas": {
+    "conteudo_vazio": 11
+   },
+   "tokens_saida_das_invalidas": [
+    29,
+    29,
+    30,
+    31,
+    32,
+    33,
+    33,
+    38,
+    38,
+    55,
+    56
+   ],
+   "ids": [
+    "GS-Q023",
+    "GS-Q028",
+    "GS-Q041",
+    "GS-Q063",
+    "GS-Q066",
+    "GS-Q068",
+    "GS-Q069",
+    "GS-Q072",
+    "GS-Q080",
+    "GS-Q087",
+    "GS-Q091"
+   ],
+   "acertos_rodada_padrao": 89,
+   "nova_tentativa": {
+    "validas": 4,
+    "acertos": 2,
+    "ainda_invalidas": [
+     "GS-Q023",
+     "GS-Q028",
+     "GS-Q068",
+     "GS-Q069",
+     "GS-Q072",
+     "GS-Q087",
+     "GS-Q091"
+    ],
+    "acerto_total_se_aplicado": 91,
+    "itens": [
+     {
+      "id": "GS-Q023",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 71,
+      "duracao_s": 5.546
+     },
+     {
+      "id": "GS-Q028",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 115,
+      "duracao_s": 7.603
+     },
+     {
+      "id": "GS-Q041",
+      "valido": true,
+      "acerto": true,
+      "abstencao": false,
+      "citacoes": [
+       "ren1000-art-324::p2"
+      ],
+      "tokens_saida": 113,
+      "duracao_s": 21.316
+     },
+     {
+      "id": "GS-Q063",
+      "valido": true,
+      "acerto": false,
+      "abstencao": false,
+      "citacoes": [
+       "cdc-art-42-pu",
+       "ren1000-art-342::p2"
+      ],
+      "tokens_saida": 189,
+      "duracao_s": 23.102
+     },
+     {
+      "id": "GS-Q066",
+      "valido": true,
+      "acerto": false,
+      "abstencao": false,
+      "citacoes": [
+       "ren1000-art-360::p2"
+      ],
+      "tokens_saida": 130,
+      "duracao_s": 19.434
+     },
+     {
+      "id": "GS-Q068",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 83,
+      "duracao_s": 7.285
+     },
+     {
+      "id": "GS-Q069",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 79,
+      "duracao_s": 7.06
+     },
+     {
+      "id": "GS-Q072",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 102,
+      "duracao_s": 8.052
+     },
+     {
+      "id": "GS-Q080",
+      "valido": true,
+      "acerto": true,
+      "abstencao": false,
+      "citacoes": [
+       "ren1000-art-343::p1"
+      ],
+      "tokens_saida": 83,
+      "duracao_s": 14.345
+     },
+     {
+      "id": "GS-Q087",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 85,
+      "duracao_s": 8.14
+     },
+     {
+      "id": "GS-Q091",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 157,
+      "duracao_s": 11.278
+     }
+    ]
+   }
+  },
+  "T4": {
+   "teste": "T4",
+   "invalidas": 16,
+   "causas": {
+    "conteudo_vazio": 16
+   },
+   "tokens_saida_das_invalidas": [
+    17,
+    28,
+    29,
+    29,
+    30,
+    31,
+    31,
+    31,
+    32,
+    33,
+    33,
+    38,
+    38,
+    39,
+    55,
+    56
+   ],
+   "ids": [
+    "GS-Q023",
+    "GS-Q028",
+    "GS-Q041",
+    "GS-Q063",
+    "GS-Q066",
+    "GS-Q068",
+    "GS-Q069",
+    "GS-Q072",
+    "GS-Q080",
+    "GS-Q087",
+    "GS-Q091",
+    "GS-Q109",
+    "GS-Q110",
+    "GS-Q116",
+    "GS-Q117",
+    "GS-Q119"
+   ],
+   "acertos_rodada_padrao": 94,
+   "nova_tentativa": {
+    "validas": 6,
+    "acertos": 4,
+    "ainda_invalidas": [
+     "GS-Q023",
+     "GS-Q028",
+     "GS-Q068",
+     "GS-Q069",
+     "GS-Q072",
+     "GS-Q087",
+     "GS-Q091",
+     "GS-Q110",
+     "GS-Q117",
+     "GS-Q119"
+    ],
+    "acerto_total_se_aplicado": 98,
+    "itens": [
+     {
+      "id": "GS-Q023",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 71,
+      "duracao_s": 5.546
+     },
+     {
+      "id": "GS-Q028",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 115,
+      "duracao_s": 7.603
+     },
+     {
+      "id": "GS-Q041",
+      "valido": true,
+      "acerto": true,
+      "abstencao": false,
+      "citacoes": [
+       "ren1000-art-324::p2"
+      ],
+      "tokens_saida": 113,
+      "duracao_s": 21.316
+     },
+     {
+      "id": "GS-Q063",
+      "valido": true,
+      "acerto": false,
+      "abstencao": false,
+      "citacoes": [
+       "cdc-art-42-pu",
+       "ren1000-art-342::p2"
+      ],
+      "tokens_saida": 189,
+      "duracao_s": 23.102
+     },
+     {
+      "id": "GS-Q066",
+      "valido": true,
+      "acerto": false,
+      "abstencao": false,
+      "citacoes": [
+       "ren1000-art-360::p2"
+      ],
+      "tokens_saida": 130,
+      "duracao_s": 19.434
+     },
+     {
+      "id": "GS-Q068",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 83,
+      "duracao_s": 7.285
+     },
+     {
+      "id": "GS-Q069",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 79,
+      "duracao_s": 7.06
+     },
+     {
+      "id": "GS-Q072",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 102,
+      "duracao_s": 8.052
+     },
+     {
+      "id": "GS-Q080",
+      "valido": true,
+      "acerto": true,
+      "abstencao": false,
+      "citacoes": [
+       "ren1000-art-343::p1"
+      ],
+      "tokens_saida": 83,
+      "duracao_s": 14.345
+     },
+     {
+      "id": "GS-Q087",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 85,
+      "duracao_s": 8.14
+     },
+     {
+      "id": "GS-Q091",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 157,
+      "duracao_s": 11.278
+     },
+     {
+      "id": "GS-Q109",
+      "valido": true,
+      "acerto": true,
+      "abstencao": true,
+      "citacoes": [],
+      "tokens_saida": 28,
+      "duracao_s": 17.367
+     },
+     {
+      "id": "GS-Q110",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 94,
+      "duracao_s": 8.301
+     },
+     {
+      "id": "GS-Q116",
+      "valido": true,
+      "acerto": true,
+      "abstencao": true,
+      "citacoes": [],
+      "tokens_saida": 52,
+      "duracao_s": 11.561
+     },
+     {
+      "id": "GS-Q117",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 194,
+      "duracao_s": 12.294
+     },
+     {
+      "id": "GS-Q119",
+      "valido": false,
+      "acerto": false,
+      "abstencao": null,
+      "citacoes": [],
+      "tokens_saida": 218,
+      "duracao_s": 13.677
+     }
+    ]
+   }
+  }
+ }
+}
