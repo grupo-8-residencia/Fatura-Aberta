@@ -4,6 +4,13 @@ Material de apoio à issue `#4` (S1-04). Serve para conduzir uma conversa **info
 de Direito e registrar o que ele disser. Nada aqui é parecer jurídico: tudo que depende da conversa
 está marcado como `TODO:` e só pode ser preenchido por quem participar dela.
 
+!!! info "Situação em 18/11/2026"
+    A conversa ainda não aconteceu. Previsão: até **27/11/2026** (fim da S5), junto com o Go condicional da
+    S1. Decisão técnica já tomada, a validar com o docente: a citação **literal** da norma, entre aspas e
+    com a referência canônica (ato, dispositivo e vigência), é **exceção** ao bloqueio do RF-15 (por
+    exemplo, "devolução em dobro" transcrito do art. 323, § 2º da REN 1.000/2021). Texto redigido pelo
+    sistema continua bloqueado.
+
 ## 1. Objetivo
 
 Validar, antes do MVP, a fronteira entre **informar** (conferir números e comparar com tabelas
@@ -66,7 +73,8 @@ Preencher a última coluna **durante ou depois** da conversa, com `validada`, `a
 ## 6. Expressões bloqueadas (RF-15)
 
 O verificador de linguagem (`fa_agentes.linguagem`) rejeita as expressões abaixo. Perguntar ao docente
-se a lista está completa ou se há termos a acrescentar ou retirar.
+se a lista está completa ou se há termos a acrescentar ou retirar, e se aceita a exceção da citação
+literal entre aspas (veja a situação acima).
 
 | Regra | Termos | Decisão do docente |
 |---|---|---|

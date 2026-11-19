@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | proposta |
+| **Status** | proposta (pendente; responsável: Natalia, F1; prazo: 27/11/2026, fim da S5, pelo Go condicional da S1) |
 | **Data** | TODO |
 | **Decisores** | TODO (F1, com Pedro como Tech Lead) |
 
