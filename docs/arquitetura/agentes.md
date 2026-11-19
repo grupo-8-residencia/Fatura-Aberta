@@ -95,7 +95,9 @@ da recalibração de 18/11, PR #162).
 ### Orquestrador (`orquestrador.py`)
 
 Coordena os agentes nas duas tarefas e registra cada passo no **rastro** (`Passo`: agente, ação,
-detalhe, duração), que volta na API e aparece na demonstração.
+detalhe, duração). O rastro volta na resposta de `POST /perguntar` e aparece na demonstração.
+`POST /analisar` não o devolve: a trilha da análise de fatura fica disponível em
+`Orquestrador.analisar_fatura`.
 
 **Política T5 (LLM como redator restrito):** se o Auditor barra o rascunho do Analista, o usuário
 recebe a **resposta extrativa do Pesquisador**, e não uma abstenção. Se o trecho literal da norma tiver
