@@ -141,6 +141,7 @@ nav:
       - "S2 — Primeiro mecanismo RAG": sprints/s2.md
       - "S3 — Avaliação comparativa LLM × RAG": sprints/s3.md
       - "S4 — Primeira versão multiagentes": sprints/s4.md
+      - "Relatório Multiagentes (S4)": sprints/relatorio-s4-multiagentes.md
       - "S5 — Processamento multimodal integrado": sprints/s5.md
       - "S6 — Aplicação funcional": sprints/s6.md
       - "S7 — Resultados, relatório e apresentação": sprints/s7.md
