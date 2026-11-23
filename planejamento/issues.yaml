@@ -126,19 +126,31 @@ issues:
 
   - id: S1-03
     titulo: Redigir o RIPD simplificado
-    sprint: S1
+    sprint: S6
     frente: F1
-    labels: [tipo:docs, prioridade:media]
+    labels: [tipo:docs, prioridade:alta, dados-pessoais]
     contexto: >-
       O Relatório de Impacto à Proteção de Dados simplificado documenta o tratamento de faturas
       (nome, endereço e número da instalação) e as medidas de mitigação.
+
+      Reaberta pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-024; RNF-01, REQ-GATE-S1).
+      O RIPD está "revisado pelo par; aguardando validações técnicas e jurídicas" e ainda tem
+      TODOs (canal dos titulares, permissões da pasta privada). RNF-01 exige RIPD aprovado. A
+      validação jurídica e a aprovação são externas à equipe técnica: a F1 coordena e registra,
+      e não emite parecer jurídico. Esforço estimado: P (a duração depende da validação
+      externa).
     tarefas:
       - "Definir as seções do RIPD simplificado (TODO: modelo a combinar com a F1)"
       - Preencher `docs/conformidade/ripd.md`
       - Revisão do par (Talita)
+      - "Fechar os TODOs do RIPD e da política de dados: canal dos titulares, permissões da pasta privada e informações de privacidade ao usuário"
+      - Encaminhar o RIPD para a validação jurídica e registrar o resultado
+      - Registrar a aprovação em `docs/conformidade/ripd.md`
     criterios:
       - "`docs/conformidade/ripd.md` preenchido, sem `TODO` nas seções obrigatórias"
       - PR aprovado pelo par de revisão
+      - "`docs/conformidade/ripd.md` com situação \"Aprovado\" e a validação jurídica referenciada (quem validou e quando)"
+      - "`docs/conformidade/politica-de-dados.md` sem `TODO` pendente da F1"
 
   - id: S1-04
     titulo: Registrar o parecer informal de docente de Direito sobre a fronteira jurídica
@@ -202,6 +214,9 @@ issues:
     contexto: >-
       O RAG só pode citar o que está inventariado. O inventário lista cada norma com a fonte
       oficial e o período de vigência de cada dispositivo relevante.
+
+      Nota (fechamento dos débitos S2/S3, 23/11/2026): documentos-fonte, dispositivos e chunks são
+      unidades diferentes; ver `docs/avaliacao/fechamento-debitos-s2-s3.md`.
     tarefas:
       - REN ANEEL 1.000/2021
       - PRODIST Módulo 8
@@ -714,9 +729,15 @@ issues:
       Gate da S3: resultados com intervalo de confiança. Resultado negativo também vale e deve
       ser reportado.
 
-      Estado verificado (23/11/2026): κ = 0,029 em 39 itens (0,164 após a recalibração e −0,136 na
-      metade retida); nenhum artefato do repositório registra κ = 0,79 ou 0,84, e os dois
-      anotadores concordam em 40 de 40 itens.
+      Atualizada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-014; REQ-MET-04). A
+      calibração mediu κ = 0,03 em 39 itens, abaixo do limiar de 0,75; o juiz não é usado nas
+      métricas finais. Falta registrar o pivot previsto no protocolo. Esforço estimado: P.
+
+      Fechamento dos débitos S2/S3 (23/11/2026): κ = 0,029 confirmado (0,164 após a recalibração e
+      −0,136 na metade retida). Nenhum artefato do repositório registra κ = 0,79 ou 0,84. Os dois
+      anotadores concordam em 40 de 40 itens e `juiz-40.csv` não guarda os vereditos do juiz, então
+      o κ humano × juiz só se reproduz rodando o juiz de novo. O juiz permanece fora da avaliação.
+
       Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): falta versionar os vereditos do
       juiz por item e registrar a decisão sobre o juiz, pois hoje o κ humano × juiz não se
       reproduz sem rodar o juiz de novo. O juiz continua fora da avaliação de qualidade.
@@ -724,31 +745,47 @@ issues:
       - Rodar B2 (LLM com RAG sem filtros de vigência)
       - Rodar B3 (LLM com RAG e filtros de vigência)
       - Anotar 40 itens humanos e calibrar o juiz LLM
+      - "Registrar a decisão do pivot: refinar a rubrica do juiz ou usar anotação humana direta"
       - Versionar em `juiz-40.csv` ou em artefato ao lado os vereditos do juiz por item, com prompt, modelo e digest
       - Registrar a decisão: refinar a rubrica do juiz com uma proposta de calibração metodologicamente adequada ou manter só a anotação humana como referência
     criterios:
       - Resultados de B2 e B3 com intervalo de confiança
-      - Concordância juiz × humano medida em 40 itens (TODO limiar mínimo)
+      - Concordância juiz × humano medida em 40 itens com limiar κ ≥ 0,75, conforme `docs/avaliacao/metricas.md`
       - Código e configuração das rodadas versionados
+      - Decisão do pivot do juiz registrada em `docs/avaliacao/`
       - O κ humano × juiz é recalculado por teste automatizado a partir de arquivos versionados
       - A decisão sobre o juiz está registrada em `docs/avaliacao/` e o juiz só volta a ser usado com κ ≥ 0,75 em dados não usados para ajustar o prompt
 
   - id: S3-03
     titulo: Implementar as checagens de nível B com a tabela ANEEL versionada
-    sprint: S3
+    sprint: S5
     frente: F3
     labels: [tipo:feature, prioridade:alta]
     contexto: >-
       O nível B compara TUSD+TE e bandeira com a tabela oficial versionada na S1. A saída sempre
       diz que "diverge da tabela oficial que conseguimos obter", com fonte e data.
+
+      Reaberta pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-002, EV-009, EV-035;
+      RF-09/10/11). As checagens existem e passam nos testes de unidade, mas os valores de
+      bandeira (REH ANEEL nº 3.316/2024) seguem como parâmetro do projeto "A verificar" e a
+      seleção da tarifa usa só o mês de referência, sem regra para o mês do reajuste (a tarifa
+      muda em 22/10/2026). A conexão ao /analisar é entregue em S6-05, que depende desta issue.
+      Decisão externa pendente: validação especializada dos valores de bandeira e da regra para
+      fatura cujo ciclo atravessa a data de reajuste (a equipe técnica não valida regra
+      regulatória). Esforço estimado: P.
     tarefas:
       - Checar TUSD+TE contra a tabela versionada
       - Checar a bandeira tarifária
       - Incluir fonte e data da tabela em todo achado de nível B
+      - Registrar em `dados/tarifas/README.md` e `dados/normas/README.md` o ato oficial, a vigência e a data de conferência de cada valor de bandeira
+      - Obter a validação especializada dos valores de bandeira e da regra para o mês de reajuste
+      - Cobrir com teste o mês 10/2026 (reajuste em 22/10) conforme a regra validada
     criterios:
       - Todo achado de nível B traz fonte e data da tabela
       - Testes unitários passando no CI
       - Nenhuma mensagem usa "ilegal" ou estima restituição
+      - Cada valor de bandeira tem ato oficial, vigência e data de conferência registrados, com a validação do especialista referenciada
+      - Fatura de 10/2026 produz abstenção ou o resultado definido pela regra validada, com teste automatizado
 
   - id: S3-04
     titulo: Ajustar a recuperação a partir dos erros da S3
@@ -797,8 +834,11 @@ issues:
       e fora do índice. A REH 3.316/2024 citada no planejamento não foi confirmada como ato da
       Neoenergia Brasília; as encontradas foram 3.276/2023, 3.406/2024 e 3.614/2026.
 
-      Estado verificado (23/11/2026): em origin/main o corpus tem 5 atos, 39 dispositivos e 78 chunks
-      (PR #139); o manifesto lista 25 atos, 17 deles `a_confirmar` e fora do índice.
+      Atualização (fechamento dos débitos S2/S3, 23/11/2026): em origin/main o corpus tem 5 atos, 39
+      dispositivos e 78 chunks (PR #139). O manifesto lista 25 atos, 17 deles `a_confirmar` e fora do
+      índice. Se o critério acadêmico de "20 documentos-fonte" contar atos oficiais distintos, 5 não
+      o atendem; a unidade do critério precisa ser confirmada com a coordenação antes de ampliar.
+
       Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): continuam pendentes a unidade do
       critério de documentos-fonte e a conferência dos 17 atos `a_confirmar` do manifesto, que
       seguem fora do índice. Responsável principal Luiz (F2, dono do corpus); colaboradora
@@ -887,16 +927,26 @@ issues:
     frente: F5
     labels: [tipo:experimento, prioridade:alta, gate]
     contexto: >-
-      Gate da S4: B5 deve ser pelo menos tão bom quanto B4 em afirmações sem suporte. Se não for,
-      B4 vira o produto e o achado entra no relatório.
+      Gate da S4: B5 deve ser pelo menos tão bom quanto B4 em afirmações sem suporte. Se não
+      for, B4 vira o produto e o achado entra no relatório.
+
+      Atualizada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-013; REQ-MET-03, REQ-
+      GATE-S4). O relatório S4 registra que o Auditor reduz afirmações sem suporte de 15,0% a
+      0%, mas perde 14,2 pontos de acerto; a decisão de 18/11/2026 adotou o T5 (4 agentes), e
+      não o B4. O 0% do B5 vale por construção, e não há métrica independente de suporte. Falta
+      alinhar o texto do gate e do critério à decisão. Esforço estimado: P.
     tarefas:
       - Rodar B4 e B5 no golden set
       - Fazer a ablação (com e sem Auditor)
       - Anotar as falhas
+      - Registrar a decisão T5 e o resultado negativo do B5
+      - Alinhar o gate da S4 em `planejamento/sprints.yaml` com a decisão (alteração a cargo de quem for dono desse arquivo)
     criterios:
-      - B5 ≥ B4 em afirmações sem suporte, com intervalo de confiança; ou decisão de adotar B4 registrada
+      - B5 ≥ B4 em afirmações sem suporte, com intervalo de confiança; ou decisão registrada de adotar B4 ou o T5, com o resultado do B5
       - Falhas anotadas em `docs/avaliacao/`
       - Código e configuração das rodadas versionados
+      - O gate em `planejamento/sprints.yaml` e `docs/avaliacao/relatorio-s4.md` descrevem a mesma decisão
+      - O relatório informa que a métrica de afirmações sem suporte é determinística e não independente
 
   - id: S4-03
     titulo: Criar a ferramenta de busca com citação para os agentes
@@ -941,9 +991,14 @@ issues:
       O extrator padrão (hashing) só captura sobreposição de palavras. O protocolo `Embedder` já
       aceita um modelo multilíngue pt-BR sem mudar o resto do pacote, mas nenhum foi medido.
 
-      Evidência parcial (23/11/2026): `avaliacao/resultados/s2s3-embedders.json`, no híbrido do split
-      de teste, recall@5 0,990 contra 1,000, MRR 0,902 contra 0,925 e latência por consulta cerca de
-      140 vezes maior (143 ms contra 1 ms).
+      Evidência parcial (fechamento dos débitos S2/S3, 23/11/2026): o `bge-m3` (Ollama local, MIT,
+      1024 dimensões) foi medido no split de teste do golden set contra o hashing, em
+      `avaliacao/resultados/s2s3-embedders.json`. No híbrido, recall@5 foi 0,990 contra 1,000, MRR
+      0,902 contra 0,925 e latência por consulta cerca de 140 vezes maior (143 ms contra 1 ms). O
+      ganho é pequeno e sem teste pareado, então o hashing segue como padrão. Falta o que o
+      experimento não cobriu: teste pareado, uso de RAM e um modelo pt-BR além do `bge-m3`. A issue
+      continua aberta; o trabalho vive no worktree de origin/main, sem commit.
+
       Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): o bge-m3 já foi comparado ao
       hashing, mas falta teste pareado, uso de RAM e um segundo modelo pt-BR para fechar a
       decisão. Responsável principal Luiz (F2); colaborador Pedro (F5, avaliação). O hashing
@@ -987,11 +1042,25 @@ issues:
     contexto: >-
       A foto é processada por um VLM local. O usuário confirma os campos extraídos antes da
       análise, e a PII é anonimizada antes de qualquer registro.
+
+      Reescopada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-007; REQ-MET-05). Hoje
+      só existe o protocolo `ExtratorDeFoto` e dublês de teste: não há extrator de produção. A
+      decisão entre VLM local e o pivot OCR + formulário de confirmação (gate de S5-02) é do
+      time e ainda não foi tomada. Esta issue só segue o caminho do VLM se a decisão for essa;
+      se for o pivot, reescopar para o formulário e não implementar os dois caminhos. Esforço
+      estimado: G (somente se VLM).
+
+      Decisão de pivot (revisão multimodal de 23/11/2026): o entregável acadêmico da S5 usa
+      Texto + PDF digital; imagem/VLM fica FORA desse entregável. Isto não cumpre nem elimina o
+      gate original: esta issue segue aberta para a conclusão geral do produto e não está
+      comprovada por Texto + PDF.
     tarefas:
+      - Registrar a decisão VLM local ou pivot OCR + formulário (F4 com a F5), antes de implementar
       - Extrair os campos da foto com VLM local
       - Implementar a confirmação de campos pelo usuário
       - Anonimizar PII antes de qualquer log ou armazenamento
     criterios:
+      - A decisão (VLM ou pivot) está registrada em `docs/avaliacao/` antes da implementação
       - Foto sintética gera `Fatura` validada pelo contrato
       - Nenhum dado pessoal em logs ou armazenamento (verificado em teste)
       - Análise só começa depois da confirmação do usuário
@@ -1000,53 +1069,195 @@ issues:
     titulo: Medir a acurácia por campo em 40 fotos
     sprint: S5
     frente: F4
+    responsaveis: [Maria Eduarda, Pedro]
     labels: [tipo:experimento, prioridade:alta, gate]
     contexto: >-
       Gate da S5: acerto de pelo menos 90% nos campos-chave. Se falhar, o plano de contingência
       é OCR mais formulário de confirmação.
+
+      Atualizada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-007; REQ-MET-05,
+      REQ-F4-001 a REQ-F4-003). As metas por campo de `docs/frentes/f4.md` são propostas e
+      dependem de acordo com a F5; fotos reais não entram no Git, então a medição usa fotos
+      sintéticas ou anonimizadas e isso deve ser declarado no resultado. Esforço estimado: M.
+
+      Decisão de pivot (revisão multimodal de 23/11/2026): o entregável acadêmico da S5 usa
+      Texto + PDF digital; imagem/VLM fica FORA desse entregável. Isto não cumpre nem elimina o
+      gate original: esta issue segue aberta para a conclusão geral do produto e não está
+      comprovada por Texto + PDF.
+      A meta de 90% NÃO foi medida; não declarar atingida sem medição.
     tarefas:
-      - "Definir os campos-chave (TODO)"
+      - Definir os campos-chave e as metas por campo com a F5 (proposta em `docs/frentes/f4.md`)
       - Reunir 40 fotos com gabarito
       - Medir a acurácia por campo
     criterios:
       - ≥ 90% de acerto nos campos-chave em 40 fotos; ou decisão de usar OCR + formulário registrada
       - Resultado por campo publicado em `docs/avaliacao/`
       - Nenhuma foto real no repositório
+      - A limitação de medir apenas fotos sintéticas ou anonimizadas está declarada no resultado
 
   - id: S5-03
-    titulo: Testar injeção de prompt via imagem
+    titulo: Testar injeção de prompt via documentos (texto extraído de PDF, pergunta e imagem)
     sprint: S5
     frente: F6
-    labels: [tipo:experimento, prioridade:media]
+    responsaveis: [Raissa, Pedro]
+    labels: [tipo:experimento, prioridade:alta]
     contexto: >-
       Texto dentro de uma imagem pode tentar instruir o modelo. A F6 verifica o risco e as
       mitigações.
+
+      Reescopada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-025; RNF-03, REQ-
+      MET-06). A bateria atual tem 3 casos de texto e o teste só verifica quatro frases literais
+      depois da higienização; a taxa de sucesso do ataque não é medida. RNF-03 exige taxa abaixo
+      de 5% em 10 faturas maliciosas. Esforço estimado: M.
+
+      Revisão multimodal (23/11/2026): o foco passa a ser o fluxo Texto + PDF do entregável
+      da S5. Vetores prioritários: conteúdo hostil na camada de texto de um PDF digital e no
+      campo de pergunta; o vetor imagem continua no conjunto, mas só exercita o extrator quando
+      S5-01 existir. Responsável principal Raissa (F6, segurança da API); colaborador Pedro
+      (F5, agentes e avaliação). Depende de S6-06.
     tarefas:
       - Montar um conjunto de imagens de ataque sintéticas
       - Rodar contra o pipeline de extração e os agentes
       - Registrar os resultados e as mitigações
+      - Ampliar o conjunto para 10 faturas maliciosas (texto e imagem), incluindo conteúdo hostil em trecho recuperado pelo RAG
+      - Medir a taxa de sucesso do ataque sobre o fluxo completo (extração, motor, agentes e veredito)
+      - Incluir PDFs sintéticos com texto hostil na camada de texto e perguntas hostis, passando pelos endpoints de upload e de pergunta
     criterios:
-      - "Conjunto de ataques versionado (3 casos sintéticos em dados/benchmark/sinteticas/ataques-injecao/)"
+      - Conjunto de ataques versionado com 10 faturas maliciosas em `dados/benchmark/sinteticas/ataques-injecao/`, ao menos 3 como PDF digital sintético e 2 como pergunta hostil
       - Resultados documentados em `docs/`
       - Cada falha com mitigação implementada ou risco aceito registrado
+      - Taxa de sucesso do ataque abaixo de 5% nas 10 faturas (RNF-03), ou risco aceito registrado com a taxa medida
+
+  - id: S5-04
+    titulo: Incluir `dados/` na imagem da API e cobrir /analisar com agentes no smoke do CI
+    sprint: S5
+    frente: F6
+    responsaveis: [Raissa]
+    labels: [tipo:infra, prioridade:alta]
+    contexto: >-
+      O Dockerfile da API copia só `packages/` e `apps/api/` e o `.dockerignore` exclui `dados`,
+      mas o RAG carrega `dados/normas/corpus_b1.json` por caminho relativo à raiz do repositório
+      e o nível B lerá `dados/tarifas`. Numa simulação do layout da imagem, /analisar perde as
+      explicações (aviso "agentes indisponíveis") e /perguntar levanta FileNotFoundError; o
+      smoke do CI só consulta /saude. Evidência: EV-004 (`infra/Dockerfile.api:L45-L46`,
+      `.dockerignore:L17`, `packages/rag/src/fa_rag/corpus.py:L16-L18`). Requisitos: RF-12,
+      RF-13, RNF-07. Prioridade alta (P1): critério de aceite sem demonstração no modo Docker.
+
+      Dependências: nenhuma. Destrava S6-05, S6-06, S6-03 e S6-02. Fora de escopo: deploy
+      público e readiness (S6-02) e persistência. Esforço estimado: P (até 1 dia).
+    tarefas:
+      - Remover `dados` do `.dockerignore` e copiar `dados/normas` e `dados/tarifas` para a imagem, com dono não-root
+      - Acrescentar ao smoke do job Runtime uma chamada a /analisar com consumo divergente e outra a /perguntar, falhando se o aviso indicar agentes indisponíveis
+      - Rodar `docker build` e o smoke localmente e conferir a lista de arquivos da imagem
+      - Atualizar `docs/operacao/deploy-observabilidade-carga.md` se a lista de arquivos da imagem mudar
+      - Copiar também `packages/extracao` para o runtime e incluir no smoke um upload de PDF sintético (coordenar com S6-06; necessário se a demo rodar em containers)
+    criterios:
+      - Em container, POST /analisar com consumo divergente devolve explicação de nível C com citação e `aviso` nulo
+      - Em container, POST /perguntar devolve 200 com citação
+      - Com `dados/` removido da imagem, o smoke do CI falha (demonstrado em uma execução de teste)
+      - Nenhuma fatura real entra na imagem (`scripts/bloquear_binarios.py` continua verde)
+      - PR aprovado pelo par de revisão
+
+  - id: S5-05
+    titulo: Integrar Texto + PDF na mesma análise e testar o fluxo multimodal
+    sprint: S5
+    frente: F5
+    responsaveis: [Pedro, Talita]
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      Entregável acadêmico da S5: assistente multimodal com duas modalidades integradas. Os
+      dados do PDF confirmado (S6-06, S6-01) e a pergunta em texto precisam alimentar a mesma
+      tarefa: análise de inconsistências com explicação fundamentada, citações quando houver
+      e abstenção quando os dados forem insuficientes. Um teste unitário do parser não comprova
+      suporte multimodal no produto.
+
+      Responsável principal Pedro (F5, agentes/RAG e avaliação); colaboradora Talita (F3, uso
+      do resultado do motor). Dependências: S6-06 e S5-04; consome a tela de S6-01. Esforço
+      estimado: M. Fora de escopo: áudio, vídeo, imagem/VLM e nível B completo (NEW-002).
+
+      Verificado em origin/main (0bcc076, após git fetch em 23/11/2026): já existe `POST
+      /perguntar` em `apps/api/src/fa_api/main.py` e ainda não existe upload de PDF; esta
+      issue reutiliza `/perguntar` em vez de criar outro endpoint de pergunta. Esta branch
+      precisa de rebase em origin/main antes da implementação.
+    tarefas:
+      - Definir o pedido combinado (campos confirmados do PDF mais pergunta em texto) com a F6, sem alterar `packages/contratos` sem as aprovações exigidas
+      - Fazer a resposta usar o resultado do motor sobre os dados confirmados e a pergunta, com citações e abstenção por dados insuficientes
+      - Garantir que falha de extração ou indisponibilidade dos agentes devolva mensagem clara, sem conclusão inventada
+      - Escrever testes de integração - texto sozinho, PDF digital sintético, Texto + PDF, PDF inválido, PDF sem camada de texto, campo extraído errado e corrigido, processamento indisponível
+    criterios:
+      - Texto + PDF sintético produz uma resposta que cita pelo menos um campo vindo do PDF e a pergunta enviada (teste automatizado)
+      - Dados insuficientes resultam em abstenção explícita (teste)
+      - Os 7 cenários de integração listados nas tarefas passam no CI
+      - Nenhuma saída contém termo proibido pelo RF-15
+      - PR aprovado pelo par de revisão
+
+  - id: S5-06
+    titulo: Documentar modalidades, limitações e falhas e preparar a demonstração reproduzível
+    sprint: S5
+    frente: F5
+    responsaveis: [Pedro, Raissa]
+    labels: [tipo:docs, prioridade:alta]
+    contexto: >-
+      A entrega acadêmica exige modalidades documentadas, limitações, casos de falha com
+      mitigação e uma demonstração funcional com evidências. A demo usa apenas dados sintéticos,
+      sem fatura real nem PII.
+
+      Responsável principal Pedro (F5); colaboradora Raissa (F6, ambiente e containers).
+      Dependências: S5-05, S6-01, S6-06 e S5-04 (se a demo rodar em containers). Esforço
+      estimado: P (1 a 2 dias). Só fecha com o fluxo implementado e demonstrado, não apenas
+      descrito.
+    tarefas:
+      - Documentar em `docs/` as modalidades suportadas (texto e PDF digital), formatos e limites de entrada, etapas e componentes de extração
+      - Documentar limitações (PDF escaneado e imagem não suportados), casos de falha, mitigações, privacidade e tratamento de dados
+      - Versionar o PDF sintético, a pergunta textual e o roteiro da demonstração
+      - Capturar telas do fluxo e o registro dos testes executados (vídeo curto se viável)
+    criterios:
+      - O documento lista modalidades suportadas e não suportadas, limites, limitações, falhas e mitigações
+      - Seguindo apenas o roteiro, outra pessoa reproduz a demo com o PDF sintético e a pergunta em ambiente limpo
+      - As evidências (telas, PDF sintético, pergunta, resultado, log dos testes) estão registradas e sem PII
+      - A decisão de deixar imagem/VLM fora do entregável e os gates S5-01 e S5-02 pendentes estão registrados
 
   # ------------------------------------------------------------------ S6
   - id: S6-01
     titulo: Construir o web app com o cartão de decisão
-    sprint: S6
+    sprint: S5
     frente: F6
+    responsaveis: [Raissa, Maria Eduarda]
     labels: [tipo:feature, prioridade:alta]
     contexto: >-
       O cartão de decisão mostra, item por item, se a cobrança confere, com o nível de evidência
       (A, B ou C) visível e a citação com vigência.
+
+      Reaberta pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-001, EV-021, EV-023;
+      RF-01/02, RF-03, RF-14). O cartão e a confirmação de campos existem, mas a tela de envio
+      de PDF ou foto não existe: a UI só tem entrada manual, abre com dados de exemplo e trata
+      qualquer falha da API como erro genérico. Esta issue é a interface e o fluxo do usuário; o
+      backend de upload e extração é S6-06 e os campos de alíquota e bandeira são S6-05 (não
+      duplicar). Dependências: S6-06 e S6-05. A foto depende da decisão VLM ou OCR + formulário
+      (S5-01). Esforço estimado: M.
+
+      Antecipada de S6 para S5 pela revisão multimodal (23/11/2026): interface de envio,
+      confirmação e correção do PDF mais o campo de pergunta em texto. Nesta antecipação a foto
+      fica fora (S5-01 não é pré-requisito). Responsável principal Raissa (F6); colaboradora
+      Maria Eduarda (F4, campos e mensagens de falha da extração).
     tarefas:
       - Tela de envio de PDF ou foto
-      - Tela de confirmação de campos
+      - Tela de confirmação de campos, com correção de qualquer campo extraído
+      - Campo de pergunta em linguagem natural enviado junto com os dados confirmados
       - Cartão de decisão com nível A/B/C e citações
+      - Consumir o endpoint de upload de S6-06 e preencher a confirmação com os campos extraídos (a entrada manual continua como alternativa)
+      - Rotular os dados de exemplo como exemplo ou removê-los do estado inicial
+      - Aplicar timeout e cancelamento ao fetch e mensagens distintas para erros 4xx e 5xx
     criterios:
       - Cada item exibe nível, descrição e citação com vigência
       - Nenhum texto afirma "ilegal" nem estima restituição
       - Fluxo completo exercitado por pelo menos 1 cenário ponta a ponta
+      - Enviar um PDF sintético válido preenche a confirmação e, após confirmar, exibe o cartão de decisão
+      - Corrigir um campo extraído incorretamente altera o resultado exibido
+      - PDF inválido, sem texto ou API indisponível exibem mensagem clara e oferecem a entrada manual, sem conclusão inventada
+      - PDF rejeitado pela API (tipo, tamanho ou páginas) mostra mensagem específica sem perder os dados digitados
+      - Falha de rede ou timeout mostra estado de erro com opção de tentar novamente
+      - Dados de exemplo, se mantidos, aparecem rotulados como exemplo
 
   - id: S6-02
     titulo: Publicar o deploy, a observabilidade e o teste de carga leve
@@ -1056,14 +1267,32 @@ issues:
     contexto: >-
       A aplicação precisa estar no ar, ser observável sem registrar dados pessoais e resistir a
       uma carga leve de uso.
+
+      Atualizada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-031, EV-004; RNF-06,
+      RNF-07). `/saude` só indica que o processo está vivo e `/metricas` só expõe contagem e
+      média; não há p95 nem duração por etapa, e o deploy público não existe. Depende de S5-04
+      (imagem completa). A conexão com o nível B (S6-05) e o upload (S6-06) ampliam as etapas
+      medidas. Esforço estimado: M.
+
+      Atualizada pela auditoria de dívida técnica do relatório S4 (TD-06; §2.6, §4.4): em
+      origin/main, `/analisar` descarta o `Rastro` do orquestrador e só `/perguntar` o expõe;
+      não existe duração por agente fora dessa resposta. A observabilidade por agente entra
+      aqui, correlacionada ao request-id de S6-08, sem mudar o contrato HTTP de `/analisar` e
+      sem expor conteúdo de fatura. A latência em si (timeouts) é tratada em S6-11.
     tarefas:
       - Publicar o deploy
       - Configurar logs e métricas sem PII
       - Executar e documentar o teste de carga leve
+      - Acrescentar readiness que falha quando o corpus não carrega
+      - Expor p95 e duração por etapa (extração, motor, RAG e agentes) em /metricas, sem conteúdo de fatura
+      - Registrar em log estruturado, com o request-id de S6-08, a duração e a origem (LLM ou fallback T5) de cada agente de /analisar, a partir do `Rastro` que hoje é descartado
     criterios:
       - Aplicação acessível por URL pública
       - Logs revisados sem dados pessoais
       - "Teste de carga leve documentado e meta aceita pela equipe: 100 requisições, 5 simultâneas, 100% HTTP 200 e p95 ≤ 2 s com a aplicação ativa"
+      - O endpoint de readiness devolve 503 quando o corpus não carrega (teste)
+      - /metricas informa p95 e duração por etapa e nenhum campo de fatura (teste)
+      - Uma chamada a /analisar gera log por agente com request-id, duração e origem, sem texto de fatura (teste com caplog)
 
   - id: S6-03
     titulo: Automatizar 5 cenários ponta a ponta
@@ -1072,12 +1301,25 @@ issues:
     labels: [tipo:feature, prioridade:alta, gate]
     contexto: >-
       Gate da S6: 5 cenários ponta a ponta passando e CI verde.
+
+      Reescopada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-032, EV-033; REQ-
+      GATE-S6). Os 5 cenários atuais chamam /analisar e conferem só consumo e total; não cobrem
+      ICMS, parcela de 80 kWh, nível B, upload nem container, e nenhum teste varre a linguagem
+      do motor (RF-15). Dependências: S6-05, S6-06 e S5-04. Esforço estimado: M.
     tarefas:
-      - "Definir os 5 cenários (implementados em tests/e2e/test_cinco_cenarios.py)"
+      - Definir os 5 cenários (hoje em tests/e2e/test_cinco_cenarios.py)
       - Automatizar no CI
+      - Ampliar os cenários para ICMS, parcela de 80 kWh e nível B (S6-05)
+      - Incluir ao menos 1 cenário que parte de um PDF sintético (S6-06) e 1 que roda no container da API (S5-04)
+      - Incluir 1 cenário multimodal automatizado: PDF sintético + pergunta textual na mesma análise, e 1 com campo do PDF corrigido pelo usuário
+      - Varrer automaticamente as saídas do motor e do nível B com o verificador de linguagem (RF-15)
     criterios:
       - 5 cenários ponta a ponta passando no CI
       - CI verde na `main`
+      - Os cenários cobrem consumo, total, ICMS, parcela de 80 kWh e nível B
+      - Ao menos 1 cenário percorre o upload de PDF sintético e 1 usa a imagem da API
+      - Existe teste automatizado Texto + PDF que verifica que a resposta usa campos do PDF e a pergunta
+      - Nenhuma saída do motor ou do nível B contém termo proibido pelo RF-15 (teste automatizado)
 
   - id: S6-04
     titulo: Redigir a minuta de pedido à distribuidora em linguagem de evidência
@@ -1093,6 +1335,272 @@ issues:
     criterios:
       - Minuta publicada em `docs/` sem as palavras "ilegal" e "restituição"
       - Revisada quanto à fronteira jurídica (TODO: revisor a definir)
+
+  - id: S6-05
+    titulo: Conectar o nível B ao /analisar e integrar os campos tarifários na confirmação
+    sprint: S6
+    frente: F3
+    responsaveis: [Talita, Raissa]
+    labels: [tipo:feature, prioridade:alta]
+    contexto: >-
+      `analisar_nivel_b` não tem chamador em produção e a interface não envia alíquota de ICMS,
+      bandeira nem grupo tarifário, então RF-07 e RF-09/10/11 não são demonstráveis pela UI.
+      Evidência: EV-002, EV-003 e EV-035 (`packages/motor/src/fa_motor/nivel_b.py:L586-L599`,
+      `apps/web/app/lib/api.ts:L103-L118`). Requisitos: RF-07, RF-09/10/11, REQ-MET-09.
+      Prioridade alta (P1): Must sem demonstração.
+
+      Dependências: S3-03 (checagens, valores de bandeira e regra do mês de reajuste validados)
+      e S5-04 (imagem com `dados/tarifas`). Não duplicar S3-03 (checagens) nem S6-01 (tela de
+      confirmação: aqui entram só os campos de alíquota e bandeira). Decisão externa: os valores
+      de bandeira e a regra do mês de reajuste dependem de validação especializada (S3-03).
+      Esforço estimado: M (2 a 3 dias).
+    tarefas:
+      - Chamar `analisar_nivel_b` em POST /analisar e anexar os achados à resposta, com abstenção quando faltar tabela ou vigência
+      - Adicionar à confirmação de campos os campos de alíquota de ICMS e de bandeira e enviá-los em `montarFatura`
+      - Aplicar a regra do mês de reajuste validada em S3-03 (abstenção até a regra existir)
+      - "Testes de API: TUSD ou TE divergentes, bandeira divergente, fatura sem alíquota e fatura de 10/2026"
+      - Aplicar o verificador de linguagem às saídas de nível B
+    criterios:
+      - POST /analisar com TUSD ou TE divergentes da tabela devolve achado de nível B com citação (fonte, data, versão e vigência)
+      - Fatura sem alíquota abstém-se no ICMS; com alíquota, o ICMS é conferido
+      - Fatura de 10/2026 devolve abstenção explícita ou o resultado definido pela regra validada em S3-03, com teste
+      - A UI exibe os campos de alíquota e bandeira e o cartão de nível B em um cenário automatizado
+      - Nenhuma saída de nível B contém termo proibido pelo RF-15 (teste)
+      - PR aprovado pelo par de revisão
+
+  - id: S6-06
+    titulo: Receber o PDF da fatura na API com validação, limites e extração
+    sprint: S5
+    frente: F6
+    responsaveis: [Raissa, Maria Eduarda]
+    labels: [tipo:feature, prioridade:alta, dados-pessoais]
+    contexto: >-
+      A API só recebe `Fatura` em JSON; `fa_extracao` não é importado por código de produção e a
+      imagem da API não copia `packages/extracao`. Evidência: EV-001 e EV-006
+      (`apps/api/src/fa_api/main.py:L143-L175`,
+      `packages/extracao/src/fa_extracao/pdf.py:L12-L23`). Requisitos: RF-01/02, RF-03, RNF-01,
+      RNF-06. Prioridade alta (P1): Must sem demonstração.
+
+      Esta issue é só o backend (endpoint, validação e extração); a tela de envio é S6-01, que
+      consome este endpoint. Dependências: S2-06 (parser de PDF) e S5-04. Foto e VLM ficam em
+      S5-01. Decisões pendentes do time: manter ou cortar o upload de PDF (se cortar, atualizar
+      RF-01/02 e RF-03 e esta issue sai do escopo) e os limites de tamanho e de páginas, que
+      esta issue não define. Esforço estimado: M (2 a 3 dias).
+
+      Antecipada de S6 para S5 pela revisão multimodal (23/11/2026): é o caminho crítico do
+      entregável Texto + PDF. Reutiliza `parse_pdf` (S2-06, já concluída) sem reimplementar o
+      parser. Divergência M/G da auditoria resolvida em M: endpoint com validação e testes
+      sobre parser existente; G só valeria com VLM/OCR, que está fora. Se passar de 5 dias,
+      separar validação/limites do endpoint de extração. Responsável principal Raissa (F6, API
+      e imagem); colaboradora Maria Eduarda (F4, parser e PDF sem texto). Limitação aceita:
+      somente PDF digital com camada de texto.
+    tarefas:
+      - Endpoint de upload de PDF com validação por assinatura do arquivo, tamanho máximo e limite de páginas, sem gravar em disco
+      - Chamar `parse_pdf` e devolver os campos extraídos para confirmação; a análise só roda após a confirmação
+      - Devolver erro orientando a entrada manual quando o PDF não tem camada de texto
+      - Copiar `packages/extracao` para a imagem da API
+      - Testes com PDF sintético válido, inválido, grande e sem texto, e teste de ausência de PII em log
+    criterios:
+      - PDF sintético válido gera campos confirmáveis e, depois da confirmação, a análise de nível A (teste de API)
+      - Arquivo que não é PDF, acima do tamanho máximo ou acima do limite de páginas é rejeitado com status 4xx e mensagem clara (testes)
+      - PDF sem camada de texto devolve erro orientando a entrada manual, sem stacktrace
+      - Nenhum dado pessoal em logs nem em disco (teste com caplog)
+      - Os limites adotados pela equipe estão registrados na documentação da API
+      - PR aprovado pelo par de revisão
+
+  - id: S6-07
+    titulo: Cobrir com testes automatizados as regras críticas do frontend
+    sprint: S6
+    frente: F6
+    responsaveis: [Raissa]
+    labels: [tipo:infra, prioridade:media]
+    contexto: >-
+      `apps/web` não tem testes: lint, tsc e build são os únicos guardas das regras que definem
+      o valor enviado à API e o rótulo exibido (`numeroParaApi`, `mesParaApi`, validação,
+      `montarDecisoes`, `resultadoDe`). Evidência: EV-019 (`apps/web/package.json:L8-L14`,
+      `apps/web/app/lib/api.ts:L103-L118`). Requisitos: RF-14, RF-03. Prioridade média (P2):
+      reduz risco de regressão sem bloquear requisito.
+
+      Dependência: S6-01. Não confundir com o teste de contrato (S7-06). Esforço estimado: M (2
+      a 3 dias).
+    tarefas:
+      - Adicionar um executor de testes ao `apps/web` (a escolha é da equipe)
+      - Testar `numeroParaApi`, `mesParaApi` e a validação dos campos
+      - Testar `montarDecisoes` e `resultadoDe` com achado divergente, compatível, abstenção e referência normativa
+      - Executar os testes no job Frontend do CI
+    criterios:
+      - Os testes cobrem "1.234,56", "14.512", o mês "10/2026" e itens com e sem tarifa
+      - Um achado divergente, um compatível e uma abstenção produzem os rótulos esperados
+      - O job Frontend do CI executa os testes e falha se eles falharem
+
+  - id: S6-08
+    titulo: Aplicar limites de entrada, rate limit, request-id e headers de segurança
+    sprint: S6
+    frente: F6
+    responsaveis: [Raissa]
+    labels: [tipo:infra, prioridade:media]
+    contexto: >-
+      Não há limite de itens ou de corpo, rate limit, request-id nem CSP, e /perguntar só trata
+      `TimeoutError`. Evidência: EV-005 e EV-027 (`apps/api/src/fa_api/main.py:L178-L204`,
+      `apps/web/next.config.ts:L3-L5`). Requisitos: RNF-03, RNF-07. Prioridade média (P2): hoje
+      a API fica em 127.0.0.1.
+
+      Dependência: S6-06 para os limites de arquivo; os demais itens são independentes. Os
+      valores dos limites são decisão do time. Não duplicar o deploy e os logs de S6-02. Esforço
+      estimado: M (2 a 3 dias).
+    tarefas:
+      - Limitar o número de itens e o tamanho do corpo em /analisar, com valores definidos pela equipe
+      - Rate limit configurável por variável de ambiente
+      - Request-id em cada requisição e nos logs, sem conteúdo de fatura
+      - Headers de segurança e CSP no `next.config.ts`
+      - Tratar exceções de /perguntar sem vazar detalhes
+    criterios:
+      - Corpo ou lista acima do limite configurado devolve 413 ou 422 (teste)
+      - Excesso de requisições devolve 429 (teste)
+      - O log de uma requisição contém o request-id e nenhum campo de fatura (teste)
+      - A resposta do web inclui CSP e X-Content-Type-Options
+      - Falha inesperada em /perguntar devolve JSON de erro sem traceback (teste)
+
+  - id: S6-09
+    titulo: Fixar a política de fim de linha e tornar o checksum do golden set reproduzível entre sistemas
+    sprint: S6
+    frente: F5
+    responsaveis: [Pedro, Luiz]
+    labels: [tipo:infra, prioridade:media]
+    contexto: >-
+      Origem: relatório S4 (§5.2 F1 a F4, §5.7 item 1, risco R3). Com `core.autocrlf=true` o
+      índice guarda LF e o disco CRLF; o SHA-256 de `dados/golden-set/perguntas.jsonl` diverge
+      de `checksums.sha256` e 4 testes falham.
+
+      Causa-raiz confirmada em origin/main (0bcc076): não existe `.gitattributes` e
+      `scripts/gerar_golden_set.py:194` faz o hash dos bytes brutos de cada arquivo
+      (`read_bytes`); os testes de `tests/scripts/test_gerar_golden_set.py` e
+      `test_kit_anotacao.py` dependem desses bytes. O problema não reproduz em macOS ou Linux
+      com checkout padrão, mas reaparece em qualquer clone com conversão de fim de linha.
+
+      Impacto: o golden set é o gabarito de todas as rodadas; checksum que depende da
+      configuração do Git de cada pessoa compromete a reprodutibilidade dos resultados.
+      Fora de escopo: alterar o conteúdo do golden set ou regerar seus checksums.
+      Esforço estimado: M. Responsável principal Pedro (F5, dono do golden set); colaborador
+      Luiz (F4 e dono do corpus em `dados/`, política de dados versionados). Depende de nada; o job de CI novo usa a
+      matriz de S6-10 se ela existir.
+    tarefas:
+      - Declarar em `.gitattributes` a política de fim de linha (LF) para `dados/golden-set/` e para os demais arquivos de dados verificados por checksum
+      - Confirmar com `git ls-files --eol` e uma renormalização de teste (sem commitar) que o conteúdo do golden set não muda
+      - Fazer o teste de integridade falhar com mensagem que cite a política de fim de linha quando o hash divergir por CRLF
+      - Garantir no CI a verificação de `checksums.sha256` e documentar a política no guia de contribuição
+    criterios:
+      - A política está declarada em `.gitattributes` no repositório
+      - O conteúdo semântico do golden set e o `checksums.sha256` ficam inalterados
+      - Um clone com `core.autocrlf=true` valida os checksums (demonstrado em teste ou em job de CI)
+      - Nenhum teste depende de conversão implícita de fim de linha
+      - O CI valida a integridade do golden set
+      - Revisado pelo Luiz e CI verde
+
+  - id: S6-10
+    titulo: Definir a matriz de sistemas suportados e tornar scripts e testes portáveis
+    sprint: S6
+    frente: F6
+    responsaveis: [Maria Eduarda, Pedro]
+    labels: [tipo:infra, prioridade:media]
+    contexto: >-
+      Origem: relatório S4 (§3.2, §4.3, §5.1, §5.2 F5, §5.7 itens 2 e 4, risco R3).
+      `scripts/demonstrar_multiagentes.py` falha com `UnicodeEncodeError` no console cp1252
+      sem `PYTHONUTF8=1`, e `test_trava_de_processo_morto_e_descartada` falhou no Windows com
+      `OSError: [WinError 87]`, causa não investigada no relatório.
+
+      Causa-raiz confirmada em origin/main (0bcc076): o demo imprime "→" e acentos
+      (`scripts/demonstrar_multiagentes.py:161-185`) sem configurar a codificação do stdout; o
+      teste (`tests/avaliacao/test_rodada_s3.py:321-325`) grava o PID 999999999 e o código
+      (`avaliacao/rodada_s3.py`, sonda com `os.kill(pid, 0)`) trata só `ValueError`,
+      `ProcessLookupError` e `PermissionError`; no Windows um PID inválido levanta `OSError`
+      genérico. O CI roda apenas em `ubuntu-latest` e não há matriz de sistemas documentada.
+
+      Antes de corrigir, a equipe decide o suporte oficial (Windows é ambiente de parte da
+      equipe?). Se Windows não for suportado, documentar a decisão e a justificativa e manter
+      o teste ativo no Linux e no macOS, sem desabilitá-lo. Esforço estimado: M. Responsável
+      principal Maria Eduarda (F6, par da frente: CI e scripts); colaborador Pedro (F5, código
+      da rodada e do demo).
+    tarefas:
+      - Registrar a decisão sobre os sistemas oficialmente suportados e documentar a matriz (docs/operacao)
+      - Configurar a saída UTF-8 do demo sem exigir `PYTHONUTF8=1`, sem remover os caracteres informativos
+      - Investigar e registrar a causa-raiz do `WinError 87`, tratando o `OSError` da sonda de processo de forma explícita no código e distinguindo erro ambiental de processo morto
+      - Garantir que o teste de processo morto não deixe processo órfão
+      - Se Windows for suportado, acrescentar um job mínimo ao CI e rodar esses testes lá; caso contrário, registrar que não é
+    criterios:
+      - A matriz de sistemas suportados está documentada com a justificativa
+      - O demo roda em terminal cp1252 sem `PYTHONUTF8=1` e continua rodando em Linux, com teste automatizado do encoding
+      - A causa-raiz do `WinError 87` está documentada e o teste de processo morto passa de forma determinística nos sistemas suportados
+      - Nenhum processo órfão após a execução (verificado no teste)
+      - Nenhum teste foi desabilitado ou ignorado para passar
+      - Revisado por Pedro e CI verde
+
+  - id: S6-11
+    titulo: Alinhar timeouts e liberar recursos do pipeline multiagentes, com medição de latência
+    sprint: S6
+    frente: F6
+    responsaveis: [Raissa, Pedro]
+    labels: [tipo:infra, prioridade:alta]
+    contexto: >-
+      Origem: relatório S4 (§3.5, §3.7, §4.3, §5.7 item 5, risco R2). Latência média de
+      15,04 s por chamada LLM nas perguntas e 15,69 s nas faturas, acima do timeout de 15 s da
+      API; a decisão foi medir em produção e ajustar `FA_AGENTES_TIMEOUT_S`.
+
+      Evidência em origin/main (0bcc076), `apps/api/src/fa_api/main.py:24-46` e
+      `packages/agentes/src/fa_agentes/llm.py:183,201`: o timeout da API é 15 s e o do cliente
+      Ollama (`FA_LLM_TIMEOUT_S`) 600 s; o trabalho roda sob `shield`, então o timeout encerra só
+      a espera do chamador e a thread continua, e a vaga do semáforo (`FA_AGENTES_CONCORRENCIA`,
+      padrão 2) só é devolvida quando o trabalho real termina. Duas chamadas travadas podem
+      bloquear todo o tráfego de agentes por até 10 minutos, e a espera pela vaga consome o prazo
+      do próprio chamador. Além disso `FA_AGENTES_*` e `FA_LLM_*` não estão no `.env.example`
+      nem no `infra/docker-compose.yml`.
+
+      Impacto: risco de indisponibilidade do pipeline sob carga e comportamento diferente
+      entre ambientes. Esta issue não aumenta o timeout para esconder a latência e não define
+      meta sem benchmark. As métricas p95 e a duração por etapa em /metricas ficam em S6-02.
+      Esforço estimado: M. Responsável principal Raissa (F6, API e infra); colaborador Pedro
+      (F5, cliente LLM e fallback T5). Depende de S5-04 para o ambiente em container.
+    tarefas:
+      - Medir a latência por agente e por análise (p50, p95, taxa de timeout) em hardware documentado, com e sem GPU, e publicar o relatório em `docs/avaliacao/`
+      - Alinhar o timeout do cliente LLM ao da API para que o trabalho seja cancelado ou abandonado e a vaga devolvida quando a requisição expirar
+      - Fazer a espera pela vaga de concorrência respeitar um limite próprio, sem consumir silenciosamente o prazo da análise
+      - Expor `FA_AGENTES_TIMEOUT_S`, `FA_AGENTES_CONCORRENCIA` e `FA_LLM_TIMEOUT_S` no `.env.example`, no compose e na documentação
+      - Propor as metas de latência com base no benchmark e submetê-las à aprovação da equipe
+    criterios:
+      - Relatório de medição reproduzível com p50, p95 e taxa de timeout, em hardware documentado
+      - Os timeouts da API e do cliente LLM são coerentes e a vaga é devolvida em timeout (teste com LLM simulado lento)
+      - O fallback determinístico T5 continua funcionando em timeout (teste)
+      - As variáveis estão documentadas nos três lugares citados
+      - As metas de latência foram aprovadas pela equipe e registradas, sem SLO inventado
+      - Revisado por Pedro e CI verde
+
+  - id: S6-12
+    titulo: Corrigir o tratamento de exceções dos agentes em /analisar e /perguntar
+    sprint: S6
+    frente: F6
+    responsaveis: [Maria Eduarda, Pedro]
+    labels: [tipo:bug, prioridade:media]
+    contexto: >-
+      Origem: inspeção do estado atual a partir do relatório S4 (§2.6, §4.4).
+
+      Evidência em origin/main (0bcc076), `apps/api/src/fa_api/main.py`: em `/analisar`
+      (`:162-164`) qualquer `Exception` dos agentes é engolida e só a classe do erro vai para o
+      log, sem traceback, e o usuário vê apenas um `aviso`; em `/perguntar` (`:182-193`) só
+      `TimeoutError` é tratado, e qualquer outra exceção vira HTTP 500 sem tratamento.
+      Comportamento inconsistente entre os dois endpoints e falhas difíceis de depurar.
+
+      Esforço estimado: P. Responsável principal Maria Eduarda (F6, par da frente: `apps/api`); colaborador Pedro (F5,
+      agentes).
+      Não altera o contrato público além de padronizar o erro.
+    tarefas:
+      - Padronizar o tratamento de falha dos agentes nos dois endpoints, devolvendo erro ou abstenção explícitos e nunca 500 sem corpo
+      - Registrar em log o traceback e o request-id (se disponível) sem texto de fatura nem dado pessoal
+      - Cobrir com teste as falhas por exceção, timeout e agentes indisponíveis nos dois endpoints
+    criterios:
+      - Uma exceção qualquer nos agentes não produz HTTP 500 em /perguntar nem erro silencioso em /analisar (testes)
+      - O log registra tipo e traceback da falha, sem PII (teste com caplog)
+      - A resposta ao usuário distingue falha dos agentes de ausência de achados
+      - Revisado por Pedro e CI verde
 
   # ------------------------------------------------------------------ S7
   - id: S7-01
@@ -1118,14 +1626,21 @@ issues:
     labels: [tipo:experimento, prioridade:alta, gate]
     contexto: >-
       A rodada final fecha o experimento científico e alimenta o relatório técnico.
+
+      Atualizada pela auditoria de 23/11/2026 (origin/main 0bcc076) (EV-013, REQ-F5-002). A
+      decisão da S4 foi o T5 e o B5 teve resultado negativo; o relatório final deve contar isso
+      e fixar o comando único de reprodução. A rodada usa LLM local (Ollama), que não foi
+      reproduzido na auditoria. Dependência: S4-02. Esforço estimado: G.
     tarefas:
       - Rodar B1–B5 no golden set congelado
       - Calcular métricas e intervalos de confiança
       - Escrever o relatório técnico
+      - Incluir o T5 como braço final ao lado de B1–B5 e registrar a divergência em relação ao gate da S4
     criterios:
       - Resultados de B1–B5 com intervalo de confiança publicados
       - Relatório técnico concluído
-      - Resultados reproduzíveis a partir do repositório (TODO: comando único)
+      - Resultados reproduzíveis a partir do repositório com um comando único documentado em `avaliacao/README.md`
+      - O relatório descreve o resultado negativo do B5 e a adoção do T5, com semente, versões de modelo e hashes
 
   - id: S7-03
     titulo: Publicar o dataset card do benchmark
@@ -1172,3 +1687,59 @@ issues:
       - Varredura do histórico sem segredos nem faturas reais
       - README e documentação revisados
       - Licença definida e publicada
+
+  - id: S7-06
+    titulo: Testar o contrato entre a API (Pydantic) e os tipos TypeScript
+    sprint: S7
+    frente: F6
+    responsaveis: [Raissa]
+    labels: [tipo:infra, prioridade:media]
+    contexto: >-
+      Os tipos TypeScript são escritos à mão e o CI só imprime hashes dos schemas Python; uma
+      mudança de campo na API não quebra teste do frontend. Evidência: EV-010
+      (`apps/web/app/lib/api.ts:L8-L26`). Requisito: RNF-04. Prioridade média (P2).
+
+      Dependências: S6-05 (campos novos de `Fatura` e `Achado`) e S6-07 (executor de testes do
+      web). O teste fica em `tests/` e não altera `packages/contratos`, por isso a label
+      `contrato` não se aplica. Esforço estimado: P (até 1 dia).
+    tarefas:
+      - Gerar o schema JSON de `Fatura` e `Achado` a partir de `fa_contratos`
+      - Comparar com os campos e tipos usados em `apps/web/app/lib/api.ts`
+      - Falhar o CI quando um campo usado pela UI sumir ou mudar de tipo
+    criterios:
+      - Renomear um campo de `Achado` em `fa_contratos` faz o teste falhar (demonstrado no PR)
+      - O teste roda no CI sem rede
+
+  - id: S7-07
+    titulo: Avaliar de forma independente a fundamentação das respostas da política T5
+    sprint: S7
+    frente: F5
+    responsaveis: [Pedro, Raissa]
+    labels: [tipo:experimento, prioridade:media]
+    contexto: >-
+      Origem: relatório S4 (§3.5, §4.1, risco R1). A taxa de 0% de afirmações sem suporte da
+      política T5 é nula por construção: o Auditor determinístico filtra as respostas e as
+      mesmas regras medem a taxa, e trechos literais são contados como suportados
+      (`avaliacao/rodada_s4.py:229,248`). Isso mostra que a regra foi aplicada, não que as
+      explicações estejam factualmente corretas.
+
+      Estado atual: o juiz LLM ficou desligado por concordância insuficiente (κ 0,029, depois
+      0,164 na metade reservada; `docs/avaliacao/resultados.md:230`) e S3-02 trata só da sua
+      calibração. Não reativar o juiz LLM nem usar o Auditor como único juiz de si mesmo.
+      O parecer jurídico da citação literal (risco R5) é pendência externa do docente de
+      Direito e não faz parte desta issue.
+
+      Esforço estimado: M. Responsável principal Pedro (F5); colaboradora Raissa (F5, par).
+      Depende da rodada final de S7-02 para as respostas a avaliar.
+    tarefas:
+      - Definir a rubrica de fundamentação factual, relevância da citação e correção da explicação
+      - Selecionar a amostra de respostas por sorteio registrado, incluindo respostas que o Auditor rejeitaria, sem o viés de filtragem dele
+      - Anotar a amostra de forma independente por duas pessoas, cegas ao veredito do Auditor
+      - Calcular a concordância entre anotadores e a métrica independente da regra determinística
+      - Publicar os resultados com as limitações em `docs/avaliacao/`
+    criterios:
+      - Rubrica versionada e amostra sorteada com semente registrada
+      - Anotação independente por duas pessoas e concordância (κ) documentada
+      - A métrica final independe das regras do Auditor e é reproduzível a partir dos arquivos versionados
+      - Limitações e ameaças à validade registradas; o juiz LLM permanece desligado
+      - Revisado pela Raissa
