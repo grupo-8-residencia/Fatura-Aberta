@@ -10,6 +10,13 @@ A interface fica em `http://127.0.0.1:3000` e a API em
 `http://127.0.0.1:8000`. As duas portas são vinculadas apenas à máquina local.
 Use `docker compose -f infra/docker-compose.yml down` para encerrar os serviços.
 
+A imagem da API inclui `dados/normas` (corpus e manifesto normativo) e
+`dados/tarifas` (base e proveniência tarifária), ambos em `/app/dados/` e sob o
+usuário `aplicacao`. Os diretórios de benchmark e golden set ficam fora do
+contexto de build. O smoke do CI chama `/analisar` com uma fatura sintética de
+consumo divergente e `/perguntar`; exige explicação de nível C e citações em
+ambas as respostas.
+
 ## Observabilidade mínima
 
 - `GET /saude` confirma disponibilidade e versão da API.
