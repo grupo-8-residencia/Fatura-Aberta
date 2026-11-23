@@ -713,14 +713,25 @@ issues:
     contexto: >-
       Gate da S3: resultados com intervalo de confiança. Resultado negativo também vale e deve
       ser reportado.
+
+      Estado verificado (23/11/2026): κ = 0,029 em 39 itens (0,164 após a recalibração e −0,136 na
+      metade retida); nenhum artefato do repositório registra κ = 0,79 ou 0,84, e os dois
+      anotadores concordam em 40 de 40 itens.
+      Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): falta versionar os vereditos do
+      juiz por item e registrar a decisão sobre o juiz, pois hoje o κ humano × juiz não se
+      reproduz sem rodar o juiz de novo. O juiz continua fora da avaliação de qualidade.
     tarefas:
       - Rodar B2 (LLM com RAG sem filtros de vigência)
       - Rodar B3 (LLM com RAG e filtros de vigência)
       - Anotar 40 itens humanos e calibrar o juiz LLM
+      - Versionar em `juiz-40.csv` ou em artefato ao lado os vereditos do juiz por item, com prompt, modelo e digest
+      - Registrar a decisão: refinar a rubrica do juiz com uma proposta de calibração metodologicamente adequada ou manter só a anotação humana como referência
     criterios:
       - Resultados de B2 e B3 com intervalo de confiança
       - Concordância juiz × humano medida em 40 itens (TODO limiar mínimo)
       - Código e configuração das rodadas versionados
+      - O κ humano × juiz é recalculado por teste automatizado a partir de arquivos versionados
+      - A decisão sobre o juiz está registrada em `docs/avaliacao/` e o juiz só volta a ser usado com κ ≥ 0,75 em dados não usados para ajustar o prompt
 
   - id: S3-03
     titulo: Implementar as checagens de nível B com a tabela ANEEL versionada
@@ -778,40 +789,63 @@ issues:
     titulo: Conferir o PRODIST Módulo 8 e a REH de tarifas e completar o corpus
     sprint: S3
     frente: F2
+    responsaveis: [Luiz, Natalia]
     labels: [tipo:pesquisa, prioridade:media]
     contexto: >-
       O corpus tem 28 dispositivos conferidos (REN ANEEL 1.000/2021, CDC e Lei Distrital 7.888/2026).
       O PRODIST Módulo 8 (DIC, FIC e DMIC) e a resolução homologatória de tarifas ficaram `A verificar`
       e fora do índice. A REH 3.316/2024 citada no planejamento não foi confirmada como ato da
       Neoenergia Brasília; as encontradas foram 3.276/2023, 3.406/2024 e 3.614/2026.
+
+      Estado verificado (23/11/2026): em origin/main o corpus tem 5 atos, 39 dispositivos e 78 chunks
+      (PR #139); o manifesto lista 25 atos, 17 deles `a_confirmar` e fora do índice.
+      Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): continuam pendentes a unidade do
+      critério de documentos-fonte e a conferência dos 17 atos `a_confirmar` do manifesto, que
+      seguem fora do índice. Responsável principal Luiz (F2, dono do corpus); colaboradora
+      Natalia (F2, par da frente, conferência jurídica das fontes). Nenhum ato entra sem fonte
+      oficial verificada; nada é incluído só para aumentar a contagem.
     tarefas:
       - Obter o texto oficial do PRODIST Módulo 8 e transcrever os dispositivos sobre DIC, FIC e DMIC
       - Confirmar qual REH da Neoenergia Brasília está vigente e transcrever os dispositivos de tarifa e bandeira
       - Registrar URL oficial, vigência e conferência de cada item em `dados/normas/corpus_b1.json`
       - Atualizar `dados/normas/README.md`
+      - Confirmar com a coordenação se o critério de "20 documentos-fonte" conta atos oficiais distintos ou dispositivos e registrar a decisão em `dados/normas/README.md`
+      - Conferir, um a um, os atos `a_confirmar` do `manifesto_atos.json` priorizando regulação de distribuição, faturamento, tarifas e direitos do consumidor da B1, com título, órgão, URL, data de coleta, vigência, hash e responsável da conferência
     criterios:
       - Cada item novo tem URL oficial, vigência e `conferido = "sim"`
       - Itens que não puderem ser conferidos continuam fora do índice
       - Testes do pacote `rag` passando no CI
+      - A unidade do critério de documentos-fonte está registrada e o requisito é declarado cumprido ou não cumprido com base nela
+      - Cada ato incluído no índice tem fonte oficial, vigência e conferência humana registradas; atos não conferidos permanecem fora do índice
 
   - id: S3-07
     titulo: Calibrar o limiar de abstenção com divisão entre calibração e teste
     sprint: S3
     frente: F2
+    responsaveis: [Luiz, Pedro]
     labels: [tipo:experimento, prioridade:media]
     contexto: >-
       Desdobramento da S3-04. Com o limiar de 0,30, a síntese só se abstém corretamente em 11 das 17
       perguntas em que isso é esperado, e nas 5 perguntas de CIP que a lei não responde ela cita a
       própria lei. Um limiar menor melhora o F1, mas foi escolhido sobre os mesmos dados da avaliação.
+
+      Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): o limiar 0,30 hoje em uso foi
+      escolhido depois de ver o split de teste e o fora da amostra, então não há estimativa
+      independente dele (`avaliacao/resultados/s2s3-abstencao-teste.json`). Responsável
+      principal Luiz (F2); colaborador Pedro (F5, avaliação). Depende de anotação humana.
     tarefas:
       - Dividir o golden set em calibração e teste, com semente fixa
       - Escolher o limiar na calibração
       - Medir precisão, recall e F1 da abstenção no teste, com intervalo de confiança
       - Tratar perguntas do mesmo assunto que o dispositivo não responde
+      - Definir e justificar o tamanho de um conjunto novo de perguntas, não usado em nenhuma calibração, cobrindo normativas, vigência, lacunas e fora do corpus
+      - Anotar as perguntas por duas pessoas, independentes, e medir o limiar 0,30 congelado, sem reescolhê-lo
     criterios:
       - O limiar é escolhido sem usar o conjunto de teste
       - Resultado com IC de 95% em `docs/avaliacao/resultados.md`
       - Testes passando no CI
+      - Conjunto novo versionado, com anotação independente e concordância registrada
+      - Precisão, recall e F1 da abstenção do limiar 0,30 no conjunto novo, com intervalo de confiança e por categoria, e nenhuma pergunta compartilhada com a calibração
 
   - id: S3-08
     titulo: Registrar a fonte das constantes do motor (ICMS máximo e limite de 80 kWh)
@@ -901,18 +935,31 @@ issues:
     titulo: Avaliar um embedder semântico pt-BR contra o hashing
     sprint: S4
     frente: F2
+    responsaveis: [Luiz, Pedro]
     labels: [tipo:experimento, prioridade:media]
     contexto: >-
       O extrator padrão (hashing) só captura sobreposição de palavras. O protocolo `Embedder` já
       aceita um modelo multilíngue pt-BR sem mudar o resto do pacote, mas nenhum foi medido.
+
+      Evidência parcial (23/11/2026): `avaliacao/resultados/s2s3-embedders.json`, no híbrido do split
+      de teste, recall@5 0,990 contra 1,000, MRR 0,902 contra 0,925 e latência por consulta cerca de
+      140 vezes maior (143 ms contra 1 ms).
+      Reaberta pelo fechamento dos débitos S2/S3 (23/11/2026): o bge-m3 já foi comparado ao
+      hashing, mas falta teste pareado, uso de RAM e um segundo modelo pt-BR para fechar a
+      decisão. Responsável principal Luiz (F2); colaborador Pedro (F5, avaliação). O hashing
+      segue como padrão enquanto não houver ganho reproduzível e relevante.
     tarefas:
       - Escolher um modelo multilíngue com licença compatível
       - Implementá-lo pelo protocolo `Embedder`, sem dependência no CI padrão
       - Medir com `avaliacao/metricas_recuperacao.py` e reportar custo e latência
+      - Aplicar teste pareado (bootstrap ou McNemar) às diferenças de recall@5 e MRR entre hashing e o embedder semântico, com as mesmas perguntas
+      - Medir o uso de RAM e a latência do embedder semântico e, se a licença permitir, comparar um segundo modelo pt-BR ou multilíngue
     criterios:
       - Comparação com o hashing em recall@k, MRR, nDCG e latência, com IC de 95%
       - O CI padrão continua offline
       - Decisão de adotar ou não documentada
+      - A diferença de ranking tem intervalo de confiança pareado e a decisão de manter ou trocar o padrão está registrada com RAM, latência e tamanho do modelo
+      - Nenhum peso de modelo é versionado nem baixado pelo CI
 
   - id: S4-06
     titulo: Automatizar a conversão de PDFs de normas em texto limpo
