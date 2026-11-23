@@ -29,6 +29,9 @@ class EmbedderHash:
     morfológica. É o padrão do CI; um modelo multilíngue pt-BR entra pelo mesmo contrato.
     """
 
+    nome = "hash-ngramas-blake2b"
+    versao = "1"
+
     def __init__(self, dim: int = DIM_PADRAO) -> None:
         if dim < 8:
             raise ValueError("dim deve ser >= 8")
