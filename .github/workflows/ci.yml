@@ -476,13 +476,18 @@ jobs:
           docker exec fa-api-ci id | grep -q "uid=10001(aplicacao)"
           for _ in $(seq 1 15); do
             if curl -fsS http://127.0.0.1:8000/saude | jq -e '.status == "ok"' >/dev/null; then
-              curl -fsS http://127.0.0.1:8000/saude
-              exit 0
+              break
             fi
             sleep 1
           done
-          docker logs fa-api-ci
-          exit 1
+          if ! curl -fsS http://127.0.0.1:8000/saude | jq -e '.status == "ok"' >/dev/null; then
+            docker logs fa-api-ci
+            exit 1
+          fi
+          docker exec fa-api-ci test -f /app/dados/normas/corpus_b1.json
+          docker exec fa-api-ci test -f /app/dados/tarifas/proveniencia.json
+          docker exec fa-api-ci test -f /app/dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx
+          python3 scripts/smoke_api_container.py
 
       - name: Smoke test e validação non-root do container Web
         if: matrix.suite == 'web-container-smoke'
