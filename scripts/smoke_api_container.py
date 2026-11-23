@@ -2,12 +2,13 @@
 
 import json
 import os
+from typing import Any, cast
 from urllib.request import Request, urlopen
 
 BASE = os.getenv("FA_API_BASE_URL", "http://127.0.0.1:8000")
 
 
-def enviar(caminho: str, dados: dict) -> dict:
+def enviar(caminho: str, dados: dict[str, Any]) -> dict[str, Any]:
     req = Request(
         BASE + caminho,
         data=json.dumps(dados).encode(),
@@ -16,7 +17,7 @@ def enviar(caminho: str, dados: dict) -> dict:
     )
     with urlopen(req, timeout=30) as resposta:
         assert resposta.status == 200, f"{caminho}: HTTP {resposta.status}"
-        return json.load(resposta)
+        return cast(dict[str, Any], json.load(resposta))
 
 
 analise = enviar(
@@ -32,10 +33,9 @@ analise = enviar(
     },
 )
 assert analise["aviso"] is None, f"Agentes indisponíveis: {analise['aviso']}"
-assert any(
-    achado["nivel"] == "C" and achado["citacoes"]
-    for achado in analise["achados"]
-), "Faltou explicação de nível C com citação"
+assert any(achado["nivel"] == "C" and achado["citacoes"] for achado in analise["achados"]), (
+    "Faltou explicação de nível C com citação"
+)
 
 pergunta = enviar(
     "/perguntar",
