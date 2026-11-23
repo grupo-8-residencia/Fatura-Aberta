@@ -265,6 +265,25 @@ jobs:
               )
           PY
 
+      - name: Verifica integridade e checksums SHA-256 do golden set
+        if: matrix.check == 'data-provenance'
+        run: |
+          uv run python - <<'PY'
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, str(Path("scripts").resolve()))
+          import gerar_golden_set as gs
+
+          problemas = gs.verificar()
+          assert not problemas, f"Integridade do golden set comprometida: {problemas}"
+          print("Golden set verificado com sucesso contra checksums.sha256.")
+          PY
+          {
+            echo "### MLOps (golden-set) summary"
+            echo "- **Checksums congelados (\`dados/golden-set/checksums.sha256\`):** 100% íntegros (política LF)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Barreira de privacidade LGPD e anonimização PII
         if: matrix.check == 'privacy-lgpd'
         run: |
