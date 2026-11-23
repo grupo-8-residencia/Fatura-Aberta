@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import math
+import os
 import re
 from collections import Counter
 from collections.abc import Collection, Sequence
@@ -16,6 +18,11 @@ from fa_rag.corpus import carregar_corpus
 from fa_rag.embeddings import Embedder, criar_embedder
 from fa_rag.models import DocumentoNormativo, ResultadoBusca
 from fa_rag.texto import normalizar_texto, tokenizar
+
+logger = logging.getLogger(__name__)
+
+# Versão do formato do arquivo de vetores. Mude ao alterar o esquema gravado.
+VERSAO_FORMATO = 2
 
 _ENTIDADES_DISTINTIVAS = frozenset(
     tok
@@ -59,22 +66,45 @@ class IndiceVetorial:
         for chave, vetor in zip(ids, self.embedder.embed(textos), strict=True):
             self._vetores[chave] = vetor
 
+    def identidade_embedder(self) -> dict[str, str]:
+        """Nome e versão do embedder: vetores de embedders diferentes não são intercambiáveis."""
+        return {
+            "nome": str(getattr(self.embedder, "nome", type(self.embedder).__name__)),
+            "versao": str(getattr(self.embedder, "versao", "")),
+        }
+
     def assinatura(self, textos: dict[str, str]) -> str:
-        """Hash do que foi indexado (ids, textos e dimensão): detecta um arquivo desatualizado."""
+        """Hash do que foi indexado (ids, textos, dimensão e embedder): detecta arquivo velho."""
         bruto = json.dumps(
-            {"dim": self.embedder.dim, "textos": textos}, sort_keys=True, ensure_ascii=False
+            {
+                "dim": self.embedder.dim,
+                "embedder": self.identidade_embedder(),
+                "textos": textos,
+            },
+            sort_keys=True,
+            ensure_ascii=False,
         )
         return hashlib.sha256(bruto.encode("utf-8")).hexdigest()
 
     def salvar(self, caminho: Path, textos: dict[str, str]) -> None:
-        """Grava os vetores em JSON, com a assinatura dos textos para validar na carga."""
+        """Grava os vetores em JSON de forma atômica (arquivo temporário + ``os.replace``).
+
+        Uma falha no meio da escrita nunca deixa um índice parcial no lugar do anterior.
+        """
         caminho.parent.mkdir(parents=True, exist_ok=True)
         dados = {
+            "versao_formato": VERSAO_FORMATO,
+            "embedder": self.identidade_embedder(),
             "dim": self.embedder.dim,
             "assinatura": self.assinatura(textos),
             "vetores": {k: [round(x, 8) for x in v] for k, v in self._vetores.items()},
         }
-        caminho.write_text(json.dumps(dados, ensure_ascii=False), encoding="utf-8")
+        temporario = caminho.with_name(f"{caminho.name}.{os.getpid()}.tmp")
+        try:
+            temporario.write_text(json.dumps(dados, ensure_ascii=False), encoding="utf-8")
+            os.replace(temporario, caminho)
+        finally:
+            temporario.unlink(missing_ok=True)
 
     def carregar(self, caminho: Path, textos: dict[str, str]) -> bool:
         """Carrega os vetores se o arquivo existir e conferir com os textos; senão, False."""
@@ -82,16 +112,35 @@ class IndiceVetorial:
             return False
         try:
             dados = json.loads(caminho.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
+            if not isinstance(dados, dict):
+                raise ValueError("raiz do JSON não é um objeto")
+            vetores = dados.get("vetores", {})
+            if not isinstance(vetores, dict):
+                raise ValueError("campo vetores inválido")
+        except (OSError, ValueError) as erro:
+            logger.warning("Índice vetorial ilegível em %s (%s); será recalculado.", caminho, erro)
             return False
-        vetores = dados.get("vetores", {})
-        if (
-            dados.get("dim") != self.embedder.dim
-            or dados.get("assinatura") != self.assinatura(textos)
-            or set(vetores) != set(textos)
-        ):
+        motivo = None
+        if dados.get("versao_formato") != VERSAO_FORMATO:
+            motivo = "versão de formato diferente"
+        elif dados.get("embedder") != self.identidade_embedder():
+            motivo = "embedder diferente"
+        elif dados.get("dim") != self.embedder.dim:
+            motivo = "dimensão diferente"
+        elif dados.get("assinatura") != self.assinatura(textos) or set(vetores) != set(textos):
+            motivo = "corpus mudou"
+        if motivo:
+            logger.info("Índice vetorial em %s descartado (%s); será recalculado.", caminho, motivo)
             return False
-        self._vetores = {k: [float(x) for x in v] for k, v in vetores.items()}
+        try:
+            carregados = {k: [float(x) for x in v] for k, v in vetores.items()}
+        except (TypeError, ValueError) as erro:
+            logger.warning("Vetores inválidos em %s (%s); será recalculado.", caminho, erro)
+            return False
+        if any(len(v) != self.embedder.dim for v in carregados.values()):
+            logger.warning("Vetores com dimensão errada em %s; será recalculado.", caminho)
+            return False
+        self._vetores = carregados
         return True
 
     def similaridades(self, consulta: str, ids: Collection[str]) -> dict[str, float]:

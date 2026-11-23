@@ -1,0 +1,475 @@
+{
+  "cabecalho": {
+    "gerado_em_utc": "2026-11-23T18:48:41+00:00",
+    "python": "3.12.14",
+    "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
+    "sha256_corpus_arquivo": "b0bcd6c5e848a224a8ec5f9e81f25067628af7aae09bfae7b13f5cd831d0eb22",
+    "sha256_perguntas_golden_set": "28c7729a3cc08ce9b68c6531530ea351e22452be3deafe0b6aab2004a4488cc0",
+    "atos_distintos": 5,
+    "dispositivos": 39,
+    "chunks": 78,
+    "embedder": {
+      "nome": "hash-ngramas-blake2b",
+      "versao": "1",
+      "dim": 384
+    },
+    "alpha": 0.5,
+    "limiar_abstencao": 0.3,
+    "top_k": 5
+  },
+  "protocolo": {
+    "origem_dos_splits": "s3-calibracao-abstencao.json",
+    "limitacao": "O limiar 0,30 foi escolhido após observar o split de teste e o fora da amostra; as métricas de teste do 0,30 são descritivas, não independentes. A estimativa independente exige perguntas novas anotadas por pessoas.",
+    "tau_0_48": "não existe no código; 0,48x são scores em s2-recall-gate.json"
+  },
+  "resultados": {
+    "calibracao": {
+      "n": 60,
+      "global": {
+        "limiar=0.2": {
+          "precisao": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "acuracia": 0.9833333333333333,
+          "vp": 7,
+          "fp": 0,
+          "fn": 1
+        },
+        "limiar=0.25": {
+          "precisao": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333,
+          "acuracia": 0.9833333333333333,
+          "vp": 7,
+          "fp": 0,
+          "fn": 1
+        },
+        "limiar=0.3": {
+          "precisao": 0.875,
+          "recall": 0.875,
+          "f1": 0.875,
+          "acuracia": 0.9666666666666667,
+          "vp": 7,
+          "fp": 1,
+          "fn": 1
+        }
+      },
+      "por_tipo": {
+        "fora_do_corpus": {
+          "n": 2,
+          "abstencoes_esperadas": 2,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 2
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 2
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 2
+          }
+        },
+        "lacuna": {
+          "n": 3,
+          "abstencoes_esperadas": 0,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          }
+        },
+        "normativa": {
+          "n": 49,
+          "abstencoes_esperadas": 0,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 0.9795918367346939,
+            "abstencoes_previstas": 1
+          }
+        },
+        "vigencia": {
+          "n": 6,
+          "abstencoes_esperadas": 6,
+          "limiar=0.2": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 5
+          },
+          "limiar=0.25": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 5
+          },
+          "limiar=0.3": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 5
+          }
+        }
+      },
+      "por_categoria": {
+        "bandeiras": {
+          "n": 6,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 2
+          }
+        },
+        "cip_cosip": {
+          "n": 4,
+          "abstencoes_esperadas": 2,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 2
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 2
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 2
+          }
+        },
+        "corte_notificacao": {
+          "n": 9,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "devolucao_dobro": {
+          "n": 13,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 0.9230769230769231,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 0.9230769230769231,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 0.9230769230769231,
+            "abstencoes_previstas": 0
+          }
+        },
+        "encargos_multas": {
+          "n": 9,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "medicao_estimada": {
+          "n": 10,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "tarifas_b1": {
+          "n": 9,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        }
+      }
+    },
+    "teste": {
+      "n": 60,
+      "global": {
+        "limiar=0.2": {
+          "precisao": 1.0,
+          "recall": 0.5555555555555556,
+          "f1": 0.7142857142857143,
+          "acuracia": 0.9333333333333333,
+          "vp": 5,
+          "fp": 0,
+          "fn": 4
+        },
+        "limiar=0.25": {
+          "precisao": 1.0,
+          "recall": 0.5555555555555556,
+          "f1": 0.7142857142857143,
+          "acuracia": 0.9333333333333333,
+          "vp": 5,
+          "fp": 0,
+          "fn": 4
+        },
+        "limiar=0.3": {
+          "precisao": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "acuracia": 0.95,
+          "vp": 6,
+          "fp": 0,
+          "fn": 3
+        }
+      },
+      "por_tipo": {
+        "fora_do_corpus": {
+          "n": 3,
+          "abstencoes_esperadas": 3,
+          "limiar=0.2": {
+            "acuracia": 0.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 0.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 0.3333333333333333,
+            "abstencoes_previstas": 1
+          }
+        },
+        "lacuna": {
+          "n": 3,
+          "abstencoes_esperadas": 0,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          }
+        },
+        "normativa": {
+          "n": 48,
+          "abstencoes_esperadas": 0,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 0
+          }
+        },
+        "vigencia": {
+          "n": 6,
+          "abstencoes_esperadas": 6,
+          "limiar=0.2": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 5
+          },
+          "limiar=0.25": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 5
+          },
+          "limiar=0.3": {
+            "acuracia": 0.8333333333333334,
+            "abstencoes_previstas": 5
+          }
+        }
+      },
+      "por_categoria": {
+        "bandeiras": {
+          "n": 5,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "cip_cosip": {
+          "n": 4,
+          "abstencoes_esperadas": 3,
+          "limiar=0.2": {
+            "acuracia": 0.25,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 0.25,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 0.5,
+            "abstencoes_previstas": 1
+          }
+        },
+        "corte_notificacao": {
+          "n": 10,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "devolucao_dobro": {
+          "n": 13,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 0.9230769230769231,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.25": {
+            "acuracia": 0.9230769230769231,
+            "abstencoes_previstas": 0
+          },
+          "limiar=0.3": {
+            "acuracia": 0.9230769230769231,
+            "abstencoes_previstas": 0
+          }
+        },
+        "encargos_multas": {
+          "n": 9,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "medicao_estimada": {
+          "n": 10,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        },
+        "tarifas_b1": {
+          "n": 9,
+          "abstencoes_esperadas": 1,
+          "limiar=0.2": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.25": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          },
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "abstencoes_previstas": 1
+          }
+        }
+      }
+    },
+    "fora_da_amostra_resumo_historico": {
+      "n": 20,
+      "abstencao_limiar_025": {
+        "vp": 5,
+        "fp": 3,
+        "fn": 1,
+        "vn": 11,
+        "precisao": 0.625,
+        "recall": 0.8333,
+        "f1": 0.7143,
+        "acuracia": 0.8
+      },
+      "abstencao_limiar_030": {
+        "vp": 5,
+        "fp": 3,
+        "fn": 1,
+        "vn": 11,
+        "precisao": 0.625,
+        "recall": 0.8333,
+        "f1": 0.7143,
+        "acuracia": 0.8
+      },
+      "nota": "copiado do JSON histórico, sem recomputar; fora do golden set"
+    }
+  }
+}
