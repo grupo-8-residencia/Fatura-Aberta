@@ -14,5 +14,6 @@ site
 **/out
 **/dist
 **/build
-dados
+dados/benchmark
+dados/golden-set
 docs
