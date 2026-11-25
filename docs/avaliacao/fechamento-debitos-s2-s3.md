@@ -35,7 +35,7 @@ PDF de faturas (#30).
 | D4 | S2 | Documentação dizia "índice em memória" nos diagramas | `rag.md` | Documentação divergente, **corrigida** |
 | D5 | S2/S3 | Embedder apresentado sem comparação com modelo semântico | S4-05 aberta | Experimento executado (seção 10) |
 | D6 | S3 | κ do juiz: relatório e artefatos | κ = 0,029 em todos os registros | **Caso B** (seção 7) |
-| D7 | S3 | Limiar 0,30 escolhido após ver o teste | comentário em `fa_rag/sintese.py` | Confirmado, **registrado**; sem estimativa independente possível hoje |
+| D7 | S3 | Limiar 0,30 escolhido após ver o teste | comentário em `fa_rag/sintese.py` | Confirmado, **registrado**; conjunto independente (N = 36) versionado, mas só com 1 anotador (sem κ): estimativa **ainda não independente** |
 | D8 | S3 | Cabeçalhos das rodadas sem hash do corpus, embedder, α e limiar | `s3-rodada.json` | Confirmado; novas avaliações usam `cabecalho_reprodutivel.py` |
 | D9 | S3 | "τ = 0,48" citado no pedido de auditoria não existe no código | só aparece como score em `s2-recall-gate.json` | **Não reproduzido** |
 | D10 | S3 | Registro do juiz sem vereditos por item no CSV | `juiz-40.csv`, coluna `veredito_juiz` vazia | Confirmado, limitação documentada em teste |
@@ -94,10 +94,30 @@ Dois fatos que reduzem a confiança no próprio registro, ambos documentados e n
 `LIMIAR_PADRAO = 0,30` (`sintese.py`). O 0,25 de `vector_store.py` é um fator de atenuação do
 `nao_cobre`, não um limiar. A calibração 60/60 (semente 20261109) escolheu 0,20 na calibração; o
 0,30 foi adotado **depois** de ver o teste e o fora da amostra. Logo as métricas de teste do 0,30
-(F1 0,800 contra 0,714) são descritivas. Não há partição independente restante; uma estimativa
-independente exige perguntas novas anotadas por pessoas. Reproduzido em `s2s3-abstencao-teste.json`
+(F1 0,800 contra 0,714) são descritivas. Reproduzido em `s2s3-abstencao-teste.json`
 (60 perguntas de teste): precisão 1,000, recall de abstenção 0,667 (6 de 9) e acurácia 0,950 com
-0,30; a categoria mais fraca é `cip_cosip` (acurácia 0,50 com 3 abstenções esperadas e 1 prevista).
+0,30; a categoria mais fraca no split histórico é `cip_cosip` (acurácia 0,50 com 3 abstenções esperadas e 1 prevista).
+
+### Conjunto de N = 36 perguntas para validação independente (S3-07 / Issue #112 — em aberto)
+
+Para viabilizar uma estimativa verdadeiramente independente do limiar 0,30 congelado (sem reescolha),
+foi elaborado e versionado em `avaliacao/anotacoes/abstencao-independente-36.csv` um conjunto de
+**N = 36 perguntas inéditas** (`IND-Q01` a `IND-Q36`), estratificado nos 4 tipos (`18 normativas`,
+`4 lacunas`, `7 vigência` e `7 fora do corpus`) e nas 7 categorias regulatórias.
+
+1. **Comprovação de Disjunção Estrita:** A disjunção em relação às 120 perguntas do golden set
+   (`dados/golden-set/perguntas.jsonl`) e às 20 perguntas exploratórias da S3 (`avaliacao/checar_perguntas_novas.py`)
+   é testada e garantida de forma contínua pelo teste automatizado `tests/avaliacao/test_disjuncao_perguntas.py`
+   (interseção nula de IDs, interseção nula de enunciados literais e índice Jaccard máximo $\le 0,60$ contra o golden set e $\le 0,39$ contra as exploratórias).
+2. **Dupla Anotação Humana:** O arquivo estrutura a dupla anotação (`anotador_1 = Luiz` preenchido;
+   `anotador_2` rotacionado entre os 5 demais membros da equipe: Pedro, Talita, Maria Eduarda, Raíssa e Natália).
+   Para preservar a integridade metodológica e não forjar dados, os vereditos de `anotador_2` permanecem
+   vazios aguardando anotação pelos respectivos colegas.
+3. **Status da Issue #112:** A Issue #112 **permanece aberta** aguardando a finalização da segunda
+   anotação independente por outro integrante do time e o reporte formal do $\kappa$ de Cohen inter-anotadores.
+   O resultado preliminar calculado sobre a anotação do anotador 1 (em `avaliacao/resultados/s2s3-abstencao-teste.json`,
+   com status `aguardando_anotador_2`) serve como referência de partida do limiar congelado e não encerra
+   o débito até a conclusão da verificação inter-anotadores.
 
 ## 9. Reprodutibilidade das rodadas T1–T4
 
@@ -111,28 +131,35 @@ rodada S4 acrescenta corpus e limiar, mas não embedder nem α. Resultados padr�
 faturas. Comparações entre rodadas com corpus de 28 e de 39 dispositivos não são diretamente
 equivalentes.
 
-## 10. Embedder semântico (E1 × E2)
+## 10. Embedder semântico (E1 × E2 × E3 × E4)
 
 Experimento controlado: mesmo corpus (78 chunks), mesmos filtros, só o embedder muda; ranking medido
 nas 51 perguntas com norma do split de teste; limiar de abstenção escolhido na calibração.
 
-| Métrica (teste, híbrido α = 0,5) | E1 hash | E2 bge-m3 |
-|---|---:|---:|
-| recall@3 | 0,980 | 0,980 |
-| recall@5 | 0,990 | 1,000 |
-| MRR | 0,902 | 0,925 |
-| nDCG@5 | 0,920 | 0,938 |
-| precisão@5 | 0,208 | 0,212 |
-| latência por consulta p50 / p95 | 1,0 / 1,1 ms | 142,9 / 151,3 ms |
-| F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 |
-| Construção do índice | 0,03 s | 5,5 s |
+| Métrica (teste, híbrido α = 0,5) | E1 hash (384d) | E2 `bge-m3` (1024d) | E3 `semantico-ptbr` (384d) | E4 `qwen3-embedding:0.6b` (1024d) |
+|---|---:|---:|---:|---:|
+| recall@3 | 0,980 | 0,980 | 0,980 | 0,980 |
+| recall@5 | 0,990 | 1,000 | 0,990 | 0,990 |
+| MRR | 0,902 | 0,925 | 0,886 | 0,915 |
+| nDCG@5 | 0,920 | 0,938 | 0,909 | 0,926 |
+| precisão@5 | 0,208 | 0,212 | 0,208 | 0,208 |
+| latência por consulta p50 / p95 | 3,9 / 4,1 ms | 166,9 / 175,4 ms | 4,1 / 4,2 ms | 113,6 / 131,7 ms |
+| F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 | 0,714 | 0,667 |
+| Construção do índice | 0,16 s | 5,84 s | 0,19 s | 15,59 s |
+| RAM pico processo / vetores índice | 2,55 MB / 0,69 MB | 7,08 MB / 1,83 MB | 2,53 MB / 0,69 MB | 7,08 MB / 1,83 MB |
+| Pesos em disco / RAM servidor Ollama | 0,00 MB / 0 MB | 1104,04 MB / ~1.380 MB | 0,00 MB / 0 MB | 609,54 MB / ~762 MB |
 
-`bge-m3`: licença MIT, 566,7 M de parâmetros, F16, 1024 dimensões, 1,16 GB, digest `79076464…`.
-**Decisão: o hashing segue como padrão.** O ganho de ranking é de 0,010 no recall@5 e 0,023 no MRR,
-sem teste pareado que o sustente, contra latência cerca de 140 vezes maior e dependência de 1,2 GB de
-modelo. O F1 de abstenção do E2 é melhor, mas vem de um limiar diferente (0,40 contra 0,25) escolhido
-em dados diferentes e não é comparável de forma direta. Não medi o uso de RAM do servidor Ollama.
-O modelo **não** é versionado nem baixado pelo CI.
+`bge-m3`: licença MIT, 566,7 M de parâmetros, F16, 1024 dimensões, 1,16 GB (`1.104,04 MB`), digest `79076464…`.
+`EmbedderSemanticoPtBr`: segundo extrator pt-BR (projeção em 23 eixos conceituais regulatórios + n-gramas morfológicos, 384 dimensões, determinístico e offline).
+
+**Teste pareado nas 51 perguntas com norma do split de teste (`B = 10.000`, semente 42, em `s2s3-embedders.json`):**
+- `E2 (bge-m3) − E1 (hash)`: Δrecall@5 = $+0,0098$ [$+0,0000$; $+0,0294$]; ΔMRR = $+0,0229$ [$−0,0196$; $+0,0654$]; ΔnDCG@5 = $+0,0179$ [$−0,0098$; $+0,0468$]; IC 95% pareado, vetores por pergunta medidos ao vivo.
+- `E4 (qwen3-embedding:0.6b) − E1 (hash)`: Δrecall@5 = $+0,0000$ [$−0,0294$; $+0,0294$]; ΔMRR = $+0,0131$ [$−0,0294$; $+0,0588$]; ΔnDCG@5 = $+0,0060$ [$−0,0229$; $+0,0357$]; IC 95% pareado, vetores por pergunta medidos ao vivo.
+- `E3 (semantico-ptbr) − E1 (hash)`: Δrecall@5 = $+0,0000$ [$+0,0000$; $+0,0000$]; ΔMRR = $−0,0163$ [$−0,0588$; $+0,0196$]; ΔnDCG@5 = $−0,0119$ [$−0,0434$; $+0,0149$]; IC 95% pareado, vetores por pergunta medidos ao vivo.
+
+McNemar: $p = 1,000$ em todos os pares (E4: cobertura total top-5 $p = 0,480$). A versão anterior do script reconstruía os vetores do `bge-m3` a partir de agregados; foi removida e o pareado remedido ao vivo.
+
+**Decisão: o hashing segue como padrão.** Nenhum dos três alternativos (`bge-m3`, `qwen3-embedding:0.6b` e `EmbedderSemanticoPtBr`) supera o `EmbedderHash` de forma significativa a 5% em recall@5, MRR ou nDCG@5, e os dois modelos neurais custam 29 a 42 vezes mais latência e de ~0,76 a ~1,38 GB de RAM no servidor Ollama. Nenhum peso de modelo é versionado nem baixado pelo CI.
 
 ## 11. Testes executados
 
@@ -142,7 +169,7 @@ O modelo **não** é versionado nem baixado pelo CI.
 | `ruff check`, `ruff format --check`, `mypy` | estático | limpos |
 | `scripts/gerar_golden_set.py --verificar` | integridade | "Golden set íntegro" |
 | `avaliar_abstencao_teste.py` | experimento reproduzido (sem LLM) | reproduz F1 0,714 e 0,800 do teste histórico |
-| `comparar_embedders.py` | experimento novo, modelo real (bge-m3) | seção 10 |
+| `comparar_embedders.py` | experimento novo, dois modelos reais (bge-m3, qwen3-embedding) | seção 10 |
 | Rodadas T1–T4, juiz, B1 | histórico apenas inspecionado | não reexecutados |
 | `mkdocs build --strict`, `scripts/demonstrar_rag.py` | docs e demonstração | build concluído sem erro; a demonstração roda e mostra B2 × B3 |
 

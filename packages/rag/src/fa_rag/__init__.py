@@ -3,7 +3,13 @@
 from fa_rag.chunker import chunkar_dispositivo, chunkar_dispositivos, chunkar_texto
 from fa_rag.core import buscar_normas, filtra_vigentes, recall_at_5
 from fa_rag.corpus import carregar_corpus
-from fa_rag.embeddings import Embedder, EmbedderHash, criar_embedder
+from fa_rag.embeddings import (
+    Embedder,
+    EmbedderHash,
+    EmbedderOllama,
+    EmbedderSemanticoPtBr,
+    criar_embedder,
+)
 from fa_rag.indexer import IndiceNormativo
 from fa_rag.models import ChunkNormativo, DocumentoNormativo, ResultadoBusca
 from fa_rag.sintese import Resposta, responder
@@ -17,6 +23,8 @@ __all__ = [
     "DocumentoNormativo",
     "Embedder",
     "EmbedderHash",
+    "EmbedderOllama",
+    "EmbedderSemanticoPtBr",
     "FRENTE",
     "IndiceHibrido",
     "IndiceNormativo",

@@ -206,6 +206,39 @@ Composição: 14 perguntas com norma esperada (cortes na sexta-feira, notificaç
 - O recuperador híbrido generaliza para perguntas inéditas em linguagem leiga com **Hit@5 = 78,6%**, superando a meta regulatória do Gate ($\ge 70\%$).
 - O limiar de $0,25$ apresenta menor taxa de falsas recusas ($FP = 2$ vs $FP = 3$), enquanto o limiar de $0,30$ retém maior recall de abstenção ($83,3\%$ vs $66,7\%$). Ambas as opções atingem idêntica acurácia global de 80,0%, confirmando empiricamente que a escolha de limiar é um compromisso de projeto entre tolerância a falso alarme e rigor de abstenção.
 
+### Estimativa independente do limiar 0,30 congelado em 36 perguntas inéditas (S3-07 / Issue #112 — em aberto)
+
+Como as 20 perguntas acima foram inspecionadas ao comparar `0,25` e `0,30`, construiu-se um terceiro conjunto estritamente disjunto de **N = 36 perguntas novas** (`avaliacao/anotacoes/abstencao-independente-36.csv`, avaliado por `avaliacao/avaliar_abstencao_teste.py` e gravado em [`avaliacao/resultados/s2s3-abstencao-teste.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-abstencao-teste.json)), cobrindo os 4 tipos (`18 normativas`, `4 lacunas`, `7 vigência` e `7 fora do corpus`) e as 7 categorias regulatórias, no qual **apenas o limiar congelado `0,30` (`LIMIAR_PADRAO`) é medido, sem reescolha**:
+
+- **Disjunção comprovada:** Testada e verificada pelo teste contínuo `tests/avaliacao/test_disjuncao_perguntas.py` (interseção nula de IDs e textos contra golden set e perguntas exploratórias).
+- **Referência preliminar (Anotador 1, Luiz):** Precisão = **1,000 [1,000; 1,000]**, Recall = **1,000 [1,000; 1,000]**, F1 = **1,000 [1,000; 1,000]**, Acurácia = **1,000 [1,000; 1,000]** (`VP = 14, FP = 0, FN = 0, VN = 22`).
+- **Segunda anotação humana independente:** `anotador_2` distribuído para os 5 colegas em rodízio (`status = aguardando_anotador_2`). O encerramento definitivo da Issue #112 aguarda o preenchimento da segunda coluna e a apuração do $\kappa$ de Cohen inter-anotadores.
+
+### Comparação pareada de embedders e uso de RAM (S4-05 / Issue #114)
+
+Fonte: [`avaliacao/resultados/s2s3-embedders.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-embedders.json), gerado por `uv run python avaliacao/comparar_embedders.py` sobre as 51 perguntas com norma do split de teste (`B = 10.000`, semente 42):
+
+| Extrator | Dimensão | recall@5 | MRR | nDCG@5 | Latência p50 / p95 | RAM processo / servidor |
+|---|---:|---:|---:|---:|---:|---:|
+| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 0,920 | 3,9 / 4,1 ms | 2,55 MB / 0 MB |
+| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 0,938 | 166,9 / 175,4 ms | 7,08 MB / ~1.380 MB |
+| **E3 `EmbedderSemanticoPtBr` (offline, não treinado)** | 384 | 0,990 | 0,886 | 0,909 | 4,1 / 4,2 ms | 2,53 MB / 0 MB |
+| **E4 `qwen3-embedding:0.6b` (`EmbedderOllama`, Apache-2.0 segundo o cartão do modelo)** | 1024 | 0,990 | 0,915 | 0,926 | 113,6 / 131,7 ms | 7,08 MB / ~762 MB |
+
+Diferenças pareadas contra o E1 (híbrido 0,5, 51 perguntas com norma, IC 95% bootstrap, B = 10.000, semente 42; vetores por pergunta medidos ao vivo e gravados no JSON):
+
+| Par | $\Delta$recall@5 | $\Delta$MRR | $\Delta$nDCG@5 | $\Delta$latência (ms) |
+|---|---|---|---|---|
+| E2 − E1 | $+0,0098$ [$+0,0000$; $+0,0294$] | $+0,0229$ [$−0,0196$; $+0,0654$] | $+0,0179$ [$−0,0098$; $+0,0468$] | $+147,2$ [$+146,2$; $+148,7$] |
+| E3 − E1 | $+0,0000$ [$+0,0000$; $+0,0000$] | $−0,0163$ [$−0,0588$; $+0,0196$] | $−0,0119$ [$−0,0434$; $+0,0149$] | $+0,0$ [$+0,0$; $+0,0$] |
+| E4 − E1 | $+0,0000$ [$−0,0294$; $+0,0294$] | $+0,0131$ [$−0,0294$; $+0,0588$] | $+0,0060$ [$−0,0229$; $+0,0357$] | $+109,0$ [$+105,6$; $+112,4$] |
+
+McNemar (hit@5 / cobertura total no top-5): E2 $p = 1,000$ / $p = 1,000$ ($n_{01} = 1$, $n_{10} = 0$); E3 $p = 1,000$ / $p = 1,000$; E4 $p = 1,000$ / $p = 0,480$ ($n_{01} = 1$, $n_{10} = 1$). Nenhuma diferença de qualidade é significativa a 5%. A latência dos modelos neurais é de 29× a 42× a do hashing, com IC que exclui zero.
+
+**Observação:** uma versão anterior do script reconstruía os vetores por pergunta do `bge-m3` a partir de agregados; isso foi removido e o pareado foi remedido ao vivo (o IC de ΔMRR do E2 passou de [0,0000; +0,0588] para o da tabela). A RAM do servidor vem de `/api/ps`; a licença do `qwen3-embedding` não é exposta pelo Ollama e consta conforme o cartão do modelo.
+
+**Decisão:** mantém-se `EmbedderHash` como padrão: nenhum extrator alternativo (dois modelos neurais treinados e um extrator conceitual) supera o hashing de forma significativa, a latência é 29× a 42× maior, o RAM chega a ~1,4 GB e o CI permanece 100% offline, sem pesos versionados.
+
 ### Fundamentação (108 respostas não abstidas)
 
 | Métrica | Valor [IC 95%] |

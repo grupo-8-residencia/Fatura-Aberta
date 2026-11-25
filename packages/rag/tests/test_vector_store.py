@@ -16,6 +16,8 @@ from fa_contratos import Citacao
 from fa_rag import (
     DocumentoNormativo,
     EmbedderHash,
+    EmbedderOllama,
+    EmbedderSemanticoPtBr,
     IndiceHibrido,
     carregar_corpus,
     chunkar_dispositivo,
@@ -382,3 +384,21 @@ def test_prodist_e_reh_3614_no_corpus_e_respeitam_vigencia() -> None:
         um_por_dispositivo=True,
     )
     assert not any(r.documento.id.startswith("reh3614-") for r in antes_reh)
+
+
+def test_embedders_semantico_ptbr_e_ollama_respeitam_protocolo() -> None:
+    sem = EmbedderSemanticoPtBr()
+    assert sem.dim == 384 and sem.nome == "semantico-conceitual-ptbr"
+    assert criar_embedder("semantico").dim == 384
+    v1, v2, v_longe = sem.embed(
+        [
+            "paguei a fatura duas vezes; o que acontece?",
+            "pagamento em duplicidade e devolução de valores pagos indevidamente",
+            "suspensão imediata por risco à segurança de instalações elétricas",
+        ]
+    )
+    assert math.isclose(sum(x * x for x in v1), 1.0, rel_tol=1e-9)
+    assert _cos(v1, v2) > _cos(v1, v_longe)
+
+    ol = EmbedderOllama("bge-m3", digest="sha256:teste", dim=1024)
+    assert ol.nome == "ollama:bge-m3" and ol.versao == "sha256:teste" and ol.dim == 1024
