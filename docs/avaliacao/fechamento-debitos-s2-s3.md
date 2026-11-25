@@ -35,7 +35,7 @@ PDF de faturas (#30).
 | D4 | S2 | Documentação dizia "índice em memória" nos diagramas | `rag.md` | Documentação divergente, **corrigida** |
 | D5 | S2/S3 | Embedder apresentado sem comparação com modelo semântico | S4-05 aberta | Experimento executado (seção 10) |
 | D6 | S3 | κ do juiz: relatório e artefatos | κ = 0,029 em todos os registros | **Caso B** (seção 7) |
-| D7 | S3 | Limiar 0,30 escolhido após ver o teste | comentário em `fa_rag/sintese.py` | Confirmado, **registrado**; sem estimativa independente possível hoje |
+| D7 | S3 | Limiar 0,30 escolhido após ver o teste | comentário em `fa_rag/sintese.py` | Confirmado, **registrado**; conjunto independente (N = 36) versionado, mas só com 1 anotador (sem κ): estimativa **ainda não independente** |
 | D8 | S3 | Cabeçalhos das rodadas sem hash do corpus, embedder, α e limiar | `s3-rodada.json` | Confirmado; novas avaliações usam `cabecalho_reprodutivel.py` |
 | D9 | S3 | "τ = 0,48" citado no pedido de auditoria não existe no código | só aparece como score em `s2-recall-gate.json` | **Não reproduzido** |
 | D10 | S3 | Registro do juiz sem vereditos por item no CSV | `juiz-40.csv`, coluna `veredito_juiz` vazia | Confirmado, limitação documentada em teste |
@@ -141,26 +141,25 @@ nas 51 perguntas com norma do split de teste; limiar de abstenção escolhido na
 | recall@3 | 0,980 | 0,980 | 0,980 |
 | recall@5 | 0,990 | 1,000 | 0,990 |
 | MRR | 0,902 | 0,925 | 0,886 |
-| nDCG@5 | 0,920 | 0,938 | 0,908 |
+| nDCG@5 | 0,920 | 0,938 | 0,909 |
 | precisão@5 | 0,208 | 0,212 | 0,208 |
-| latência por consulta p50 / p95 | 1,0 / 1,1 ms | 142,9 / 151,3 ms | 1,3 / 1,8 ms |
+| latência por consulta p50 / p95 | 4,0 / 4,0 ms | 142,9 / 151,3 ms (execução anterior) | 4,1 / 4,4 ms |
 | F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 | 0,714 |
 | Construção do índice | 0,03 s | 5,5 s | 0,04 s |
-| RAM pico processo / vetores índice | 2,67 MB / 0,23 MB | 2,45 MB / 0,61 MB | 2,66 MB / 0,23 MB |
+| RAM pico processo / vetores índice | 2,55 MB / 0,69 MB | 2,45 MB / 0,61 MB | 2,53 MB / 0,69 MB |
 | Pesos em disco / RAM servidor Ollama | 0 MB / 0 MB | 1.104,04 MB / ~1.380 MB | 0 MB / 0 MB |
 
 `bge-m3`: licença MIT, 566,7 M de parâmetros, F16, 1024 dimensões, 1,16 GB (`1.104,04 MB`), digest `79076464…`.
 `EmbedderSemanticoPtBr`: segundo extrator pt-BR (projeção em 23 eixos conceituais regulatórios + n-gramas morfológicos, 384 dimensões, determinístico e offline).
 
 **Teste pareado nas 51 perguntas com norma do split de teste (`B = 10.000`, semente 42, em `s2s3-embedders.json`):**
-- `E2 (bge-m3) − E1 (hash)`:
-  - $\Delta\text{recall@5} = +0,0098$ (IC 95% pareado: $[+0,0000; +0,0294]$, inclui zero; McNemar em `hit@5`: $n_{01}=0, n_{10}=0, p=1,000$; McNemar em cobertura total top-5: $n_{01}=1, n_{10}=0, \chi^2=0,0, p=1,000$).
-  - $\Delta\text{MRR} = +0,0229$ (IC 95% pareado: $[+0,0000; +0,0588]$, inclui zero; sem significância estatística a 5%).
+- `E2 (bge-m3) − E1 (hash)`: **pendente.** Os vetores por pergunta do `bge-m3` não foram gravados; os valores $+0,0098$ e $+0,0229$ citados antes vinham de uma reconstrução a partir de agregados, removida do script. Reexecutar com `--ollama-ao-vivo`.
 - `E3 (semantico-ptbr) − E1 (hash)`:
   - $\Delta\text{recall@5} = 0,0000$ (IC 95% pareado: $[0,0000; 0,0000]$; McNemar $p=1,000$).
   - $\Delta\text{MRR} = -0,0163$ (IC 95% pareado: $[-0,0588; +0,0196]$, cruza zero).
+  - $\Delta\text{nDCG@5} = -0,0119$ ($[-0,0434; +0,0149]$); $\Delta$latência $+0,05$ ms ($[+0,04; +0,06]$, significativa mas irrelevante na prática).
 
-**Decisão: o hashing segue como padrão.** Os testes pareados (bootstrap e McNemar) confirmam ausência de ganho estatisticamente significativo do `bge-m3` e do `EmbedderSemanticoPtBr` sobre o `EmbedderHash`, contra latência ~140 vezes maior e ~1,38 GB de RAM residente no servidor Ollama para o `bge-m3`. Nenhum peso de modelo é versionado nem baixado pelo CI.
+**Decisão: o hashing segue como padrão.** O teste pareado confirma ausência de ganho significativo do `EmbedderSemanticoPtBr`; para o `bge-m3` os agregados são descritivos (pareado pendente). Contra latência ~36 vezes maior e ~1,38 GB de RAM residente no servidor Ollama para o `bge-m3`. Nenhum peso de modelo é versionado nem baixado pelo CI.
 
 ## 11. Testes executados
 

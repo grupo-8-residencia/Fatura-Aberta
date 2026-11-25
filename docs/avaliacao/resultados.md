@@ -218,13 +218,30 @@ Como as 20 perguntas acima foram inspecionadas ao comparar `0,25` e `0,30`, cons
 
 Fonte: [`avaliacao/resultados/s2s3-embedders.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-embedders.json), gerado por `uv run python avaliacao/comparar_embedders.py` sobre as 51 perguntas com norma do split de teste (`B = 10.000`, semente 42):
 
-| Extrator | Dimensão | recall@5 (híbrido) | MRR (híbrido) | Latência p50 / p95 | RAM processo / servidor | $\Delta\text{recall@5}$ pareado vs E1 [IC 95%] | $\Delta\text{MRR}$ pareado vs E1 [IC 95%] |
-|---|---:|---:|---:|---:|---:|---|---|
-| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 1,0 / 1,1 ms | 2,67 MB / 0 MB | — | — |
-| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 142,9 / 151,3 ms | 2,45 MB / ~1.380 MB | $+0,0098$ [$+0,0000$; $+0,0294$] (McNemar $p=1,00$) | $+0,0229$ [$+0,0000$; $+0,0588$] (n.s.) |
-| **E3 `EmbedderSemanticoPtBr` (offline)** | 384 | 0,990 | 0,886 | 1,3 / 1,8 ms | 2,66 MB / 0 MB | $+0,0000$ [$+0,0000$; $+0,0000$] (McNemar $p=1,00$) | $-0,0163$ [$-0,0588$; $+0,0196$] (n.s.) |
+| Extrator | Dimensão | recall@5 | MRR | nDCG@5 | Latência p50 / p95 | RAM processo / servidor |
+|---|---:|---:|---:|---:|---:|---:|
+| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 0,920 | 4,0 / 4,0 ms | 2,55 MB / 0 MB |
+| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 0,938 | 142,9 / 151,3 ms | 2,45 MB / ~1.380 MB |
+| **E3 `EmbedderSemanticoPtBr` (offline)** | 384 | 0,990 | 0,886 | 0,909 | 4,1 / 4,4 ms | 2,53 MB / 0 MB |
 
-**Decisão:** mantém-se `EmbedderHash` como padrão (diferenças sem significância estatística a 5%, ~1 ms de latência, < 3 MB de RAM e CI 100% offline sem pesos versionados).
+Diferenças pareadas contra o E1 (híbrido 0,5, 51 perguntas, IC 95% bootstrap):
+
+| Par | $\Delta$recall@5 | $\Delta$MRR | $\Delta$nDCG@5 | $\Delta$latência (ms) |
+|---|---|---|---|---|
+| E3 − E1 | $0,0000$ [$0,0000$; $0,0000$] | $-0,0163$ [$-0,0588$; $+0,0196$] | $-0,0119$ [$-0,0434$; $+0,0149$] | $+0,05$ [$+0,04$; $+0,06$] (diferença de 0,05 ms, irrelevante na prática) |
+| E2 − E1 (`bge-m3`) | **pendente** | **pendente** | **pendente** | **pendente** |
+
+**Limitação registrada:** os vetores por pergunta do `bge-m3` não foram gravados na medição original
+(os agregados da linha E2 são reais, mas o pareado não pode ser recalculado a partir deles). Uma versão
+anterior do script reconstruía esses vetores a partir dos agregados; isso foi removido e os valores
+$+0,0098$ / $+0,0229$ antes citados para E2 − E1 **não** valem como teste pareado. Reexecutar com
+`--ollama-ao-vivo` (modelo `bge-m3` instalado) grava os vetores e preenche a linha. A latência do E2
+vem de execução anterior, em condições não idênticas às do E1/E3.
+
+**Decisão:** mantém-se `EmbedderHash` como padrão (E3 sem diferença significativa a 5%; `bge-m3` com
+agregados descritivos próximos, ~36× a latência e ~1,4 GB de RAM no servidor; CI 100% offline sem pesos
+versionados). O E3 é um extrator conceitual determinístico, **não** um modelo treinado; um segundo modelo
+neural segue como trabalho opcional.
 
 ### Fundamentação (108 respostas não abstidas)
 

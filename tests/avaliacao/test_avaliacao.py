@@ -278,11 +278,22 @@ def test_comparar_embedders_registra_teste_pareado_ram_e_segundo_modelo() -> Non
 
     pareado = versionado["comparacao_pareada"]
     assert {"E2_bge_m3_menos_E1_hash", "E3_semantico_ptbr_menos_E1_hash"} <= set(pareado)
-    for chave_par in ("E2_bge_m3_menos_E1_hash", "E3_semantico_ptbr_menos_E1_hash"):
-        bloco = pareado[chave_par]
+    # O pareado do bge-m3 só vale se vier de vetores por pergunta medidos ao vivo; nunca
+    # reconstruídos de agregados. Sem eles, fica marcado como pendente.
+    e2_par = pareado["E2_bge_m3_menos_E1_hash"]
+    if "status" in e2_par:
+        assert e2_par["status"] == "pendente_execucao_ao_vivo"
+        assert "vetores_por_pergunta" not in res["E2_semantico"]
+    else:
+        assert res["E2_semantico"]["vetores_por_pergunta"]["ids"]
+    for chave_par, bloco in pareado.items():
+        if "status" in bloco:
+            continue
         assert bloco["n_perguntas_pareadas"] == 51
-        assert bloco["diferenca_recall_at_5"]["significativo_5pct"] is False
-        assert bloco["diferenca_mrr"]["significativo_5pct"] is False
+        for medida in ("diferenca_recall_at_5", "diferenca_mrr", "diferenca_ndcg_at_5"):
+            assert bloco[medida]["significativo_5pct"] is False, (chave_par, medida)
+        lat = bloco["diferenca_latencia_ms"]
+        assert lat["ic95_inf"] <= lat["estimativa"] <= lat["ic95_sup"]
         assert bloco["mcnemar_hit_at_5"]["significativo_5pct"] is False
         assert bloco["mcnemar_cobertura_total_top5"]["significativo_5pct"] is False
 

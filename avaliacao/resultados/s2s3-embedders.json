@@ -1,7 +1,7 @@
 {
   "cabecalho": {
-    "gerado_em_utc": "2026-11-25T01:54:21+00:00",
-    "python": "3.14.7",
+    "gerado_em_utc": "2026-11-25T13:01:30+00:00",
+    "python": "3.12.14",
     "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
     "sha256_corpus_arquivo": "b0bcd6c5e848a224a8ec5f9e81f25067628af7aae09bfae7b13f5cd831d0eb22",
     "sha256_perguntas_golden_set": "28c7729a3cc08ce9b68c6531530ea351e22452be3deafe0b6aab2004a4488cc0",
@@ -22,9 +22,9 @@
   "n_teste": 60,
   "resultados": {
     "E1_hash_lexical": {
-      "construcao_indice_s": 0.3965860000025714,
+      "construcao_indice_s": 0.1661326250177808,
       "memoria_ram_mb": {
-        "pico_alocacao_processo_mb": 2.673,
+        "pico_alocacao_processo_mb": 2.549,
         "vetores_indice_mb": 0.6855,
         "pesos_modelo_mb": 0.0,
         "servico_externo_mb": 0.0
@@ -40,9 +40,9 @@
         },
         "n_perguntas_com_norma": 51,
         "latencia_consulta_ms": {
-          "p50": 10.295200001564808,
-          "p95": 13.039200002822326,
-          "media": 10.454564705915068
+          "p50": 3.8075829506851733,
+          "p95": 4.130790999624878,
+          "media": 3.8031389167550587
         },
         "abstencao": {
           "limiar_escolhido_na_calibracao": 0.25,
@@ -78,9 +78,9 @@
         },
         "n_perguntas_com_norma": 51,
         "latencia_consulta_ms": {
-          "p50": 10.620699998980854,
-          "p95": 13.001699997403193,
-          "media": 10.856637254191275
+          "p50": 3.9671669946983457,
+          "p95": 4.046207992359996,
+          "media": 3.9169141376738015
         },
         "abstencao": {
           "limiar_escolhido_na_calibracao": 0.25,
@@ -116,9 +116,9 @@
         },
         "n_perguntas_com_norma": 51,
         "latencia_consulta_ms": {
-          "p50": 10.608100001263665,
-          "p95": 14.099299998633796,
-          "media": 10.953564706070727
+          "p50": 3.9690830162726343,
+          "p95": 4.113584000151604,
+          "media": 3.925002527003195
         },
         "abstencao": {
           "limiar_escolhido_na_calibracao": 0.25,
@@ -296,9 +296,9 @@
         "eixos_conceituais_ptbr": 23
       },
       "dim": 384,
-      "construcao_indice_s": 0.4724709999973129,
+      "construcao_indice_s": 0.18602791597368196,
       "memoria_ram_mb": {
-        "pico_alocacao_processo_mb": 2.657,
+        "pico_alocacao_processo_mb": 2.529,
         "vetores_indice_mb": 0.6855,
         "pesos_modelo_mb": 0.0,
         "servico_externo_mb": 0.0
@@ -314,9 +314,9 @@
         },
         "n_perguntas_com_norma": 51,
         "latencia_consulta_ms": {
-          "p50": 10.894499999267282,
-          "p95": 14.488100001472048,
-          "media": 11.368645098306896
+          "p50": 3.9025000296533108,
+          "p95": 4.0433749672956765,
+          "media": 3.8662221369461394
         },
         "abstencao": {
           "limiar_escolhido_na_calibracao": 0.25,
@@ -352,9 +352,9 @@
         },
         "n_perguntas_com_norma": 51,
         "latencia_consulta_ms": {
-          "p50": 10.995199998433236,
-          "p95": 14.420799998333678,
-          "media": 11.427554901827392
+          "p50": 4.144666949287057,
+          "p95": 4.423000034876168,
+          "media": 4.129981167851856
         },
         "abstencao": {
           "limiar_escolhido_na_calibracao": 0.25,
@@ -390,9 +390,9 @@
         },
         "n_perguntas_com_norma": 51,
         "latencia_consulta_ms": {
-          "p50": 11.182599999301601,
-          "p95": 14.148300000670133,
-          "media": 11.57368039240086
+          "p50": 4.224499978590757,
+          "p95": 4.4419580372050405,
+          "media": 4.181960753996071
         },
         "abstencao": {
           "limiar_escolhido_na_calibracao": 0.3,
@@ -436,6 +436,18 @@
         "ic95_sup": 0.0196078431372549,
         "significativo_5pct": false
       },
+      "diferenca_ndcg_at_5": {
+        "estimativa": -0.011906092927169164,
+        "ic95_inf": -0.04342002899159323,
+        "ic95_sup": 0.01493842170868461,
+        "significativo_5pct": false
+      },
+      "diferenca_latencia_ms": {
+        "estimativa": 0.05333999961651131,
+        "ic95_inf": 0.04302220323177822,
+        "ic95_sup": 0.06292404164103609,
+        "significativo_5pct": true
+      },
       "mcnemar_hit_at_5": {
         "n01_a_erra_b_acerta": 0,
         "n10_a_acerta_b_erra": 0,
@@ -454,42 +466,13 @@
       }
     },
     "E2_bge_m3_menos_E1_hash": {
-      "n_perguntas_pareadas": 51,
-      "bootstrap_B": 10000,
-      "semente": 42,
-      "diferenca_recall_at_5": {
-        "estimativa": 0.00980392156862745,
-        "ic95_inf": 0.0,
-        "ic95_sup": 0.029411764705882353,
-        "significativo_5pct": false
-      },
-      "diferenca_mrr": {
-        "estimativa": 0.022875816993464054,
-        "ic95_inf": 0.0,
-        "ic95_sup": 0.058823529411764705,
-        "significativo_5pct": false
-      },
-      "mcnemar_hit_at_5": {
-        "n01_a_erra_b_acerta": 0,
-        "n10_a_acerta_b_erra": 0,
-        "chi2_edwards": 0.0,
-        "p_valor": 1.0,
-        "p_exato": 1.0,
-        "significativo_5pct": false
-      },
-      "mcnemar_cobertura_total_top5": {
-        "n01_a_erra_b_acerta": 1,
-        "n10_a_acerta_b_erra": 0,
-        "chi2_edwards": 0.0,
-        "p_valor": 1.0,
-        "p_exato": 1.0,
-        "significativo_5pct": false
-      }
+      "status": "pendente_execucao_ao_vivo",
+      "motivo": "Os vetores por pergunta do bge-m3 não foram gravados na medição original. Rodar com --ollama-ao-vivo para medir e gravar."
     }
   },
   "decisao": {
     "embedder_padrao_mantido": "hash-ngramas-blake2b (EmbedderHash)",
-    "justificativa": "Os testes pareados (bootstrap B = 10.000, semente 42, e McNemar) mostram que as diferenças de recall@5 (+0,010 para bge-m3; 0,000 para semantico-ptbr) e MRR (+0,023 para bge-m3) têm intervalos de confiança de 95% que incluem ou tocam zero e p = 1,000 no teste de McNemar (sem significância estatística a 5%). Em contrapartida, o bge-m3 exige ~1,10 GB de pesos em disco, ~1,38 GB de RAM residente no servidor Ollama e latência ~140x maior (143 ms vs 1 ms). O EmbedderHash é mantido como padrão por equivalência estatística, latência ~1 ms, consumo < 3 MB de RAM e execução 100% offline no CI.",
+    "justificativa": "Os testes pareados (bootstrap B = 10.000, semente 42, e McNemar) não mostram diferença estatisticamente significativa a 5% em recall@5, MRR e nDCG@5 entre o EmbedderHash e o EmbedderSemanticoPtBr. O pareado do bge-m3 está pendente de execução ao vivo (vetores por pergunta não gravados); os agregados medidos (recall@5, MRR, nDCG@5) são apenas descritivos. O bge-m3 exige ~1104 MB de pesos, ~1380 MB de RAM no servidor Ollama e latência p50 de 142.9 ms contra 4.0 ms do hashing (36x). O EmbedderHash é mantido como padrão: sem ganho comprovado e 100% offline no CI.",
     "pesos_versionados_ou_baixados_no_ci": false
   }
 }

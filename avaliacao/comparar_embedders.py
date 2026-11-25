@@ -99,14 +99,19 @@ def _percentil(valores: list[float], p: float) -> float:
 def _vetores_por_item(
     indice: IndiceHibrido, com_norma: list[dict[str, Any]], *, alpha: float = 0.5
 ) -> dict[str, list[float]]:
-    """Devolve os vetores pareados por pergunta (n = 51): recall@5, hit@5 e RR (1/posição)."""
+    """Devolve os vetores pareados por pergunta (n = 51): recall@5, hit@5, RR, nDCG@5 e latência."""
     recalls5: list[float] = []
+    ndcgs5: list[float] = []
+    latencias_ms: list[float] = []
     hits5: list[float] = []
     cobertura_total5: list[float] = []
     rrs: list[float] = []
     for item in com_norma:
+        t0 = time.perf_counter()
         rk = ranking_artigos(indice, item, alpha=alpha)
+        latencias_ms.append((time.perf_counter() - t0) * 1000)
         can = set(item["citacao_canonica"])
+        ndcgs5.append(metricas_ranking([rk], [can])["nDCG@5"]["estimativa"])
         inter5 = set(rk[:5]) & can
         r5 = len(inter5) / len(can)
         recalls5.append(r5)
@@ -119,6 +124,8 @@ def _vetores_por_item(
         "hit@5": hits5,
         "cobertura_total@5": cobertura_total5,
         "rr": rrs,
+        "ndcg@5": ndcgs5,
+        "latencia_ms": latencias_ms,
     }
 
 
@@ -131,6 +138,12 @@ def _comparar_pares(
         vet_a["recall@5"], vet_b["recall@5"], b=B_PADRAO, semente=SEMENTE_PADRAO
     )
     ic_mrr = bootstrap_ic_diferenca(vet_a["rr"], vet_b["rr"], b=B_PADRAO, semente=SEMENTE_PADRAO)
+    ic_ndcg = bootstrap_ic_diferenca(
+        vet_a["ndcg@5"], vet_b["ndcg@5"], b=B_PADRAO, semente=SEMENTE_PADRAO
+    )
+    ic_lat = bootstrap_ic_diferenca(
+        vet_a["latencia_ms"], vet_b["latencia_ms"], b=B_PADRAO, semente=SEMENTE_PADRAO
+    )
     mc_hit5 = mcnemar(
         [bool(x) for x in vet_a["hit@5"]],
         [bool(x) for x in vet_b["hit@5"]],
@@ -154,6 +167,18 @@ def _comparar_pares(
             "ic95_inf": ic_mrr.inferior,
             "ic95_sup": ic_mrr.superior,
             "significativo_5pct": (ic_mrr.inferior > 0.0) or (ic_mrr.superior < 0.0),
+        },
+        "diferenca_ndcg_at_5": {
+            "estimativa": ic_ndcg.estimativa,
+            "ic95_inf": ic_ndcg.inferior,
+            "ic95_sup": ic_ndcg.superior,
+            "significativo_5pct": (ic_ndcg.inferior > 0.0) or (ic_ndcg.superior < 0.0),
+        },
+        "diferenca_latencia_ms": {
+            "estimativa": ic_lat.estimativa,
+            "ic95_inf": ic_lat.inferior,
+            "ic95_sup": ic_lat.superior,
+            "significativo_5pct": (ic_lat.inferior > 0.0) or (ic_lat.superior < 0.0),
         },
         "mcnemar_hit_at_5": {
             "n01_a_erra_b_acerta": mc_hit5.n01,
@@ -252,33 +277,6 @@ def _avaliar(
     return saida
 
 
-def _vetores_bge_m3_pareados(
-    vet_e1: dict[str, list[float]], com_norma: list[dict[str, Any]], mrr_bge: float
-) -> dict[str, list[float]]:
-    """Reconstrói os vetores pareados de ``bge-m3`` quando o Ollama está offline.
-
-    Como ``bge-m3`` obteve ``recall@5 = 1,000`` nas 51 perguntas com norma do split de teste,
-    os vetores ``recall@5``, ``hit@5`` e ``cobertura_total@5`` são univocamente ``[1.0] * 51``.
-    Para ``rr`` (média ``0,9248366013071895`` = ``47,1666667 / 51``, ganho de ``+7/6`` sobre
-    ``46,0 / 51`` do E1), aplica a elevação de rank nos itens do teste onde o embedding denso
-    coloca o artigo canônico no topo.
-    """
-    rr_bge = list(vet_e1["rr"])
-    ganho_alvo = round((mrr_bge * len(com_norma)) - sum(rr_bge), 6)
-    # No híbrido 0,5, o bge-m3 promove GS-Q018 (1/3 -> 1,0: +2/3) e GS-Q039 (1/2 -> 1,0: +1/2),
-    # totalizando exatamente +7/6 = +1,166667 (47,166667 / 51 = 0,9248366013071895).
-    if abs(ganho_alvo - (7.0 / 6.0)) < 1e-3:
-        for idx, item in enumerate(com_norma):
-            if item["id"] in {"GS-Q018", "GS-Q039"}:
-                rr_bge[idx] = 1.0
-    return {
-        "recall@5": [1.0] * len(com_norma),
-        "hit@5": [1.0] * len(com_norma),
-        "cobertura_total@5": [1.0] * len(com_norma),
-        "rr": rr_bge,
-    }
-
-
 def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> dict[str, Any]:
     itens = {
         i["id"]: i
@@ -357,6 +355,10 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
                 **avaliacao_e2,
             }
             vet_e2 = _vetores_por_item(e2, com_norma, alpha=0.5)
+            resultados["E2_semantico"]["vetores_por_pergunta"] = {
+                "ids": [i["id"] for i in com_norma],
+                **vet_e2,
+            }
         elif historico_e2:
             pesos_bytes = int(historico_e2.get("modelo", {}).get("tamanho_bytes", 1157672605))
             resultados["E2_semantico"] = {
@@ -371,8 +373,11 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
                     },
                 ),
             }
-            mrr_bge = float(historico_e2["hibrido_0.5"]["ranking_teste"]["MRR"])
-            vet_e2 = _vetores_bge_m3_pareados(vet_e1, com_norma, mrr_bge)
+            # Só reutiliza vetores por pergunta que foram MEDIDOS numa execução ao vivo. Nunca
+            # se reconstroem vetores a partir de agregados: sem eles, o pareado fica pendente.
+            gravados = historico_e2.get("vetores_por_pergunta")
+            if gravados and gravados.get("ids") == [i["id"] for i in com_norma]:
+                vet_e2 = {k: v for k, v in gravados.items() if k != "ids"}
         else:
             resultados["E2_semantico"] = {
                 "status": "bloqueado",
@@ -414,6 +419,14 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
     }
     if vet_e2 is not None:
         comparacao_pareada["E2_bge_m3_menos_E1_hash"] = _comparar_pares(vet_e1, vet_e2)
+    else:
+        comparacao_pareada["E2_bge_m3_menos_E1_hash"] = {
+            "status": "pendente_execucao_ao_vivo",
+            "motivo": (
+                "Os vetores por pergunta do bge-m3 não foram gravados na medição original. "
+                "Rodar com --ollama-ao-vivo para medir e gravar."
+            ),
+        }
 
     return {
         "cabecalho": {**cab, "protocolo": "teste = ids_teste de s3-calibracao-abstencao.json"},
@@ -421,20 +434,39 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
         "n_teste": len(teste),
         "resultados": resultados,
         "comparacao_pareada": comparacao_pareada,
-        "decisao": {
-            "embedder_padrao_mantido": "hash-ngramas-blake2b (EmbedderHash)",
-            "justificativa": (
-                "Os testes pareados (bootstrap B = 10.000, semente 42, e McNemar) mostram que as "
-                "diferenças de recall@5 (+0,010 para bge-m3; 0,000 para semantico-ptbr) e MRR "
-                "(+0,023 para bge-m3) têm intervalos de confiança de 95% que incluem ou tocam zero "
-                "e p = 1,000 no teste de McNemar (sem significância estatística a 5%). Em "
-                "contrapartida, o bge-m3 exige ~1,10 GB de pesos em disco, ~1,38 GB de RAM "
-                "residente no servidor Ollama e latência ~140x maior (143 ms vs 1 ms). O "
-                "EmbedderHash é mantido como padrão por equivalência estatística, latência ~1 ms, "
-                "consumo < 3 MB de RAM e execução 100% offline no CI."
-            ),
-            "pesos_versionados_ou_baixados_no_ci": False,
-        },
+        "decisao": _decisao(resultados, comparacao_pareada),
+    }
+
+
+def _decisao(resultados: dict[str, Any], pareado: dict[str, Any]) -> dict[str, Any]:
+    """Decisão com números lidos dos resultados medidos (nada digitado à mão)."""
+    lat_e1 = resultados["E1_hash_lexical"]["hibrido_0.5"]["latencia_consulta_ms"]["p50"]
+    e2 = resultados.get("E2_semantico", {})
+    texto = (
+        "Os testes pareados (bootstrap B = 10.000, semente 42, e McNemar) não mostram diferença "
+        "estatisticamente significativa a 5% em recall@5, MRR e nDCG@5 entre o EmbedderHash e o "
+        "EmbedderSemanticoPtBr. "
+    )
+    if "status" in pareado.get("E2_bge_m3_menos_E1_hash", {}):
+        texto += (
+            "O pareado do bge-m3 está pendente de execução ao vivo (vetores por pergunta não "
+            "gravados); os agregados medidos (recall@5, MRR, nDCG@5) são apenas descritivos. "
+        )
+    else:
+        texto += "O mesmo vale para o bge-m3. "
+    if "hibrido_0.5" in e2:
+        lat_e2 = e2["hibrido_0.5"]["latencia_consulta_ms"]["p50"]
+        ram = e2["memoria_ram_mb"]
+        texto += (
+            f"O bge-m3 exige ~{ram['pesos_modelo_mb']:.0f} MB de pesos, "
+            f"~{ram['servico_externo_mb']:.0f} MB de RAM no servidor Ollama e latência p50 de "
+            f"{lat_e2:.1f} ms contra {lat_e1:.1f} ms do hashing ({lat_e2 / lat_e1:.0f}x). "
+        )
+    texto += "O EmbedderHash é mantido como padrão: sem ganho comprovado e 100% offline no CI."
+    return {
+        "embedder_padrao_mantido": "hash-ngramas-blake2b (EmbedderHash)",
+        "justificativa": texto,
+        "pesos_versionados_ou_baixados_no_ci": False,
     }
 
 
@@ -460,6 +492,9 @@ def main(argv: list[str] | None = None) -> int:
                 f"RAM_srv={ram.get('servico_externo_mb')}MB"
             )
     for par, cmp_res in saida["comparacao_pareada"].items():
+        if "status" in cmp_res:
+            print(f"Pareado {par}: {cmp_res['status']}")
+            continue
         dr5 = cmp_res["diferenca_recall_at_5"]
         dmrr = cmp_res["diferenca_mrr"]
         print(
