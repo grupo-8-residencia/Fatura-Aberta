@@ -80,6 +80,8 @@ def extrair_candidata(imagem: bytes, extrator: ExtratorDeFoto) -> FaturaCandidat
     """Lê a foto com o extrator e devolve a candidata, que ainda precisa de confirmação."""
     try:
         bruto = extrator.extrair(imagem)
+    except ErroExtracao:
+        raise  # mensagens escritas por nós, sem trechos da fatura
     except Exception:
         # Não propaga a exceção: a mensagem do modelo pode repetir trechos da fatura.
         raise ErroExtracao("O modelo de visão não conseguiu ler a foto.") from None
