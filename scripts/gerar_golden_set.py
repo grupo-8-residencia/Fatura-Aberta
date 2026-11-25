@@ -214,9 +214,24 @@ def verificar(pasta: Path = PASTA) -> list[str]:
             h, nome = linha.split("  ", 1)
             esperados[nome] = h
     for nome in ARQUIVOS_CONGELADOS:
+        caminho = pasta / nome
         if nome not in esperados:
             problemas.append(f"{nome} sem hash registrado")
-        elif not (pasta / nome).exists() or sha256(pasta / nome) != esperados[nome]:
+        elif not caminho.exists():
+            problemas.append(f"{nome} ausente")
+        elif sha256(caminho) != esperados[nome]:
+            bytes_conteudo = caminho.read_bytes()
+            if b"\r\n" in bytes_conteudo:
+                hash_normalizado = hashlib.sha256(
+                    bytes_conteudo.replace(b"\r\n", b"\n")
+                ).hexdigest()
+                if hash_normalizado == esperados[nome]:
+                    problemas.append(
+                        f"{nome} diverge do hash congelado por conversão CRLF "
+                        "(consulte a política de fim de linha LF em "
+                        ".gitattributes e CONTRIBUTING.md)"
+                    )
+                    continue
             problemas.append(f"{nome} diverge do hash congelado")
     if len(ler_perguntas(pasta)) != N_PERGUNTAS:
         problemas.append(f"esperadas {N_PERGUNTAS} perguntas")

@@ -1,0 +1,39 @@
+# Política de fim de linha (LF) para dados e código do repositório
+# Garante reprodutibilidade de checksums SHA-256 entre Linux, macOS e Windows.
+
+* text=auto eol=lf
+
+# Dados com verificação estrita de integridade e checksums congelados
+dados/golden-set/perguntas.jsonl text eol=lf
+dados/golden-set/faturas_sinteticas.jsonl text eol=lf
+dados/golden-set/distribuicao_anotadores.md text eol=lf
+dados/golden-set/checksums.sha256 text eol=lf
+dados/normas/** text eol=lf
+dados/tarifas/** text eol=lf
+
+# Arquivos de código, configuração e documentação
+*.py text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sha256 text eol=lf
+*.toml text eol=lf
+*.txt text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.sh text eol=lf
+
+# Binários e arquivos protegidos
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.xlsx binary
+*.ico binary
+*.wasm binary
+*.woff binary
+*.woff2 binary
