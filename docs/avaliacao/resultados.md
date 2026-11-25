@@ -206,6 +206,14 @@ Composição: 14 perguntas com norma esperada (cortes na sexta-feira, notificaç
 - O recuperador híbrido generaliza para perguntas inéditas em linguagem leiga com **Hit@5 = 78,6%**, superando a meta regulatória do Gate ($\ge 70\%$).
 - O limiar de $0,25$ apresenta menor taxa de falsas recusas ($FP = 2$ vs $FP = 3$), enquanto o limiar de $0,30$ retém maior recall de abstenção ($83,3\%$ vs $66,7\%$). Ambas as opções atingem idêntica acurácia global de 80,0%, confirmando empiricamente que a escolha de limiar é um compromisso de projeto entre tolerância a falso alarme e rigor de abstenção.
 
+### Estimativa independente do limiar 0,30 congelado em 36 perguntas inéditas (S3-07 / Issue #112 — em aberto)
+
+Como as 20 perguntas acima foram inspecionadas ao comparar `0,25` e `0,30`, construiu-se um terceiro conjunto estritamente disjunto de **N = 36 perguntas novas** (`avaliacao/anotacoes/abstencao-independente-36.csv`, avaliado por `avaliacao/avaliar_abstencao_teste.py` e gravado em [`avaliacao/resultados/s2s3-abstencao-teste.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-abstencao-teste.json)), cobrindo os 4 tipos (`18 normativas`, `4 lacunas`, `7 vigência` e `7 fora do corpus`) e as 7 categorias regulatórias, no qual **apenas o limiar congelado `0,30` (`LIMIAR_PADRAO`) é medido, sem reescolha**:
+
+- **Disjunção comprovada:** Testada e verificada pelo teste contínuo `tests/avaliacao/test_disjuncao_perguntas.py` (interseção nula de IDs e textos contra golden set e perguntas exploratórias).
+- **Referência preliminar (Anotador 1, Luiz):** Precisão = **1,000 [1,000; 1,000]**, Recall = **1,000 [1,000; 1,000]**, F1 = **1,000 [1,000; 1,000]**, Acurácia = **1,000 [1,000; 1,000]** (`VP = 14, FP = 0, FN = 0, VN = 22`).
+- **Segunda anotação humana independente:** `anotador_2` distribuído para os 5 colegas em rodízio (`status = aguardando_anotador_2`). O encerramento definitivo da Issue #112 aguarda o preenchimento da segunda coluna e a apuração do $\kappa$ de Cohen inter-anotadores.
+
 ### Fundamentação (108 respostas não abstidas)
 
 | Métrica | Valor [IC 95%] |

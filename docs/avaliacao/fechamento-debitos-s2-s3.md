@@ -94,10 +94,30 @@ Dois fatos que reduzem a confiança no próprio registro, ambos documentados e n
 `LIMIAR_PADRAO = 0,30` (`sintese.py`). O 0,25 de `vector_store.py` é um fator de atenuação do
 `nao_cobre`, não um limiar. A calibração 60/60 (semente 20261109) escolheu 0,20 na calibração; o
 0,30 foi adotado **depois** de ver o teste e o fora da amostra. Logo as métricas de teste do 0,30
-(F1 0,800 contra 0,714) são descritivas. Não há partição independente restante; uma estimativa
-independente exige perguntas novas anotadas por pessoas. Reproduzido em `s2s3-abstencao-teste.json`
+(F1 0,800 contra 0,714) são descritivas. Reproduzido em `s2s3-abstencao-teste.json`
 (60 perguntas de teste): precisão 1,000, recall de abstenção 0,667 (6 de 9) e acurácia 0,950 com
-0,30; a categoria mais fraca é `cip_cosip` (acurácia 0,50 com 3 abstenções esperadas e 1 prevista).
+0,30; a categoria mais fraca no split histórico é `cip_cosip` (acurácia 0,50 com 3 abstenções esperadas e 1 prevista).
+
+### Conjunto de N = 36 perguntas para validação independente (S3-07 / Issue #112 — em aberto)
+
+Para viabilizar uma estimativa verdadeiramente independente do limiar 0,30 congelado (sem reescolha),
+foi elaborado e versionado em `avaliacao/anotacoes/abstencao-independente-36.csv` um conjunto de
+**N = 36 perguntas inéditas** (`IND-Q01` a `IND-Q36`), estratificado nos 4 tipos (`18 normativas`,
+`4 lacunas`, `7 vigência` e `7 fora do corpus`) e nas 7 categorias regulatórias.
+
+1. **Comprovação de Disjunção Estrita:** A disjunção em relação às 120 perguntas do golden set
+   (`dados/golden-set/perguntas.jsonl`) e às 20 perguntas exploratórias da S3 (`avaliacao/checar_perguntas_novas.py`)
+   é testada e garantida de forma contínua pelo teste automatizado [`tests/avaliacao/test_disjuncao_perguntas.py`](../../tests/avaliacao/test_disjuncao_perguntas.py)
+   (interseção nula de IDs, interseção nula de enunciados literais e índice Jaccard máximo $\le 0,60$ contra o golden set e $\le 0,39$ contra as exploratórias).
+2. **Dupla Anotação Humana:** O arquivo estrutura a dupla anotação (`anotador_1 = Luiz` preenchido;
+   `anotador_2` rotacionado entre os 5 demais membros da equipe: Pedro, Talita, Maria Eduarda, Raíssa e Natália).
+   Para preservar a integridade metodológica e não forjar dados, os vereditos de `anotador_2` permanecem
+   vazios aguardando anotação pelos respectivos colegas.
+3. **Status da Issue #112:** A Issue #112 **permanece aberta** aguardando a finalização da segunda
+   anotação independente por outro integrante do time e o reporte formal do $\kappa$ de Cohen inter-anotadores.
+   O resultado preliminar calculado sobre a anotação do anotador 1 (em `avaliacao/resultados/s2s3-abstencao-teste.json`,
+   com status `aguardando_anotador_2`) serve como referência de partida do limiar congelado e não encerra
+   o débito até a conclusão da verificação inter-anotadores.
 
 ## 9. Reprodutibilidade das rodadas T1–T4
 
