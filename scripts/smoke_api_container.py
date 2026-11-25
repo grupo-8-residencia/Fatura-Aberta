@@ -63,6 +63,4 @@ combinada = enviar(
     },
 )
 assert combinada["modo"] == "fatura" and combinada["achados_motor"], "Pergunta combinada falhou"
-from fa_extracao import parse_pdf  # noqa: E402,F401  (pacote presente no contêiner)
-
 print("Smoke da API: análise de nível C e pergunta com citações aprovadas.")
