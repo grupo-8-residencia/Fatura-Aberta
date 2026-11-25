@@ -190,3 +190,115 @@ export async function analisarFatura(dados: DadosConfirmados): Promise<RespostaA
   }
   return (await resposta.json()) as RespostaAnalise;
 }
+
+/** Fatura como a API devolve (`fa_contratos.Fatura`): números como texto com ponto decimal. */
+export type FaturaApi = {
+  distribuidora: string;
+  mes_referencia: string;
+  leitura_anterior?: string | null;
+  leitura_atual?: string | null;
+  consumo_kwh: string;
+  itens: { descricao: string; quantidade?: string | null; tarifa?: string | null; valor: string }[];
+  total: string;
+};
+
+/** Resposta de `POST /extrair`: campos lidos do PDF para confirmar, ou o motivo claro da falha. */
+export type RespostaExtracao = { fatura?: FaturaApi | null; erro?: string | null; motivo?: string | null };
+
+/** Resposta de `POST /perguntar` usada na tela (os demais campos existem e são ignorados aqui). */
+export type RespostaPergunta = {
+  resposta: string;
+  citacoes: Citacao[];
+  abstencao: boolean;
+  origem: string;
+  motivo_abstencao: string;
+  aviso?: string | null;
+  modo: "texto" | "fatura" | "pdf";
+};
+
+export const PDF_TAMANHO_MAXIMO_BYTES = 5 * 1024 * 1024;
+
+function brDecimal(valor: string | null | undefined, casas?: number): string {
+  if (valor == null || valor === "") return "";
+  const n = Number(valor);
+  if (!Number.isFinite(n)) return valor;
+  const fixo = casas != null ? n.toFixed(casas) : String(valor).replace(/0+$/, "").replace(/\.$/, "");
+  return fixo.replace(".", ",");
+}
+
+function milhar(inteiro: string): string {
+  return inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function brInteiro(valor: string | null | undefined): string {
+  if (valor == null || valor === "") return "";
+  const n = Number(valor);
+  return Number.isFinite(n) ? milhar(String(Math.round(n))) : valor;
+}
+
+function brMoeda(valor: string): string {
+  const n = Number(valor);
+  if (!Number.isFinite(n)) return valor;
+  const [inteiro, centavos] = n.toFixed(2).split(".");
+  return `${milhar(inteiro)},${centavos}`;
+}
+
+/** "2026-06-01" -> "06/2026". */
+export function mesDaApi(iso: string): string {
+  const [a, m] = iso.split("-");
+  return `${m}/${a}`;
+}
+
+/** Converte a `Fatura` lida do PDF nos campos do formulário de confirmação (formato pt-BR). */
+export function faturaParaDados(f: FaturaApi): DadosConfirmados {
+  return {
+    distribuidora: f.distribuidora,
+    mesReferencia: mesDaApi(f.mes_referencia),
+    leituraAnterior: brInteiro(f.leitura_anterior),
+    leituraAtual: brInteiro(f.leitura_atual),
+    consumo: brInteiro(f.consumo_kwh),
+    itens: f.itens.map((item, i) => ({
+      id: i + 1,
+      descricao: item.descricao,
+      quantidade: brDecimal(item.quantidade),
+      tarifa: brDecimal(item.tarifa),
+      valor: brMoeda(item.valor),
+    })),
+    total: brMoeda(f.total),
+  };
+}
+
+function paraBase64(bytes: Uint8Array): string {
+  let binario = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) {
+    binario += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  }
+  return btoa(binario);
+}
+
+export async function extrairPdf(arquivo: File): Promise<RespostaExtracao> {
+  if (arquivo.size > PDF_TAMANHO_MAXIMO_BYTES) {
+    return { erro: "O arquivo passa de 5 MB. Envie só as páginas da fatura ou digite os dados.", motivo: "tamanho" };
+  }
+  const pdf_base64 = paraBase64(new Uint8Array(await arquivo.arrayBuffer()));
+  const resposta = await fetch(`${API_URL}/extrair`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ pdf_base64 }),
+  });
+  if (resposta.status === 422) {
+    return { erro: "O arquivo não parece um PDF válido ou passa do tamanho aceito.", motivo: "arquivo_invalido" };
+  }
+  if (!resposta.ok) throw new Error(`A API respondeu ${resposta.status}.`);
+  return (await resposta.json()) as RespostaExtracao;
+}
+
+export async function perguntar(dados: DadosConfirmados, pergunta: string): Promise<RespostaPergunta> {
+  const resposta = await fetch(`${API_URL}/perguntar`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ pergunta: pergunta.trim(), fatura: montarFatura(dados) }),
+  });
+  if (!resposta.ok) throw new Error(`A API respondeu ${resposta.status}.`);
+  return (await resposta.json()) as RespostaPergunta;
+}

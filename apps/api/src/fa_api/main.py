@@ -86,6 +86,7 @@ class RespostaAnalise(BaseModel):
 
 
 PDF_TAMANHO_MAXIMO_BYTES = int(os.getenv("FA_PDF_MAX_BYTES", str(5 * 1024 * 1024)))
+PDF_PAGINAS_MAXIMAS = int(os.getenv("FA_PDF_MAX_PAGINAS", "5"))
 
 CampoCorrigivel = Literal[
     "distribuidora",
@@ -107,6 +108,14 @@ MSG_PDF_SEM_TEXTO = (
     "O PDF não tem camada de texto (parece digitalizado ou é uma imagem). "
     "Envie o PDF original da distribuidora ou digite os dados da fatura."
 )
+MSG_PDF_PROTEGIDO = (
+    "O PDF está protegido por senha e não pode ser lido. "
+    "Envie uma cópia sem proteção ou digite os dados da fatura."
+)
+MSG_PDF_MUITAS_PAGINAS = (
+    "O PDF tem mais páginas do que o limite aceito ({limite}). "
+    "Envie só as páginas da fatura ou digite os dados."
+)
 MSG_EXTRACAO_FALHOU = (
     "Não foi possível extrair os dados da fatura do PDF. "
     "Confira o arquivo ou digite os dados manualmente."
@@ -117,6 +126,38 @@ MSG_AGENTES_INDISPONIVEIS = (
     "os achados determinísticos do motor foram preservados e nenhuma conclusão foi inferida."
 )
 MSG_SAIDA_BLOQUEADA = "Texto omitido por não atender à política de linguagem do produto."
+
+
+def _validar_pdf_base64(texto: str) -> bytes:
+    """Base64 válido, dentro do tamanho máximo e com a assinatura ``%PDF-`` (senão, 422)."""
+    try:
+        dados = base64.b64decode(texto, validate=True)
+    except (binascii.Error, ValueError) as erro:
+        raise ValueError("pdf_base64 não é base64 válido.") from erro
+    if len(dados) > PDF_TAMANHO_MAXIMO_BYTES:
+        raise ValueError("PDF acima do tamanho máximo permitido.")
+    if not dados.startswith(b"%PDF-"):
+        raise ValueError("O arquivo não tem a assinatura de um PDF.")
+    return dados
+
+
+class PedidoExtracao(BaseModel):
+    """PDF em base64 para extração dos campos; a análise só roda depois da confirmação."""
+
+    pdf_base64: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _pdf_valido(self) -> "PedidoExtracao":
+        _validar_pdf_base64(self.pdf_base64)
+        return self
+
+
+class RespostaExtracao(BaseModel):
+    """Campos lidos do PDF para o usuário confirmar, ou o motivo claro da falha."""
+
+    fatura: Fatura | None = None
+    erro: str | None = None
+    motivo: str | None = None
 
 
 class PedidoPergunta(BaseModel):
@@ -140,12 +181,7 @@ class PedidoPergunta(BaseModel):
         if self.correcoes and self.pdf_base64 is None:
             raise ValueError("correcoes só se aplicam junto com pdf_base64.")
         if self.pdf_base64 is not None:
-            try:
-                dados = base64.b64decode(self.pdf_base64, validate=True)
-            except (binascii.Error, ValueError) as erro:
-                raise ValueError("pdf_base64 não é base64 válido.") from erro
-            if len(dados) > PDF_TAMANHO_MAXIMO_BYTES:
-                raise ValueError("PDF acima do tamanho máximo permitido.")
+            _validar_pdf_base64(self.pdf_base64)
         return self
 
     def bytes_pdf(self) -> bytes:
@@ -310,21 +346,41 @@ class _FalhaExtracao(Exception):
         self.motivo = motivo
 
 
-def _fatura_do_pdf(pedido: PedidoPergunta) -> Fatura:
-    """PDF -> Fatura (com as correções confirmadas). Mensagens nunca repetem dados da fatura."""
+def _extrair_fatura(dados: bytes) -> Fatura:
+    """Bytes de PDF -> Fatura, com limites. Mensagens nunca repetem dados da fatura."""
+    from io import BytesIO
+
+    from pypdf import PdfReader
+    from pypdf.errors import PyPdfError
+
     from fa_extracao import ErroExtracao, parse_texto  # importação lazy: pacote opcional na API
     from fa_extracao.pdf import extrair_texto
 
     try:
-        texto = extrair_texto(pedido.bytes_pdf())
+        leitor = PdfReader(BytesIO(dados))
+        if leitor.is_encrypted:
+            raise _FalhaExtracao(MSG_PDF_PROTEGIDO, "pdf_protegido")
+        if len(leitor.pages) > PDF_PAGINAS_MAXIMAS:
+            raise _FalhaExtracao(
+                MSG_PDF_MUITAS_PAGINAS.format(limite=PDF_PAGINAS_MAXIMAS), "pdf_muitas_paginas"
+            )
+    except (PyPdfError, ValueError) as erro:
+        raise _FalhaExtracao(MSG_PDF_INVALIDO, "pdf_invalido") from erro
+    try:
+        texto = extrair_texto(dados)
     except ErroExtracao as erro:
         raise _FalhaExtracao(MSG_PDF_INVALIDO, "pdf_invalido") from erro
     if not texto.strip():
         raise _FalhaExtracao(MSG_PDF_SEM_TEXTO, "pdf_sem_texto")
     try:
-        fatura = parse_texto(texto)
+        return parse_texto(texto)
     except ErroExtracao as erro:
         raise _FalhaExtracao(MSG_EXTRACAO_FALHOU, "extracao_falhou") from erro
+
+
+def _fatura_do_pdf(pedido: PedidoPergunta) -> Fatura:
+    """PDF -> Fatura (com as correções confirmadas)."""
+    fatura = _extrair_fatura(pedido.bytes_pdf())
     if pedido.correcoes:
         try:
             fatura = Fatura.model_validate({**fatura.model_dump(), **pedido.correcoes})
@@ -359,6 +415,18 @@ def _resposta_da_fatura(
         achados_motor=achados,
         campos_fatura=r.campos_usados,
     )
+
+
+@app.post("/extrair", response_model=RespostaExtracao)
+async def extrair(pedido: PedidoExtracao, response: Response) -> RespostaExtracao:
+    """Lê o PDF e devolve os campos para confirmação; não roda motor nem agentes."""
+    response.headers["Cache-Control"] = "no-store"
+    try:
+        dados = base64.b64decode(pedido.pdf_base64, validate=True)
+        fatura = await asyncio.to_thread(_extrair_fatura, dados)
+    except _FalhaExtracao as erro:
+        return RespostaExtracao(erro=erro.mensagem, motivo=erro.motivo)
+    return RespostaExtracao(fatura=fatura)
 
 
 @app.post("/perguntar", response_model=RespostaPerguntaAPI)

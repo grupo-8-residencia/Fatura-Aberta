@@ -102,6 +102,7 @@ nav:
       - Contratos: arquitetura/contratos.md
       - RAG normativo: arquitetura/rag.md
       - Agentes: arquitetura/agentes.md
+      - Multimodal (texto e PDF): arquitetura/multimodal.md
       - Decisões (ADRs):
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
@@ -136,6 +137,7 @@ nav:
       - Fechamento dos débitos S2/S3: avaliacao/fechamento-debitos-s2-s3.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
+      - Demonstração da S5: operacao/demo-s5.md
   - Sprints:
       - sprints/index.md
       - "S1 — Definição e delimitação": sprints/s1.md

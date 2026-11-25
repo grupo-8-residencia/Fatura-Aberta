@@ -1,0 +1,52 @@
+{
+    "fatura": {
+        "distribuidora": "Neoenergia Bras\u00edlia",
+        "grupo_tarifario": "B1",
+        "mes_referencia": "2026-06-01",
+        "leitura_anterior": "1000.00",
+        "leitura_atual": "1120.00",
+        "consumo_kwh": "120.00",
+        "bandeira": "Amarela",
+        "aliquota_icms": "0.12",
+        "itens": [
+            {
+                "descricao": "Consumo-TUSD",
+                "quantidade": "120.00",
+                "unidade": "kWh",
+                "tarifa": "0.50000000",
+                "valor": "60.00"
+            },
+            {
+                "descricao": "Consumo-TE",
+                "quantidade": "120.00",
+                "unidade": "kWh",
+                "tarifa": "0.47000000",
+                "valor": "56.40"
+            },
+            {
+                "descricao": "Acr\u00e9s. Band. AMARELA",
+                "quantidade": null,
+                "unidade": null,
+                "tarifa": null,
+                "valor": "3.00"
+            },
+            {
+                "descricao": "Ilum. P\u00fab. Distrital",
+                "quantidade": null,
+                "unidade": null,
+                "tarifa": null,
+                "valor": "12.00"
+            },
+            {
+                "descricao": "CREDITO-TESTE-01/02",
+                "quantidade": null,
+                "unidade": null,
+                "tarifa": null,
+                "valor": "-1.00"
+            }
+        ],
+        "total": "130.40"
+    },
+    "erro": null,
+    "motivo": null
+}

@@ -233,6 +233,8 @@ dispositivos. Detalhes, intervalos e limites no [relatório S4](../avaliacao/rel
 
 ## Pedido combinado: texto + PDF em `POST /perguntar` (S5-05, #184)
 
+Limites, falhas e demonstração: [Processamento multimodal](multimodal.md).
+
 O mesmo endpoint aceita três modos, todos retrocompatíveis (`packages/contratos` não muda):
 
 | Modo | Campos do pedido | `modo` na resposta |

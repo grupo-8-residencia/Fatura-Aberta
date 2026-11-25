@@ -138,11 +138,44 @@ def test_3_texto_mais_pdf_cita_campo_do_pdf_e_a_pergunta(cliente: TestClient) ->
 
 
 def test_4_pdf_corrompido_devolve_mensagem_clara_sem_conclusao(cliente: TestClient) -> None:
-    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(b"isto nao e um pdf")})
+    d = _post(
+        cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog")}
+    )
     assert d["abstencao"] is True
     assert d["origem"] == "falha_extracao" and d["motivo_abstencao"] == "pdf_invalido"
     assert "corrompido" in d["mensagem"]
     assert d["achados_motor"] == [] and d["citacoes"] == []
+
+
+def test_4b_arquivo_sem_assinatura_de_pdf_e_rejeitado_com_422(cliente: TestClient) -> None:
+    r = cliente.post(
+        "/perguntar", json={"pergunta": PERGUNTA, "pdf_base64": _b64(b"isto nao e um pdf")}
+    )
+    assert r.status_code == 422
+
+
+def test_4c_pdf_protegido_por_senha(cliente: TestClient) -> None:
+    from pypdf import PdfReader, PdfWriter
+
+    escritor = PdfWriter(clone_from=PdfReader(BytesIO(_pdf(LINHAS))))
+    escritor.encrypt("senha-de-teste")
+    saida = BytesIO()
+    escritor.write(saida)
+    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(saida.getvalue())})
+    assert d["abstencao"] is True and d["motivo_abstencao"] == "pdf_protegido"
+    assert "senha" in d["mensagem"]
+
+
+def test_4d_pdf_com_paginas_demais(cliente: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(api_main, "PDF_PAGINAS_MAXIMAS", 1)
+    buffer = BytesIO()
+    pagina = canvas.Canvas(buffer, pagesize=A4)
+    for _ in range(2):
+        pagina.drawString(50, 800, "pagina")
+        pagina.showPage()
+    pagina.save()
+    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(buffer.getvalue())})
+    assert d["motivo_abstencao"] == "pdf_muitas_paginas" and d["abstencao"] is True
 
 
 def test_5_pdf_sem_camada_de_texto(cliente: TestClient) -> None:
@@ -247,3 +280,19 @@ def test_10_rf15_e_ausencia_de_pii_em_todas_as_saidas() -> None:
         for padrao in PADROES_PII:
             assert padrao not in bruto
     assert not any(p in "\n".join(LINHAS) for p in PADROES_PII)
+
+
+def test_extrair_devolve_campos_para_confirmacao_sem_rodar_agentes(
+    cliente: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def proibido() -> Any:
+        raise AssertionError("agentes não devem rodar antes da confirmação")
+
+    monkeypatch.setattr(api_main, "obter_orquestrador", proibido)
+    r = cliente.post("/extrair", json={"pdf_base64": _b64(_pdf(LINHAS))})
+    corpo = r.json()
+    assert r.status_code == 200 and corpo["erro"] is None
+    assert corpo["fatura"]["consumo_kwh"] in ("120", "120.00")
+    sem = cliente.post("/extrair", json={"pdf_base64": _b64(_pdf_vazio())}).json()
+    assert sem["fatura"] is None and sem["motivo"] == "pdf_sem_texto"
+    assert cliente.post("/extrair", json={"pdf_base64": _b64(b"x")}).status_code == 422
