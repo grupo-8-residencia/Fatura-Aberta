@@ -101,6 +101,7 @@ nav:
       - arquitetura/index.md
       - Contratos: arquitetura/contratos.md
       - RAG normativo: arquitetura/rag.md
+      - Agentes: arquitetura/agentes.md
       - Decisões (ADRs):
           - arquitetura/decisoes/index.md
           - "ADR-001 — Escopo do MVP e concorrentes": arquitetura/decisoes/adr-001-escopo-mvp-concorrentes.md
@@ -116,6 +117,7 @@ nav:
       - "F6 — Plataforma, DevOps e AppSec": frentes/f6.md
   - Conformidade:
       - conformidade/index.md
+      - Recomendações jurídico-regulatórias: conformidade/recomendacoes-juridico-regulatorias.md
       - RIPD: conformidade/ripd.md
       - Fronteira jurídica: conformidade/fronteira-juridica.md
       - Roteiro do parecer jurídico: conformidade/roteiro-parecer-juridico.md
@@ -131,6 +133,7 @@ nav:
       - Resultados: avaliacao/resultados.md
       - Relatório S3 (LLM × RAG): avaliacao/relatorio-s3-final.md
       - Relatório S4 (B4 × B5): avaliacao/relatorio-s4.md
+      - Fechamento dos débitos S2/S3: avaliacao/fechamento-debitos-s2-s3.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md
   - Sprints:

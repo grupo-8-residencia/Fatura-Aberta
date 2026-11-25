@@ -1,0 +1,1505 @@
+{
+ "descricao": "Recalibração do juiz LLM (qwen3:14b) contra os 40 itens humanos, com metade de desenvolvimento e metade retida (issue #33). Resultado negativo.",
+ "divisao": "estratificada pelo veredito humano, alternando por id ordenado; o prompt v2 foi ajustado olhando só os erros do desenvolvimento",
+ "modelo_juiz": "qwen3:14b (Ollama, versão bdbd181c33f2)",
+ "timeout_s": 120.0,
+ "v1": {
+  "variante": "v1",
+  "prompt_sha256": "f65273bbd5be3303a9f17af0490ade2cc193cf0f317559a198959634383d4e9c",
+  "limiar_kappa": 0.75,
+  "humanos_concordam": true,
+  "invalidos": [
+   "GS-Q114"
+  ],
+  "todos": {
+   "n": 40,
+   "acuracia": 0.55,
+   "acuracia_ic95": [
+    0.4,
+    0.7
+   ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 39,
+   "kappa": 0.02928257686676434,
+   "acuracia_nos_validos": 0.5641025641025641,
+   "sem_suporte_humano": 4,
+   "sem_suporte_humano_nos_validos": 4,
+   "sem_suporte_juiz": 17
+  },
+  "desenvolvimento": {
+   "n": 20,
+   "acuracia": 0.65,
+   "acuracia_ic95": [
+    0.45,
+    0.85
+   ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 19,
+   "kappa": 0.10937499999999992,
+   "acuracia_nos_validos": 0.6842105263157895,
+   "sem_suporte_humano": 2,
+   "sem_suporte_humano_nos_validos": 2,
+   "sem_suporte_juiz": 6
+  },
+  "retida": {
+   "n": 20,
+   "acuracia": 0.45,
+   "acuracia_ic95": [
+    0.25,
+    0.65
+   ],
+   "sem_veredito_do_juiz": 0,
+   "n_vereditos_validos": 20,
+   "kappa": -0.018518518518518535,
+   "acuracia_nos_validos": 0.45,
+   "sem_suporte_humano": 2,
+   "sem_suporte_humano_nos_validos": 2,
+   "sem_suporte_juiz": 11
+  },
+  "itens": {
+   "GS-F004": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O total da fatura é a soma das linhas da fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "O total da fatura informado é R$ 443,35.",
+      "suportada": true
+     },
+     {
+      "texto": "A soma dos valores das linhas da fatura (R$ 376,80 + R$ 23,55 + R$ 12,00) é R$ 412,35.",
+      "suportada": true
+     },
+     {
+      "texto": "O total da fatura (R$ 443,35) não corresponde à soma das linhas da fatura (R$ 412,35).",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura não discrimina a base de cálculo do ICMS.",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura não discrimina o valor do ICMS.",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS informada é 20%.",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura deve conter a discriminação da base de cálculo e do valor do ICMS.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter informações claras e objetivas conforme o art. 327 da Resolução Normativa 1000.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter o valor total devido e a data de vencimento.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter a identificação do consumidor e demais usuários.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter a identificação da unidade consumidora ou demais instalações.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter as grandezas medidas e faturadas.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter as tarifas aplicadas.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter os valores adicionais a serem cobrados quando da aplicação das bandeiras tarifárias, caso aplicável.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter os valores relativos aos produtos, serviços e atividades prestados.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter o histórico de consumo, caso aplicável.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter os impostos e contribuições incidentes.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter o código para pagamento e linha numérica digitável ou mensagem indicativa de que o pagamento será realizado por meio de débito automático.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura deve conter o código de resposta rápida do PIX, quando solicitado pelo consumidor e demais usuários.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F011": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há discriminação do valor e da base de cálculo do ICMS na fatura, apesar da alíquota estar informada como 0,20 (20%).",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F012": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumo informado (187 kWh) difere do consumo calculado a partir das leituras (209 kWh).",
+      "suportada": true
+     },
+     {
+      "texto": "Não há discriminação da base de cálculo nem do valor cobrado do ICMS na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F036": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há separação da base e do valor cobrado de ICMS, apenas a alíquota informada.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F045": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A linha 'Contribuição municipal (sintética)' aparece duplicada com o mesmo valor de R$ 12,00 em vez de zero ou um único lançamento.",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura informa a alíquota de ICMS de 20%, mas não apresenta base nem valor do imposto.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F058": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Alíquota informada mas base e valor do tributo não constam separadamente.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F076": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O total informado excede a soma das linhas visíveis em R$ 11,00, sem justificativa aparente na fatura.",
+      "suportada": false
+     },
+     {
+      "texto": "A alíquota de ICMS está informada.",
+      "suportada": true
+     },
+     {
+      "texto": "A base e o valor do tributo não são discriminados.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F088": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O valor cobrado por consumo de energia (R$ 95,68) difere do produto quantidade × tarifa (R$ 83,20).",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS foi informada na fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "A base de cálculo do ICMS consta separadamente na fatura.",
+      "suportada": false
+     },
+     {
+      "texto": "O valor do ICMS consta separadamente na fatura.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F093": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O consumo calculado a partir das leituras difere do consumo informado na fatura (217 kWh vs. 169 kWh).",
+      "suportada": false
+     },
+     {
+      "texto": "A alíquota de ICMS está informada.",
+      "suportada": true
+     },
+     {
+      "texto": "A base e o valor do tributo não são discriminados na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F095": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há discriminação da base de cálculo ou do valor do ICMS na fatura, apesar da alíquota ser informada como 0,20.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F102": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Não há informação separada sobre a base de cálculo e o valor cobrado do ICMS, apesar da alíquota estar indicada na fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "Isso impede confirmação da correta aplicação do imposto.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F110": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O valor cobrado por consumo de energia (R$ 219,88) difere do produto entre quantidade (239 kWh) e tarifa (R$ 0,80).",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está informada na fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "A base de cálculo do ICMS e o valor do tributo não constam separadamente na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F112": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não consta linha separada com base e valor de ICMS na fatura apesar da alíquota informada.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F130": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há separação da base e do valor do ICMS na fatura, impossibilitando a verificação completa desse tributo.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F131": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "Não há separação da base de cálculo e do valor cobrado do ICMS na fatura",
+      "suportada": false
+     },
+     {
+      "texto": "Isso impossibilita a verificação completa desse tributo",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F140": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura não apresenta separação da base de cálculo nem do valor cobrado do ICMS",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota informada (0,20) está presente na fatura",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F148": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumo calculado a partir das leituras difere dos 94 kWh informados na fatura, indicando divergência nos números da fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está informada, mas a base e o valor do tributo não são discriminados separadamente na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F169": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O valor cobrado por consumo de energia (R$ 142,60) difere do produto quantidade × tarifa (R$ 124,00).",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS foi informada na fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "A base de cálculo do ICMS consta separadamente na fatura.",
+      "suportada": false
+     },
+     {
+      "texto": "O valor do ICMS consta separadamente na fatura.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-F174": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A alíquota de ICMS foi informada",
+      "suportada": true
+     },
+     {
+      "texto": "A base de cálculo do ICMS não consta separadamente na fatura",
+      "suportada": true
+     },
+     {
+      "texto": "O valor cobrado de ICMS não consta separadamente na fatura",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F190": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Não há discriminação da base ou valor do ICMS na fatura",
+      "suportada": true
+     },
+     {
+      "texto": "Isso impossibilita a verificação completa do ICMS",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F192": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Não há informação separada da base ou valor de ICMS na fatura para verificar o cálculo com a alíquota informada (0,20).",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q003": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "Um idoso que recebe BPC tem direito à subclasse baixa renda.",
+      "suportada": true
+     },
+     {
+      "texto": "A subclasse baixa renda inclui idosos com 65 anos ou mais que recebam o BPC.",
+      "suportada": true
+     },
+     {
+      "texto": "O direito à subclasse baixa renda está previsto no Art. 177 da ren1000.",
+      "suportada": true
+     },
+     {
+      "texto": "O BPC é regulado pela Lei nº 8.742, de 7 de dezembro de 1993.",
+      "suportada": true
+     },
+     {
+      "texto": "A subclasse baixa renda é definida com base na Lei nº 12.212, de 20 de janeiro de 2010.",
+      "suportada": true
+     },
+     {
+      "texto": "A subclasse baixa renda é uma das subclasses residenciais.",
+      "suportada": true
+     },
+     {
+      "texto": "O benefício tarifário é aplicado às unidades consumidoras classificadas nas subclasses residenciais baixa renda.",
+      "suportada": true
+     },
+     {
+      "texto": "A suspensão por inadimplemento para a subclasse baixa renda deve ocorrer com intervalo de pelo menos 30 dias entre a data de vencimento da fatura e a data da efetiva suspensão.",
+      "suportada": true
+     },
+     {
+      "texto": "O direito à subclasse baixa renda está vinculado ao CadÚnico.",
+      "suportada": true
+     },
+     {
+      "texto": "O direito à subclasse baixa renda é exclusivo para famílias inscritas no CadÚnico.",
+      "suportada": false
+     },
+     {
+      "texto": "O idoso que recebe BPC tem direito a isenção total da CIP.",
+      "suportada": false
+     },
+     {
+      "texto": "O direito à subclasse baixa renda inclui pessoas com deficiência que recebam o BPC.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q005": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Quando o consumo é muito baixo, a fatura do grupo B será calculada como o maior valor entre o custo de disponibilidade e o consumo de energia elétrica.",
+      "suportada": true
+     },
+     {
+      "texto": "Se o consumo for inferior ao custo de disponibilidade, a fatura corresponderá ao custo de disponibilidade.",
+      "suportada": true
+     },
+     {
+      "texto": "Caso contrário, será cobrado apenas o consumo.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q006": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A diferença resultante na aplicação do custo de disponibilidade não é passível de futura compensação.",
+      "suportada": true
+     },
+     {
+      "texto": "A diferença cobrada pelo custo de disponibilidade não pode ser compensada depois.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q008": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "A unidade de baixa renda tem desconto no custo de disponibilidade.",
+      "suportada": true
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado pela distribuidora para unidades consumidoras classificadas nas subclasses residencial baixa renda.",
+      "suportada": true
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é previsto no artigo 290, parágrafo 3º da Resolução Normativa 1000.",
+      "suportada": true
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado independentemente de outros fatores, como suspensão por inadimplemento.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado apenas em determinados ciclos de faturamento.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado com base na renda familiar mensal por pessoa menor ou igual a meio salário-mínimo nacional.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado apenas para famílias inscritas no CadÚnico.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado com base no uso continuado de aparelhos, equipamentos ou instrumentos que demandem consumo de energia elétrica.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado com base no benefício de prestação continuada (BPC).",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado com base no artigo 322 da Resolução Normativa 1000.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado com base no artigo 285 da Resolução Normativa 1000.",
+      "suportada": false
+     },
+     {
+      "texto": "O desconto no custo de disponibilidade é aplicado com base no artigo 358 da Resolução Normativa 1000.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-Q015": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O código para pagamento está indicado na própria fatura",
+      "suportada": true
+     },
+     {
+      "texto": "O art. 327 da REN ANEEL nº 1.000/2021 (caput) determina que a fatura de energia elétrica deve conter o código para pagamento",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q016": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "A fatura de energia elétrica deve conter, de forma clara e objetiva, as informações previstas no inciso VII do art. 327 da Resolução Normativa 1000/2020.",
+      "suportada": true
+     },
+     {
+      "texto": "O inciso VII do art. 327 da Resolução Normativa 1000/2020 prevê que a fatura deve conter valores relativos aos produtos, serviços e atividades prestados.",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura apresentada contém os valores relativos aos produtos, serviços e atividades prestados.",
+      "suportada": false
+     },
+     {
+      "texto": "Os valores relativos aos produtos, serviços e atividades prestados aparecem na fatura.",
+      "suportada": false
+     },
+     {
+      "texto": "A fatura inclui informações sobre os produtos, serviços e atividades prestados.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-Q025": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Quando há medição apropriada, a distribuidora deve faturar aplicando a tarifa correspondente sobre o consumo faturado nos dias de vigência de cada bandeira tarifária.",
+      "suportada": true
+     },
+     {
+      "texto": "Existe regra de bandeira para unidades com medição apropriada.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q026": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "A leitura do medidor do grupo B deve ocorrer a cada 27–33 dias.",
+      "suportada": false
+     },
+     {
+      "texto": "O intervalo de leitura do medidor do grupo B é de 27 a 33 dias.",
+      "suportada": false
+     },
+     {
+      "texto": "O art. 285 estabelece que a leitura do Grupo B deve ser feita dentro de um intervalo de tempo definido no art. 260.",
+      "suportada": true
+     },
+     {
+      "texto": "Se a leitura do Grupo B for feita fora do intervalo estabelecido no art. 260, a distribuidora deve faturar de acordo com as regras do art. 285.",
+      "suportada": true
+     },
+     {
+      "texto": "Se a leitura do Grupo B for feita em menos de 27 dias, a distribuidora deve faturar o consumo medido, sem aplicar o custo de disponibilidade.",
+      "suportada": true
+     },
+     {
+      "texto": "Se a leitura do Grupo B for feita em mais de 33 dias, a distribuidora deve proporcionalizar o consumo registrado pelo número máximo de dias permitido.",
+      "suportada": true
+     },
+     {
+      "texto": "O art. 260 define os intervalos de leitura para o Grupo B.",
+      "suportada": false
+     },
+     {
+      "texto": "O art. 285 menciona o art. 260 como referência para os intervalos de leitura do Grupo B.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q054": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "A fatura duplicada configura faturamento a maior",
+      "suportada": true
+     },
+     {
+      "texto": "A distribuidora deve devolver ao consumidor as quantias recebidas indevidamente",
+      "suportada": true
+     },
+     {
+      "texto": "A devolução deve ocorrer até o segundo ciclo de faturamento posterior à constatação",
+      "suportada": true
+     },
+     {
+      "texto": "A devolução abrange os últimos 60 ciclos anteriores à constatação",
+      "suportada": true
+     },
+     {
+      "texto": "O faturamento duplicado pode resultar em compensação futura",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-Q059": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumidor pode ter inversão do ônus da prova em disputa de cobrança.",
+      "suportada": true
+     },
+     {
+      "texto": "A inversão do ônus da prova ocorre nos termos do art. 6º, VIII do Código de Defesa do Consumidor.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q060": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O consumidor tem direito à reparação de danos.",
+      "suportada": true
+     },
+     {
+      "texto": "Este direito está previsto no art. 6º, inciso VI da Lei nº 8.078/1990.",
+      "suportada": true
+     },
+     {
+      "texto": "Este direito está previsto no art. 42, § 1º da Lei nº 8.078/1990.",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-Q079": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Os juros de mora são de 1% ao mês (pro rata die).",
+      "suportada": true
+     },
+     {
+      "texto": "Os juros de mora são calculados pro rata die.",
+      "suportada": true
+     },
+     {
+      "texto": "Os juros de mora são de 1% ao mês.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q081": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O prazo máximo para cobrar uma fatura em atraso é de até 60 meses",
+      "suportada": true
+     },
+     {
+      "texto": "O prazo máximo para cobrar uma fatura em atraso é de até 60 meses (art. 347 da REN ANEEL nº 1.000/2021)",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q089": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Pode ser cobrado por uma fatura de cinco anos atrás",
+      "suportada": true
+     },
+     {
+      "texto": "O prazo máximo previsto para cobrança de faturas em atraso é de 60 meses",
+      "suportada": true
+     },
+     {
+      "texto": "O prazo de 60 meses está previsto no art. 347",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q112": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O intervalo permitido entre leituras do grupo B não foi especificado nos dispositivos fornecidos.",
+      "suportada": false
+     },
+     {
+      "texto": "Não há menção ao 'grupo B' nos dispositivos fornecidos.",
+      "suportada": false
+     },
+     {
+      "texto": "A saída do sistema foi 'abstenção', indicando que não foi possível determinar o intervalo permitido com base nos dispositivos fornecidos.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q113": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O percentual máximo da multa por atraso não está definido nos dispositivos fornecidos.",
+      "suportada": true
+     },
+     {
+      "texto": "Não há menção a multa por atraso nos dispositivos fornecidos.",
+      "suportada": true
+     },
+     {
+      "texto": "A saída do sistema foi 'abstenção', indicando que não foi possível determinar o percentual máximo da multa por atraso com base nos dispositivos fornecidos.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q114": {
+    "valido": false,
+    "veredito": null,
+    "proposicoes": []
+   },
+   "GS-Q115": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A subclasse baixa renda não está definida nos dispositivos fornecidos.",
+      "suportada": true
+     },
+     {
+      "texto": "Não há menção à subclasse baixa renda nos dispositivos legais apresentados.",
+      "suportada": true
+     },
+     {
+      "texto": "A pergunta sobre quem tem direito à subclasse baixa renda não pode ser respondida com base nos dispositivos fornecidos.",
+      "suportada": true
+     },
+     {
+      "texto": "A saída do sistema foi 'abstenção', indicando que não há informações suficientes para responder à pergunta.",
+      "suportada": true
+     },
+     {
+      "texto": "A subclasse baixa renda não é mencionada em nenhum dos dispositivos legais apresentados.",
+      "suportada": true
+     },
+     {
+      "texto": "A pergunta sobre direito à subclasse baixa renda não tem suporte nos dispositivos legais fornecidos.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q120": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Para devolver um pagamento duplicado, solicite ao fornecedor a restituição do valor excedente, acrescido de correção monetária e juros legais.",
+      "suportada": true
+     },
+     {
+      "texto": "O Código de Defesa do Consumidor garante esse direito (art. 42, § 1º).",
+      "suportada": true
+     }
+    ]
+   }
+  }
+ },
+ "v2": {
+  "variante": "v2",
+  "prompt_sha256": "47dd58de7976218b764db87b3a3546ffedd5ab9f4c0111eb47d729b07996affd",
+  "limiar_kappa": 0.75,
+  "humanos_concordam": true,
+  "invalidos": [
+   "GS-Q114"
+  ],
+  "todos": {
+   "n": 40,
+   "acuracia": 0.825,
+   "acuracia_ic95": [
+    0.7,
+    0.925
+   ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 39,
+   "kappa": 0.16428571428571415,
+   "acuracia_nos_validos": 0.8461538461538461,
+   "sem_suporte_humano": 4,
+   "sem_suporte_humano_nos_validos": 4,
+   "sem_suporte_juiz": 4
+  },
+  "desenvolvimento": {
+   "n": 20,
+   "acuracia": 0.9,
+   "acuracia_ic95": [
+    0.75,
+    1.0
+   ],
+   "sem_veredito_do_juiz": 1,
+   "n_vereditos_validos": 19,
+   "kappa": 0.6415094339622639,
+   "acuracia_nos_validos": 0.9473684210526315,
+   "sem_suporte_humano": 2,
+   "sem_suporte_humano_nos_validos": 2,
+   "sem_suporte_juiz": 1
+  },
+  "retida": {
+   "n": 20,
+   "acuracia": 0.75,
+   "acuracia_ic95": [
+    0.55,
+    0.9
+   ],
+   "sem_veredito_do_juiz": 0,
+   "n_vereditos_validos": 20,
+   "kappa": -0.1363636363636365,
+   "acuracia_nos_validos": 0.75,
+   "sem_suporte_humano": 2,
+   "sem_suporte_humano_nos_validos": 2,
+   "sem_suporte_juiz": 3
+  },
+  "itens": {
+   "GS-F004": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Total da fatura: A soma das linhas (412,35 R$) não corresponde ao total informado (443,35 R$).",
+      "suportada": true
+     },
+     {
+      "texto": "ICMS: Não há discriminação da base de cálculo nem do valor do ICMS na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F011": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura não discrimina o valor e a base de cálculo do ICMS.",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está informada como 0,20 (20%).",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F012": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumo informado (187 kWh) difere do consumo calculado a partir das leituras (209 kWh).",
+      "suportada": true
+     },
+     {
+      "texto": "Não há discriminação da base de cálculo nem do valor cobrado do ICMS na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F036": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há separação da base e do valor cobrado de ICMS, apenas a alíquota informada.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F045": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A linha 'Contribuição municipal (sintética)' aparece duplicada com o mesmo valor de R$ 12,00 em vez de zero ou um único lançamento.",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura informa a alíquota de 20% mas não apresenta base nem valor do imposto.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F058": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Alíquota informada mas base e valor do tributo não constam separadamente.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F076": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O total informado excede a soma das linhas visíveis em R$ 11,00, sem justificativa aparente na fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está informada.",
+      "suportada": true
+     },
+     {
+      "texto": "A base e o valor do tributo não são discriminados.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F088": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "Consumo de energia: O valor cobrado (R$ 95,68) difere do produto quantidade × tarifa (R$ 83,20).",
+      "suportada": false
+     },
+     {
+      "texto": "ICMS: A alíquota de ICMS foi informada, mas a base e o valor do tributo não constam separadamente na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F093": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumo calculado a partir das leituras difere do consumo informado na fatura",
+      "suportada": true
+     },
+     {
+      "texto": "O consumo calculado a partir das leituras é 217 kWh",
+      "suportada": true
+     },
+     {
+      "texto": "O consumo informado na fatura é 169 kWh",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está informada",
+      "suportada": true
+     },
+     {
+      "texto": "A base do ICMS não é discriminada na fatura",
+      "suportada": true
+     },
+     {
+      "texto": "O valor do ICMS não é discriminado na fatura",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F095": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura não discrimina a base de cálculo do ICMS.",
+      "suportada": true
+     },
+     {
+      "texto": "A fatura não discrimina o valor do ICMS.",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS foi informada como 0,20.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F102": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura não contém informação separada sobre a base de cálculo e o valor cobrado do ICMS.",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está indicada na fatura.",
+      "suportada": true
+     },
+     {
+      "texto": "A ausência de informação sobre a base de cálculo e o valor cobrado do ICMS impede a confirmação da correta aplicação do imposto.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F110": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "Consumo de energia: O valor cobrado (R$ 219,88) difere do produto entre quantidade e tarifa (R$ 191,20).",
+      "suportada": false
+     },
+     {
+      "texto": "ICMS: A alíquota de ICMS está informada, mas a base e o valor do tributo não constam separadamente na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F112": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não consta linha separada com base e valor de ICMS na fatura apesar da alíquota informada.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F130": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há separação da base e do valor do ICMS na fatura, impossibilitando a verificação completa desse tributo.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F131": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há separação da base de cálculo e do valor cobrado do ICMS na fatura, impossibilitando a verificação completa desse tributo.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F140": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura não apresenta separação da base de cálculo nem do valor cobrado do ICMS",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota informada (0,20) está presente na fatura",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F148": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumo calculado a partir das leituras difere dos 94 kWh informados na fatura",
+      "suportada": true
+     },
+     {
+      "texto": "A alíquota de ICMS está informada",
+      "suportada": true
+     },
+     {
+      "texto": "A base e o valor do tributo não são discriminados separadamente na fatura",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F169": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Consumo de energia: O valor cobrado (R$ 142,60) difere do produto quantidade × tarifa (R$ 124,00).",
+      "suportada": true
+     },
+     {
+      "texto": "ICMS: A alíquota de ICMS foi informada, mas a base e o valor do tributo não constam separadamente na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F174": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A alíquota de ICMS foi informada",
+      "suportada": true
+     },
+     {
+      "texto": "A base de cálculo do ICMS não consta separadamente na fatura",
+      "suportada": true
+     },
+     {
+      "texto": "O valor cobrado de ICMS não consta separadamente na fatura",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F190": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há discriminação da base ou valor do ICMS na fatura, impossibilitando verificação completa.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-F192": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "ICMS: Não há informação separada da base ou valor de ICMS na fatura para verificar o cálculo com a alíquota informada (0,20).",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q003": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Um idoso que recebe BPC tem direito à subclasse baixa renda.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q005": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Quando o consumo é muito baixo, a fatura do grupo B será calculada como o maior valor entre o custo de disponibilidade e o consumo de energia elétrica.",
+      "suportada": true
+     },
+     {
+      "texto": "Se o consumo for inferior ao custo de disponibilidade, a fatura corresponderá ao custo de disponibilidade.",
+      "suportada": true
+     },
+     {
+      "texto": "Caso contrário, será cobrado apenas o consumo.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q006": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A diferença resultante na aplicação do custo de disponibilidade não é passível de futura compensação.",
+      "suportada": true
+     },
+     {
+      "texto": "A diferença cobrada pelo custo de disponibilidade não pode ser compensada depois.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q008": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A unidade de baixa renda tem desconto no custo de disponibilidade.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q015": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O código para pagamento está indicado na própria fatura",
+      "suportada": true
+     },
+     {
+      "texto": "O art. 327 da REN ANEEL nº 1.000/2021 (caput) determina que a fatura deve conter o código para pagamento",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q016": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura de energia elétrica deve conter, de forma clara e objetiva, os valores relativos aos produtos, serviços e atividades prestados.",
+      "suportada": true
+     },
+     {
+      "texto": "Os valores relativos aos produtos, serviços e atividades prestados aparecem na fatura.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q025": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Sim, quando há medição apropriada a distribuidora deve faturar aplicando a tarifa correspondente sobre o consumo faturado nos dias de vigência de cada bandeira tarifária.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q026": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A leitura do medidor do grupo B deve ocorrer a cada 27-33 dias.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q054": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "A fatura duplicada configura faturamento a maior",
+      "suportada": true
+     },
+     {
+      "texto": "A distribuidora deve devolver ao consumidor as quantias recebidas indevidamente",
+      "suportada": true
+     },
+     {
+      "texto": "A devolução deve ocorrer até o segundo ciclo de faturamento posterior à constatação",
+      "suportada": true
+     },
+     {
+      "texto": "A devolução abrange os últimos 60 ciclos anteriores",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q059": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O consumidor pode ter inversão do ônus da prova em disputa de cobrança",
+      "suportada": true
+     },
+     {
+      "texto": "A inversão do ônus da prova ocorre nos termos do art. 6º, VIII do Código de Defesa do Consumidor",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q060": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O consumidor tem direito à reparação de danos",
+      "suportada": true
+     },
+     {
+      "texto": "O direito à reparação de danos está previsto no art. 6º, inciso VI da Lei nº 8.078/1990",
+      "suportada": true
+     },
+     {
+      "texto": "O direito à reparação de danos está previsto no art. 42, § 1º da Lei nº 8.078/1990",
+      "suportada": false
+     }
+    ]
+   },
+   "GS-Q079": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Os juros de mora são de 1% ao mês (pro rata die).",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q081": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O prazo máximo para cobrar uma fatura em atraso é de até 60 meses",
+      "suportada": true
+     },
+     {
+      "texto": "O prazo máximo para cobrar uma fatura em atraso é de até 60 meses (art. 347 da REN ANEEL nº 1.000/2021)",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q089": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Pode ser cobrado por uma fatura de cinco anos atrás",
+      "suportada": true
+     },
+     {
+      "texto": "O prazo máximo previsto para cobrança de faturas em atraso é de 60 meses",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q112": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O intervalo permitido entre leituras do grupo B não está definido nos dispositivos normativos apresentados.",
+      "suportada": true
+     },
+     {
+      "texto": "Não há informação sobre o intervalo permitido entre leituras do grupo B nos dispositivos normativos apresentados.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q113": {
+    "valido": true,
+    "veredito": "sem_suporte",
+    "proposicoes": [
+     {
+      "texto": "O percentual máximo da multa por atraso é de 200% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 100% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 50% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 20% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 10% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 5% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 2% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 1% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 0,5% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 0,1% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "O percentual máximo da multa por atraso é de 0% do valor devido.",
+      "suportada": false
+     },
+     {
+      "texto": "Não há dispositivo legal que estabeleça o percentual máximo da multa por atraso.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q114": {
+    "valido": false,
+    "veredito": null,
+    "proposicoes": []
+   },
+   "GS-Q115": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "O sistema não tem informações suficientes para responder à pergunta sobre quem tem direito à subclasse baixa renda.",
+      "suportada": true
+     }
+    ]
+   },
+   "GS-Q120": {
+    "valido": true,
+    "veredito": "suportada",
+    "proposicoes": [
+     {
+      "texto": "Para devolver um pagamento duplicado, solicite ao fornecedor a restituição do valor excedente, acrescido de correção monetária e juros legais.",
+      "suportada": true
+     },
+     {
+      "texto": "O Código de Defesa do Consumidor garante esse direito (art. 42, § 1º).",
+      "suportada": true
+     }
+    ]
+   }
+  }
+ },
+ "metodo_metricas": "Acurácia em todos os itens, com o item sem veredito do juiz (GS-Q114, timeout) contado como erro; κ de Cohen e contagens de classe só nos vereditos que o juiz de fato devolveu (39 nos 40)."
+}

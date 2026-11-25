@@ -8,7 +8,7 @@ import github_setup as gs
 import pytest
 
 # 51 issues dos pacotes S1 a S7 + S3-05 a S3-08 + S4-05 e S4-06 (adicionadas em 09/11/2026).
-TOTAL_ISSUES = 57
+TOTAL_ISSUES = 70
 
 
 class GitHubFalso:

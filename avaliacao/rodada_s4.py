@@ -4,6 +4,9 @@
 Definições (`docs/avaliacao/index.md`):
 - B4: Analista Normativo sem Auditor (todas as afirmações propostas são emitidas).
 - B5: Analista + Auditor com abstenção forçada (qualquer reprovação vira abstenção).
+- T2: resposta extrativa do Pesquisador (RAG sem LLM), a vencedora da S3, no mesmo corpus.
+- T5: sistema multiagentes (política do Orquestrador): o que o Auditor aprova é entregue; se ele
+  barrar o rascunho, entra a resposta extrativa do Pesquisador em vez da abstenção.
 
 B4 e B5 partilham a MESMA saída do Analista: uma única chamada ao LLM por pergunta (temperatura 0,
 semente 42), então a diferença entre os dois vem só do Auditor. O Auditor roda sem o juiz LLM, que
@@ -56,13 +59,13 @@ from fa_agentes.analista import SISTEMA_ANALISTA  # noqa: E402
 from fa_agentes.auditor import COBERTURA_MINIMA  # noqa: E402
 from fa_agentes.llm import RespostaLLM  # noqa: E402
 from fa_rag import DocumentoNormativo, IndiceHibrido  # noqa: E402
-from fa_rag.sintese import LIMIAR_PADRAO  # noqa: E402
+from fa_rag.sintese import LIMIAR_PADRAO, _trecho  # noqa: E402
 
 RESULTADOS = Path(__file__).resolve().parent / "resultados"
 SAIDA = RESULTADOS / "s4-b4-b5.json"
 GOLDEN = rs.GOLDEN
 CACHE = rs.CACHE
-ARMS = ("B4", "B5", "B5_estrutural")
+ARMS = ("B4", "B5", "B5_estrutural", "T2", "T5")
 ESTRATEGIA_ERRO = ("comunicacao", "timeout")
 
 
@@ -122,9 +125,10 @@ def registrar_analise(
     base: dict[str, Any] = {"id": p["id"], "tipo": p["tipo"]}
     cliente.ultima = None
     try:
-        rel = analista.analisar(
+        ev = analista.pesquisador.buscar_com_citacao(
             p["pergunta"], data_referencia=date.fromisoformat(p["data_referencia"])
         )
+        rel = analista.redigir(ev)
     except Exception as erro:  # a rodada segue e registra; na retomada, é refeito
         return base | {
             "valido": False,
@@ -146,6 +150,11 @@ def registrar_analise(
         "duracao_s": r.duracao_s if r else 0.0,
         "tokens_saida": r.tokens_saida if r else 0,
         "do_cache": r.do_cache if r else False,
+        "extrativo": {
+            "abstencao": ev.resposta_extrativa.abstencao,
+            "ids": list(ev.resposta_extrativa.ids_fontes),
+            "motivo_abstencao": ev.motivo_abstencao,
+        },
     }
 
 
@@ -198,13 +207,56 @@ def _problemas_por_afirmacao(
 
 
 def avaliar_braco(
-    nome: str, rel: RelatorioAnalise, p: dict[str, Any], medidor: Auditor
+    nome: str,
+    rel: RelatorioAnalise,
+    p: dict[str, Any],
+    medidor: Auditor,
+    extrativo: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Resultado de um braço para uma pergunta.
 
     ``medidor`` é o Auditor usado só para MEDIR afirmações sem suporte no que cada braço emitiu.
+    ``extrativo`` é a resposta do Pesquisador (T2), usada pelos braços T2 e T5.
     """
-    if nome == "B4":
+    origem = ""
+    if nome in ("T2", "T5"):
+        if extrativo is None:
+            raise ValueError(f"o braço {nome} precisa da resposta extrativa gravada")
+        res = medidor.auditar(rel)
+        if nome == "T5" and not res.abstencao:
+            emitidas, abst, origem = res.afirmacoes_aprovadas, False, "analista_auditado"
+        else:
+            # Trechos literais dos dispositivos: por construção não há afirmação sem suporte.
+            ids_x = list(extrativo["ids"])
+            abst_x = bool(extrativo["abstencao"])
+            if nome == "T5":
+                origem = "abstencao" if abst_x else "pesquisador_extrativo"
+            canon = set(p["citacao_canonica"])
+            # RF-15 medido no texto que o Pesquisador entregaria (os mesmos trechos de
+            # fa_rag.sintese.responder). No T5, o Orquestrador troca esse trecho por uma referência
+            # neutra quando há termo vedado; por isso o T5 registra o termo, mas não o emite.
+            por_id = {d.id: d for d in rel.dispositivos}
+            texto_x = " ".join(_trecho(por_id[i].texto) for i in ids_x if i in por_id)
+            termos = [v.termo for v in verificar_linguagem(texto_x)] if not abst_x else []
+            return {
+                "id": p["id"],
+                "tipo": p["tipo"],
+                "abstencao": abst_x,
+                "acerto": _acertou(p, abst_x, ids_x),
+                "ids_citados": sorted(set(ids_x)),
+                "n_afirmacoes": len(ids_x),
+                "n_afirmacoes_sem_suporte": 0,
+                "emitiu_sem_suporte": False,
+                "motivos": {},
+                "citacao_inventada": False,
+                "fora_de_vigencia": False,
+                "linguagem": termos if nome == "T2" else [],
+                "trecho_com_termo_vedado": bool(termos),
+                "cita_canonico": any(_artigo(i) in canon for i in ids_x),
+                "recuperou_canonico": any(_artigo(d.id) in canon for d in rel.dispositivos),
+                "origem": origem,
+            }
+    elif nome == "B4":
         emitidas = rel.afirmacoes
         abst = not emitidas
     else:
@@ -237,6 +289,8 @@ def avaliar_braco(
         "linguagem": [x.termo for x in verificar_linguagem(texto)],
         "cita_canonico": any(_artigo(i) in canon for i in ids),
         "recuperou_canonico": any(_artigo(d.id) in canon for d in rel.dispositivos),
+        "origem": origem,
+        "trecho_com_termo_vedado": False,
     }
 
 
@@ -247,14 +301,16 @@ def avaliar_tudo(
 ) -> dict[str, list[dict[str, Any]]]:
     """Aplica os braços às análises válidas, na ordem do golden set."""
     medidor = Auditor(None, cobertura_minima=COBERTURA_MINIMA)
-    saida: dict[str, list[dict[str, Any]]] = {b: [] for b in ARMS}
-    for reg in registros:
-        if not reg.get("valido"):
-            continue
+    validos = [r for r in registros if r.get("valido")]
+    # Rodadas anteriores à S4/T5 não gravaram a resposta extrativa: nelas, só B4/B5.
+    com_extrativo = bool(validos) and all("extrativo" in r for r in validos)
+    bracos = ARMS if com_extrativo else tuple(b for b in ARMS if b not in ("T2", "T5"))
+    saida: dict[str, list[dict[str, Any]]] = {b: [] for b in bracos}
+    for reg in validos:
         p = perguntas[reg["id"]]
         rel = reconstruir(reg, docs, p)
-        for b in ARMS:
-            saida[b].append(avaliar_braco(b, rel, p, medidor))
+        for b in bracos:
+            saida[b].append(avaliar_braco(b, rel, p, medidor, reg.get("extrativo")))
     return saida
 
 
@@ -319,6 +375,9 @@ def resumo_braco(itens: Sequence[dict[str, Any]]) -> dict[str, Any]:
         "perguntas_com_citacao_inventada": sum(i["citacao_inventada"] for i in itens),
         "perguntas_com_citacao_fora_de_vigencia": sum(i["fora_de_vigencia"] for i in itens),
         "violacoes_rf15": sum(1 for i in itens if i["linguagem"]),
+        "trechos_extrativos_com_termo_vedado": sum(
+            1 for i in itens if i.get("trecho_com_termo_vedado")
+        ),
         "motivos": dict(sorted(sum((Counter(i["motivos"]) for i in itens), Counter()).items())),
     }
 
@@ -407,7 +466,29 @@ def metricas(
     if bracos["B4"]:
         comp["B5_vs_B4"] = comparar(bracos["B4"], bracos["B5"])
         comp["B5_estrutural_vs_B4"] = comparar(bracos["B4"], bracos["B5_estrutural"])
+    if bracos.get("T5"):
+        comp["T5_vs_T2"] = comparar_acerto(bracos["T2"], bracos["T5"], "T2", "T5")
+        comp["T5_vs_B4"] = comparar_acerto(bracos["B4"], bracos["T5"], "B4", "T5")
+        comp["T5_vs_B5"] = comparar_acerto(bracos["B5"], bracos["T5"], "B5", "T5")
+        comp["T5_origens"] = dict(Counter(i["origem"] for i in bracos["T5"]))
     return bracos, comp
+
+
+def comparar_acerto(
+    a: Sequence[dict[str, Any]], b: Sequence[dict[str, Any]], nome_a: str, nome_b: str
+) -> dict[str, Any]:
+    """Acerto pareado de dois braços: diferença com IC (bootstrap) e McNemar exato."""
+    ac_a = [i["acerto"] for i in a]
+    ac_b = [i["acerto"] for i in b]
+    mc = mcnemar(ac_a, ac_b)
+    return {
+        "n_pares": len(a),
+        f"acerto_diferenca_{nome_b}_menos_{nome_a}": _dif(ac_a, ac_b),
+        f"so_{nome_a}_acerta": mc.n10,
+        f"so_{nome_b}_acerta": mc.n01,
+        "p_exato": mc.p_exato,
+        "significativo_5pct": mc.significativo,
+    }
 
 
 # --------------------------------------------------------------------------- CLI

@@ -55,8 +55,20 @@ def _normalizar(texto: str) -> str:
     return sem_acento.lower()
 
 
-def verificar_linguagem(texto: str) -> list[Violacao]:
-    """Lista as violações do RF-15 encontradas no texto (vazia = texto permitido)."""
+_CITACAO_LITERAL = re.compile(r"“[^”]*”")
+
+
+def verificar_linguagem(texto: str, *, permitir_citacao_literal: bool = False) -> list[Violacao]:
+    """Lista as violações do RF-15 encontradas no texto (vazia = texto permitido).
+
+    Com ``permitir_citacao_literal``, o trecho transcrito da norma entre aspas curvas (“…”) não
+    conta: é a exceção decidida em 18/11/2026 para a citação literal com referência canônica (ato,
+    dispositivo e vigência), a validar com o docente de Direito (#4). Só quem garante que o trecho
+    entre aspas é texto da norma, com a citação ao lado, pode ligar a exceção; texto redigido pelo
+    sistema continua bloqueado.
+    """
+    if permitir_citacao_literal:
+        texto = _CITACAO_LITERAL.sub(" ", texto)
     base = _normalizar(texto)
     achadas: list[Violacao] = []
     for regra, termos in REGRAS.items():

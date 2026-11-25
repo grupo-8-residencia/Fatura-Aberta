@@ -111,7 +111,7 @@ Comparação consolidada da recuperação entre o gate da **Sprint S2**, a **lin
 
 ## S4: B4 × B5
 
-O Auditor elimina as afirmações sem suporte (15,0% → 0%) mas reduz o acerto de 91,7% para 77,5% (McNemar p < 0,001): pelo gate da S4, o B4 é o produto. Detalhes, ablação e falhas anotadas em [Relatório S4](relatorio-s4.md).
+O Auditor elimina as afirmações sem suporte (14,2% → 0%) mas reduz o acerto de 90,0% para 76,7% (McNemar exato p = 3,05×10⁻⁵, 16 × 0 pares). Pelo gate da S4, o B5 cai no pivot, e o produto adota o T5 (93,3% de acerto), conforme a [decisão de 18/11/2026](../sprints/s4.md). Detalhes, ablação e falhas anotadas em [Relatório S4](relatorio-s4.md).
 
 ## Métricas ampliadas de recuperação e fundamentação (S3)
 
@@ -206,6 +206,39 @@ Composição: 14 perguntas com norma esperada (cortes na sexta-feira, notificaç
 - O recuperador híbrido generaliza para perguntas inéditas em linguagem leiga com **Hit@5 = 78,6%**, superando a meta regulatória do Gate ($\ge 70\%$).
 - O limiar de $0,25$ apresenta menor taxa de falsas recusas ($FP = 2$ vs $FP = 3$), enquanto o limiar de $0,30$ retém maior recall de abstenção ($83,3\%$ vs $66,7\%$). Ambas as opções atingem idêntica acurácia global de 80,0%, confirmando empiricamente que a escolha de limiar é um compromisso de projeto entre tolerância a falso alarme e rigor de abstenção.
 
+### Estimativa independente do limiar 0,30 congelado em 36 perguntas inéditas (S3-07 / Issue #112 — em aberto)
+
+Como as 20 perguntas acima foram inspecionadas ao comparar `0,25` e `0,30`, construiu-se um terceiro conjunto estritamente disjunto de **N = 36 perguntas novas** (`avaliacao/anotacoes/abstencao-independente-36.csv`, avaliado por `avaliacao/avaliar_abstencao_teste.py` e gravado em [`avaliacao/resultados/s2s3-abstencao-teste.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-abstencao-teste.json)), cobrindo os 4 tipos (`18 normativas`, `4 lacunas`, `7 vigência` e `7 fora do corpus`) e as 7 categorias regulatórias, no qual **apenas o limiar congelado `0,30` (`LIMIAR_PADRAO`) é medido, sem reescolha**:
+
+- **Disjunção comprovada:** Testada e verificada pelo teste contínuo `tests/avaliacao/test_disjuncao_perguntas.py` (interseção nula de IDs e textos contra golden set e perguntas exploratórias).
+- **Referência preliminar (Anotador 1, Luiz):** Precisão = **1,000 [1,000; 1,000]**, Recall = **1,000 [1,000; 1,000]**, F1 = **1,000 [1,000; 1,000]**, Acurácia = **1,000 [1,000; 1,000]** (`VP = 14, FP = 0, FN = 0, VN = 22`).
+- **Segunda anotação humana independente:** `anotador_2` distribuído para os 5 colegas em rodízio (`status = aguardando_anotador_2`). O encerramento definitivo da Issue #112 aguarda o preenchimento da segunda coluna e a apuração do $\kappa$ de Cohen inter-anotadores.
+
+### Comparação pareada de embedders e uso de RAM (S4-05 / Issue #114)
+
+Fonte: [`avaliacao/resultados/s2s3-embedders.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-embedders.json), gerado por `uv run python avaliacao/comparar_embedders.py` sobre as 51 perguntas com norma do split de teste (`B = 10.000`, semente 42):
+
+| Extrator | Dimensão | recall@5 | MRR | nDCG@5 | Latência p50 / p95 | RAM processo / servidor |
+|---|---:|---:|---:|---:|---:|---:|
+| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 0,920 | 3,9 / 4,1 ms | 2,55 MB / 0 MB |
+| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 0,938 | 166,9 / 175,4 ms | 7,08 MB / ~1.380 MB |
+| **E3 `EmbedderSemanticoPtBr` (offline, não treinado)** | 384 | 0,990 | 0,886 | 0,909 | 4,1 / 4,2 ms | 2,53 MB / 0 MB |
+| **E4 `qwen3-embedding:0.6b` (`EmbedderOllama`, Apache-2.0 segundo o cartão do modelo)** | 1024 | 0,990 | 0,915 | 0,926 | 113,6 / 131,7 ms | 7,08 MB / ~762 MB |
+
+Diferenças pareadas contra o E1 (híbrido 0,5, 51 perguntas com norma, IC 95% bootstrap, B = 10.000, semente 42; vetores por pergunta medidos ao vivo e gravados no JSON):
+
+| Par | $\Delta$recall@5 | $\Delta$MRR | $\Delta$nDCG@5 | $\Delta$latência (ms) |
+|---|---|---|---|---|
+| E2 − E1 | $+0,0098$ [$+0,0000$; $+0,0294$] | $+0,0229$ [$−0,0196$; $+0,0654$] | $+0,0179$ [$−0,0098$; $+0,0468$] | $+147,2$ [$+146,2$; $+148,7$] |
+| E3 − E1 | $+0,0000$ [$+0,0000$; $+0,0000$] | $−0,0163$ [$−0,0588$; $+0,0196$] | $−0,0119$ [$−0,0434$; $+0,0149$] | $+0,0$ [$+0,0$; $+0,0$] |
+| E4 − E1 | $+0,0000$ [$−0,0294$; $+0,0294$] | $+0,0131$ [$−0,0294$; $+0,0588$] | $+0,0060$ [$−0,0229$; $+0,0357$] | $+109,0$ [$+105,6$; $+112,4$] |
+
+McNemar (hit@5 / cobertura total no top-5): E2 $p = 1,000$ / $p = 1,000$ ($n_{01} = 1$, $n_{10} = 0$); E3 $p = 1,000$ / $p = 1,000$; E4 $p = 1,000$ / $p = 0,480$ ($n_{01} = 1$, $n_{10} = 1$). Nenhuma diferença de qualidade é significativa a 5%. A latência dos modelos neurais é de 29× a 42× a do hashing, com IC que exclui zero.
+
+**Observação:** uma versão anterior do script reconstruía os vetores por pergunta do `bge-m3` a partir de agregados; isso foi removido e o pareado foi remedido ao vivo (o IC de ΔMRR do E2 passou de [0,0000; +0,0588] para o da tabela). A RAM do servidor vem de `/api/ps`; a licença do `qwen3-embedding` não é exposta pelo Ollama e consta conforme o cartão do modelo.
+
+**Decisão:** mantém-se `EmbedderHash` como padrão: nenhum extrator alternativo (dois modelos neurais treinados e um extrator conceitual) supera o hashing de forma significativa, a latência é 29× a 42× maior, o RAM chega a ~1,4 GB e o CI permanece 100% offline, sem pesos versionados.
+
 ### Fundamentação (108 respostas não abstidas)
 
 | Métrica | Valor [IC 95%] |
@@ -226,12 +259,13 @@ semântico externo mudaria esse número.
 
 | Item | Meta | Situação |
 |---|---|---|
-| Itens com anotação humana | 40 | TODO: modelo gerado em `avaliacao/anotacoes/juiz-40.csv`, sem anotações |
-| Kappa de Cohen juiz × humano | ≥ 0,75 | TODO: aguarda anotação humana e rodada do juiz |
-| Acurácia juiz × humano | reportar com IC 95% | TODO |
+| Itens com anotação humana | 40 | 40 itens × 2 avaliadores em `avaliacao/anotacoes/juiz-40.csv` (consolidados por uma pessoa; os dois concordam em todos) |
+| Kappa de Cohen juiz × humano | ≥ 0,75 | **Não atingido.** 13/11: κ = 0,029 em 39 itens. Recalibração de 18/11 (prompt v2, #162): κ = 0,164 nos 39 vereditos válidos e −0,136 na metade retida |
+| Acurácia juiz × humano | reportar com IC 95% | 13/11: 56,4% [41,0%; 71,8%]. v2 na metade retida: 75% [55%; 90%] |
 
-`.venv/bin/python avaliacao/calibrar_juiz.py` só calcula quando os 40 itens estiverem preenchidos e
-não produz número nenhum antes disso.
+Resultado negativo: o juiz LLM não é usado nas métricas de "afirmação sem suporte". Detalhes no
+[relatório S3](relatorio-s3-final.md) e em `avaliacao/resultados/s3-calibracao-juiz.json` e
+`s3-recalibracao-juiz.json`.
 
 ## Demais rodadas
 
@@ -240,6 +274,6 @@ não produz número nenhum antes disso.
 | recall@5 em 30 perguntas | S2 | RAG | recall@5 de 1,000 [1,000; 1,000] (30 de 30) na amostra estratificada e 0,995 [0,985; 1,000] nas 103 perguntas com norma | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2-recall-gate.json) |
 | LLM × RAG | S3 | B2, B3 | Tabela acima; B1 e juiz pendentes | acima |
 | Calibração de abstenção (60/60) | S3 | B3 | Calibração 60/60 sem vazamento; limiar 0,30 mantido no pacote (F1 = 0,800 no teste cego vs 0,714 com 0,25) | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-calibracao-abstencao.json) |
-| Agentes | S4 | B4, B5 | Aguardando execução da S4 | — |
+| Agentes | S4 | B4, B5, T5 | Executada em 18/11/2026: B4 90,0%, B5 76,7%, T5 93,3% (produto adota T5) | [Relatório S4](relatorio-s4.md) |
 | Campos-chave em 40 fotos | S5 | extração | Aguardando execução da S5 | — |
 | Rodada final | S7 | B1–B5 | Aguardando execução da S7 | — |

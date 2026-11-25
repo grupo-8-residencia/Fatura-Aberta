@@ -71,3 +71,13 @@ def test_verificar_detecta_adulteracao(tmp_path: Path) -> None:
     with (tmp_path / "perguntas.jsonl").open("a", encoding="utf-8") as f:
         f.write("\n")
     assert any("perguntas.jsonl" in p for p in gs.verificar(tmp_path))
+
+
+def test_verificar_detecta_crlf_com_mensagem_de_politica_fim_de_linha(tmp_path: Path) -> None:
+    for nome in (*gs.ARQUIVOS_CONGELADOS, "checksums.sha256"):
+        (tmp_path / nome).write_bytes((FIXO / nome).read_bytes())
+    # Simula conversão CRLF (ex.: checkout no Windows com core.autocrlf=true)
+    conteudo_lf = (tmp_path / "perguntas.jsonl").read_bytes()
+    (tmp_path / "perguntas.jsonl").write_bytes(conteudo_lf.replace(b"\n", b"\r\n"))
+    problemas = gs.verificar(tmp_path)
+    assert any("CRLF" in p and ".gitattributes" in p for p in problemas)
