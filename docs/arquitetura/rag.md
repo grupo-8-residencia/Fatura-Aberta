@@ -87,10 +87,14 @@ de apontar para um lugar exato da norma.
 O padrão é o hashing porque o CI não pode depender de rede, e porque o resultado precisa ser
 reprodutível. O custo é recall menor em perguntas em linguagem de usuário. Um modelo pt-BR entra
 implementando o protocolo `Embedder` (`dim` e `embed(textos)`), sem mudar o resto do pacote. **Não há
-modelo semântico adotado**. A comparação com o `bge-m3` (Ollama local, licença MIT, 1024
-dimensões) está em `avaliacao/resultados/s2s3-embedders.json` e resumida em
-[fechamento dos débitos S2/S3](../avaliacao/fechamento-debitos-s2-s3.md): o ganho de ranking é
-pequeno, o custo de latência é cerca de 140 vezes maior e o hashing segue como padrão.
+modelo semântico externo adotado como padrão**. A comparação controlada (com teste pareado via
+bootstrap e McNemar e medição de RAM) entre o hashing (`EmbedderHash`), o `bge-m3` (`EmbedderOllama`,
+licença MIT, 1024 dimensões, ~1,10 GB em disco e ~1,38 GB de RAM no servidor Ollama) e o segundo
+extrator conceitual pt-BR (`EmbedderSemanticoPtBr`, 384 dimensões, offline) está em
+`avaliacao/resultados/s2s3-embedders.json` e resumida em
+[fechamento dos débitos S2/S3](../avaliacao/fechamento-debitos-s2-s3.md): as diferenças de ranking
+não têm significância estatística a 5%, o custo de latência do `bge-m3` é cerca de 140 vezes maior e
+o hashing segue como padrão.
 
 Os vetores são L2-normalizados, então o cosseno é o produto interno. Como os pesos do hashing não são
 negativos, o cosseno fica em [0, 1].

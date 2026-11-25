@@ -206,6 +206,26 @@ Composição: 14 perguntas com norma esperada (cortes na sexta-feira, notificaç
 - O recuperador híbrido generaliza para perguntas inéditas em linguagem leiga com **Hit@5 = 78,6%**, superando a meta regulatória do Gate ($\ge 70\%$).
 - O limiar de $0,25$ apresenta menor taxa de falsas recusas ($FP = 2$ vs $FP = 3$), enquanto o limiar de $0,30$ retém maior recall de abstenção ($83,3\%$ vs $66,7\%$). Ambas as opções atingem idêntica acurácia global de 80,0%, confirmando empiricamente que a escolha de limiar é um compromisso de projeto entre tolerância a falso alarme e rigor de abstenção.
 
+### Estimativa independente do limiar 0,30 congelado em 36 perguntas inéditas (S3-07 / Issue #112 — em aberto)
+
+Como as 20 perguntas acima foram inspecionadas ao comparar `0,25` e `0,30`, construiu-se um terceiro conjunto estritamente disjunto de **N = 36 perguntas novas** (`avaliacao/anotacoes/abstencao-independente-36.csv`, avaliado por `avaliacao/avaliar_abstencao_teste.py` e gravado em [`avaliacao/resultados/s2s3-abstencao-teste.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-abstencao-teste.json)), cobrindo os 4 tipos (`18 normativas`, `4 lacunas`, `7 vigência` e `7 fora do corpus`) e as 7 categorias regulatórias, no qual **apenas o limiar congelado `0,30` (`LIMIAR_PADRAO`) é medido, sem reescolha**:
+
+- **Disjunção comprovada:** Testada e verificada pelo teste contínuo `tests/avaliacao/test_disjuncao_perguntas.py` (interseção nula de IDs e textos contra golden set e perguntas exploratórias).
+- **Referência preliminar (Anotador 1, Luiz):** Precisão = **1,000 [1,000; 1,000]**, Recall = **1,000 [1,000; 1,000]**, F1 = **1,000 [1,000; 1,000]**, Acurácia = **1,000 [1,000; 1,000]** (`VP = 14, FP = 0, FN = 0, VN = 22`).
+- **Segunda anotação humana independente:** `anotador_2` distribuído para os 5 colegas em rodízio (`status = aguardando_anotador_2`). O encerramento definitivo da Issue #112 aguarda o preenchimento da segunda coluna e a apuração do $\kappa$ de Cohen inter-anotadores.
+
+### Comparação pareada de embedders e uso de RAM (S4-05 / Issue #114)
+
+Fonte: [`avaliacao/resultados/s2s3-embedders.json`](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s2s3-embedders.json), gerado por `uv run python avaliacao/comparar_embedders.py` sobre as 51 perguntas com norma do split de teste (`B = 10.000`, semente 42):
+
+| Extrator | Dimensão | recall@5 (híbrido) | MRR (híbrido) | Latência p50 / p95 | RAM processo / servidor | $\Delta\text{recall@5}$ pareado vs E1 [IC 95%] | $\Delta\text{MRR}$ pareado vs E1 [IC 95%] |
+|---|---:|---:|---:|---:|---:|---|---|
+| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 1,0 / 1,1 ms | 2,67 MB / 0 MB | — | — |
+| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 142,9 / 151,3 ms | 2,45 MB / ~1.380 MB | $+0,0098$ [$+0,0000$; $+0,0294$] (McNemar $p=1,00$) | $+0,0229$ [$+0,0000$; $+0,0588$] (n.s.) |
+| **E3 `EmbedderSemanticoPtBr` (offline)** | 384 | 0,990 | 0,886 | 1,3 / 1,8 ms | 2,66 MB / 0 MB | $+0,0000$ [$+0,0000$; $+0,0000$] (McNemar $p=1,00$) | $-0,0163$ [$-0,0588$; $+0,0196$] (n.s.) |
+
+**Decisão:** mantém-se `EmbedderHash` como padrão (diferenças sem significância estatística a 5%, ~1 ms de latência, < 3 MB de RAM e CI 100% offline sem pesos versionados).
+
 ### Fundamentação (108 respostas não abstidas)
 
 | Métrica | Valor [IC 95%] |

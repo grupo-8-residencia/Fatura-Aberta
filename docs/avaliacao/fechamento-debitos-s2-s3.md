@@ -94,10 +94,30 @@ Dois fatos que reduzem a confiança no próprio registro, ambos documentados e n
 `LIMIAR_PADRAO = 0,30` (`sintese.py`). O 0,25 de `vector_store.py` é um fator de atenuação do
 `nao_cobre`, não um limiar. A calibração 60/60 (semente 20261109) escolheu 0,20 na calibração; o
 0,30 foi adotado **depois** de ver o teste e o fora da amostra. Logo as métricas de teste do 0,30
-(F1 0,800 contra 0,714) são descritivas. Não há partição independente restante; uma estimativa
-independente exige perguntas novas anotadas por pessoas. Reproduzido em `s2s3-abstencao-teste.json`
+(F1 0,800 contra 0,714) são descritivas. Reproduzido em `s2s3-abstencao-teste.json`
 (60 perguntas de teste): precisão 1,000, recall de abstenção 0,667 (6 de 9) e acurácia 0,950 com
-0,30; a categoria mais fraca é `cip_cosip` (acurácia 0,50 com 3 abstenções esperadas e 1 prevista).
+0,30; a categoria mais fraca no split histórico é `cip_cosip` (acurácia 0,50 com 3 abstenções esperadas e 1 prevista).
+
+### Conjunto de N = 36 perguntas para validação independente (S3-07 / Issue #112 — em aberto)
+
+Para viabilizar uma estimativa verdadeiramente independente do limiar 0,30 congelado (sem reescolha),
+foi elaborado e versionado em `avaliacao/anotacoes/abstencao-independente-36.csv` um conjunto de
+**N = 36 perguntas inéditas** (`IND-Q01` a `IND-Q36`), estratificado nos 4 tipos (`18 normativas`,
+`4 lacunas`, `7 vigência` e `7 fora do corpus`) e nas 7 categorias regulatórias.
+
+1. **Comprovação de Disjunção Estrita:** A disjunção em relação às 120 perguntas do golden set
+   (`dados/golden-set/perguntas.jsonl`) e às 20 perguntas exploratórias da S3 (`avaliacao/checar_perguntas_novas.py`)
+   é testada e garantida de forma contínua pelo teste automatizado `tests/avaliacao/test_disjuncao_perguntas.py`
+   (interseção nula de IDs, interseção nula de enunciados literais e índice Jaccard máximo $\le 0,60$ contra o golden set e $\le 0,39$ contra as exploratórias).
+2. **Dupla Anotação Humana:** O arquivo estrutura a dupla anotação (`anotador_1 = Luiz` preenchido;
+   `anotador_2` rotacionado entre os 5 demais membros da equipe: Pedro, Talita, Maria Eduarda, Raíssa e Natália).
+   Para preservar a integridade metodológica e não forjar dados, os vereditos de `anotador_2` permanecem
+   vazios aguardando anotação pelos respectivos colegas.
+3. **Status da Issue #112:** A Issue #112 **permanece aberta** aguardando a finalização da segunda
+   anotação independente por outro integrante do time e o reporte formal do $\kappa$ de Cohen inter-anotadores.
+   O resultado preliminar calculado sobre a anotação do anotador 1 (em `avaliacao/resultados/s2s3-abstencao-teste.json`,
+   com status `aguardando_anotador_2`) serve como referência de partida do limiar congelado e não encerra
+   o débito até a conclusão da verificação inter-anotadores.
 
 ## 9. Reprodutibilidade das rodadas T1–T4
 
@@ -116,23 +136,31 @@ equivalentes.
 Experimento controlado: mesmo corpus (78 chunks), mesmos filtros, só o embedder muda; ranking medido
 nas 51 perguntas com norma do split de teste; limiar de abstenção escolhido na calibração.
 
-| Métrica (teste, híbrido α = 0,5) | E1 hash | E2 bge-m3 |
-|---|---:|---:|
-| recall@3 | 0,980 | 0,980 |
-| recall@5 | 0,990 | 1,000 |
-| MRR | 0,902 | 0,925 |
-| nDCG@5 | 0,920 | 0,938 |
-| precisão@5 | 0,208 | 0,212 |
-| latência por consulta p50 / p95 | 1,0 / 1,1 ms | 142,9 / 151,3 ms |
-| F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 |
-| Construção do índice | 0,03 s | 5,5 s |
+| Métrica (teste, híbrido α = 0,5) | E1 hash (`EmbedderHash`, 384d) | E2 `bge-m3` (`EmbedderOllama`, 1024d) | E3 `semantico-ptbr` (`EmbedderSemanticoPtBr`, 384d) |
+|---|---:|---:|---:|
+| recall@3 | 0,980 | 0,980 | 0,980 |
+| recall@5 | 0,990 | 1,000 | 0,990 |
+| MRR | 0,902 | 0,925 | 0,886 |
+| nDCG@5 | 0,920 | 0,938 | 0,908 |
+| precisão@5 | 0,208 | 0,212 | 0,208 |
+| latência por consulta p50 / p95 | 1,0 / 1,1 ms | 142,9 / 151,3 ms | 1,3 / 1,8 ms |
+| F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 | 0,714 |
+| Construção do índice | 0,03 s | 5,5 s | 0,04 s |
+| RAM pico processo / vetores índice | 2,67 MB / 0,23 MB | 2,45 MB / 0,61 MB | 2,66 MB / 0,23 MB |
+| Pesos em disco / RAM servidor Ollama | 0 MB / 0 MB | 1.104,04 MB / ~1.380 MB | 0 MB / 0 MB |
 
-`bge-m3`: licença MIT, 566,7 M de parâmetros, F16, 1024 dimensões, 1,16 GB, digest `79076464…`.
-**Decisão: o hashing segue como padrão.** O ganho de ranking é de 0,010 no recall@5 e 0,023 no MRR,
-sem teste pareado que o sustente, contra latência cerca de 140 vezes maior e dependência de 1,2 GB de
-modelo. O F1 de abstenção do E2 é melhor, mas vem de um limiar diferente (0,40 contra 0,25) escolhido
-em dados diferentes e não é comparável de forma direta. Não medi o uso de RAM do servidor Ollama.
-O modelo **não** é versionado nem baixado pelo CI.
+`bge-m3`: licença MIT, 566,7 M de parâmetros, F16, 1024 dimensões, 1,16 GB (`1.104,04 MB`), digest `79076464…`.
+`EmbedderSemanticoPtBr`: segundo extrator pt-BR (projeção em 23 eixos conceituais regulatórios + n-gramas morfológicos, 384 dimensões, determinístico e offline).
+
+**Teste pareado nas 51 perguntas com norma do split de teste (`B = 10.000`, semente 42, em `s2s3-embedders.json`):**
+- `E2 (bge-m3) − E1 (hash)`:
+  - $\Delta\text{recall@5} = +0,0098$ (IC 95% pareado: $[+0,0000; +0,0294]$, inclui zero; McNemar em `hit@5`: $n_{01}=0, n_{10}=0, p=1,000$; McNemar em cobertura total top-5: $n_{01}=1, n_{10}=0, \chi^2=0,0, p=1,000$).
+  - $\Delta\text{MRR} = +0,0229$ (IC 95% pareado: $[+0,0000; +0,0588]$, inclui zero; sem significância estatística a 5%).
+- `E3 (semantico-ptbr) − E1 (hash)`:
+  - $\Delta\text{recall@5} = 0,0000$ (IC 95% pareado: $[0,0000; 0,0000]$; McNemar $p=1,000$).
+  - $\Delta\text{MRR} = -0,0163$ (IC 95% pareado: $[-0,0588; +0,0196]$, cruza zero).
+
+**Decisão: o hashing segue como padrão.** Os testes pareados (bootstrap e McNemar) confirmam ausência de ganho estatisticamente significativo do `bge-m3` e do `EmbedderSemanticoPtBr` sobre o `EmbedderHash`, contra latência ~140 vezes maior e ~1,38 GB de RAM residente no servidor Ollama para o `bge-m3`. Nenhum peso de modelo é versionado nem baixado pelo CI.
 
 ## 11. Testes executados
 
