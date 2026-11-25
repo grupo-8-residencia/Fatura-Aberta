@@ -131,35 +131,35 @@ rodada S4 acrescenta corpus e limiar, mas não embedder nem α. Resultados padr�
 faturas. Comparações entre rodadas com corpus de 28 e de 39 dispositivos não são diretamente
 equivalentes.
 
-## 10. Embedder semântico (E1 × E2)
+## 10. Embedder semântico (E1 × E2 × E3 × E4)
 
 Experimento controlado: mesmo corpus (78 chunks), mesmos filtros, só o embedder muda; ranking medido
 nas 51 perguntas com norma do split de teste; limiar de abstenção escolhido na calibração.
 
-| Métrica (teste, híbrido α = 0,5) | E1 hash (`EmbedderHash`, 384d) | E2 `bge-m3` (`EmbedderOllama`, 1024d) | E3 `semantico-ptbr` (`EmbedderSemanticoPtBr`, 384d) |
-|---|---:|---:|---:|
-| recall@3 | 0,980 | 0,980 | 0,980 |
-| recall@5 | 0,990 | 1,000 | 0,990 |
-| MRR | 0,902 | 0,925 | 0,886 |
-| nDCG@5 | 0,920 | 0,938 | 0,909 |
-| precisão@5 | 0,208 | 0,212 | 0,208 |
-| latência por consulta p50 / p95 | 4,0 / 4,0 ms | 142,9 / 151,3 ms (execução anterior) | 4,1 / 4,4 ms |
-| F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 | 0,714 |
-| Construção do índice | 0,03 s | 5,5 s | 0,04 s |
-| RAM pico processo / vetores índice | 2,55 MB / 0,69 MB | 2,45 MB / 0,61 MB | 2,53 MB / 0,69 MB |
-| Pesos em disco / RAM servidor Ollama | 0 MB / 0 MB | 1.104,04 MB / ~1.380 MB | 0 MB / 0 MB |
+| Métrica (teste, híbrido α = 0,5) | E1 hash (384d) | E2 `bge-m3` (1024d) | E3 `semantico-ptbr` (384d) | E4 `qwen3-embedding:0.6b` (1024d) |
+|---|---:|---:|---:|---:|
+| recall@3 | 0,980 | 0,980 | 0,980 | 0,980 |
+| recall@5 | 0,990 | 1,000 | 0,990 | 0,990 |
+| MRR | 0,902 | 0,925 | 0,886 | 0,915 |
+| nDCG@5 | 0,920 | 0,938 | 0,909 | 0,926 |
+| precisão@5 | 0,208 | 0,212 | 0,208 | 0,208 |
+| latência por consulta p50 / p95 | 3,9 / 4,1 ms | 166,9 / 175,4 ms | 4,1 / 4,2 ms | 113,6 / 131,7 ms |
+| F1 da abstenção no teste (limiar da calibração) | 0,714 | 0,800 | 0,714 | 0,667 |
+| Construção do índice | 0,16 s | 5,84 s | 0,19 s | 15,59 s |
+| RAM pico processo / vetores índice | 2,55 MB / 0,69 MB | 7,08 MB / 1,83 MB | 2,53 MB / 0,69 MB | 7,08 MB / 1,83 MB |
+| Pesos em disco / RAM servidor Ollama | 0,00 MB / 0 MB | 1104,04 MB / ~1.380 MB | 0,00 MB / 0 MB | 609,54 MB / ~762 MB |
 
 `bge-m3`: licença MIT, 566,7 M de parâmetros, F16, 1024 dimensões, 1,16 GB (`1.104,04 MB`), digest `79076464…`.
 `EmbedderSemanticoPtBr`: segundo extrator pt-BR (projeção em 23 eixos conceituais regulatórios + n-gramas morfológicos, 384 dimensões, determinístico e offline).
 
 **Teste pareado nas 51 perguntas com norma do split de teste (`B = 10.000`, semente 42, em `s2s3-embedders.json`):**
-- `E2 (bge-m3) − E1 (hash)`: **pendente.** Os vetores por pergunta do `bge-m3` não foram gravados; os valores $+0,0098$ e $+0,0229$ citados antes vinham de uma reconstrução a partir de agregados, removida do script. Reexecutar com `--ollama-ao-vivo`.
-- `E3 (semantico-ptbr) − E1 (hash)`:
-  - $\Delta\text{recall@5} = 0,0000$ (IC 95% pareado: $[0,0000; 0,0000]$; McNemar $p=1,000$).
-  - $\Delta\text{MRR} = -0,0163$ (IC 95% pareado: $[-0,0588; +0,0196]$, cruza zero).
-  - $\Delta\text{nDCG@5} = -0,0119$ ($[-0,0434; +0,0149]$); $\Delta$latência $+0,05$ ms ($[+0,04; +0,06]$, significativa mas irrelevante na prática).
+- `E2 (bge-m3) − E1 (hash)`: Δrecall@5 = $+0,0098$ [$+0,0000$; $+0,0294$]; ΔMRR = $+0,0229$ [$−0,0196$; $+0,0654$]; ΔnDCG@5 = $+0,0179$ [$−0,0098$; $+0,0468$]; IC 95% pareado, vetores por pergunta medidos ao vivo.
+- `E4 (qwen3-embedding:0.6b) − E1 (hash)`: Δrecall@5 = $+0,0000$ [$−0,0294$; $+0,0294$]; ΔMRR = $+0,0131$ [$−0,0294$; $+0,0588$]; ΔnDCG@5 = $+0,0060$ [$−0,0229$; $+0,0357$]; IC 95% pareado, vetores por pergunta medidos ao vivo.
+- `E3 (semantico-ptbr) − E1 (hash)`: Δrecall@5 = $+0,0000$ [$+0,0000$; $+0,0000$]; ΔMRR = $−0,0163$ [$−0,0588$; $+0,0196$]; ΔnDCG@5 = $−0,0119$ [$−0,0434$; $+0,0149$]; IC 95% pareado, vetores por pergunta medidos ao vivo.
 
-**Decisão: o hashing segue como padrão.** O teste pareado confirma ausência de ganho significativo do `EmbedderSemanticoPtBr`; para o `bge-m3` os agregados são descritivos (pareado pendente). Contra latência ~36 vezes maior e ~1,38 GB de RAM residente no servidor Ollama para o `bge-m3`. Nenhum peso de modelo é versionado nem baixado pelo CI.
+McNemar: $p = 1,000$ em todos os pares (E4: cobertura total top-5 $p = 0,480$). A versão anterior do script reconstruía os vetores do `bge-m3` a partir de agregados; foi removida e o pareado remedido ao vivo.
+
+**Decisão: o hashing segue como padrão.** Nenhum dos três alternativos (`bge-m3`, `qwen3-embedding:0.6b` e `EmbedderSemanticoPtBr`) supera o `EmbedderHash` de forma significativa a 5% em recall@5, MRR ou nDCG@5, e os dois modelos neurais custam 29 a 42 vezes mais latência e de ~0,76 a ~1,38 GB de RAM no servidor Ollama. Nenhum peso de modelo é versionado nem baixado pelo CI.
 
 ## 11. Testes executados
 
@@ -169,7 +169,7 @@ nas 51 perguntas com norma do split de teste; limiar de abstenção escolhido na
 | `ruff check`, `ruff format --check`, `mypy` | estático | limpos |
 | `scripts/gerar_golden_set.py --verificar` | integridade | "Golden set íntegro" |
 | `avaliar_abstencao_teste.py` | experimento reproduzido (sem LLM) | reproduz F1 0,714 e 0,800 do teste histórico |
-| `comparar_embedders.py` | experimento novo, modelo real (bge-m3) | seção 10 |
+| `comparar_embedders.py` | experimento novo, dois modelos reais (bge-m3, qwen3-embedding) | seção 10 |
 | Rodadas T1–T4, juiz, B1 | histórico apenas inspecionado | não reexecutados |
 | `mkdocs build --strict`, `scripts/demonstrar_rag.py` | docs e demonstração | build concluído sem erro; a demonstração roda e mostra B2 × B3 |
 

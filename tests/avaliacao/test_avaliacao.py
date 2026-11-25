@@ -268,8 +268,10 @@ def test_comparar_embedders_registra_teste_pareado_ram_e_segundo_modelo() -> Non
 
     versionado = json.loads(ce.SAIDA.read_text(encoding="utf-8"))
     res = versionado["resultados"]
-    assert {"E1_hash_lexical", "E2_semantico", "E3_semantico_ptbr"} <= set(res)
-    for mod in ("E1_hash_lexical", "E2_semantico", "E3_semantico_ptbr"):
+    assert {"E1_hash_lexical", "E2_semantico", "E3_semantico_ptbr", "E4_qwen3_embedding"} <= set(
+        res
+    )
+    for mod in ("E1_hash_lexical", "E2_semantico", "E3_semantico_ptbr", "E4_qwen3_embedding"):
         ram = res[mod]["memoria_ram_mb"]
         assert ram["pico_alocacao_processo_mb"] > 0.0
         assert ram["vetores_indice_mb"] > 0.0
@@ -277,15 +279,17 @@ def test_comparar_embedders_registra_teste_pareado_ram_e_segundo_modelo() -> Non
     assert res["E2_semantico"]["memoria_ram_mb"]["servico_externo_mb"] > 1000.0
 
     pareado = versionado["comparacao_pareada"]
-    assert {"E2_bge_m3_menos_E1_hash", "E3_semantico_ptbr_menos_E1_hash"} <= set(pareado)
-    # O pareado do bge-m3 só vale se vier de vetores por pergunta medidos ao vivo; nunca
-    # reconstruídos de agregados. Sem eles, fica marcado como pendente.
-    e2_par = pareado["E2_bge_m3_menos_E1_hash"]
-    if "status" in e2_par:
-        assert e2_par["status"] == "pendente_execucao_ao_vivo"
-        assert "vetores_por_pergunta" not in res["E2_semantico"]
-    else:
-        assert res["E2_semantico"]["vetores_por_pergunta"]["ids"]
+    assert {
+        "E2_bge_m3_menos_E1_hash",
+        "E3_semantico_ptbr_menos_E1_hash",
+        "E4_qwen3_embedding_menos_E1_hash",
+    } <= set(pareado)
+    # Pareado de modelo neural só vale com vetores por pergunta medidos ao vivo, nunca
+    # reconstruídos de agregados.
+    for mod in ("E2_semantico", "E4_qwen3_embedding"):
+        assert len(res[mod]["vetores_por_pergunta"]["ids"]) == 51
+    for chave_par in ("E2_bge_m3_menos_E1_hash", "E4_qwen3_embedding_menos_E1_hash"):
+        assert "status" not in pareado[chave_par]
     for chave_par, bloco in pareado.items():
         if "status" in bloco:
             continue

@@ -220,28 +220,24 @@ Fonte: [`avaliacao/resultados/s2s3-embedders.json`](https://github.com/grupo-8-r
 
 | Extrator | Dimensão | recall@5 | MRR | nDCG@5 | Latência p50 / p95 | RAM processo / servidor |
 |---|---:|---:|---:|---:|---:|---:|
-| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 0,920 | 4,0 / 4,0 ms | 2,55 MB / 0 MB |
-| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 0,938 | 142,9 / 151,3 ms | 2,45 MB / ~1.380 MB |
-| **E3 `EmbedderSemanticoPtBr` (offline)** | 384 | 0,990 | 0,886 | 0,909 | 4,1 / 4,4 ms | 2,53 MB / 0 MB |
+| **E1 `EmbedderHash` (padrão)** | 384 | 0,990 | 0,902 | 0,920 | 3,9 / 4,1 ms | 2,55 MB / 0 MB |
+| **E2 `bge-m3` (`EmbedderOllama`, MIT)** | 1024 | 1,000 | 0,925 | 0,938 | 166,9 / 175,4 ms | 7,08 MB / ~1.380 MB |
+| **E3 `EmbedderSemanticoPtBr` (offline, não treinado)** | 384 | 0,990 | 0,886 | 0,909 | 4,1 / 4,2 ms | 2,53 MB / 0 MB |
+| **E4 `qwen3-embedding:0.6b` (`EmbedderOllama`, Apache-2.0 segundo o cartão do modelo)** | 1024 | 0,990 | 0,915 | 0,926 | 113,6 / 131,7 ms | 7,08 MB / ~762 MB |
 
-Diferenças pareadas contra o E1 (híbrido 0,5, 51 perguntas, IC 95% bootstrap):
+Diferenças pareadas contra o E1 (híbrido 0,5, 51 perguntas com norma, IC 95% bootstrap, B = 10.000, semente 42; vetores por pergunta medidos ao vivo e gravados no JSON):
 
 | Par | $\Delta$recall@5 | $\Delta$MRR | $\Delta$nDCG@5 | $\Delta$latência (ms) |
 |---|---|---|---|---|
-| E3 − E1 | $0,0000$ [$0,0000$; $0,0000$] | $-0,0163$ [$-0,0588$; $+0,0196$] | $-0,0119$ [$-0,0434$; $+0,0149$] | $+0,05$ [$+0,04$; $+0,06$] (diferença de 0,05 ms, irrelevante na prática) |
-| E2 − E1 (`bge-m3`) | **pendente** | **pendente** | **pendente** | **pendente** |
+| E2 − E1 | $+0,0098$ [$+0,0000$; $+0,0294$] | $+0,0229$ [$−0,0196$; $+0,0654$] | $+0,0179$ [$−0,0098$; $+0,0468$] | $+147,2$ [$+146,2$; $+148,7$] |
+| E3 − E1 | $+0,0000$ [$+0,0000$; $+0,0000$] | $−0,0163$ [$−0,0588$; $+0,0196$] | $−0,0119$ [$−0,0434$; $+0,0149$] | $+0,0$ [$+0,0$; $+0,0$] |
+| E4 − E1 | $+0,0000$ [$−0,0294$; $+0,0294$] | $+0,0131$ [$−0,0294$; $+0,0588$] | $+0,0060$ [$−0,0229$; $+0,0357$] | $+109,0$ [$+105,6$; $+112,4$] |
 
-**Limitação registrada:** os vetores por pergunta do `bge-m3` não foram gravados na medição original
-(os agregados da linha E2 são reais, mas o pareado não pode ser recalculado a partir deles). Uma versão
-anterior do script reconstruía esses vetores a partir dos agregados; isso foi removido e os valores
-$+0,0098$ / $+0,0229$ antes citados para E2 − E1 **não** valem como teste pareado. Reexecutar com
-`--ollama-ao-vivo` (modelo `bge-m3` instalado) grava os vetores e preenche a linha. A latência do E2
-vem de execução anterior, em condições não idênticas às do E1/E3.
+McNemar (hit@5 / cobertura total no top-5): E2 $p = 1,000$ / $p = 1,000$ ($n_{01} = 1$, $n_{10} = 0$); E3 $p = 1,000$ / $p = 1,000$; E4 $p = 1,000$ / $p = 0,480$ ($n_{01} = 1$, $n_{10} = 1$). Nenhuma diferença de qualidade é significativa a 5%. A latência dos modelos neurais é de 29× a 42× a do hashing, com IC que exclui zero.
 
-**Decisão:** mantém-se `EmbedderHash` como padrão (E3 sem diferença significativa a 5%; `bge-m3` com
-agregados descritivos próximos, ~36× a latência e ~1,4 GB de RAM no servidor; CI 100% offline sem pesos
-versionados). O E3 é um extrator conceitual determinístico, **não** um modelo treinado; um segundo modelo
-neural segue como trabalho opcional.
+**Observação:** uma versão anterior do script reconstruía os vetores por pergunta do `bge-m3` a partir de agregados; isso foi removido e o pareado foi remedido ao vivo (o IC de ΔMRR do E2 passou de [0,0000; +0,0588] para o da tabela). A RAM do servidor vem de `/api/ps`; a licença do `qwen3-embedding` não é exposta pelo Ollama e consta conforme o cartão do modelo.
+
+**Decisão:** mantém-se `EmbedderHash` como padrão: nenhum extrator alternativo (dois modelos neurais treinados e um extrator conceitual) supera o hashing de forma significativa, a latência é 29× a 42× maior, o RAM chega a ~1,4 GB e o CI permanece 100% offline, sem pesos versionados.
 
 ### Fundamentação (108 respostas não abstidas)
 

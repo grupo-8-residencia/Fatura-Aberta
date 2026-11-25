@@ -9,7 +9,8 @@ Avalia três extratores pelo protocolo ``Embedder``:
 - ``E1_hash_lexical``: ``EmbedderHash`` (384d, blake2b n-gramas, padrão offline do CI);
 - ``E2_semantico``: ``bge-m3`` via Ollama local (1024d, licença MIT, 566,7M parâmetros F16);
 - ``E3_semantico_ptbr``: ``EmbedderSemanticoPtBr`` (384d, projeção conceitual regulatória pt-BR,
-  segundo modelo semântico/conceitual determinístico e offline, sem pesos externos no CI).
+  extrator determinístico e offline, sem pesos externos no CI; não é um modelo treinado);
+- ``E4_qwen3_embedding``: ``qwen3-embedding:0.6b`` via Ollama (1024d), segundo modelo neural.
 
 Calcula teste pareado (bootstrap B = 10.000, semente 42, e McNemar com correção de Edwards) sobre
 as 51 perguntas com norma esperada do split de teste para ``recall@5``, ``hit@5`` e ``MRR``, mede o
@@ -277,7 +278,54 @@ def _avaliar(
     return saida
 
 
-def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> dict[str, Any]:
+def _medir_ollama(
+    modelo: str,
+    info: dict[str, Any],
+    arquivo: Path,
+    cal: list[dict[str, Any]],
+    teste: list[dict[str, Any]],
+    com_norma: list[dict[str, Any]],
+) -> tuple[dict[str, Any], dict[str, list[float]]]:
+    """Mede um modelo do Ollama ao vivo e devolve o resultado e os vetores por pergunta."""
+    tracemalloc.start()
+    t0 = time.perf_counter()
+    emb = EmbedderOllama(modelo, digest=info["digest"])
+    indice = IndiceHibrido.do_corpus(embedder=emb, arquivo_vetores=arquivo)
+    construcao = time.perf_counter() - t0
+    avaliacao = _avaliar(indice, cal, teste)
+    _, pico = tracemalloc.get_traced_memory()
+    tracemalloc.stop()
+    ram_srv_mb = round(
+        (info.get("ram_residente_bytes", 0) or int(info.get("tamanho_bytes", 0) * 1.25))
+        / (1024 * 1024),
+        2,
+    )
+    vet = _vetores_por_item(indice, com_norma, alpha=0.5)
+    resultado = {
+        "modelo": info,
+        "dim": emb.dim,
+        "construcao_indice_s": construcao,
+        "memoria_ram_mb": {
+            "pico_alocacao_processo_mb": round(pico / (1024 * 1024), 3),
+            "vetores_indice_mb": _memoria_indice_mb(indice),
+            "pesos_modelo_mb": round(info.get("tamanho_bytes", 0) / (1024 * 1024), 2),
+            "servico_externo_mb": ram_srv_mb,
+            "servico_externo_origem": (
+                "/api/ps" if info.get("ram_residente_bytes") else "estimativa 1,25 x tamanho"
+            ),
+        },
+        **avaliacao,
+        "vetores_por_pergunta": {"ids": [i["id"] for i in com_norma], **vet},
+    }
+    return resultado, vet
+
+
+def rodar(
+    modelo_ollama: str = "bge-m3",
+    modelo_extra: str = "qwen3-embedding:0.6b",
+    *,
+    consultar_ollama: bool = False,
+) -> dict[str, Any]:
     itens = {
         i["id"]: i
         for i in (json.loads(x) for x in GOLDEN_SET.read_text(encoding="utf-8").splitlines() if x)
@@ -288,12 +336,14 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
     com_norma = [i for i in teste if not i["abstencao_esperada"]]
 
     historico_e2: dict[str, Any] = {}
+    anterior_e4: dict[str, Any] = {}
     if SAIDA.exists():
         try:
             anterior = json.loads(SAIDA.read_text(encoding="utf-8"))
             e2_ant = anterior.get("resultados", {}).get("E2_semantico", {})
             if "hibrido_0.5" in e2_ant:
                 historico_e2 = e2_ant
+            anterior_e4 = anterior.get("resultados", {}).get("E4_qwen3_embedding", {})
         except (OSError, ValueError):
             historico_e2 = {}
 
@@ -328,37 +378,9 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
         info = _info_modelo(modelo_ollama, consultar_rede=consultar_ollama)
         vet_e2: dict[str, list[float]] | None = None
         if info:
-            tracemalloc.start()
-            t0 = time.perf_counter()
-            emb_ollama = EmbedderOllama(modelo_ollama, digest=info["digest"])
-            e2 = IndiceHibrido.do_corpus(embedder=emb_ollama, arquivo_vetores=base / "e2.json")
-            construcao = time.perf_counter() - t0
-            avaliacao_e2 = _avaliar(e2, cal, teste)
-            _, pico_e2 = tracemalloc.get_traced_memory()
-            tracemalloc.stop()
-            pesos_mb = round(info.get("tamanho_bytes", 0) / (1024 * 1024), 2)
-            ram_srv_mb = round(
-                (info.get("ram_residente_bytes", 0) or int(info.get("tamanho_bytes", 0) * 1.25))
-                / (1024 * 1024),
-                2,
+            resultados["E2_semantico"], vet_e2 = _medir_ollama(
+                modelo_ollama, info, base / "e2.json", cal, teste, com_norma
             )
-            resultados["E2_semantico"] = {
-                "modelo": info,
-                "dim": emb_ollama.dim,
-                "construcao_indice_s": construcao,
-                "memoria_ram_mb": {
-                    "pico_alocacao_processo_mb": round(pico_e2 / (1024 * 1024), 3),
-                    "vetores_indice_mb": _memoria_indice_mb(e2),
-                    "pesos_modelo_mb": pesos_mb,
-                    "servico_externo_mb": ram_srv_mb,
-                },
-                **avaliacao_e2,
-            }
-            vet_e2 = _vetores_por_item(e2, com_norma, alpha=0.5)
-            resultados["E2_semantico"]["vetores_por_pergunta"] = {
-                "ids": [i["id"] for i in com_norma],
-                **vet_e2,
-            }
         elif historico_e2:
             pesos_bytes = int(historico_e2.get("modelo", {}).get("tamanho_bytes", 1157672605))
             resultados["E2_semantico"] = {
@@ -414,6 +436,19 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
         }
         vet_e3 = _vetores_por_item(e3, com_norma, alpha=0.5)
 
+        # 4. E4: segundo modelo neural treinado (qwen3-embedding 0,6B via Ollama, Apache-2.0)
+        vet_e4: dict[str, list[float]] | None = None
+        info4 = _info_modelo(modelo_extra, consultar_rede=consultar_ollama)
+        if info4:
+            resultados["E4_qwen3_embedding"], vet_e4 = _medir_ollama(
+                modelo_extra, info4, base / "e4.json", cal, teste, com_norma
+            )
+        else:
+            ant4 = anterior_e4
+            if ant4.get("vetores_por_pergunta", {}).get("ids") == [i["id"] for i in com_norma]:
+                resultados["E4_qwen3_embedding"] = ant4
+                vet_e4 = {k: v for k, v in ant4["vetores_por_pergunta"].items() if k != "ids"}
+
     comparacao_pareada: dict[str, Any] = {
         "E3_semantico_ptbr_menos_E1_hash": _comparar_pares(vet_e1, vet_e3),
     }
@@ -428,6 +463,8 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
             ),
         }
 
+    if vet_e4 is not None:
+        comparacao_pareada["E4_qwen3_embedding_menos_E1_hash"] = _comparar_pares(vet_e1, vet_e4)
     return {
         "cabecalho": {**cab, "protocolo": "teste = ids_teste de s3-calibracao-abstencao.json"},
         "n_calibracao": len(cal),
@@ -441,27 +478,35 @@ def rodar(modelo_ollama: str = "bge-m3", *, consultar_ollama: bool = False) -> d
 def _decisao(resultados: dict[str, Any], pareado: dict[str, Any]) -> dict[str, Any]:
     """Decisão com números lidos dos resultados medidos (nada digitado à mão)."""
     lat_e1 = resultados["E1_hash_lexical"]["hibrido_0.5"]["latencia_consulta_ms"]["p50"]
-    e2 = resultados.get("E2_semantico", {})
+    medidos = {k: v for k, v in pareado.items() if "status" not in v}
+    pendentes = [k for k, v in pareado.items() if "status" in v]
+    sig = [
+        f"{k}:{m}"
+        for k, v in medidos.items()
+        for m in ("diferenca_recall_at_5", "diferenca_mrr", "diferenca_ndcg_at_5")
+        if v[m]["significativo_5pct"]
+    ]
     texto = (
-        "Os testes pareados (bootstrap B = 10.000, semente 42, e McNemar) não mostram diferença "
-        "estatisticamente significativa a 5% em recall@5, MRR e nDCG@5 entre o EmbedderHash e o "
-        "EmbedderSemanticoPtBr. "
+        f"Em {len(medidos)} comparações pareadas contra o EmbedderHash (bootstrap B = 10.000, "
+        "semente 42, e McNemar), "
+        + (
+            "nenhuma diferença de recall@5, MRR ou nDCG@5 é significativa a 5%. "
+            if not sig
+            else f"há diferenças significativas a 5% em: {', '.join(sig)}. "
+        )
     )
-    if "status" in pareado.get("E2_bge_m3_menos_E1_hash", {}):
-        texto += (
-            "O pareado do bge-m3 está pendente de execução ao vivo (vetores por pergunta não "
-            "gravados); os agregados medidos (recall@5, MRR, nDCG@5) são apenas descritivos. "
-        )
-    else:
-        texto += "O mesmo vale para o bge-m3. "
-    if "hibrido_0.5" in e2:
-        lat_e2 = e2["hibrido_0.5"]["latencia_consulta_ms"]["p50"]
-        ram = e2["memoria_ram_mb"]
-        texto += (
-            f"O bge-m3 exige ~{ram['pesos_modelo_mb']:.0f} MB de pesos, "
-            f"~{ram['servico_externo_mb']:.0f} MB de RAM no servidor Ollama e latência p50 de "
-            f"{lat_e2:.1f} ms contra {lat_e1:.1f} ms do hashing ({lat_e2 / lat_e1:.0f}x). "
-        )
+    if pendentes:
+        texto += f"Pareados pendentes de execução ao vivo: {', '.join(pendentes)}. "
+    for chave, rotulo in (("E2_semantico", "bge-m3"), ("E4_qwen3_embedding", "qwen3-embedding")):
+        r = resultados.get(chave)
+        if r and "hibrido_0.5" in r:
+            lat = r["hibrido_0.5"]["latencia_consulta_ms"]["p50"]
+            ram = r["memoria_ram_mb"]
+            texto += (
+                f"{rotulo}: {ram['pesos_modelo_mb']:.0f} MB de pesos, "
+                f"~{ram['servico_externo_mb']:.0f} MB de RAM no Ollama, latência p50 de "
+                f"{lat:.1f} ms contra {lat_e1:.1f} ms do hashing ({lat / lat_e1:.0f}x). "
+            )
     texto += "O EmbedderHash é mantido como padrão: sem ganho comprovado e 100% offline no CI."
     return {
         "embedder_padrao_mantido": "hash-ngramas-blake2b (EmbedderHash)",
@@ -473,6 +518,7 @@ def _decisao(resultados: dict[str, Any], pareado: dict[str, Any]) -> dict[str, A
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--modelo", default="bge-m3")
+    parser.add_argument("--modelo-extra", default="qwen3-embedding:0.6b")
     parser.add_argument(
         "--ollama-ao-vivo",
         action="store_true",
@@ -480,7 +526,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    saida = rodar(args.modelo, consultar_ollama=args.ollama_ao_vivo)
+    saida = rodar(args.modelo, args.modelo_extra, consultar_ollama=args.ollama_ao_vivo)
     SAIDA.write_text(json.dumps(saida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for nome, r in saida["resultados"].items():
         if "hibrido_0.5" in r:
