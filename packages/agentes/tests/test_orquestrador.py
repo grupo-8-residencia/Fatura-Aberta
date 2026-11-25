@@ -265,3 +265,17 @@ def test_itens_alem_do_limite_ficam_registrados_no_rastro() -> None:
         _fatura("55"), achados_motor=achados, max_itens=1
     )
     assert any(p.acao == "limite" and "Outro total" in p.detalhe for p in res.rastro)
+
+
+def test_responder_sobre_fatura_abstem_quando_faltam_leituras() -> None:
+    fatura = Fatura(
+        distribuidora="Distribuidora Sintética",
+        mes_referencia=date(2026, 3, 1),
+        consumo_kwh=Decimal("50"),
+        total=Decimal("40"),
+    )
+    orq = Orquestrador(IndiceHibrido([]), ClienteFalso())
+    r = orq.responder_sobre_fatura("O consumo confere?", fatura, achados_motor=[])
+    assert r.abstencao and r.motivo_abstencao == "dados_insuficientes"
+    assert "leitura_anterior" in r.resposta.texto
+    assert not verificar_linguagem(r.resposta.texto)

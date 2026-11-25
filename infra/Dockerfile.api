@@ -86,6 +86,8 @@ COPY --from=builder --chown=aplicacao:aplicacao \
 COPY --from=builder --chown=aplicacao:aplicacao \
   /app/packages/contratos /app/packages/contratos
 COPY --from=builder --chown=aplicacao:aplicacao \
+  /app/packages/extracao /app/packages/extracao
+COPY --from=builder --chown=aplicacao:aplicacao \
   /app/packages/motor /app/packages/motor
 COPY --from=builder --chown=aplicacao:aplicacao \
   /app/packages/rag /app/packages/rag
