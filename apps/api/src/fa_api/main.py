@@ -126,6 +126,10 @@ MSG_AGENTES_INDISPONIVEIS = (
     "os achados determinísticos do motor foram preservados e nenhuma conclusão foi inferida."
 )
 MSG_SAIDA_BLOQUEADA = "Texto omitido por não atender à política de linguagem do produto."
+MSG_ENTRADA_BLOQUEADA = (
+    "A entrada contém instruções incompatíveis com a análise da fatura. "
+    "Remova essas instruções e tente novamente."
+)
 
 
 def _validar_pdf_base64(texto: str) -> bytes:
@@ -353,7 +357,7 @@ def _extrair_fatura(dados: bytes) -> Fatura:
     from pypdf import PdfReader
     from pypdf.errors import PyPdfError
 
-    from fa_extracao import ErroExtracao, parse_texto  # importação lazy: pacote opcional na API
+    from fa_extracao import ErroExtracao, contem_instrucao_controle, parse_texto
     from fa_extracao.pdf import extrair_texto
 
     try:
@@ -372,6 +376,8 @@ def _extrair_fatura(dados: bytes) -> Fatura:
         raise _FalhaExtracao(MSG_PDF_INVALIDO, "pdf_invalido") from erro
     if not texto.strip():
         raise _FalhaExtracao(MSG_PDF_SEM_TEXTO, "pdf_sem_texto")
+    if contem_instrucao_controle(texto):
+        raise _FalhaExtracao(MSG_ENTRADA_BLOQUEADA, "instrucao_controle")
     try:
         return parse_texto(texto)
     except ErroExtracao as erro:
@@ -433,7 +439,14 @@ async def extrair(pedido: PedidoExtracao, response: Response) -> RespostaExtraca
 async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPerguntaAPI:
     """Pergunta regulatória respondida pelos 4 agentes, com fatura/PDF confirmados opcionais."""
     response.headers["Cache-Control"] = "no-store"
+    from fa_extracao import contem_instrucao_controle
+
+    pergunta_hostil = contem_instrucao_controle(pedido.pergunta)
     if pedido.fatura is None and pedido.pdf_base64 is None:
+        if pergunta_hostil:
+            return _falha(
+                pedido, "texto", MSG_ENTRADA_BLOQUEADA, "entrada_bloqueada", "instrucao_controle"
+            )
         return _sanitizar_saida(await _perguntar_texto(pedido))
 
     modo: Literal["fatura", "pdf"] = "pdf" if pedido.pdf_base64 is not None else "fatura"
@@ -450,6 +463,17 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
         fatura = pedido.fatura
 
     achados = analisar_nivel_a(fatura)
+    if pergunta_hostil:
+        return _sanitizar_saida(
+            _falha(
+                pedido,
+                modo,
+                MSG_ENTRADA_BLOQUEADA,
+                "entrada_bloqueada",
+                "instrucao_controle",
+                achados=achados,
+            )
+        )
     try:
         r = await _com_vaga(
             lambda: asyncio.to_thread(_resposta_da_fatura, pedido, modo, fatura, achados),
