@@ -17,7 +17,7 @@ from pydantic import ValidationError
 from fa_contratos import Fatura, ItemFatura
 from fa_extracao.candidata import CAMPOS, ExtratorDeFoto, FaturaCandidata, ItemCandidato
 from fa_extracao.candidata import extrair_candidata as _extrair
-from fa_extracao.erros import ErroExtracao
+from fa_extracao.erros import ErroExtracao, ForaDoEscopo
 
 log = logging.getLogger(__name__)
 
@@ -103,9 +103,9 @@ def confirmar(candidata: FaturaCandidata, confirmacao: Confirmacao) -> Fatura:
     if faltam:
         raise ConfirmacaoPendente(f"Faltam campos para confirmar: {', '.join(faltam)}.")
     if "neoenergia" not in (final.distribuidora or "").lower():
-        raise ErroExtracao("Distribuidora fora do escopo (Neoenergia Brasília).")
+        raise ForaDoEscopo("Distribuidora fora do escopo (Neoenergia Brasília).")
     if final.grupo_tarifario and final.grupo_tarifario.strip().upper() != "B1":
-        raise ErroExtracao("Grupo tarifário fora do escopo (B1).")
+        raise ForaDoEscopo("Grupo tarifário fora do escopo (B1).")
 
     aliquota = _opcional("aliquota_icms", final.aliquota_icms)
     try:

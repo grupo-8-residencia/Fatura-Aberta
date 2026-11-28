@@ -86,7 +86,7 @@ impede a injeção nesta amostra.
 | Falha | Estágio | Mitigação | Estado |
 |---|---|---|---|
 | Item injetado não lido pelo VLM (img-02 e img-11) | leitura | nenhuma específica: sem texto, não há injeção | Risco aceito: perda de dado, não de veredito |
-| Instrução na descrição de item (img-01) removida pela higienização; item sem descrição | higienização | a frase é removida; a confirmação recusa o item | Implementada; a mensagem ao usuário ("fora do contrato") deve melhorar |
+| Instrução na descrição de item (img-01) removida pela higienização; item sem descrição | higienização | a frase é removida; a confirmação recusa o item e a API responde `leitura_incompleta`, orientando a conferir a foto ou digitar os dados, sem repetir o texto | Implementada (`test_item_sem_descricao_apos_a_defesa_...`) |
 | JSON inválido do VLM em 5 de 20 imagens (img-16 a img-20) | leitura | erro mapeado para `foto_nao_lida`, sem repetir o texto | Implementada; falha do leitor a monitorar |
 | Analista do LLM propôs 0 afirmações; Auditor barrou | agentes | fallback extrativo do Pesquisador | Implementada |
 | Resposta repete a pergunta do usuário, com a instrução | saída | nenhuma | Risco aceito de baixo impacto; decisão de produto pendente |

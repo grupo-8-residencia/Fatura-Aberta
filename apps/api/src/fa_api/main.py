@@ -132,6 +132,11 @@ MSG_FOTO_NAO_LIDA = (
     "Não foi possível ler a foto. Envie outra foto (JPEG, PNG ou WEBP, até 10 MB), "
     "envie o PDF da fatura ou digite os dados."
 )
+MSG_LEITURA_INCOMPLETA = (
+    "A leitura da foto trouxe um item ou campo que não pôde ser aceito "
+    "(parte do texto pode ter sido descartada por segurança). "
+    "Confira a foto ou digite os dados da fatura."
+)
 MSG_CAMPOS_PENDENTES = (
     "A foto não trouxe todos os campos obrigatórios. Digite os campos indicados para continuar."
 )
@@ -498,6 +503,7 @@ def _resposta_da_foto(dados: bytes) -> RespostaExtracao:
     from fa_extracao import (
         Confirmacao,
         ErroExtracao,
+        ForaDoEscopo,
         campos_pendentes,
         confirmar,
         criar_extrator,
@@ -513,8 +519,11 @@ def _resposta_da_foto(dados: bytes) -> RespostaExtracao:
     try:
         # Só monta o contrato `Fatura`. Quem confirma é o usuário, na tela, antes de /analisar.
         fatura = confirmar(candidata, Confirmacao(confirmado=True))
-    except ErroExtracao as erro:
-        return RespostaExtracao(erro=str(erro), motivo="fora_do_contrato")
+    except ForaDoEscopo as erro:
+        return RespostaExtracao(erro=str(erro), motivo="fora_do_escopo")
+    except ErroExtracao:
+        # Mensagem técnica do contrato fica fora da resposta: ela pode apontar valores lidos.
+        return RespostaExtracao(erro=MSG_LEITURA_INCOMPLETA, motivo="leitura_incompleta")
     return RespostaExtracao(fatura=fatura)
 
 

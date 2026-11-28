@@ -65,7 +65,8 @@ Limites em produção (padrões; variáveis em `.env.example`):
   um registro com regra, cálculo, data da tabela e limitações. Achados gerados pelos agentes (nível C)
   ainda não têm registro. Categoria e registro de nível A e B estão no contrato; a conferência jurídica
   delas segue com a F1.
-- **Testes do web.** O web não tem suíte de testes; só lint, typecheck e build.
+- **Itens lidos da foto são o ponto fraco.** No navegador, o modelo 3B preencheu quantidade e tarifa em uma linha de contribuição que não os tem, e isso gerou uma divergência falsa de nível A. O usuário confirma antes da análise, e a mensagem de leitura da foto agora avisa que quantidade e tarifa são o que o leitor mais erra. A medição (linhas corretas de 58% a 64%) já indicava isso.
+- **Testes do web.** O Vitest cobre `lib/api.ts`; não há suíte automatizada de navegador.
 
 ## 3. Casos de falha e mitigação
 
@@ -80,6 +81,8 @@ Limites em produção (padrões; variáveis em `.env.example`):
 | Formato de foto não suportado (HEIC, GIF) | `motivo: imagem_invalida`; o modelo não é chamado | `formato_da_imagem` antes da leitura | `test_formato_nao_suportado_nao_chama_o_modelo` |
 | Modelo de visão devolve texto que não é JSON | `motivo: foto_nao_lida`, sem repetir o texto | mensagem fixa | `test_falha_de_leitura_nao_repete_o_texto_do_modelo` |
 | Dado pessoal devolvido pelo modelo | campo fora do contrato, descartado | candidata só lê os campos do contrato | `test_dado_pessoal_devolvido_pelo_modelo_...` |
+| Item da foto sem descrição depois da defesa, ou campo inválido | `motivo: leitura_incompleta`, com orientação para conferir a foto ou digitar | `confirmar` recusa e a API não repete o valor lido | `test_item_sem_descricao_apos_a_defesa_...` |
+| Fatura de outra distribuidora ou grupo | `motivo: fora_do_escopo` | exceção `ForaDoEscopo` separada da leitura incompleta | `test_fora_do_escopo_b1_e_recusado_pelo_contrato` |
 | Instrução em PDF, foto ou pergunta | PDF recusado; pergunta com `motivo: instrucao_controle`; campo removido | `contem_instrucao_controle` e `higienizar_texto_extraido` (detector único, com normalização de homógrafos e caracteres invisíveis) | `packages/extracao/tests/test_higienizacao.py`, `tests/seguranca/` |
 | Instrução em campo textual de `/analisar` | agentes não rodam; nível A preservado; aviso | guarda `_fatura_hostil` em `/analisar` | `apps/api/tests/test_analisar_guarda.py` |
 | Agentes lentos ou fora do ar | aviso; achados A preservados | `_executar_agentes` e `_com_vaga` | `apps/api/tests/test_api.py` |
@@ -109,10 +112,10 @@ Limites em produção (padrões; variáveis em `.env.example`):
 | Tipos web | `npm run typecheck` | PASS |
 | Build web | `npm run build` | PASS (Next 16.4.6) |
 | Smoke da API (fluxo PDF) | `scripts/smoke_api_container.py` contra uvicorn local | PASS (sem Docker) |
-| Docker (contêiner da API e da web) | `docker compose` | NOT RUN (Docker não verificado nesta rodada) |
+| Docker (contêiner da API e da web) | `docker compose up --build` com override fora do repositório | PASS em 28/11/2026: API saudável, web com HTTP 200, `smoke_api_container.py` sem erro e `/extrair-foto` lendo a foto no Ollama do host (21 s). `/analisar` devolveu níveis A, B e C com categorias. |
 | Documentação | `mkdocs build --strict` | PASS com as fontes do tema desligadas num build temporário. O build com a configuração do repositório falha aqui por 61 avisos de ambiente (link simbólico no Windows e download de fontes do Google sem rede). |
 | Leitura de foto com VLM real (40 fotos sintéticas) | `scripts/extrair_fotos.py` com `qwen2.5vl:3b` e `7b`; `scripts/acuracia_por_campo.py` | PASS nos seis campos-chave nos dois modelos; ver [acuracia-fotos.md](acuracia-fotos.md) |
-| Testes de interface do web (navegador) | — | NOT RUN (não há suíte; a tela não foi exercitada em navegador nesta rodada) |
+| Tela no navegador (contêiner web) | roteiro manual no navegador integrado | PASS em 28/11/2026 para foto e para PDF com divergência: formulário preenchido pela leitura, cartões A, B e C, categorias e registro. Sem suíte automatizada de navegador; o Vitest cobre só `lib/api.ts`. |
 
 As 5 falhas da suíte completa, todas fora do escopo desta mudança:
 
