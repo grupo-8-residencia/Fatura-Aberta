@@ -124,7 +124,7 @@ def estagio_leitura(casos: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], 
             try:
                 fatura = confirmar(candidata, Confirmacao(confirmado=True))
             except ErroExtracao as erro:
-                # Item com descrição removida pela defesa: a API responde fora_do_contrato.
+                # Item com descrição removida pela defesa: a API responde leitura_incompleta.
                 registro["erro_contrato"] = str(erro)
             else:
                 registro["fatura"] = json.loads(fatura.model_dump_json())

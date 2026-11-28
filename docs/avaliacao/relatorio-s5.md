@@ -80,6 +80,8 @@ Limites em produção (padrões; variáveis em `.env.example`):
 | Formato de foto não suportado (HEIC, GIF) | `motivo: imagem_invalida`; o modelo não é chamado | `formato_da_imagem` antes da leitura | `test_formato_nao_suportado_nao_chama_o_modelo` |
 | Modelo de visão devolve texto que não é JSON | `motivo: foto_nao_lida`, sem repetir o texto | mensagem fixa | `test_falha_de_leitura_nao_repete_o_texto_do_modelo` |
 | Dado pessoal devolvido pelo modelo | campo fora do contrato, descartado | candidata só lê os campos do contrato | `test_dado_pessoal_devolvido_pelo_modelo_...` |
+| Item da foto sem descrição depois da defesa, ou campo inválido | `motivo: leitura_incompleta`, com orientação para conferir a foto ou digitar | `confirmar` recusa e a API não repete o valor lido | `test_item_sem_descricao_apos_a_defesa_...` |
+| Fatura de outra distribuidora ou grupo | `motivo: fora_do_escopo` | exceção `ForaDoEscopo` separada da leitura incompleta | `test_fora_do_escopo_b1_e_recusado_pelo_contrato` |
 | Instrução em PDF, foto ou pergunta | PDF recusado; pergunta com `motivo: instrucao_controle`; campo removido | `contem_instrucao_controle` e `higienizar_texto_extraido` (detector único, com normalização de homógrafos e caracteres invisíveis) | `packages/extracao/tests/test_higienizacao.py`, `tests/seguranca/` |
 | Instrução em campo textual de `/analisar` | agentes não rodam; nível A preservado; aviso | guarda `_fatura_hostil` em `/analisar` | `apps/api/tests/test_analisar_guarda.py` |
 | Agentes lentos ou fora do ar | aviso; achados A preservados | `_executar_agentes` e `_com_vaga` | `apps/api/tests/test_api.py` |
