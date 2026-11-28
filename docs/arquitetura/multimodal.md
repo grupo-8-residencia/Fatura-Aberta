@@ -84,7 +84,7 @@ flowchart LR
 | Sem norma vigente para o ponto | `abstencao` com a conferência do motor | Não inventa fundamento | Pedir esclarecimento à distribuidora |
 | Agentes lentos ou fora do ar | `origem: agentes_indisponiveis`, `aviso`, `abstencao: true` | `achados_motor` preservados; `/analisar` devolve o nível A com `aviso` | Tentar de novo; o nível A segue válido |
 | Texto de saída com termo vedado (RF-15) | Texto substituído por aviso neutro | Nunca sai ao cliente | Ajustar a redação na origem |
-| Instrução de controle no PDF ou na pergunta | `instrucao_controle` | PDF recusado ou pergunta abstida antes dos agentes; achados A/B preservados para pergunta hostil | Remover a instrução e reenviar; ver [bateria S5-03](../seguranca/injecao-por-imagem.md) |
+| Instrução de controle no PDF, na fatura confirmada ou na pergunta | `instrucao_controle` | PDF recusado em `/extrair` ou entrada abstida antes dos agentes em `/perguntar`; achados A/B preservados | Remover a instrução e reenviar; ver [bateria S5-03](../seguranca/injecao-por-imagem.md) |
 | API fora do ar | A tela avisa que não conseguiu falar com a API | Dados digitados continuam na tela | Subir a API e tentar de novo |
 
 ## Privacidade e tratamento de dados
