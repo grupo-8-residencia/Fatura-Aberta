@@ -9,6 +9,7 @@ import pytest
 # Valores FICTÍCIOS. O "7777,77" serve para provar que o relatório não mostra valores.
 GABARITO: dict[str, dict[str, Any]] = {
     "f1": {
+        "distribuidora": "Neoenergia Brasília",
         "mes_referencia": "10/2026",
         "consumo_kwh": "77,00",
         "total": "7777,77",
@@ -20,6 +21,7 @@ GABARITO: dict[str, dict[str, Any]] = {
         ],
     },
     "f2": {
+        "distribuidora": "Neoenergia Brasília",
         "mes_referencia": "09/2026",
         "consumo_kwh": "1.050,00",
         "total": "100,00",

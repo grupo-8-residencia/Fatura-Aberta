@@ -1,0 +1,13 @@
+{
+  "data_utc": "2026-11-28T02:23:01Z",
+  "modelo": "qwen2.5vl:7b",
+  "digest": "5ced39dfa4ba",
+  "fotos": 40,
+  "extraidas": 40,
+  "falhas": {},
+  "latencia_s": {
+    "p50": 50.78,
+    "p95": 56.25,
+    "max": 61.16
+  }
+}

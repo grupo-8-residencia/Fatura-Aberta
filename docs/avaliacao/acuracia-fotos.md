@@ -3,9 +3,9 @@
 Gate da S5: **acerto ≥ 90% em cada campo-chave, em 40 fotos**. Se algum campo-chave ficar abaixo,
 o plano de contingência é OCR mais formulário de confirmação.
 
-> **Situação:** protocolo e ferramentas prontos; **medição ainda não feita**. Faltam as fotos
-> (temos 7 de 40) e a rodada com o modelo de visão local. A tabela de resultado abaixo está vazia
-> de propósito.
+> **Situação:** medição feita em 27/11/2026 com **40 fotos sintéticas** (não reais) e dois modelos
+> de visão locais. Os seis campos-chave passaram nos dois modelos. A decisão do time segue pendente
+> (ver abaixo). As 7 fotos reais continuam fora do repositório e não entraram nesta medição.
 
 ## O que é medido
 
@@ -45,11 +45,11 @@ em [F4](../frentes/f4.md)). O prompt do modelo pede a mesma coisa.
 ## Como rodar (local, fora do Git)
 
 1. Coloque as fotos em `faturas-reais/fotos/` com nomes neutros: `foto-01.jpg`, `foto-02.jpg`...
-2. Suba o Ollama e baixe o modelo: `ollama pull qwen2.5vl:7b`.
+2. Suba o Ollama e baixe o modelo: `ollama pull qwen2.5vl:3b`.
 3. Gere o gabarito em branco e a extração:
 
     ```bash
-    FA_VLM_MODELO=qwen2.5vl:7b uv run python scripts/extrair_fotos.py --gabarito-modelo
+    FA_VLM_MODELO=qwen2.5vl:3b uv run python scripts/extrair_fotos.py --gabarito-modelo
     ```
 
 4. Copie `faturas-reais/avaliacao/gabarito-modelo.json` para `gabarito.json` e preencha **olhando
@@ -67,8 +67,8 @@ em [F4](../frentes/f4.md)). O prompt do modelo pede a mesma coisa.
    `metadados.json` (modelo, digest, latência). Nenhum valor de fatura vai para o Git.
 
 Para comparar modelos, repita os passos 3 e 5 com outro `FA_VLM_MODELO`, gravando em outra pasta
-(`--saida`). Candidatos a conferir na biblioteca do Ollama: `qwen2.5vl:7b` (padrão provisório),
-`qwen2.5vl:3b`, `gemma3:4b` e `llama3.2-vision:11b`. A rodada deve ser na máquina de medição do
+(`--saida`). Candidatos a conferir na biblioteca do Ollama: `qwen2.5vl:3b` (padrão),
+`qwen2.5vl:7b`, `gemma3:4b` e `llama3.2-vision:11b`. A rodada deve ser na máquina de medição do
 time ([ADR-002](../arquitetura/decisoes/adr-002-llm-local.md)), porque um modelo de visão de 7B não
 roda em tempo útil em notebook sem GPU.
 
@@ -83,13 +83,43 @@ roda em tempo útil em notebook sem GPU.
 
 ## Resultado
 
-Pendente.
+Fotos: 40 faturas sintéticas distintas (`GS-F001` a `GS-F040` do golden set, nas ordens do arquivo),
+renderizadas e degradadas por `scripts/gerar_fotos_sinteticas.py` (rotação, brilho, desfoque, ruído
+e compressão JPEG, com semente fixa). O gabarito é o dado desenhado em cada foto. Relatórios:
+`avaliacao/resultados/s5-fotos/`.
 
-| Campo | Avaliados | Acertos | Acerto | Campo-chave | Situação |
-|---|---|---|---|---|---|
-| — | — | — | — | — | — |
+Campos-chave (escalares de `metricas.md`), iguais nos dois modelos:
 
-Modelo, digest, data, fotos (faturas distintas), latência p50/p95: pendente.
+| Campo | Avaliados | Acertos qwen2.5vl:3b | Acertos qwen2.5vl:7b | Campo-chave |
+|---|---|---|---|---|
+| `distribuidora` | 40 | 40 (100%) | 40 (100%) | sim |
+| `mes_referencia` | 40 | 40 (100%) | 40 (100%) | sim |
+| `consumo_kwh` | 40 | 40 (100%) | 40 (100%) | sim |
+| `total` | 40 | 40 (100%) | 40 (100%) | sim |
+| `bandeira` | 40 | 40 (100%) | 40 (100%) | sim |
+| `aliquota_icms` | 40 | 40 (100%) | 40 (100%) | sim |
+
+Itens (não entram no gate):
+
+| Métrica | qwen2.5vl:3b | qwen2.5vl:7b |
+|---|---|---|
+| Linhas corretas (descrição, quantidade, tarifa, valor) | 79 de 124 (64%) | 72 de 124 (58%) |
+| Soma das linhas igual ao total lido | 34 de 40 (85%) | 8 de 40 (20%) |
+
+Modelo e digest: `qwen2.5vl:3b` (`fb90415cde1e`) e `qwen2.5vl:7b` (`5ced39dfa4ba`). Rodadas de
+27/11/2026, sem falhas de extração (40 de 40 em cada). Latência por foto, na GPU de 6 GB:
+
+| Modelo | p50 | p95 | máx. |
+|---|---|---|---|
+| `qwen2.5vl:3b` | 14,8 s | 16,0 s | 144,5 s (primeira foto, com carga do modelo) |
+| `qwen2.5vl:7b` | 50,8 s | 56,3 s | 61,2 s |
+
+Antes da rodada final, uma rodada anterior foi interrompida para corrigir o ruído das fotos, que não
+era reproduzível. Só a rodada final, sobre as fotos atuais, vale.
+
+Limitações desta medição: as fotos são sintéticas, com um layout escrito pelo próprio projeto. Elas
+tendem a ser mais limpas que fotos reais, então 100% aqui não prova acerto em foto de celular. A
+verificação de sanidade do avaliador (trocar valores de propósito) fez a taxa cair como esperado.
 
 ## Decisão do gate
 
@@ -99,4 +129,10 @@ Modelo, digest, data, fotos (faturas distintas), latência p50/p95: pendente.
 | **Pivot** | Algum campo-chave < 90% | OCR mais formulário de confirmação. O formulário já existe (`confirmar()`); o OCR entra como outro `ExtratorDeFoto`, sem mudar o resto do fluxo. |
 | **No-Go** | Menos de 40 fotos até o fim da S5 | A medição não vale como gate; registrar a amostra parcial como exploratória e replanejar com a F1. |
 
-Decisão registrada em: pendente (data e resultado).
+**Resultado medido:** os seis campos-chave passaram nos dois modelos, então o critério Go foi
+atingido nas fotos sintéticas. Recomendação técnica: `qwen2.5vl:3b` tem os mesmos acertos nos
+campos-chave, leitura de itens melhor e é cerca de 3,4 vezes mais rápido nesta GPU. Hoje o código
+usa `qwen2.5vl:3b` como padrão (`packages/extracao/src/fa_extracao/vlm.py`), escolhido pela medição.
+
+**Decisão do time:** pendente. Um Go nas fotos sintéticas precisa ser confirmado com fotos reais
+antes de a foto sair de "em validação" no produto.
