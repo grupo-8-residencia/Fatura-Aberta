@@ -49,18 +49,30 @@ citando mês, consumo e total do PDF, com "Consumo medido: confere" e três cita
 
 Primeiro extraia os campos em `/extrair` (a análise não roda aqui), confira os valores extraídos e só depois envie a `fatura` confirmada para `/perguntar` (enviar `pdf_base64` direto para `/perguntar` é rejeitado com HTTP 422):
 
-```bash
-PDF=$(base64 < docs/assets/demo-s5/fatura-sintetica-demo.pdf | tr -d '\n')
-curl -s http://127.0.0.1:8000/extrair -H 'content-type: application/json' \
-  -d "{\"pdf_base64\":\"$PDF\"}" > /tmp/extraido.json
-cat /tmp/extraido.json          # etapa de conferência: ajuste .fatura se necessário antes de seguir
-PERGUNTA=$(tr -d '\n' < docs/assets/demo-s5/pergunta-demo.txt)
-uv run python -c '
-import json, sys
-fatura = json.load(open("/tmp/extraido.json", encoding="utf-8"))["fatura"]
-print(json.dumps({"pergunta": sys.argv[1], "fatura": fatura}, ensure_ascii=False))
-' "$PERGUNTA" | curl -s http://127.0.0.1:8000/perguntar -H 'content-type: application/json' -d @-
+```powershell
+# Na raiz do repositório, com a API rodando em 127.0.0.1:8000
+$pdf = [Convert]::ToBase64String([IO.File]::ReadAllBytes("docs/assets/demo-s5/fatura-sintetica-demo.pdf"))
+$extraido = Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/extrair" -ContentType "application/json" -Body (@{ pdf_base64 = $pdf } | ConvertTo-Json)
+$extraido | ConvertTo-Json -Depth 10   # etapa de conferência: confira os campos antes de seguir
+$pergunta = (Get-Content "docs/assets/demo-s5/pergunta-demo.txt" -Raw).Trim()
+$corpo = @{ pergunta = $pergunta; fatura = $extraido.fatura } | ConvertTo-Json -Depth 10
+$bytes = [Text.Encoding]::UTF8.GetBytes($corpo)
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/perguntar" -ContentType "application/json; charset=utf-8" -Body $bytes | ConvertTo-Json -Depth 10
 ```
+
+Para a foto (exige o Ollama com o modelo de visão; sem ele a API responde 503):
+
+```powershell
+$foto = [Convert]::ToBase64String([IO.File]::ReadAllBytes("CAMINHO/para/sua-foto.jpg"))
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/extrair-foto" -ContentType "application/json" -Body (@{ imagem_base64 = $foto } | ConvertTo-Json)
+```
+
+
+### Cenário 2: divergência (PDF sintético com erro proposital)
+
+Use `dados/benchmark/sinteticas/ataques-injecao/00-base.pdf`: as leituras dão 130 kWh (de 1000 para 1130), mas o consumo informado é 120 kWh.
+
+**Resultado esperado (verificado em 27/11/2026 pelo fluxo `/extrair` e `/perguntar`):** o cartão de nível A mostra "Consumo medido" com divergência, com a frase "A diferença entre as leituras difere do consumo informado" e os valores 130,00 (calculado) e 120,00 (fatura). O total e as linhas conferem. Não há achado de nível B nem C nesta rodada, porque a demo roda sem LLM e sem tabela de nível B na API.
 
 ### Testes e PDF
 
@@ -72,10 +84,10 @@ uv run python scripts/gerar_pdf_demo.py   # regera o PDF (idêntico ao versionad
 
 ### Telas e vídeo (opcional)
 
-```bash
-npm install --prefix /tmp/fa-pw playwright-core
-npx --prefix /tmp/fa-pw playwright-core install chromium
-NODE_PATH=/tmp/fa-pw/node_modules node scripts/demo/capturar_telas.cjs
+```powershell
+npm install --prefix "$env:TEMP/fa-pw" playwright-core
+npx --prefix "$env:TEMP/fa-pw" playwright-core install chromium
+$env:NODE_PATH = "$env:TEMP/fa-pw/node_modules"; node scripts/demo/capturar_telas.cjs
 ```
 
 Se o Chromium já estiver instalado, aponte `FA_CHROMIUM` para o executável.

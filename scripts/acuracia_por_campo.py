@@ -31,8 +31,15 @@ from typing import Any
 NUMERICOS = ("leitura_anterior", "leitura_atual", "consumo_kwh", "aliquota_icms", "total")
 TEXTOS = ("distribuidora", "grupo_tarifario", "bandeira")
 CAMPOS = ("mes_referencia", *NUMERICOS, *TEXTOS)
-# TODO: confirmar a lista de campos-chave com o Pedro (F5).
-CAMPOS_CHAVE = ("mes_referencia", "consumo_kwh", "total", "aliquota_icms", "bandeira")
+# Campos-chave como em docs/avaliacao/metricas.md, escolhidos antes de qualquer medição (#41).
+CAMPOS_CHAVE = (
+    "distribuidora",
+    "mes_referencia",
+    "consumo_kwh",
+    "total",
+    "bandeira",
+    "aliquota_icms",
+)
 META_PADRAO = 0.90
 TOLERANCIA_SOMA = Decimal("0.01")
 
@@ -157,7 +164,7 @@ def relatorio(
             passou = False
             linhas.append(f"| `{campo}` | 0 | 0 | — | sim | sem dados no gabarito |")
     veredito = "PASSOU" if passou else "FALHOU"
-    linhas.append(f"\nGate: **{veredito}** (todos os campos-chave com acerto ≥ {meta:.0%}).")
+    linhas.append(f"\nGate: **{veredito}** (todos os campos-chave com acerto >= {meta:.0%}).")
     return "\n".join(linhas) + "\n", passou
 
 

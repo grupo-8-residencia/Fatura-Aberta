@@ -25,12 +25,12 @@ from typing import Any
 from urllib import error, request
 
 from fa_extracao.candidata import CAMPOS, CAMPOS_ITEM
-from fa_extracao.erros import ErroExtracao
+from fa_extracao.erros import ErroExtracao, VlmIndisponivel
 
 log = logging.getLogger(__name__)
 
 URL_PADRAO = "http://localhost:11434"
-MODELO_PADRAO = "qwen2.5vl:7b"  # provisório até a medição da #41
+MODELO_PADRAO = "qwen2.5vl:3b"  # medido em 40 fotos sintéticas (#41): mesmos campos-chave que o 7B
 TEMPERATURA = 0.0
 SEMENTE = 42
 TAMANHO_MAXIMO = 10 * 1024 * 1024  # 10 MiB
@@ -132,11 +132,11 @@ class ExtratorOllama:
             with request.urlopen(req, timeout=15.0) as resp:  # noqa: S310
                 dados = json.loads(resp.read())
         except (OSError, ValueError) as erro:
-            raise ErroExtracao("Ollama indisponível.") from erro
+            raise VlmIndisponivel("Ollama indisponível.") from erro
         for modelo in dados.get("models", []):
             if modelo.get("name") == self.modelo:
                 return str(modelo.get("digest", ""))[:12]
-        raise ErroExtracao(f"Modelo {self.modelo} não está instalado no Ollama.")
+        raise VlmIndisponivel(f"Modelo {self.modelo} não está instalado no Ollama.")
 
     def corpo(self, imagem: bytes) -> dict[str, Any]:
         """Pedido ao `/api/chat`: imagem em base64 e saída restrita ao `ESQUEMA`."""
@@ -161,9 +161,9 @@ class ExtratorOllama:
         try:
             dados = _post_json(f"{self.url}/api/chat", self.corpo(imagem), self.timeout_s)
         except error.HTTPError as erro:
-            raise ErroExtracao(f"Ollama recusou o pedido (HTTP {erro.code}).") from None
+            raise VlmIndisponivel(f"Ollama recusou o pedido (HTTP {erro.code}).") from None
         except (OSError, ValueError):
-            raise ErroExtracao("Ollama indisponível ou resposta ilegível.") from None
+            raise VlmIndisponivel("Ollama indisponível ou resposta ilegível.") from None
         self.ultima_duracao_s = round(time.perf_counter() - inicio, 3)
 
         texto = dados.get("message", {}).get("content", "") if isinstance(dados, dict) else ""

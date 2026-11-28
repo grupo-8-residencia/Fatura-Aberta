@@ -7,7 +7,7 @@ hide:
 
 # Fatura Aberta
 
-**Um verificador aberto e auditável de faturas de energia elétrica residencial (grupo B1) da Neoenergia Brasília (DF).** Você envia a fatura (PDF ou foto) e recebe um cartão de decisão que mostra, item por item, se a cobrança confere com as regras e tarifas vigentes, com a citação exata da norma: ato, artigo ou inciso e vigência.
+**Um verificador aberto e auditável de faturas de energia elétrica residencial (grupo B1) da Neoenergia Brasília (DF).** Você envia o PDF da fatura ou digita os dados (a leitura de foto foi medida só com fotos sintéticas) e recebe um cartão de decisão que mostra, item por item, se a cobrança confere com as regras e tarifas vigentes, com a citação exata da norma: ato, artigo ou inciso e vigência.
 
 Nosso diferencial é a **transparência medida**, não uma "IA que acha erro": código, regras e cálculos abertos; citação por dispositivo com data de vigência; taxa de falsos alarmes publicada; benchmark público com erros injetados; nenhum interesse comercial.
 

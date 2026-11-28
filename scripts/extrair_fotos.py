@@ -16,7 +16,7 @@ O id de cada foto é o nome do arquivo sem extensão. Nomeie as fotos como `foto
 `foto-02.jpg`... e nunca com o nome do titular.
 
 Uso:
-    FA_VLM_MODELO=qwen2.5vl:7b uv run python scripts/extrair_fotos.py [pasta] [--saida pasta]
+    FA_VLM_MODELO=qwen2.5vl:3b uv run python scripts/extrair_fotos.py [pasta] [--saida pasta]
     uv run python scripts/acuracia_por_campo.py faturas-reais/avaliacao/previsto.json \\
         faturas-reais/avaliacao/gabarito.json --saida faturas-reais/avaliacao/relatorio.md
 """

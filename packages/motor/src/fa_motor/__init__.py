@@ -160,6 +160,10 @@ def _arredondar_moeda(valor: Decimal) -> Decimal:
     return valor.quantize(CENTAVO, rounding=ROUND_HALF_UP)
 
 
+def _reais(valor: Decimal) -> str:
+    return f"{valor:.2f}".replace(".", ",")
+
+
 def _eh_item_icms(descricao: str) -> bool:
     texto = descricao.strip().lower()
     return texto == "icms" or texto.startswith("icms ") or " icms" in texto
@@ -234,8 +238,13 @@ def checar_linhas(fatura: Fatura) -> list[Achado]:
                         f"O valor da linha '{item.descricao}' confere com o produto "
                         "entre quantidade e tarifa."
                         if confere
-                        else f"O valor da linha '{item.descricao}' não confere com o produto "
-                        "entre quantidade e tarifa."
+                        else (
+                            "Considerando exclusivamente o consumo faturado e a tarifa unitária "
+                            "informados nesta linha, o resultado matemático é "
+                            f"R$ {_reais(calculado)}. "
+                            "Esse valor difere do total apresentado na linha, cuja composição pode "
+                            "envolver outros componentes."
+                        )
                     ),
                     valor_esperado=esperado,
                     valor_cobrado=item.valor,
@@ -503,7 +512,11 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
                     descricao=(
                         "A diferença entre as leituras confere com o consumo informado."
                         if consumo_calculado == fatura.consumo_kwh
-                        else "A diferença entre as leituras não confere com o consumo informado."
+                        else (
+                            "A diferença entre as leituras difere do consumo informado. Essa "
+                            "diferença pode depender de critérios de medição ou faturamento não "
+                            "identificados no documento."
+                        )
                     ),
                     valor_esperado=consumo_calculado,
                     valor_cobrado=fatura.consumo_kwh,
@@ -516,9 +529,12 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
                 item="Total da fatura",
                 nivel=Nivel.A,
                 descricao=(
-                    "A soma das linhas confere com o total informado."
+                    "A soma dos itens listados confere com o total informado."
                     if soma_itens == fatura.total
-                    else "A soma das linhas não confere com o total informado."
+                    else (
+                        "A soma dos itens listados difere do total informado; podem existir "
+                        "componentes não identificados no documento."
+                    )
                 ),
                 valor_esperado=soma_itens,
                 valor_cobrado=fatura.total,

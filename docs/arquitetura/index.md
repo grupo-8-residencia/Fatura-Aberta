@@ -19,7 +19,7 @@ flowchart TB
 ```
 
 !!! info "Multimodal"
-    PDF e foto da fatura. Para foto, um VLM local extrai os campos e o usuário os confirma antes da análise.
+    PDF e foto da fatura. Para foto, um VLM local extrai os campos e o usuário os confirma antes da análise. A leitura de foto foi medida em 40 fotos sintéticas (os campos-chave passaram); fotos reais ainda não foram medidas (#41): ver [relatório da S5](../avaliacao/relatorio-s5.md).
 
 ## Pacotes
 

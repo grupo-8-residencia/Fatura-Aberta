@@ -1,0 +1,1266 @@
+{
+  "foto-01": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "03/2026",
+    "leitura_anterior": "65.200",
+    "leitura_atual": "65.284",
+    "consumo_kwh": "84",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "83,40",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "84",
+        "tarifa": "0,80000",
+        "valor": "67,20"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "84",
+        "tarifa": "0,05000",
+        "valor": "4,20"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-02": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "07/2026",
+    "leitura_anterior": "24.901",
+    "leitura_atual": "25.151",
+    "consumo_kwh": "250",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "212,00",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "250",
+        "tarifa": "0,80000",
+        "valor": "200,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "250",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-03": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "02/2026",
+    "leitura_anterior": "65.633",
+    "leitura_atual": "65.798",
+    "consumo_kwh": "165",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "172,30",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "165",
+        "tarifa": "0,80000",
+        "valor": "132,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "165",
+        "tarifa": "0,02000",
+        "valor": "3,30"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-04": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "05/2026",
+    "leitura_anterior": "22.160",
+    "leitura_atual": "22.631",
+    "consumo_kwh": "471",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "443,35",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "471",
+        "tarifa": "0,80000",
+        "valor": "376,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "471",
+        "tarifa": "0,05000",
+        "valor": "23,55"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-05": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "02/2026",
+    "leitura_anterior": "25.221",
+    "leitura_atual": "25.377",
+    "consumo_kwh": "156",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "155,40",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "156",
+        "tarifa": "0,80000",
+        "valor": "124,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "156",
+        "tarifa": "0,05000",
+        "valor": "18,60"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-06": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "03/2026",
+    "leitura_anterior": "42.480",
+    "leitura_atual": "42.692",
+    "consumo_kwh": "212",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "192,20",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "212",
+        "tarifa": "0,80000",
+        "valor": "169,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "212",
+        "tarifa": "0,05000",
+        "valor": "10,60"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-07": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "03/2026",
+    "leitura_anterior": "19.352",
+    "leitura_atual": "19.648",
+    "consumo_kwh": "296",
+    "aliquota_icms": "35,00",
+    "bandeira": "Amarela",
+    "total": "254,72",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "296",
+        "tarifa": "0,80000",
+        "valor": "236,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "296",
+        "tarifa": "0,02000",
+        "valor": "5,92"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-08": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "02/2026",
+    "leitura_anterior": "19.976",
+    "leitura_atual": "20.065",
+    "consumo_kwh": "89",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "95,66",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "89",
+        "tarifa": "0,80000",
+        "valor": "81,88"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "89",
+        "tarifa": "0,02000",
+        "valor": "1,78"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-09": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "04/2026",
+    "leitura_anterior": "40.758",
+    "leitura_atual": "41.238",
+    "consumo_kwh": "480",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "405,60",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "480",
+        "tarifa": "0,80000",
+        "valor": "384,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "480",
+        "tarifa": "0,02000",
+        "valor": "9,60"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-10": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "59.919",
+    "leitura_atual": "60.333",
+    "consumo_kwh": "414",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 2",
+    "total": "376,32",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "414",
+        "tarifa": "0,80000",
+        "valor": "331,20"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "414",
+        "tarifa": "0,08000",
+        "valor": "33,12"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-11": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "08/2026",
+    "leitura_anterior": "4.413",
+    "leitura_atual": "4.878",
+    "consumo_kwh": "465",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 2",
+    "total": "421,20",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "465",
+        "tarifa": "0,80000",
+        "valor": "372,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "465",
+        "tarifa": "0,08000",
+        "valor": "37,20"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-12": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "02/2026",
+    "leitura_anterior": "1.094",
+    "leitura_atual": "1.303",
+    "consumo_kwh": "187",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "161,60",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "187",
+        "tarifa": "0,80000",
+        "valor": "149,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "187",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-13": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "01/2026",
+    "leitura_anterior": "18.009",
+    "leitura_atual": "18.275",
+    "consumo_kwh": "266",
+    "aliquota_icms": "35,00",
+    "bandeira": "Verde",
+    "total": "224,80",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "266",
+        "tarifa": "0,80000",
+        "valor": "212,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "266",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-14": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "04/2026",
+    "leitura_anterior": "40.020",
+    "leitura_atual": "40.083",
+    "consumo_kwh": "63",
+    "aliquota_icms": "35,00",
+    "bandeira": "Vermelha 2",
+    "total": "67,44",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "63",
+        "tarifa": "0,80000",
+        "valor": "50,40"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "63",
+        "tarifa": "0,08000",
+        "valor": "5,04"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-15": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "87.001",
+    "leitura_atual": "87.279",
+    "consumo_kwh": "278",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "239,96",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "278",
+        "tarifa": "0,80000",
+        "valor": "222,40"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "278",
+        "tarifa": "0,02000",
+        "valor": "5,56"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-16": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "36.017",
+    "leitura_atual": "36.205",
+    "consumo_kwh": "188",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "166,16",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "188",
+        "tarifa": "0,80000",
+        "valor": "150,40"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "188",
+        "tarifa": "0,02000",
+        "valor": "3,76"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-17": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "08/2026",
+    "leitura_anterior": "44.661",
+    "leitura_atual": "44.804",
+    "consumo_kwh": "143",
+    "aliquota_icms": "35,00",
+    "bandeira": "Verde",
+    "total": "126,40",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "143",
+        "tarifa": "0,80000",
+        "valor": "114,40"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "143",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-18": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "06/2026",
+    "leitura_anterior": "38.228",
+    "leitura_atual": "38.435",
+    "consumo_kwh": "207",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "212,79",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "207",
+        "tarifa": "0,80000",
+        "valor": "190,44"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "207",
+        "tarifa": "0,05000",
+        "valor": "10,35"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-19": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "08/2026",
+    "leitura_anterior": "54.980",
+    "leitura_atual": "55.412",
+    "consumo_kwh": "432",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "360,60",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "432",
+        "tarifa": "0,80000",
+        "valor": "345,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "432",
+        "tarifa": "0,00000",
+        "valor": "3,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-20": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "07/2026",
+    "leitura_anterior": "66.080",
+    "leitura_atual": "66.244",
+    "consumo_kwh": "164",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "162,88",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "164",
+        "tarifa": "0,80000",
+        "valor": "150,88"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "164",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-21": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "04/2026",
+    "leitura_anterior": "56.756",
+    "leitura_atual": "56.825",
+    "consumo_kwh": "69",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "80,58",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "69",
+        "tarifa": "0,80000",
+        "valor": "55,20"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "69",
+        "tarifa": "0,02000",
+        "valor": "1,38"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-22": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "06/2026",
+    "leitura_anterior": "70.301",
+    "leitura_atual": "70.560",
+    "consumo_kwh": "259",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "224,38",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "259",
+        "tarifa": "0,80000",
+        "valor": "207,20"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "259",
+        "tarifa": "0,02000",
+        "valor": "5,18"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-23": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "07/2026",
+    "leitura_anterior": "73.951",
+    "leitura_atual": "74.232",
+    "consumo_kwh": "281",
+    "aliquota_icms": "35,00",
+    "bandeira": "Vermelha 1",
+    "total": "250,85",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "281",
+        "tarifa": "0,80000",
+        "valor": "224,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "281",
+        "tarifa": "0,05000",
+        "valor": "14,05"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-24": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "08/2026",
+    "leitura_anterior": "77.161",
+    "leitura_atual": "77.342",
+    "consumo_kwh": "181",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "160,42",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "181",
+        "tarifa": "0,80000",
+        "valor": "144,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "181",
+        "tarifa": "0,02000",
+        "valor": "3,62"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-25": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "04/2026",
+    "leitura_anterior": "33.766",
+    "leitura_atual": "34.148",
+    "consumo_kwh": "382",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "337,24",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "382",
+        "tarifa": "0,80000",
+        "valor": "305,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "382",
+        "tarifa": "0,02000",
+        "valor": "7,64"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-26": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "07/2026",
+    "leitura_anterior": "59.522",
+    "leitura_atual": "59.864",
+    "consumo_kwh": "342",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "285,60",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "342",
+        "tarifa": "0,80000",
+        "valor": "273,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "342",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-27": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "06/2026",
+    "leitura_anterior": "62.003",
+    "leitura_atual": "62.343",
+    "consumo_kwh": "340",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 2",
+    "total": "311,20",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "340",
+        "tarifa": "0,80000",
+        "valor": "272,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "340",
+        "tarifa": "0,08000",
+        "valor": "27,20"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-28": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "08/2026",
+    "leitura_anterior": "13.307",
+    "leitura_atual": "13.515",
+    "consumo_kwh": "208",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 2",
+    "total": "195,04",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "208",
+        "tarifa": "0,80000",
+        "valor": "166,40"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "208",
+        "tarifa": "0,08000",
+        "valor": "16,64"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-29": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "06/2026",
+    "leitura_anterior": "6.139",
+    "leitura_atual": "6.306",
+    "consumo_kwh": "167",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "160,94",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "167",
+        "tarifa": "0,80000",
+        "valor": "133,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "167",
+        "tarifa": "0,02000",
+        "valor": "3,34"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-30": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "53.301",
+    "leitura_atual": "53.593",
+    "consumo_kwh": "292",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "245,60",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "292",
+        "tarifa": "0,80000",
+        "valor": "233,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "292",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-31": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "46.859",
+    "leitura_atual": "47.041",
+    "consumo_kwh": "182",
+    "aliquota_icms": "35,00",
+    "bandeira": "Verde",
+    "total": "157,60",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "182",
+        "tarifa": "0,80000",
+        "valor": "145,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "182",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-32": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "07/2026",
+    "leitura_anterior": "57.125",
+    "leitura_atual": "57.336",
+    "consumo_kwh": "211",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "183,80",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "211",
+        "tarifa": "0,80000",
+        "valor": "168,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "211",
+        "tarifa": "0,00000",
+        "valor": "3,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-33": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "03/2026",
+    "leitura_anterior": "84.665",
+    "leitura_atual": "84.800",
+    "consumo_kwh": "135",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "128,40",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "135",
+        "tarifa": "0,80000",
+        "valor": "108,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "135",
+        "tarifa": "0,02000",
+        "valor": "8,40"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-34": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "02/2026",
+    "leitura_anterior": "4.155",
+    "leitura_atual": "4.487",
+    "consumo_kwh": "332",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "334,04",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "332",
+        "tarifa": "0,80000",
+        "valor": "305,44"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "332",
+        "tarifa": "0,05000",
+        "valor": "16,60"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-35": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "59.227",
+    "leitura_atual": "59.303",
+    "consumo_kwh": "76",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "74,32",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "76",
+        "tarifa": "0,80000",
+        "valor": "60,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "76",
+        "tarifa": "0,02000",
+        "valor": "1,52"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-36": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "10/2026",
+    "leitura_anterior": "19.033",
+    "leitura_atual": "19.154",
+    "consumo_kwh": "121",
+    "aliquota_icms": "20,00",
+    "bandeira": "Amarela",
+    "total": "111,22",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "121",
+        "tarifa": "0,80000",
+        "valor": "96,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "121",
+        "tarifa": "0,02000",
+        "valor": "2,42"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-37": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "02/2026",
+    "leitura_anterior": "29.500",
+    "leitura_atual": "29.773",
+    "consumo_kwh": "273",
+    "aliquota_icms": "20,00",
+    "bandeira": "Verde",
+    "total": "243,40",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "273",
+        "tarifa": "0,80000",
+        "valor": "218,40"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "273",
+        "tarifa": "0,00000",
+        "valor": "0,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-38": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "03/2026",
+    "leitura_anterior": "81.937",
+    "leitura_atual": "82.264",
+    "consumo_kwh": "327",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 2",
+    "total": "311,76",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "327",
+        "tarifa": "0,80000",
+        "valor": "261,60"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "327",
+        "tarifa": "0,08000",
+        "valor": "26,16"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-39": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "03/2026",
+    "leitura_anterior": "71.811",
+    "leitura_atual": "72.101",
+    "consumo_kwh": "290",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "276,00",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "290",
+        "tarifa": "0,80000",
+        "valor": "232,00"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "290",
+        "tarifa": "0,05000",
+        "valor": "32,00"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  },
+  "foto-40": {
+    "distribuidora": "Neoenergia Brasília",
+    "grupo_tarifario": "B1",
+    "mes_referencia": "08/2026",
+    "leitura_anterior": "4.837",
+    "leitura_atual": "5.008",
+    "consumo_kwh": "171",
+    "aliquota_icms": "20,00",
+    "bandeira": "Vermelha 1",
+    "total": "157,35",
+    "itens": [
+      {
+        "descricao": "Consumo de energia",
+        "quantidade": "171",
+        "tarifa": "0,80000",
+        "valor": "136,80"
+      },
+      {
+        "descricao": "Adicional de bandeira",
+        "quantidade": "171",
+        "tarifa": "0,05000",
+        "valor": "8,55"
+      },
+      {
+        "descricao": "Contribuição municipal (sintética)",
+        "quantidade": null,
+        "tarifa": null,
+        "valor": "12,00"
+      }
+    ]
+  }
+}

@@ -275,5 +275,5 @@ Resultado negativo: o juiz LLM não é usado nas métricas de "afirmação sem s
 | LLM × RAG | S3 | B2, B3 | Tabela acima; B1 e juiz pendentes | acima |
 | Calibração de abstenção (60/60) | S3 | B3 | Calibração 60/60 sem vazamento; limiar 0,30 mantido no pacote (F1 = 0,800 no teste cego vs 0,714 com 0,25) | [JSON](https://github.com/grupo-8-residencia/Fatura-Aberta/blob/dev/avaliacao/resultados/s3-calibracao-abstencao.json) |
 | Agentes | S4 | B4, B5, T5 | Executada em 18/11/2026: B4 90,0%, B5 76,7%, T5 93,3% (produto adota T5) | [Relatório S4](relatorio-s4.md) |
-| Campos-chave em 40 fotos | S5 | extração | Aguardando execução da S5 | — |
+| Campos-chave em 40 fotos (sintéticas) | S5 | extração | Os 6 campos-chave em 100% com qwen2.5vl:3b e 7b; itens de 58% a 64% de linhas corretas | [Acurácia da foto](acuracia-fotos.md) |
 | Rodada final | S7 | B1–B5 | Aguardando execução da S7 | — |

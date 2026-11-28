@@ -9,10 +9,10 @@ from fa_extracao.confirmacao import (
     campos_pendentes,
     confirmar,
 )
-from fa_extracao.erros import ErroExtracao
+from fa_extracao.erros import ErroExtracao, VlmIndisponivel
 from fa_extracao.higienizacao import contem_instrucao_controle, higienizar_texto_extraido
 from fa_extracao.parser import parse_pdf, parse_texto
-from fa_extracao.vlm import ExtratorOllama, criar_extrator
+from fa_extracao.vlm import ExtratorOllama, criar_extrator, formato_da_imagem
 
 __version__ = "0.1.0"
 FRENTE = "F4"
@@ -21,6 +21,7 @@ __all__ = [
     "Confirmacao",
     "ConfirmacaoPendente",
     "ErroExtracao",
+    "VlmIndisponivel",
     "ExtratorDeFoto",
     "ExtratorOllama",
     "FRENTE",
@@ -33,6 +34,7 @@ __all__ = [
     "contem_instrucao_controle",
     "criar_extrator",
     "extrair_candidata",
+    "formato_da_imagem",
     "higienizar_texto_extraido",
     "parse_pdf",
     "parse_texto",
