@@ -10,7 +10,7 @@ from fa_extracao.confirmacao import (
     confirmar,
 )
 from fa_extracao.erros import ErroExtracao
-from fa_extracao.higienizacao import higienizar_texto_extraido
+from fa_extracao.higienizacao import contem_instrucao_controle, higienizar_texto_extraido
 from fa_extracao.parser import parse_pdf, parse_texto
 from fa_extracao.vlm import ExtratorOllama, criar_extrator
 
@@ -30,6 +30,7 @@ __all__ = [
     "anonimizar",
     "campos_pendentes",
     "confirmar",
+    "contem_instrucao_controle",
     "criar_extrator",
     "extrair_candidata",
     "higienizar_texto_extraido",

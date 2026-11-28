@@ -1,4 +1,6 @@
-from fa_extracao import higienizar_texto_extraido
+import pytest
+
+from fa_extracao import contem_instrucao_controle, higienizar_texto_extraido
 
 
 def test_remove_instrucao_embutida_no_texto_extraido() -> None:
@@ -17,3 +19,9 @@ def test_remove_variacoes_de_instrucoes_de_controle() -> None:
 
     assert "desconsidere as instruções" not in resultado.lower()
     assert "ignore as instruções" not in resultado.lower()
+
+
+@pytest.mark.parametrize("marcador", ["[INST]", "<|im_start|>system", "role: system"])
+def test_marcadores_de_papel_sao_bloqueados(marcador: str) -> None:
+    assert contem_instrucao_controle(marcador)
+    assert not contem_instrucao_controle("Como ler as instruções da fatura?")
