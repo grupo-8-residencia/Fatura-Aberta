@@ -9,7 +9,9 @@ import {
   extrairFoto,
   extrairPdf,
   faturaParaDados,
+  RESULTADOS_SEM_CONCLUSAO,
   formatarData,
+  type RegistroAuditavel,
   montarDecisoes,
   perguntar,
   somarItens,
@@ -447,10 +449,45 @@ function ListaFontes({ decisao }: { decisao: Decisao }) {
 }
 
 function classeResultado(resultado: Resultado): string {
-  if (resultado === "Não foi possível concluir") return "decision-result--inconclusive";
+  if (RESULTADOS_SEM_CONCLUSAO.includes(resultado)) {
+    return resultado === "Verificação necessária" ? "decision-result--norma" : "decision-result--inconclusive";
+  }
   if (resultado === "Divergência encontrada") return "decision-result--divergence";
   if (resultado === "Referência normativa") return "decision-result--norma";
   return "";
+}
+
+function RegistroDoAchado({ registro }: { registro: RegistroAuditavel }) {
+  return (
+    <details className="decision-registro">
+      <summary>Registro da conferência</summary>
+      <p>
+        <strong>Regra aplicada:</strong> {registro.regra_aplicada}
+      </p>
+      {registro.calculo && (
+        <p>
+          <strong>Cálculo:</strong> {registro.calculo}
+        </p>
+      )}
+      {registro.data_consulta && (
+        <p>
+          <strong>Tabela consultada em:</strong> {formatarData(registro.data_consulta)}
+        </p>
+      )}
+      {registro.limitacoes && registro.limitacoes.length > 0 && (
+        <>
+          <p>
+            <strong>Limitações:</strong>
+          </p>
+          <ul>
+            {registro.limitacoes.map((limitacao) => (
+              <li key={limitacao}>{limitacao}</li>
+            ))}
+          </ul>
+        </>
+      )}
+    </details>
+  );
 }
 
 function CartaoDecisao({
@@ -464,7 +501,7 @@ function CartaoDecisao({
   aoPedir: () => void;
   aoRevisar: () => void;
 }) {
-  const semConclusao = decisao.resultado === "Não foi possível concluir";
+  const semConclusao = RESULTADOS_SEM_CONCLUSAO.includes(decisao.resultado);
   const diverge = decisao.resultado === "Divergência encontrada";
   return (
     <article className={`decision-card ${revisado ? "decision-card--reviewed" : ""}`}>
@@ -478,6 +515,7 @@ function CartaoDecisao({
       </p>
       <p className="decision-explanation">{decisao.explicacao}</p>
       {decisao.valores && <p className="decision-values">{decisao.valores}</p>}
+      {decisao.registro && <RegistroDoAchado registro={decisao.registro} />}
       {(diverge || semConclusao) && (
         <div className="decision-guidance">
           <p>{diverge ? ORIGEM_DIVERGENCIA : ABSTENCAO_NAO_VALIDA}</p>
@@ -905,7 +943,7 @@ function passaFiltro(d: Decisao, filtro: Filtro): boolean {
   if (filtro === "todos") return true;
   if (filtro === "confere") return d.resultado === "Compatível";
   if (filtro === "divergencia") return d.resultado === "Divergência encontrada";
-  if (filtro === "sem_conclusao") return d.resultado === "Não foi possível concluir";
+  if (filtro === "sem_conclusao") return RESULTADOS_SEM_CONCLUSAO.includes(d.resultado);
   return d.nivel === filtro || d.explicacoes.some((e) => e.nivel === filtro);
 }
 

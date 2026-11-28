@@ -36,6 +36,7 @@ from fa_motor.nivel_b import (
     construir_citacao_tabela,
     obter_tarifa_aplicacao_b1,
 )
+from fa_motor.registro import anotar_nivel_a
 
 __version__ = "0.1.0"
 FRENTE = "F3"
@@ -555,7 +556,7 @@ def analisar_nivel_a(fatura: Fatura) -> list[Achado]:
                 abstencao=True,
             )
         )
-    return achados
+    return anotar_nivel_a(achados)
 
 
 __all__ = [

@@ -13,6 +13,22 @@ export type Citacao = {
   url: string;
 };
 
+/** Categoria do achado (contrato 1.1.0): as cinco classes da análise jurídico-regulatória. */
+export type CategoriaAchado =
+  | "compativel"
+  | "divergencia_identificada"
+  | "verificacao_necessaria"
+  | "dados_insuficientes"
+  | "fora_do_escopo";
+
+/** O que permite refazer e questionar o achado (fonte e vigência ficam em `citacoes`). */
+export type RegistroAuditavel = {
+  regra_aplicada: string;
+  calculo?: string | null;
+  data_consulta?: string | null;
+  limitacoes?: string[];
+};
+
 export type Achado = {
   item: string;
   nivel: Nivel;
@@ -21,6 +37,8 @@ export type Achado = {
   valor_cobrado?: string | null;
   citacoes?: Citacao[];
   abstencao?: boolean;
+  categoria?: CategoriaAchado | null;
+  registro?: RegistroAuditavel | null;
 };
 
 export type RespostaAnalise = { achados: Achado[]; aviso?: string | null };
@@ -50,7 +68,18 @@ export type Resultado =
   | "Compatível"
   | "Divergência encontrada"
   | "Não foi possível concluir"
-  | "Referência normativa";
+  | "Referência normativa"
+  | "Verificação necessária"
+  | "Dados insuficientes"
+  | "Fora do escopo";
+
+/** Resultados que não concluem sobre a cobrança (filtro "Sem conclusão"). */
+export const RESULTADOS_SEM_CONCLUSAO: readonly Resultado[] = [
+  "Não foi possível concluir",
+  "Verificação necessária",
+  "Dados insuficientes",
+  "Fora do escopo",
+];
 
 export type Decisao = {
   chave: string;
@@ -62,6 +91,8 @@ export type Decisao = {
   fontes: Citacao[];
   /** Explicações dos agentes (níveis B/C) para o mesmo item, mostradas dentro deste cartão. */
   explicacoes: Decisao[];
+  /** Regra, cálculo e limitações do achado (vazio para explicações dos agentes). */
+  registro?: RegistroAuditavel | null;
 };
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -139,11 +170,31 @@ function divergente(a: Achado): boolean {
  * explicação de um agente (referência normativa do item), e não uma conclusão de compatibilidade.
  */
 function resultadoDe(a: Achado): Resultado {
+  const porCategoria = resultadoDaCategoria(a.categoria);
+  if (porCategoria) return porCategoria;
   if (a.abstencao) return "Não foi possível concluir";
   if (divergente(a)) return "Divergência encontrada";
   const semValores = a.valor_esperado == null || a.valor_cobrado == null;
   if (a.nivel !== "A" && semValores) return "Referência normativa";
   return "Compatível";
+}
+
+/** Rótulo do cartão para a categoria do contrato; `undefined` para achados sem categoria. */
+function resultadoDaCategoria(categoria: CategoriaAchado | null | undefined): Resultado | undefined {
+  switch (categoria) {
+    case "compativel":
+      return "Compatível";
+    case "divergencia_identificada":
+      return "Divergência encontrada";
+    case "verificacao_necessaria":
+      return "Verificação necessária";
+    case "dados_insuficientes":
+      return "Dados insuficientes";
+    case "fora_do_escopo":
+      return "Fora do escopo";
+    default:
+      return undefined;
+  }
 }
 
 export function paraDecisao(a: Achado, indice: number): Decisao {
@@ -153,6 +204,7 @@ export function paraDecisao(a: Achado, indice: number): Decisao {
       ? `Valor calculado: ${formatarNumero(a.valor_esperado)} · Valor na fatura: ${formatarNumero(a.valor_cobrado)}`
       : undefined;
   return {
+    registro: a.registro ?? null,
     chave: `${indice}-${a.nivel}-${a.item}`,
     titulo: a.item,
     nivel: a.nivel,

@@ -18,8 +18,9 @@ from pathlib import Path
 
 from pydantic import Field, HttpUrl
 
-from fa_contratos import Achado, Citacao, Fatura, ItemFatura, Nivel
+from fa_contratos import Achado, Categoria, Citacao, Fatura, ItemFatura, Nivel
 from fa_contratos.base import ModeloBase
+from fa_motor.registro import anotar_nivel_b
 
 RAIZ_REPOSITORIO = Path(__file__).resolve().parents[4]
 PASTA_TARIFAS = RAIZ_REPOSITORIO / "dados" / "tarifas"
@@ -320,6 +321,7 @@ def checar_tusd_te(
                 ),
                 citacoes=[construir_citacao_proveniencia(prov)],
                 abstencao=True,
+                categoria=Categoria.FORA_DO_ESCOPO,
             )
         ]
 
@@ -336,6 +338,7 @@ def checar_tusd_te(
                 ),
                 citacoes=[construir_citacao_proveniencia(prov)],
                 abstencao=True,
+                categoria=Categoria.FORA_DO_ESCOPO,
             )
         ]
 
@@ -644,7 +647,7 @@ def analisar_nivel_b_api(
             abstencao=True,
         )
     )
-    return achados
+    return anotar_nivel_b(achados, data_tabela=prov.data_download)
 
 
 __all__ = [
