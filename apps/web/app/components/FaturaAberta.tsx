@@ -897,7 +897,7 @@ const FILTROS: { id: Filtro; rotulo: string }[] = [
   { id: "divergencia", rotulo: "Divergência" },
   { id: "sem_conclusao", rotulo: "Sem conclusão" },
   { id: "A", rotulo: "Nível A" },
-  { id: "B", rotulo: "Nível B" },
+  { id: "B", rotulo: "Nível B (não emitido nesta versão)" },
   { id: "C", rotulo: "Nível C" },
 ];
 
