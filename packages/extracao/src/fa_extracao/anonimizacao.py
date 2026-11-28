@@ -12,9 +12,11 @@ MARCA = "[removido]"
 # Linhas que começam com um rótulo de dado pessoal. O separador é opcional: o texto extraído de
 # PDF pode vir como "Nome: Maria", "Nome Maria" ou com o valor na linha seguinte. A linha seguinte
 # só é descartada quando o rótulo está sozinho na linha.
-# TODO: confirmar os rótulos reais com o mapa dos layouts (#9).
+# Rótulos reais confirmados a partir do mapeamento de layouts (issue #9, docs/frentes/f4.md),
+# cobrindo também segunda via (código da instalação/cliente) e bloco do boleto (pagador).
 _ROTULOS_PESSOAIS = (
-    r"(?:nome|cliente|titular|endere[cç]o|instala[cç][aã]o|unidade consumidora|cpf|cnpj|cep)"
+    r"(?:nome|cliente|titular|endere[cç]o|instala[cç][aã]o|unidade consumidora|cpf|cnpj|cep|"
+    r"pagador|c[oó]digo\s+(?:da\s+instala[cç][aã]o|do\s+cliente))"
 )
 _LINHA_ROTULADA = re.compile(
     rf"(?im)^(?P<rotulo>[ \t]*(?:n[ºo°]\.?[ \t]*(?:da|do)[ \t]+)?{_ROTULOS_PESSOAIS}\b)"

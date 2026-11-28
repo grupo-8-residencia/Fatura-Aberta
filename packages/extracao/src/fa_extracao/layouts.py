@@ -9,8 +9,9 @@ da amostra são fotos e dependem da leitura por imagem (#40). Pontos do layout q
 - crédito aparece com o sinal no fim (`0,88-`);
 - a classificação ("B1 RESIDENCIAL") e a distribuidora identificam se a fatura está no escopo.
 
-TODO: sem amostra anterior a maio/2026, não dá para dizer se o layout mudou. Quando houver, criar
-um segundo `Layout` e usar `escolher_layout`.
+Sem amostra anterior a maio/2026 na coleta de faturas reais (F1), o parser opera com o layout
+único Neoenergia B1 (a partir de maio/2026). Caso faturas anteriores sejam adicionadas em coletas
+futuras, um novo Layout poderá ser registrado aqui.
 """
 
 import re
@@ -57,5 +58,8 @@ LAYOUT_NEOENERGIA_B1 = Layout(
 
 
 def escolher_layout(mes_referencia: date) -> Layout:
-    """Layout para o mês de referência. Hoje só há um (sem amostra anterior a maio/2026)."""
+    """Layout para o mês de referência.
+
+    Opera com o layout único Neoenergia B1 (a partir de maio/2026).
+    """
     return LAYOUT_NEOENERGIA_B1
