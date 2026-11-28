@@ -77,5 +77,34 @@ def test_gabarito_modelo_tem_todos_os_campos_vazios() -> None:
     }  # fmt: skip
 
 
+def test_pii_em_campos_permitidos_nao_chega_a_previsto_nem_logs(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    import logging
+
+    class _ExtratorPiiEmCampo:
+        def extrair(self, imagem: bytes) -> Mapping[str, Any]:
+            return {
+                **_LEITURA,
+                "bandeira": "MARIA FICTICIA DA SILVA",
+                "distribuidora": "MARIA FICTICIA DA SILVA",
+                "itens": [{"descricao": "Energia MARIA FICTICIA DA SILVA", "valor": "81,95"}],
+            }
+
+    (tmp_path / "foto-01.jpg").write_bytes(b"ok")
+    fotos = ef.listar_fotos(tmp_path)
+    with caplog.at_level(logging.DEBUG):
+        previsto, meta = ef.extrair_todas(fotos, _ExtratorPiiEmCampo())
+    destino = tmp_path / "previsto.json"
+    ef._gravar(destino, previsto)
+    conteudo = (
+        destino.read_text(encoding="utf-8") + json.dumps(meta, ensure_ascii=False) + caplog.text
+    )
+    for trecho in ("MARIA", "FICTICIA", "SILVA"):
+        assert trecho not in conteudo
+    assert previsto["foto-01"]["bandeira"] is None
+    assert previsto["foto-01"]["itens"][0]["descricao"] == "Energia"
+
+
 def test_sem_fotos_devolve_codigo_2(tmp_path: Path) -> None:
     assert ef.main([str(tmp_path)]) == 2

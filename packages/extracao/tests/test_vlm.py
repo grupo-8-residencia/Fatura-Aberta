@@ -179,6 +179,46 @@ def test_dado_pessoal_devolvido_pelo_modelo_nao_chega_a_logs_nem_disco(
     assert list(tmp_path.iterdir()) == []
 
 
+def test_dado_pessoal_em_campos_permitidos_e_removido_da_candidata_e_dos_logs(
+    ollama: type[_Ollama],
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    leitura_com_pii = {
+        **LEITURA,
+        "distribuidora": f"NEOENERGIA BRASÍLIA {NOME}",
+        "grupo_tarifario": f"B1 {NOME}",
+        "mes_referencia": f"10/2026 {NOME}",
+        "bandeira": NOME,
+        "consumo_kwh": f"77 {NOME}",
+        "itens": [
+            {
+                "descricao": f"Energia {NOME}",
+                "quantidade": "77,00",
+                "unidade": "kWh",
+                "valor": "39,41",
+            },
+            {"descricao": NOME, "unidade": ENDERECO, "valor": "10,00"},
+        ],
+    }
+    ollama.resposta = json.dumps(leitura_com_pii)
+    try:
+        with caplog.at_level(logging.DEBUG):
+            candidata = extrair_candidata(_png(), _extrator(ollama))
+    finally:
+        ollama.resposta = json.dumps(LEITURA)
+
+    saida = candidata.model_dump_json() + caplog.text
+    for dado in (NOME, "MARIA", "FICTICIA", "SILVA", ENDERECO):
+        assert dado not in saida
+    assert candidata.bandeira is None
+    assert candidata.grupo_tarifario is None
+    assert candidata.mes_referencia is None
+    assert candidata.consumo_kwh is None
+    assert candidata.itens[0].descricao == "Energia"
+    assert candidata.itens[1].descricao is None
+    assert candidata.itens[1].unidade is None
+
+
 def test_resposta_que_nao_e_json_nao_vaza_o_conteudo(ollama: type[_Ollama]) -> None:
     ollama.resposta = f"Desculpe, a fatura de {NOME} está borrada"
 
