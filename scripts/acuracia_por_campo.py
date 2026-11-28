@@ -31,7 +31,7 @@ from typing import Any
 NUMERICOS = ("leitura_anterior", "leitura_atual", "consumo_kwh", "aliquota_icms", "total")
 TEXTOS = ("distribuidora", "grupo_tarifario", "bandeira")
 CAMPOS = ("mes_referencia", *NUMERICOS, *TEXTOS)
-# Campos-chave confirmados para avaliação da extração (frentes F4 e F5, issues #30 e #41):
+# TODO: confirmar a lista de campos-chave com o Pedro (F5).
 CAMPOS_CHAVE = ("mes_referencia", "consumo_kwh", "total", "aliquota_icms", "bandeira")
 META_PADRAO = 0.90
 TOLERANCIA_SOMA = Decimal("0.01")
