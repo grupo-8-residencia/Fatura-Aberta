@@ -116,6 +116,7 @@ jobs:
           - typecheck
           - security
           - build
+          - test
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -146,6 +147,16 @@ jobs:
           {
             echo "### Frontend (typecheck) summary"
             echo "- **Next.js Typegen & TypeScript (\`strict: true\`):** aprovado"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Testes unitários (Vitest)
+        if: matrix.check == 'test'
+        working-directory: apps/web
+        run: |
+          npm test
+          {
+            echo "### Frontend (test) summary"
+            echo "- **Vitest (\`lib/api.test.ts\`):** aprovado"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Auditoria SCA npm
