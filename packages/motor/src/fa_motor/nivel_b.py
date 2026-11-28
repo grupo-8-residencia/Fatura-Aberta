@@ -599,14 +599,64 @@ def analisar_nivel_b(
     return achados
 
 
+MES_REAJUSTE_PENDENTE = date(2026, 10, 1)
+
+
+def analisar_nivel_b_api(
+    fatura: Fatura, *, tabela: TabelaTarifasVersionada | None = None
+) -> list[Achado]:
+    """Nível B para a API, com as decisões de escopo da S5 (#178).
+
+    - TUSD+TE é conferido contra a Tarifa de Aplicação da tabela versionada.
+    - Bandeira tarifária sempre abstém: o parâmetro de bandeira não foi validado pela tabela
+      (``dados/tarifas/README.md``) e o rateio por ciclo ainda não existe.
+    - Fatura de 10/2026 abstém no TUSD+TE: a regra do mês de reajuste depende da validação da
+      S3-03 (a tarifa provisória da REH 3.614/2026 entra nessa regra).
+    """
+    tabela_uso = tabela or carregar_tabela_tarifas_versionada()
+    prov = tabela_uso.proveniencia
+    citacao_geral = construir_citacao_proveniencia(prov)
+    achados: list[Achado] = []
+    if fatura.mes_referencia == MES_REAJUSTE_PENDENTE:
+        achados.append(
+            Achado(
+                item="Tarifa TUSD+TE",
+                nivel=Nivel.B,
+                descricao=(
+                    "A conferência da fatura de outubro de 2026 depende da regra do mês de "
+                    "reajuste, ainda não validada; a conferência tarifária foi interrompida."
+                ),
+                citacoes=[citacao_geral],
+                abstencao=True,
+            )
+        )
+    else:
+        achados.extend(checar_tusd_te(fatura, tabela=tabela_uso))
+    achados.append(
+        Achado(
+            item="Bandeira tarifária",
+            nivel=Nivel.B,
+            descricao=(
+                "A bandeira tarifária não é conferida nesta versão: o valor de referência não "
+                "foi validado pela tabela oficial e o rateio por ciclo ainda não está implementado."
+            ),
+            citacoes=[citacao_geral],
+            abstencao=True,
+        )
+    )
+    return achados
+
+
 __all__ = [
     "CAMINHO_PADRAO_PROVENIENCIA",
+    "MES_REAJUSTE_PENDENTE",
     "LinhaTarifaAneel",
     "PASTA_TARIFAS",
     "ProvenienciaTarifas",
     "TabelaTarifasVersionada",
     "VALORES_BANDEIRA_ANEEL_KWH",
     "analisar_nivel_b",
+    "analisar_nivel_b_api",
     "carregar_tabela_tarifas_versionada",
     "checar_bandeira",
     "checar_tusd_te",

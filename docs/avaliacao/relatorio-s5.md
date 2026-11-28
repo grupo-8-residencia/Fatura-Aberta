@@ -45,9 +45,9 @@ Limites em produção (padrões; variáveis em `.env.example`):
   é normalizada para um vocabulário fechado; outra distribuidora é recusada.
 - **Acerto da extração de PDF nunca medido contra gabarito real.** Há 1 PDF real com texto usado
   para mapear o layout (`docs/frentes/f4.md`). Os testes usam PDFs sintéticos.
-- **Nível B não é emitido.** O motor tem `analisar_nivel_a` e `analisar_nivel_b`
-  (`packages/motor/src/fa_motor/nivel_b.py`), mas a API só chama o nível A. Os agentes emitem nível C.
-  O filtro "Nível B" da tela foi rotulado como não emitido nesta versão. Issue #178 (S6).
+- **Nível B limitado a TUSD+TE.** A API emite nível B com `analisar_nivel_b_api`
+  (`packages/motor/src/fa_motor/nivel_b.py`): o TUSD+TE é conferido contra a tabela ANEEL, e a
+  bandeira e o mês 10/2026 abstêm (ver #178). Os agentes emitem nível C.
 - **Bandeira e alíquota de ICMS** entram na conferência só quando a fatura informa. Antes, a tela
   as descartava; agora trafegam em `DadosConfirmados` e em `montarFatura`.
 - **Sem rate limit.** A API não limita requisições por cliente.

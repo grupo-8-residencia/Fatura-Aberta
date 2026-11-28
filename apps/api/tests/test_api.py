@@ -65,10 +65,8 @@ def test_analisar_devolve_achados_nivel_a_sem_cache() -> None:
     )
     assert resposta.status_code == 200
     assert resposta.headers["cache-control"] == "no-store"
-    assert {achado["item"] for achado in resposta.json()["achados"]} == {
-        "Consumo medido",
-        "Total da fatura",
-    }
+    nivel_a = {achado["item"] for achado in resposta.json()["achados"] if achado["nivel"] == "A"}
+    assert nivel_a == {"Consumo medido", "Total da fatura"}
 
 
 def test_falha_dos_agentes_preserva_analise_deterministica() -> None:
@@ -165,7 +163,7 @@ def test_analisar_explica_item_divergente_sem_mudar_o_nivel_a() -> None:
     )
     niveis = {(a["item"], a["nivel"]) for a in corpo["achados"]}
     assert ("Total da fatura", "A") in niveis
-    explicacoes = [a for a in corpo["achados"] if a["nivel"] in ("B", "C")]
+    explicacoes = [a for a in corpo["achados"] if a["nivel"] == "C"]
     assert explicacoes and all(a["item"] == "Total da fatura" for a in explicacoes)
 
 

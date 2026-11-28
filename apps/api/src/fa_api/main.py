@@ -27,7 +27,7 @@ from fa_agentes import (
 )
 from fa_api import __version__
 from fa_contratos import Achado, Citacao, Fatura
-from fa_motor import analisar_nivel_a
+from fa_motor import analisar_nivel_a, analisar_nivel_b_api
 
 logger = logging.getLogger("fa_api")
 # Com LLM local cada chamada leva ~25 s; sem LLM (padrão) os agentes respondem em milissegundos.
@@ -303,14 +303,30 @@ async def analisar(fatura: Fatura, response: Response) -> RespostaAnalise:
     inicio = perf_counter()
     response.headers["Cache-Control"] = "no-store"
     achados = analisar_nivel_a(fatura)
+    nivel_b, aviso_b = _achados_b(fatura)
     if _fatura_hostil(fatura):
         # Campo textual com instrução de controle (vindo de PDF, foto ou digitação): os agentes
-        # não rodam, e o nível A segue disponível.
+        # não rodam; os achados determinísticos (A e B) seguem disponíveis.
         metricas.registrar(perf_counter() - inicio)
-        return RespostaAnalise(achados=achados, aviso=MSG_ENTRADA_BLOQUEADA)
+        return RespostaAnalise(achados=[*achados, *nivel_b], aviso=MSG_ENTRADA_BLOQUEADA)
     adicionais, aviso = await _executar_agentes(fatura, lambda f: analisar_com_agentes(f, achados))
     metricas.registrar(perf_counter() - inicio)
-    return RespostaAnalise(achados=[*achados, *adicionais], aviso=aviso)
+    return RespostaAnalise(achados=[*achados, *nivel_b, *adicionais], aviso=aviso or aviso_b)
+
+
+MSG_TABELA_INDISPONIVEL = (
+    "A conferência com a tabela tarifária não pôde ser feita agora; "
+    "os achados A seguem disponíveis."
+)
+
+
+def _achados_b(fatura: Fatura) -> tuple[list[Achado], str | None]:
+    """Nível B (TUSD+TE e bandeira). Falha ao ler a tabela vira aviso; o nível A não se perde."""
+    try:
+        return analisar_nivel_b_api(fatura), None
+    except Exception as erro:
+        logger.warning("tabela de nível B indisponível: %s", type(erro).__name__)
+        return [], MSG_TABELA_INDISPONIVEL
 
 
 def _limpo(texto: str, *, literal: bool = False) -> str:
@@ -559,6 +575,7 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
 
     fatura = pedido.fatura
     achados = analisar_nivel_a(fatura)
+    nivel_b, _ = _achados_b(fatura)
     if pergunta_hostil or _fatura_hostil(fatura):
         return _sanitizar_saida(
             _falha(
@@ -567,7 +584,7 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
                 MSG_ENTRADA_BLOQUEADA,
                 "entrada_bloqueada",
                 "instrucao_controle",
-                achados=achados,
+                achados=[*achados, *nivel_b],
             )
         )
     try:
@@ -590,10 +607,11 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
                 MSG_AGENTES_INDISPONIVEIS,
                 "agentes_indisponiveis",
                 "agentes_indisponiveis",
-                achados=achados,
+                achados=[*achados, *nivel_b],
                 rastro=[passo],
             )
         )
+    r = r.model_copy(update={"achados_motor": [*r.achados_motor, *nivel_b]})
     return _sanitizar_saida(r)
 
 
