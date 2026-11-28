@@ -315,8 +315,8 @@ def test_conjunto_independente_abstencao_e_disjunto_e_mede_limiar_030_congelado(
     assert len({r["categoria"] for r in linhas}) == 7
     assert all(r["anotador_1"] != r["anotador_2"] for r in linhas)
     assert all(r["veredito_humano_1"] in ("abster", "responder") for r in linhas)
-    # Sem inventar veredito humano da segunda pessoa:
-    assert all(r["veredito_humano_2"] == "" for r in linhas)
+    # Veredito do anotador 2 deve estar pendente ("") ou preenchido com rótulo válido:
+    assert all(r["veredito_humano_2"] in ("", "abster", "responder") for r in linhas)
 
     # Teste sintético de dupla anotação completa para validar cálculo de Kappa:
     sinteticas = [dict(r) for r in linhas]

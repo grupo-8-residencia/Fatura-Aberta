@@ -28,6 +28,7 @@ Pergunta: `O consumo informado confere com as leituras do medidor?`
 ```bash
 git clone https://github.com/grupo-8-residencia/Fatura-Aberta.git
 cd Fatura-Aberta
+git checkout dev   # os artefatos da S5 ficam na dev até o release na branch padrão (main)
 cp .env.example .env            # sem segredos: só host e porta da API
 docker compose -f infra/docker-compose.yml up --build -d
 ```
@@ -46,12 +47,19 @@ citando mês, consumo e total do PDF, com "Consumo medido: confere" e três cita
 
 ### Pela linha de comando (sem a tela)
 
+Primeiro extraia os campos em `/extrair` (a análise não roda aqui), confira os valores extraídos e só depois envie a `fatura` confirmada para `/perguntar` (enviar `pdf_base64` direto para `/perguntar` é rejeitado com HTTP 422):
+
 ```bash
 PDF=$(base64 < docs/assets/demo-s5/fatura-sintetica-demo.pdf | tr -d '\n')
 curl -s http://127.0.0.1:8000/extrair -H 'content-type: application/json' \
-  -d "{\"pdf_base64\":\"$PDF\"}"
-curl -s http://127.0.0.1:8000/perguntar -H 'content-type: application/json' \
-  -d "{\"pdf_base64\":\"$PDF\",\"pergunta\":\"$(tr -d '\n' < docs/assets/demo-s5/pergunta-demo.txt)\"}"
+  -d "{\"pdf_base64\":\"$PDF\"}" > /tmp/extraido.json
+cat /tmp/extraido.json          # etapa de conferência: ajuste .fatura se necessário antes de seguir
+PERGUNTA=$(tr -d '\n' < docs/assets/demo-s5/pergunta-demo.txt)
+uv run python -c '
+import json, sys
+fatura = json.load(open("/tmp/extraido.json", encoding="utf-8"))["fatura"]
+print(json.dumps({"pergunta": sys.argv[1], "fatura": fatura}, ensure_ascii=False))
+' "$PERGUNTA" | curl -s http://127.0.0.1:8000/perguntar -H 'content-type: application/json' -d @-
 ```
 
 ### Testes e PDF

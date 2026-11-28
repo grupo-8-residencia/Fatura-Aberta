@@ -1,7 +1,7 @@
 {
   "cabecalho": {
-    "gerado_em_utc": "2026-11-25T01:54:38+00:00",
-    "python": "3.14.7",
+    "gerado_em_utc": "2026-11-25T19:54:08+00:00",
+    "python": "3.14.6",
     "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
     "sha256_corpus_arquivo": "b0bcd6c5e848a224a8ec5f9e81f25067628af7aae09bfae7b13f5cd831d0eb22",
     "sha256_perguntas_golden_set": "28c7729a3cc08ce9b68c6531530ea351e22452be3deafe0b6aab2004a4488cc0",
@@ -1280,8 +1280,8 @@
         "status": "aguardando_anotador_2",
         "n_total": 36,
         "n_anotador_1": 36,
-        "n_anotador_2": 0,
-        "n_pares_completos": 0,
+        "n_anotador_2": 7,
+        "n_pares_completos": 7,
         "kappa_humano1_humano2": null,
         "acuracia_entre_humanos": null
       },

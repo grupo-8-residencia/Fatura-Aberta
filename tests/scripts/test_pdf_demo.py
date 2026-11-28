@@ -19,7 +19,14 @@ def test_pdf_da_demo_passa_pelo_fluxo_real_e_a_pergunta_versionada_tem_resposta(
     pergunta = (RAIZ / "docs/assets/demo-s5/pergunta-demo.txt").read_text(encoding="utf-8").strip()
     pdf = base64.b64encode(DESTINO.read_bytes()).decode()
     cliente = TestClient(app)
-    assert cliente.post("/extrair", json={"pdf_base64": pdf}).json()["fatura"] is not None
-    corpo = cliente.post("/perguntar", json={"pergunta": pergunta, "pdf_base64": pdf}).json()
-    assert corpo["modo"] == "pdf" and corpo["citacoes"] and not corpo["abstencao"]
+    extraido = cliente.post("/extrair", json={"pdf_base64": pdf}).json()
+    assert extraido["fatura"] is not None
+    assert (
+        cliente.post("/perguntar", json={"pergunta": pergunta, "pdf_base64": pdf}).status_code
+        == 422
+    )
+    corpo = cliente.post(
+        "/perguntar", json={"pergunta": pergunta, "fatura": extraido["fatura"]}
+    ).json()
+    assert corpo["modo"] == "fatura" and corpo["citacoes"] and not corpo["abstencao"]
     assert pergunta in corpo["resposta"] and "06/2026" in corpo["resposta"]

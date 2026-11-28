@@ -59,3 +59,17 @@ def test_preserva_linhas_sem_rotulo_pessoal() -> None:
     texto = "Distribuidora: Neoenergia Brasilia\nNomeação de bandeira: amarela\nConsumo kWh: 150"
 
     assert anonimizar(texto) == texto
+
+
+def test_remove_rotulos_segunda_via_e_boleto() -> None:
+    texto = (
+        "CÓDIGO DA INSTALAÇÃO 99887766\n"
+        "CÓDIGO DO CLIENTE 11223344\n"
+        "PAGADOR: FULANO DE TAL SILVA\n"
+        "TOTAL A PAGAR R$ 120,50"
+    )
+    limpo = anonimizar(texto)
+    assert "99887766" not in limpo
+    assert "11223344" not in limpo
+    assert "FULANO DE TAL SILVA" not in limpo
+    assert "TOTAL A PAGAR R$ 120,50" in limpo

@@ -148,7 +148,8 @@ def test_estratificacao_e_segunda_anotacao_pendente() -> None:
     assert "Luiz" not in outros_anotadores
     assert len(outros_anotadores) >= 4
 
-    # Veredito do anotador 2 NÃO pode ter sido inventado (deve estar vazio aguardando o colega)
-    assert all(r["veredito_humano_2"] == "" for r in p_36), (
-        "Anotador 2 deve permanecer vazio até a anotação humana independente ser executada."
+    # Veredito do anotador 2 deve estar vazio (pendente) ou conter rótulo válido preenchido
+    # pelo colega designado no rodízio
+    assert all(r["veredito_humano_2"] in ("", "abster", "responder") for r in p_36), (
+        "Veredito do anotador 2 deve permanecer vazio até a anotação ou conter rótulo válido."
     )

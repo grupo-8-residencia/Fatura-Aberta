@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from fa_agentes import (
     Persona,
@@ -88,18 +88,6 @@ class RespostaAnalise(BaseModel):
 PDF_TAMANHO_MAXIMO_BYTES = int(os.getenv("FA_PDF_MAX_BYTES", str(5 * 1024 * 1024)))
 PDF_PAGINAS_MAXIMAS = int(os.getenv("FA_PDF_MAX_PAGINAS", "5"))
 
-CampoCorrigivel = Literal[
-    "distribuidora",
-    "grupo_tarifario",
-    "mes_referencia",
-    "leitura_anterior",
-    "leitura_atual",
-    "consumo_kwh",
-    "bandeira",
-    "aliquota_icms",
-    "total",
-]
-
 MSG_PDF_INVALIDO = (
     "Não foi possível ler o PDF: o arquivo está corrompido ou não é um PDF válido. "
     "Envie outro arquivo ou digite os dados da fatura."
@@ -120,7 +108,6 @@ MSG_EXTRACAO_FALHOU = (
     "Não foi possível extrair os dados da fatura do PDF. "
     "Confira o arquivo ou digite os dados manualmente."
 )
-MSG_CORRECAO_INVALIDA = "As correções informadas são inválidas para os campos: {campos}."
 MSG_AGENTES_INDISPONIVEIS = (
     "A análise com os agentes está indisponível no momento; "
     "os achados determinísticos do motor foram preservados e nenhuma conclusão foi inferida."
@@ -144,6 +131,8 @@ def _validar_pdf_base64(texto: str) -> bytes:
 class PedidoExtracao(BaseModel):
     """PDF em base64 para extração dos campos; a análise só roda depois da confirmação."""
 
+    model_config = ConfigDict(extra="forbid")
+
     pdf_base64: str = Field(min_length=1)
 
     @model_validator(mode="after")
@@ -161,31 +150,18 @@ class RespostaExtracao(BaseModel):
 
 
 class PedidoPergunta(BaseModel):
-    """Pergunta regulatória, opcionalmente junto com a fatura confirmada ou o PDF dela.
+    """Pergunta regulatória, opcionalmente junto com a fatura já confirmada pelo usuário.
 
-    Modos: ``pergunta`` isolada; ``fatura`` confirmada + ``pergunta``; ``pdf_base64``
-    (+ ``correcoes`` confirmadas pelo usuário) + ``pergunta``.
+    Modos: ``pergunta`` isolada; ``fatura`` confirmada + ``pergunta``. PDFs devem passar antes
+    por ``POST /extrair`` para confirmação do usuário.
     """
+
+    model_config = ConfigDict(extra="forbid")
 
     pergunta: str = Field(min_length=3, max_length=500)
     data_referencia: date = Field(default_factory=date.today)
     persona: Persona = Persona.MARCIA
     fatura: Fatura | None = None
-    pdf_base64: str | None = Field(default=None, min_length=1)
-    correcoes: dict[CampoCorrigivel, str] | None = None
-
-    @model_validator(mode="after")
-    def _combinacao_valida(self) -> "PedidoPergunta":
-        if self.fatura is not None and self.pdf_base64 is not None:
-            raise ValueError("Informe fatura ou pdf_base64, não os dois.")
-        if self.correcoes and self.pdf_base64 is None:
-            raise ValueError("correcoes só se aplicam junto com pdf_base64.")
-        if self.pdf_base64 is not None:
-            _validar_pdf_base64(self.pdf_base64)
-        return self
-
-    def bytes_pdf(self) -> bytes:
-        return base64.b64decode(self.pdf_base64 or "", validate=True)
 
 
 class PassoRastro(BaseModel):
@@ -210,7 +186,7 @@ class RespostaPerguntaAPI(BaseModel):
     origem: str
     motivo_abstencao: str
     rastro: list[PassoRastro]
-    modo: Literal["texto", "fatura", "pdf"] = "texto"
+    modo: Literal["texto", "fatura"] = "texto"
     achados_motor: list[Achado] = Field(default_factory=list)
     campos_fatura: dict[str, str] = Field(default_factory=dict)
     aviso: str | None = None
@@ -313,7 +289,7 @@ def _sanitizar_saida(r: RespostaPerguntaAPI) -> RespostaPerguntaAPI:
 
 def _falha(
     pedido: PedidoPergunta,
-    modo: Literal["texto", "fatura", "pdf"],
+    modo: Literal["texto", "fatura"],
     mensagem: str,
     origem: str,
     motivo: str,
@@ -364,7 +340,7 @@ def _extrair_fatura(dados: bytes) -> Fatura:
             raise _FalhaExtracao(
                 MSG_PDF_MUITAS_PAGINAS.format(limite=PDF_PAGINAS_MAXIMAS), "pdf_muitas_paginas"
             )
-    except (PyPdfError, ValueError) as erro:
+    except (PyPdfError, ValueError, KeyError, TypeError, IndexError, OSError) as erro:
         raise _FalhaExtracao(MSG_PDF_INVALIDO, "pdf_invalido") from erro
     try:
         texto = extrair_texto(dados)
@@ -378,23 +354,8 @@ def _extrair_fatura(dados: bytes) -> Fatura:
         raise _FalhaExtracao(MSG_EXTRACAO_FALHOU, "extracao_falhou") from erro
 
 
-def _fatura_do_pdf(pedido: PedidoPergunta) -> Fatura:
-    """PDF -> Fatura (com as correções confirmadas)."""
-    fatura = _extrair_fatura(pedido.bytes_pdf())
-    if pedido.correcoes:
-        try:
-            fatura = Fatura.model_validate({**fatura.model_dump(), **pedido.correcoes})
-        except ValidationError as erro:
-            campos = sorted({str(e["loc"][0]) for e in erro.errors() if e["loc"]})
-            raise _FalhaExtracao(
-                MSG_CORRECAO_INVALIDA.format(campos=", ".join(campos) or "informados"),
-                "correcao_invalida",
-            ) from None
-    return fatura
-
-
 def _resposta_da_fatura(
-    pedido: PedidoPergunta, modo: Literal["fatura", "pdf"], fatura: Fatura, achados: list[Achado]
+    pedido: PedidoPergunta, fatura: Fatura, achados: list[Achado]
 ) -> RespostaPerguntaAPI:
     r = obter_orquestrador().responder_sobre_fatura(
         pedido.pergunta, fatura, achados_motor=achados, persona=pedido.persona
@@ -411,7 +372,7 @@ def _resposta_da_fatura(
             PassoRastro(agente=p.agente, acao=p.acao, detalhe=p.detalhe, duracao_s=p.duracao_s)
             for p in r.rastro
         ],
-        modo=modo,
+        modo="fatura",
         achados_motor=achados,
         campos_fatura=r.campos_usados,
     )
@@ -431,28 +392,16 @@ async def extrair(pedido: PedidoExtracao, response: Response) -> RespostaExtraca
 
 @app.post("/perguntar", response_model=RespostaPerguntaAPI)
 async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPerguntaAPI:
-    """Pergunta regulatória respondida pelos 4 agentes, com fatura/PDF confirmados opcionais."""
+    """Pergunta regulatória respondida pelos 4 agentes, opcionalmente com fatura confirmada."""
     response.headers["Cache-Control"] = "no-store"
-    if pedido.fatura is None and pedido.pdf_base64 is None:
+    if pedido.fatura is None:
         return _sanitizar_saida(await _perguntar_texto(pedido))
 
-    modo: Literal["fatura", "pdf"] = "pdf" if pedido.pdf_base64 is not None else "fatura"
-    if pedido.pdf_base64 is not None:
-        try:
-            fatura = await asyncio.to_thread(_fatura_do_pdf, pedido)
-        except _FalhaExtracao as erro:
-            passo = PassoRastro(agente="Extração", acao="falha", detalhe=erro.motivo, duracao_s=0.0)
-            return _sanitizar_saida(
-                _falha(pedido, "pdf", erro.mensagem, "falha_extracao", erro.motivo, rastro=[passo])
-            )
-    else:
-        assert pedido.fatura is not None
-        fatura = pedido.fatura
-
+    fatura = pedido.fatura
     achados = analisar_nivel_a(fatura)
     try:
         r = await _com_vaga(
-            lambda: asyncio.to_thread(_resposta_da_fatura, pedido, modo, fatura, achados),
+            lambda: asyncio.to_thread(_resposta_da_fatura, pedido, fatura, achados),
             TEMPO_MAXIMO_AGENTES_SEGUNDOS,
         )
     except Exception as erro:
@@ -466,7 +415,7 @@ async def perguntar(pedido: PedidoPergunta, response: Response) -> RespostaPergu
         return _sanitizar_saida(
             _falha(
                 pedido,
-                modo,
+                "fatura",
                 MSG_AGENTES_INDISPONIVEIS,
                 "agentes_indisponiveis",
                 "agentes_indisponiveis",
