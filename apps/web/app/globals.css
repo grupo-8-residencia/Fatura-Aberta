@@ -1502,3 +1502,12 @@ a {
   border-left: 1px solid var(--color-control-border);
   border-radius: 12px 0 0 12px;
 }
+
+.pdf-upload { margin-block-end: 1rem; }
+.pergunta-texto {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  margin: 0.5rem 0;
+}
+.pergunta-fontes { margin: 0.5rem 0 0; padding-inline-start: 1.25rem; }

@@ -1,0 +1,139 @@
+{
+    "resposta": "Pergunta recebida: “O consumo informado confere com as leituras do medidor?”\nDados da fatura confirmada: mês 06/2026, consumo 120.00 kWh, total R$ 130,40.\nConferência do motor determinístico:\n- Consumo medido: A diferença entre as leituras confere com o consumo informado. (calculado: 120.00; informado: 120.00)\nFundamentação normativa:\nDispositivos vigentes recuperados (trechos literais, sem interpretação):\n- REN ANEEL nº 1.000/2021, art. 260, § 2º: “§ 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.”\n- REN ANEEL nº 1.000/2021, art. 285: “Art. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exceções dispostas nesta Resolução, a distribuidora deve faturar de acordo com as seguintes disposições: I - não atingido o limite mínimo de 27 dias: faturar o consumo medido, vedada a aplicação do custo de disponibilidade; e II - ultrapassado o limite máximo de 33 dias: proporcionalizar o…”\n- REN ANEEL nº 1.000/2021, art. 327, caput: “Art. 327. A fatura de energia elétrica deve conter, de forma clara e objetiva e observadas as disposições do Módulo 11 do PRODIST, as seguintes informações: I - identificação do consumidor e demais usuários; II - identificação da unidade consumidora ou demais instalações; III - valor total devido e data de vencimento; IV - grandezas medidas e faturadas; V - tarifas aplicadas; VI - valores adicionais a serem cobrados…”\nIsto é o texto da norma; a aplicação ao seu caso depende dos dados da fatura.",
+    "mensagem": "Pergunta recebida: “O consumo informado confere com as leituras do medidor?”\nDados da fatura confirmada: mês 06/2026, consumo 120.00 kWh, total R$ 130,40.\nConferência do motor determinístico:\n- Consumo medido: A diferença entre as leituras confere com o consumo informado. (calculado: 120.00; informado: 120.00)\nFundamentação normativa:\nDispositivos vigentes recuperados (trechos literais, sem interpretação):\n- REN ANEEL nº 1.000/2021, art. 260, § 2º: “§ 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.”\n- REN ANEEL nº 1.000/2021, art. 285: “Art. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exceções dispostas nesta Resolução, a distribuidora deve faturar de acordo com as seguintes disposições: I - não atingido o limite mínimo de 27 dias: faturar o consumo medido, vedada a aplicação do custo de disponibilidade; e II - ultrapassado o limite máximo de 33 dias: proporcionalizar o…”\n- REN ANEEL nº 1.000/2021, art. 327, caput: “Art. 327. A fatura de energia elétrica deve conter, de forma clara e objetiva e observadas as disposições do Módulo 11 do PRODIST, as seguintes informações: I - identificação do consumidor e demais usuários; II - identificação da unidade consumidora ou demais instalações; III - valor total devido e data de vencimento; IV - grandezas medidas e faturadas; V - tarifas aplicadas; VI - valores adicionais a serem cobrados…”\nIsto é o texto da norma; a aplicação ao seu caso depende dos dados da fatura.",
+    "persona": "marcia",
+    "citacoes": [
+        {
+            "ato": "REN ANEEL nº 1.000/2021",
+            "dispositivo": "art. 260, § 2º",
+            "vigencia_inicio": "2022-01-03",
+            "vigencia_fim": null,
+            "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+        },
+        {
+            "ato": "REN ANEEL nº 1.000/2021",
+            "dispositivo": "art. 285",
+            "vigencia_inicio": "2022-01-03",
+            "vigencia_fim": null,
+            "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+        },
+        {
+            "ato": "REN ANEEL nº 1.000/2021",
+            "dispositivo": "art. 327, caput",
+            "vigencia_inicio": "2022-01-03",
+            "vigencia_fim": null,
+            "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
+        }
+    ],
+    "abstencao": false,
+    "origem": "pesquisador_extrativo",
+    "motivo_abstencao": "",
+    "rastro": [
+        {
+            "agente": "Motor",
+            "acao": "analisar_nivel_a",
+            "detalhe": "5 achado(s)",
+            "duracao_s": 0.0
+        },
+        {
+            "agente": "Motor",
+            "acao": "veredito",
+            "detalhe": "confere",
+            "duracao_s": 0.0
+        },
+        {
+            "agente": "Orquestrador",
+            "acao": "selecionar",
+            "detalhe": "Consumo medido",
+            "duracao_s": 0.0
+        },
+        {
+            "agente": "Pesquisador",
+            "acao": "buscar_com_citacao",
+            "detalhe": "3 dispositivo(s) vigente(s); ren1000-art-260::p2 (0.3681), ren1000-art-285 (0.3362), ren1000-art-327::caput (0.3096)",
+            "duracao_s": 0.0053
+        },
+        {
+            "agente": "Analista",
+            "acao": "redigir",
+            "detalhe": "0 afirmação(ões) proposta(s)",
+            "duracao_s": 0.0001
+        },
+        {
+            "agente": "Auditor",
+            "acao": "auditar",
+            "detalhe": "barrou o rascunho: sem afirmação",
+            "duracao_s": 0.0
+        },
+        {
+            "agente": "Orquestrador",
+            "acao": "fallback",
+            "detalhe": "usa a resposta extrativa do Pesquisador",
+            "duracao_s": 0.0
+        },
+        {
+            "agente": "Comunicador",
+            "acao": "compor para marcia",
+            "detalhe": "resposta combinada: fatura confirmada + motor + norma",
+            "duracao_s": 0.0
+        }
+    ],
+    "modo": "fatura",
+    "achados_motor": [
+        {
+            "item": "Consumo medido",
+            "nivel": "A",
+            "descricao": "A diferença entre as leituras confere com o consumo informado.",
+            "valor_esperado": "120.00",
+            "valor_cobrado": "120.00",
+            "citacoes": [],
+            "abstencao": false
+        },
+        {
+            "item": "Total da fatura",
+            "nivel": "A",
+            "descricao": "A soma das linhas confere com o total informado.",
+            "valor_esperado": "130.40",
+            "valor_cobrado": "130.40",
+            "citacoes": [],
+            "abstencao": false
+        },
+        {
+            "item": "Linha: Consumo-TUSD",
+            "nivel": "A",
+            "descricao": "O valor da linha 'Consumo-TUSD' confere com o produto entre quantidade e tarifa.",
+            "valor_esperado": "60.00",
+            "valor_cobrado": "60.00",
+            "citacoes": [],
+            "abstencao": false
+        },
+        {
+            "item": "Linha: Consumo-TE",
+            "nivel": "A",
+            "descricao": "O valor da linha 'Consumo-TE' confere com o produto entre quantidade e tarifa.",
+            "valor_esperado": "56.40",
+            "valor_cobrado": "56.40",
+            "citacoes": [],
+            "abstencao": false
+        },
+        {
+            "item": "ICMS",
+            "nivel": "A",
+            "descricao": "A alíquota de ICMS foi informada, mas a base de cálculo e o valor cobrado do tributo não constam separadamente na fatura.",
+            "valor_esperado": null,
+            "valor_cobrado": null,
+            "citacoes": [],
+            "abstencao": true
+        }
+    ],
+    "campos_fatura": {
+        "mes_referencia": "06/2026",
+        "consumo_kwh": "120.00",
+        "total": "130.40",
+        "leitura_anterior": "1000.00",
+        "leitura_atual": "1120.00",
+        "bandeira": "Amarela",
+        "aliquota_icms": "0.12"
+    },
+    "aviso": null
+}

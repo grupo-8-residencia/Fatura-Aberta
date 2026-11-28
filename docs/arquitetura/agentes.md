@@ -233,6 +233,8 @@ dispositivos. Detalhes, intervalos e limites no [relatório S4](../avaliacao/rel
 
 ## Pedido combinado: extração em `POST /extrair` + confirmação em `POST /perguntar` (S5-05, #184)
 
+Limites, falhas e demonstração: [Processamento multimodal](multimodal.md).
+
 O fluxo separa a leitura do PDF da análise para garantir confirmação pelo usuário (`packages/contratos` não muda):
 
 1. **`POST /extrair`** recebe `{"pdf_base64": "<PDF em base64>"}` (assinatura `%PDF-`, limite padrão `FA_PDF_MAX_BYTES` = 5 MB e `FA_PDF_MAX_PAGINAS` = 5), extrai e devolve `fatura` (`Fatura`) para conferência na tela, **sem** rodar o motor nem os agentes. Falhas devolvem `erro` e `motivo` ∈ {`pdf_invalido`, `pdf_protegido`, `pdf_muitas_paginas`, `pdf_sem_texto`, `extracao_falhou`}.

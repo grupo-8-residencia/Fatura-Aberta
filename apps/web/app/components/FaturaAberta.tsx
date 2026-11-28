@@ -6,10 +6,14 @@ import { Faisca, type EstadoFaisca } from "./Faisca";
 import { Botao, SeloNivel } from "./ui";
 import {
   analisarFatura,
+  extrairPdf,
+  faturaParaDados,
   formatarData,
   montarDecisoes,
+  perguntar,
   somarItens,
   type DadosConfirmados,
+  type RespostaPergunta,
   type ItemDigitado,
   type Decisao,
   type Resultado,
@@ -135,6 +139,8 @@ const CAMPOS_ITEM: Record<CampoItem, { rotulo: string; modo: "text" | "numeric" 
 
 const LEITURA = /^(?:\d+|\d{1,3}(?:\.\d{3})+)$/;
 const MOEDA = /^(?:\d+|\d{1,3}(?:\.\d{3})+),\d{2}$/;
+// Itens podem ser créditos (valor negativo, como "-1,00"); o total da fatura não.
+const MOEDA_ITEM = /^-?(?:\d+|\d{1,3}(?:\.\d{3})+),\d{2}$/;
 const DECIMAL = /^(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d{1,6})?$/;
 
 function validar(d: DadosConfirmados): Erros {
@@ -156,7 +162,7 @@ function validar(d: DadosConfirmados): Erros {
       erros[`item-${item.id}-quantidade`] = `Use só números na quantidade do item ${n}, como 262.`;
     if (item.tarifa.trim() && !DECIMAL.test(item.tarifa))
       erros[`item-${item.id}-tarifa`] = `Use vírgula na tarifa do item ${n}, como 0,78000.`;
-    if (!MOEDA.test(item.valor)) erros[`item-${item.id}-valor`] = `Informe o valor do item ${n}, como 204,36.`;
+    if (!MOEDA_ITEM.test(item.valor)) erros[`item-${item.id}-valor`] = `Informe o valor do item ${n}, como 204,36.`;
   });
   return erros;
 }
@@ -554,7 +560,15 @@ function FormularioConfirmacao({
   aoAdicionarItem,
   aoRemoverItem,
   aoConfirmar,
+  pergunta,
+  aoMudarPergunta,
+  aoEnviarPdf,
+  envioPdf,
 }: {
+  pergunta: string;
+  aoMudarPergunta: (valor: string) => void;
+  aoEnviarPdf: (arquivo: File) => void;
+  envioPdf: { estado: "ocioso" | "lendo" | "ok" | "erro"; mensagem: string };
   dados: DadosConfirmados;
   online: boolean;
   conferindo: boolean;
@@ -565,6 +579,8 @@ function FormularioConfirmacao({
   aoConfirmar: () => void;
 }) {
   const erros = validar(dados);
+  const perguntaCurta = pergunta.trim().length > 0 && pergunta.trim().length < 3;
+  if (perguntaCurta) erros.pergunta = "Escreva a pergunta com pelo menos 3 caracteres.";
   const valido = Object.keys(erros).length === 0;
   const campo = (nome: CampoSimples) => (
     <Campo
@@ -590,6 +606,34 @@ function FormularioConfirmacao({
           <p>Nenhuma conta é feita antes da confirmação. Os campos vêm com um exemplo fictício.</p>
           <p className="aviso-conformidade">{AVISO_GERAL}</p>
         </div>
+      </div>
+      <div className="field pdf-upload">
+        <label htmlFor="pdf-fatura">Enviar o PDF da fatura (opcional)</label>
+        <input
+          id="pdf-fatura"
+          className="input"
+          type="file"
+          accept="application/pdf"
+          aria-describedby="pdf-fatura-ajuda"
+          disabled={envioPdf.estado === "lendo"}
+          onChange={(e) => {
+            const arquivo = e.target.files?.[0];
+            if (arquivo) aoEnviarPdf(arquivo);
+            e.target.value = "";
+          }}
+        />
+        <span className="field-hint" id="pdf-fatura-ajuda">
+          Só PDF digital (com texto selecionável), até 5 MB e 5 páginas. Os campos lidos aparecem
+          abaixo para você conferir e corrigir; nada é analisado antes da sua confirmação.
+        </span>
+        {envioPdf.mensagem && (
+          <p
+            className={envioPdf.estado === "erro" ? "field-error" : "field-hint"}
+            role={envioPdf.estado === "erro" ? "alert" : "status"}
+          >
+            {envioPdf.mensagem}
+          </p>
+        )}
       </div>
       <form
         className="confirmation-form"
@@ -649,6 +693,16 @@ function FormularioConfirmacao({
         </fieldset>
 
         {campo("total")}
+
+        <Campo
+          id="pergunta"
+          rotulo="Sua pergunta sobre esta fatura (opcional)"
+          ajuda="Ex.: O consumo informado confere com as leituras do medidor?"
+          modo="text"
+          valor={pergunta}
+          erro={erros.pergunta}
+          aoMudar={aoMudarPergunta}
+        />
 
         <p className="privacy-note">
           <span aria-hidden="true">i</span>
@@ -827,6 +881,13 @@ export default function FaturaAberta() {
   // pertence a dados antigos e é descartada.
   const versaoRef = useRef(0);
   const [aviso, setAviso] = useState<string | null>(null);
+  const [pergunta, setPergunta] = useState("");
+  const [respostaPergunta, setRespostaPergunta] = useState<RespostaPergunta | null>(null);
+  const [erroPergunta, setErroPergunta] = useState<string | null>(null);
+  const [envioPdf, setEnvioPdf] = useState<{
+    estado: "ocioso" | "lendo" | "ok" | "erro";
+    mensagem: string;
+  }>({ estado: "ocioso", mensagem: "" });
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<Filtro>("todos");
   const [visao, setVisao] = useState<Visao>("detalhada");
@@ -880,6 +941,17 @@ export default function FaturaAberta() {
       setDecisoes(montarDecisoes(resposta.achados));
       setConferidos(enviados);
       setAviso(resposta.aviso ?? null);
+      setRespostaPergunta(null);
+      setErroPergunta(null);
+      if (pergunta.trim().length >= 3) {
+        try {
+          const r = await perguntar(enviados, pergunta);
+          if (versao === versaoRef.current) setRespostaPergunta(r);
+        } catch {
+          if (versao === versaoRef.current)
+            setErroPergunta("Não consegui responder à pergunta agora. Os cartões abaixo continuam válidos.");
+        }
+      }
       setRevisados([]);
       setEstado("pronto");
     } catch {
@@ -897,6 +969,24 @@ export default function FaturaAberta() {
     window.requestAnimationFrame(() => document.getElementById("conteudo")?.focus());
   }
 
+  async function enviarPdf(arquivo: File) {
+    setEnvioPdf({ estado: "lendo", mensagem: "Lendo o PDF…" });
+    try {
+      const r = await extrairPdf(arquivo);
+      if (r.fatura) {
+        alterarDados(() => faturaParaDados(r.fatura!));
+        setEnvioPdf({
+          estado: "ok",
+          mensagem: "Campos lidos do PDF. Confira e corrija o que for preciso antes de confirmar.",
+        });
+      } else {
+        setEnvioPdf({ estado: "erro", mensagem: r.erro ?? "Não foi possível ler o PDF." });
+      }
+    } catch {
+      setEnvioPdf({ estado: "erro", mensagem: "Não consegui falar com a API para ler o PDF. Tente de novo." });
+    }
+  }
+
   /** Qualquer edição invalida o resultado anterior: ele valia para os dados de antes. */
   function alterarDados(mudar: (atual: DadosConfirmados) => DadosConfirmados) {
     versaoRef.current += 1;
@@ -904,6 +994,8 @@ export default function FaturaAberta() {
     if (estado !== "editando") {
       setDecisoes([]);
       setAviso(null);
+      setRespostaPergunta(null);
+      setErroPergunta(null);
       setRevisados([]);
       setEstado("editando");
     }
@@ -912,6 +1004,10 @@ export default function FaturaAberta() {
   function limpar() {
     versaoRef.current += 1;
     setDados(DADOS_EXEMPLO);
+    setPergunta("");
+    setRespostaPergunta(null);
+    setErroPergunta(null);
+    setEnvioPdf({ estado: "ocioso", mensagem: "" });
     setDecisoes([]);
     setAviso(null);
     setRevisados([]);
@@ -1083,6 +1179,13 @@ export default function FaturaAberta() {
                     }))
                   }
                   aoConfirmar={() => void conferir()}
+                  pergunta={pergunta}
+                  aoMudarPergunta={(valor) => {
+                    setPergunta(valor);
+                    alterarDados((atual) => atual);
+                  }}
+                  aoEnviarPdf={(arquivo) => void enviarPdf(arquivo)}
+                  envioPdf={envioPdf}
                 />
               </>
             )}
@@ -1146,6 +1249,41 @@ export default function FaturaAberta() {
                       <p className="api-notice" role="status">
                         {aviso}
                       </p>
+                    )}
+                    {(respostaPergunta || erroPergunta) && (
+                      <section
+                        className="content-card pergunta-resposta"
+                        aria-labelledby="pergunta-titulo"
+                      >
+                        <h2 id="pergunta-titulo">Resposta à sua pergunta</h2>
+                        {erroPergunta ? (
+                          <p role="alert">{erroPergunta}</p>
+                        ) : (
+                          respostaPergunta && (
+                            <>
+                              {respostaPergunta.abstencao && (
+                                <p className="api-notice" role="status">
+                                  Não foi possível responder com segurança
+                                  {respostaPergunta.motivo_abstencao === "dados_insuficientes"
+                                    ? ": faltam dados na fatura confirmada."
+                                    : "."}
+                                </p>
+                              )}
+                              <pre className="pergunta-texto">{respostaPergunta.resposta}</pre>
+                              {respostaPergunta.citacoes.length > 0 && (
+                                <ul className="pergunta-fontes">
+                                  {respostaPergunta.citacoes.map((c, i) => (
+                                    <li key={`${c.ato}-${c.dispositivo}-${i}`}>
+                                      {c.ato}, {c.dispositivo} · vigência desde{" "}
+                                      {formatarData(c.vigencia_inicio)}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </>
+                          )
+                        )}
+                      </section>
                     )}
                     <ItensConferidos dados={conferidos} />
                     <section className="content-card search-controls" aria-labelledby="busca-titulo">
