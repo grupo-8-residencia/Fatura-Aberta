@@ -230,10 +230,9 @@ def _fatura_json() -> dict[str, str | list[dict[str, str]]]:
 @pytest.mark.parametrize(
     "extra",
     [
-        {"fatura": _fatura_json(), "pdf_base64": "QUJD"},  # fatura e PDF juntos
-        {"pdf_base64": "não é base64!!"},
-        {"pdf_base64": "QUJD", "correcoes": {"nome_do_cliente": "x"}},  # campo desconhecido
-        {"correcoes": {"consumo_kwh": "10"}},  # correção sem PDF
+        {"pdf_base64": "JVBERi0xLjQK"},  # PDF direto não é aceito sem confirmação prévia
+        {"correcoes": {"consumo_kwh": "10"}},
+        {"campo_desconhecido": "valor"},
     ],
 )
 def test_perguntar_rejeita_payload_malformado_com_422(extra: dict[str, object]) -> None:
@@ -243,11 +242,21 @@ def test_perguntar_rejeita_payload_malformado_com_422(extra: dict[str, object]) 
     assert resposta.status_code == 422
 
 
-def test_perguntar_rejeita_pdf_acima_do_limite(monkeypatch: pytest.MonkeyPatch) -> None:
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"pdf_base64": "não é base64!!"},
+        {"pdf_base64": "aXN0byBuYW8gZSBwZGY="},  # sem assinatura %PDF-
+    ],
+)
+def test_extrair_rejeita_payload_malformado_com_422(payload: dict[str, object]) -> None:
+    resposta = TestClient(api_main.app).post("/extrair", json=payload)
+    assert resposta.status_code == 422
+
+
+def test_extrair_rejeita_pdf_acima_do_limite(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(api_main, "PDF_TAMANHO_MAXIMO_BYTES", 3)
-    resposta = TestClient(api_main.app).post(
-        "/perguntar", json={"pergunta": "O consumo confere?", "pdf_base64": "QUJDRA=="}
-    )
+    resposta = TestClient(api_main.app).post("/extrair", json={"pdf_base64": "JVBERi0xLjQ="})
     assert resposta.status_code == 422
 
 

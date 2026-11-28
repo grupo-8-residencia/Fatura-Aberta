@@ -1,4 +1,4 @@
-"""Fluxo multimodal (S5-05): pergunta em texto + PDF/fatura confirmada na mesma análise.
+"""Fluxo multimodal (S5-05): extração de PDF com confirmação + pergunta em texto.
 
 Todos os PDFs são sintéticos, gerados em memória, sem nenhum dado pessoal.
 """
@@ -6,6 +6,7 @@ Todos os PDFs são sintéticos, gerados em memória, sem nenhum dado pessoal.
 import asyncio
 import base64
 import json
+import logging
 from collections.abc import Iterator
 from io import BytesIO
 from typing import Any
@@ -88,6 +89,13 @@ def cliente() -> Iterator[TestClient]:
     yield TestClient(app)
 
 
+def _extrair(cliente: TestClient, dados: bytes) -> dict[str, Any]:
+    r = cliente.post("/extrair", json={"pdf_base64": _b64(dados)})
+    assert r.status_code == 200, r.text
+    corpo: dict[str, Any] = r.json()
+    return corpo
+
+
 def _post(cliente: TestClient, corpo: dict[str, Any]) -> dict[str, Any]:
     r = cliente.post("/perguntar", json=corpo)
     assert r.status_code == 200, r.text
@@ -117,19 +125,39 @@ def test_1_texto_sozinho_continua_retrocompativel(cliente: TestClient) -> None:
     assert d["achados_motor"] == [] and d["campos_fatura"] == {}
 
 
-def test_2_pdf_digital_sintetico_extrai_e_roda_o_motor(cliente: TestClient) -> None:
-    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(_pdf(LINHAS))})
-    assert d["modo"] == "pdf"
+def test_2_extrair_pdf_devolve_campos_sem_rodar_motor_nem_agentes(
+    cliente: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def proibido(*_a: Any, **_k: Any) -> Any:
+        raise AssertionError("análise não pode iniciar antes da confirmação do usuário")
+
+    monkeypatch.setattr(api_main, "analisar_nivel_a", proibido)
+    monkeypatch.setattr(api_main, "obter_orquestrador", proibido)
+    extraido = _extrair(cliente, _pdf(LINHAS))
+    assert extraido["erro"] is None
+    fatura = extraido["fatura"]
+    assert fatura is not None
+    assert fatura["mes_referencia"] == "2026-06-01"
+    assert fatura["consumo_kwh"] in ("120", "120.00")
+
+
+def test_2b_perguntar_rejeita_pdf_nao_confirmado_com_422(cliente: TestClient) -> None:
+    r = cliente.post("/perguntar", json={"pergunta": PERGUNTA, "pdf_base64": _b64(_pdf(LINHAS))})
+    assert r.status_code == 422
+
+
+def test_3_fluxo_confirmado_pdf_para_perguntar_cita_campos_e_pergunta(cliente: TestClient) -> None:
+    extraido = _extrair(cliente, _pdf(LINHAS))
+    fatura = extraido["fatura"]
+    assert fatura is not None
+    d = _post(cliente, {"pergunta": PERGUNTA, "fatura": fatura})
+    assert d["modo"] == "fatura"
     assert d["campos_fatura"]["mes_referencia"] == "06/2026"
     assert d["campos_fatura"]["consumo_kwh"] == "120.00"
     assert d["achados_motor"]
     agentes = [(p["agente"], p["acao"]) for p in d["rastro"]]
     assert ("Motor", "analisar_nivel_a") in agentes
     assert any(a == "Pesquisador" for a, _ in agentes)
-
-
-def test_3_texto_mais_pdf_cita_campo_do_pdf_e_a_pergunta(cliente: TestClient) -> None:
-    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(_pdf(LINHAS))})
     assert PERGUNTA in d["resposta"]
     assert "120" in d["resposta"] and "06/2026" in d["resposta"]
     assert "Consumo medido" in d["resposta"]
@@ -138,48 +166,58 @@ def test_3_texto_mais_pdf_cita_campo_do_pdf_e_a_pergunta(cliente: TestClient) ->
 
 
 def test_4_pdf_corrompido_devolve_mensagem_clara_sem_conclusao(cliente: TestClient) -> None:
-    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(b"isto nao e um pdf")})
-    assert d["abstencao"] is True
-    assert d["origem"] == "falha_extracao" and d["motivo_abstencao"] == "pdf_invalido"
-    assert "corrompido" in d["mensagem"]
-    assert d["achados_motor"] == [] and d["citacoes"] == []
+    d = _extrair(cliente, b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog")
+    assert d["fatura"] is None and d["motivo"] == "pdf_invalido"
+    assert d["erro"] and "corrompido" in d["erro"]
+
+
+def test_4b_arquivo_sem_assinatura_de_pdf_e_rejeitado_com_422(cliente: TestClient) -> None:
+    r = cliente.post("/extrair", json={"pdf_base64": _b64(b"isto nao e um pdf")})
+    assert r.status_code == 422
+
+
+def test_4c_pdf_protegido_por_senha(cliente: TestClient) -> None:
+    from pypdf import PdfReader, PdfWriter
+
+    escritor = PdfWriter(clone_from=PdfReader(BytesIO(_pdf(LINHAS))))
+    escritor.encrypt("senha-de-teste")
+    saida = BytesIO()
+    escritor.write(saida)
+    d = _extrair(cliente, saida.getvalue())
+    assert d["fatura"] is None and d["motivo"] == "pdf_protegido"
+    assert d["erro"] and "senha" in d["erro"]
+
+
+def test_4d_pdf_com_paginas_demais(cliente: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(api_main, "PDF_PAGINAS_MAXIMAS", 1)
+    buffer = BytesIO()
+    pagina = canvas.Canvas(buffer, pagesize=A4)
+    for _ in range(2):
+        pagina.drawString(50, 800, "pagina")
+        pagina.showPage()
+    pagina.save()
+    d = _extrair(cliente, buffer.getvalue())
+    assert d["fatura"] is None and d["motivo"] == "pdf_muitas_paginas"
 
 
 def test_5_pdf_sem_camada_de_texto(cliente: TestClient) -> None:
-    d = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(_pdf_vazio())})
-    assert d["abstencao"] is True and d["motivo_abstencao"] == "pdf_sem_texto"
-    assert "camada de texto" in d["mensagem"]
-    assert d["achados_motor"] == []
+    d = _extrair(cliente, _pdf_vazio())
+    assert d["fatura"] is None and d["motivo"] == "pdf_sem_texto"
+    assert d["erro"] and "camada de texto" in d["erro"]
 
 
-def test_6_campo_errado_corrigido_pelo_usuario_reflete_no_motor(cliente: TestClient) -> None:
-    sem = _post(cliente, {"pergunta": PERGUNTA, "pdf_base64": _b64(_pdf(LINHAS))})
-    com = _post(
-        cliente,
-        {
-            "pergunta": PERGUNTA,
-            "pdf_base64": _b64(_pdf(LINHAS)),
-            "correcoes": {"consumo_kwh": "150"},
-        },
-    )
+def test_6_campo_errado_corrigido_na_confirmacao_reflete_no_motor(cliente: TestClient) -> None:
+    extraido = _extrair(cliente, _pdf(LINHAS))
+    fatura_original = extraido["fatura"]
+    assert fatura_original is not None
+    sem = _post(cliente, {"pergunta": PERGUNTA, "fatura": fatura_original})
+    fatura_corrigida = {**fatura_original, "consumo_kwh": "150"}
+    com = _post(cliente, {"pergunta": PERGUNTA, "fatura": fatura_corrigida})
     assert com["campos_fatura"]["consumo_kwh"] == "150"
     assert "150" in com["resposta"]
     consumo = next(a for a in com["achados_motor"] if a["item"] == "Consumo medido")
-    assert consumo["valor_cobrado"] == "150" or consumo["valor_cobrado"] == "150.00"
+    assert consumo["valor_cobrado"] in ("150", "150.00")
     assert sem["campos_fatura"]["consumo_kwh"] != com["campos_fatura"]["consumo_kwh"]
-
-
-def test_6b_correcao_invalida_vira_abstencao_estruturada(cliente: TestClient) -> None:
-    d = _post(
-        cliente,
-        {
-            "pergunta": PERGUNTA,
-            "pdf_base64": _b64(_pdf(LINHAS)),
-            "correcoes": {"consumo_kwh": "abc"},
-        },
-    )
-    assert d["abstencao"] is True and d["motivo_abstencao"] == "correcao_invalida"
-    assert "consumo_kwh" in d["mensagem"] and "abc" not in d["mensagem"]
 
 
 def test_7_agentes_indisponiveis_preserva_achados_do_motor(
@@ -237,7 +275,21 @@ def test_9_pergunta_com_termo_vedado_nao_volta_na_saida(cliente: TestClient) -> 
     assert "ilegal" not in d["resposta"].lower()
 
 
-def test_10_rf15_e_ausencia_de_pii_em_todas_as_saidas() -> None:
+def test_10_rf15_e_ausencia_de_pii_em_todas_as_saidas(
+    cliente: TestClient, caplog: pytest.LogCaptureFixture
+) -> None:
+    linhas_com_pii = [
+        "NOME DO CLIENTE: FULANA FICTICIA DA SILVA",
+        "CPF: 123.456.789-00",
+        "ENDEREÇO: QUADRA 99 CASA 7",
+        *LINHAS,
+    ]
+    with caplog.at_level(logging.DEBUG):
+        extraido = _extrair(cliente, _pdf(linhas_com_pii))
+    assert extraido["fatura"] is not None
+    assert "FULANA" not in json.dumps(extraido, ensure_ascii=False)
+    assert "FULANA" not in caplog.text and "123.456.789-00" not in caplog.text
+
     assert len(VISTOS) >= 8
     for d in VISTOS:
         literal = bool(d["citacoes"])
