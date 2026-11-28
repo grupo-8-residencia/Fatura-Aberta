@@ -209,7 +209,7 @@ jobs:
           import fa_contratos
           from fa_contratos import Achado, Citacao, Fatura, ItemFatura
 
-          assert fa_contratos.__version__ == "1.0.0", f"Versão inesperada: {fa_contratos.__version__}"
+          assert fa_contratos.__version__ == "1.1.0", f"Versão inesperada: {fa_contratos.__version__}"
           rows = []
           for model in (Fatura, ItemFatura, Achado, Citacao):
               schema = model.model_json_schema()

@@ -60,10 +60,11 @@ Limites em produção (padrões; variáveis em `.env.example`):
   rodada e agora é, mas a lista continua finita (typos como "ignroe" não são cobertos). A defesa
   principal é tratar todo texto extraído como dado.
 - **RF-15 contextual parcial.** Um termo vedado é aceito só quando o trecho nega a função da
-  ferramenta ("a ferramenta não calcula restituição"); não há nível "exige revisão" nem a
-  classificação em cinco categorias de resultado. Essas duas decisões dependem da F1 e de mudança
-  em `packages/contratos` (exige duas aprovações).
-- **Registro auditável (regra aplicada, data de consulta, limitações por achado) não implementado.**
+  ferramenta ("a ferramenta não calcula restituição"); não há nível "exige revisão".
+- **Categorias e registro (contrato 1.1.0).** Os achados do motor trazem uma das cinco categorias e
+  um registro com regra, cálculo, data da tabela e limitações. Achados gerados pelos agentes (nível C)
+  ainda não têm registro. Categoria e registro de nível A e B estão no contrato; a conferência jurídica
+  delas segue com a F1.
 - **Testes do web.** O web não tem suíte de testes; só lint, typecheck e build.
 
 ## 3. Casos de falha e mitigação
@@ -128,8 +129,8 @@ As 5 falhas da suíte completa, todas fora do escopo desta mudança:
    o modelo padrão (hoje `7b`, provisório; a recomendação técnica é `3b`).
 2. **Injeção (#42).** Medida com imagens e LLM 3B (ver injecao-por-imagem.md). Falta medir com o LLM de produção e com um gerador de texto livre; nenhum texto de ataque chegou à candidata na amostra.
 3. **Decisão de pivot.** Registrar Go, No-Go ou Pivot em `docs/sprints/s5.md` com base na medição.
-4. **Decisões da F1** para a #169: nível "exige revisão", cinco categorias de resultado e registro
-   auditável (mudança em `packages/contratos`).
+4. **Decisões da F1** para a #169: validar as cinco categorias e o registro (contrato 1.1.0 em
+   `packages/contratos`) e decidir o nível "exige revisão".
 5. **Nível B** na API e no cartão (#178).
 6. **Demonstração ao vivo**: o cenário de divergência já está no roteiro (`00-base.pdf`, verificado em
    `/extrair` e `/perguntar`). Falta ensaiar o roteiro com foto, que depende do item 1. Ver [demo-s5.md](../operacao/demo-s5.md).

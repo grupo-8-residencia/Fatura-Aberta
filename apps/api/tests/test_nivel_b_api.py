@@ -121,3 +121,16 @@ def test_perguntar_com_fatura_devolve_o_nivel_b_em_achados_motor() -> None:
     assert resposta.status_code == 200, resposta.text
     itens = {a["item"] for a in _b(resposta.json()["achados_motor"])}
     assert {"Tarifa TUSD+TE", "Bandeira tarifária"} <= itens
+
+
+def test_analisar_devolve_categoria_e_registro_nos_achados() -> None:
+    corpo = (
+        TestClient(app)
+        .post("/analisar", json=_fatura(date(2026, 6, 1), "0.50000", "0.40000"))
+        .json()
+    )
+    categorias = {a["categoria"] for a in corpo["achados"]}
+    assert {"compativel", "divergencia_identificada", "verificacao_necessaria"} & categorias
+    tusd = next(a for a in _b(corpo["achados"]) if a["item"] == "Tarifa TUSD+TE")
+    assert tusd["registro"]["regra_aplicada"].startswith("B1")
+    assert tusd["registro"]["data_consulta"] is not None

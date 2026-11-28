@@ -9,10 +9,12 @@ from pydantic import ValidationError
 from fa_contratos import (
     CONTRATO_VERSAO,
     Achado,
+    Categoria,
     Citacao,
     Fatura,
     ItemFatura,
     Nivel,
+    RegistroAuditavel,
     __version__,
 )
 
@@ -148,7 +150,7 @@ def test_modelos_sao_imutaveis() -> None:
 
 
 def test_versao_congelada_contratos_v1() -> None:
-    assert __version__ == "1.0.0"
+    assert __version__ == "1.1.0"
     assert CONTRATO_VERSAO == "contratos-v1"
 
 
@@ -181,3 +183,54 @@ def test_achado_nivel_b_aceita_citacao_ou_abstencao() -> None:
         abstencao=True,
     )
     assert com_abstencao.abstencao is True
+
+
+def _achado(**campos: object) -> Achado:
+    base = {"item": "Consumo medido", "nivel": Nivel.A, "descricao": "Texto sintético."}
+    return Achado(**{**base, **campos})
+
+
+def test_categoria_derivada_por_valores_e_abstencao() -> None:
+    assert _achado(valor_esperado=Decimal("10"), valor_cobrado=Decimal("10")).categoria == (
+        Categoria.COMPATIVEL
+    )
+    assert _achado(valor_esperado=Decimal("10"), valor_cobrado=Decimal("11")).categoria == (
+        Categoria.DIVERGENCIA_IDENTIFICADA
+    )
+    assert _achado().categoria == Categoria.VERIFICACAO_NECESSARIA
+    assert _achado(nivel=Nivel.C, abstencao=True).categoria == Categoria.DADOS_INSUFICIENTES
+
+
+def test_categoria_explicita_prevalece_sobre_a_derivada() -> None:
+    achado = _achado(
+        valor_esperado=Decimal("10"),
+        valor_cobrado=Decimal("11"),
+        categoria=Categoria.VERIFICACAO_NECESSARIA,
+    )
+    assert achado.categoria == Categoria.VERIFICACAO_NECESSARIA
+
+
+def test_registro_auditavel_ida_e_volta_e_opcional() -> None:
+    sem_registro = _achado()
+    assert sem_registro.registro is None
+    registro = RegistroAuditavel(
+        regra_aplicada="A2: leituras x consumo",
+        calculo="leitura atual - leitura anterior = 130",
+        data_consulta=date(2026, 11, 27),
+        limitacoes=["não cobre multiplicador"],
+    )
+    achado = _achado(registro=registro)
+    volta = Achado.model_validate_json(achado.model_dump_json())
+    assert volta.registro == registro
+    assert volta.categoria == achado.categoria
+
+
+def test_registro_rejeita_campo_desconhecido() -> None:
+    with pytest.raises(ValidationError):
+        RegistroAuditavel.model_validate({"regra_aplicada": "x", "fonte_extra": "y"})
+
+
+def test_schema_do_achado_continua_fechado() -> None:
+    schema = Achado.model_json_schema()
+    assert schema.get("additionalProperties") is False
+    assert {"categoria", "registro"} <= set(schema["properties"])
