@@ -93,8 +93,8 @@ Limites em produção (padrões; variáveis em `.env.example`):
 | Latência do VLM por foto (GPU de 6 GB) | 3B: p50 14,8 s; 7B: p50 50,8 s. Latência de `/extrair-foto` ponta a ponta: não medida. |
 | Acerto da extração de PDF em faturas reais | **Não medido.** Só sintéticos. |
 | Injeção por texto e PDF (#42, 10 casos) | Taxa 0/10 com o pipeline sem LLM. Pelo intervalo de Wilson de 95%, 0/10 é compatível com taxa de até cerca de 28%. Ver [injecao-por-imagem.md](../seguranca/injecao-por-imagem.md). |
-| Injeção por imagem (#42) | **Não medida.** Não há imagens de ataque; os três casos de imagem são transcrições em `.txt`. |
-| Injeção com VLM ou LLM real | **Não medida.** |
+| Injeção por imagem (#42) | **Medida** com 20 imagens e o VLM `qwen2.5vl:3b`: nenhum texto de ataque chegou à candidata (0 de 20); ASR 0% (IC 95%: 0% a 16%). Ver [injecao-por-imagem.md](../seguranca/injecao-por-imagem.md). |
+| Injeção com LLM real (`qwen2.5:3b`) | **Medida**, com ressalva: o LLM não gerou texto aceito (Analista propôs 0 afirmações); ASR sem eco 0% em 15 textos (IC 95%: 0% a 20%). Não cobre o LLM de produção. |
 
 ## 5. Verificação executada nesta rodada
 
@@ -126,7 +126,7 @@ As 5 falhas da suíte completa, todas fora do escopo desta mudança:
 1. **Confirmar o gate com fotos reais.** A medição sintética já foi feita (Go nos campos-chave). Para
    sair de "em validação", o time precisa medir com as 7 fotos reais, fora do repositório, e escolher
    o modelo padrão (hoje `7b`, provisório; a recomendação técnica é `3b`).
-2. **Imagens de ataque (#42).** Renderizar instruções em imagem e rodar contra o VLM real.
+2. **Injeção (#42).** Medida com imagens e LLM 3B (ver injecao-por-imagem.md). Falta medir com o LLM de produção e com um gerador de texto livre; nenhum texto de ataque chegou à candidata na amostra.
 3. **Decisão de pivot.** Registrar Go, No-Go ou Pivot em `docs/sprints/s5.md` com base na medição.
 4. **Decisões da F1** para a #169: nível "exige revisão", cinco categorias de resultado e registro
    auditável (mudança em `packages/contratos`).
