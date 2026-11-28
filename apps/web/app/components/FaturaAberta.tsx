@@ -6,6 +6,7 @@ import { Faisca, type EstadoFaisca } from "./Faisca";
 import { Botao, SeloNivel } from "./ui";
 import {
   analisarFatura,
+  extrairFoto,
   extrairPdf,
   faturaParaDados,
   formatarData,
@@ -96,6 +97,8 @@ const DADOS_EXEMPLO: DadosConfirmados = {
   leituraAnterior: "14.250",
   leituraAtual: "14.512",
   consumo: "262",
+  bandeira: "",
+  aliquotaIcms: "",
   itens: ITENS_EXEMPLO,
   total: "228,00",
 };
@@ -123,6 +126,16 @@ const CAMPOS: Record<CampoSimples, { rotulo: string; ajuda: string; modo: "text"
       modo: "numeric",
     },
     consumo: { rotulo: "Consumo (kWh)", ajuda: "O consumo total impresso na fatura.", modo: "numeric" },
+    bandeira: {
+      rotulo: "Bandeira tarifária (opcional)",
+      ajuda: "Como aparece na fatura, por exemplo Amarela. Deixe em branco se a fatura não informar.",
+      modo: "text",
+    },
+    aliquotaIcms: {
+      rotulo: "Alíquota de ICMS em % (opcional)",
+      ajuda: "Como impressa na fatura, por exemplo 12,00. Sem ela, a conferência de ICMS não roda.",
+      modo: "decimal",
+    },
     total: {
       rotulo: "Total da fatura (R$)",
       ajuda: "Use vírgula para os centavos, como 228,00.",
@@ -153,6 +166,8 @@ function validar(d: DadosConfirmados): Erros {
   if (!LEITURA.test(d.leituraAtual))
     erros.leituraAtual = "Informe a leitura atual com números, como 14.512.";
   if (!LEITURA.test(d.consumo)) erros.consumo = "Informe o consumo em números, como 262.";
+  if (d.aliquotaIcms.trim() && !DECIMAL.test(d.aliquotaIcms))
+    erros.aliquotaIcms = "Informe a alíquota com vírgula, como 12,00, ou deixe em branco.";
   if (!MOEDA.test(d.total)) erros.total = "Informe o total, como 228,00.";
   if (d.itens.length === 0) erros.itens = "Informe pelo menos um item cobrado.";
   d.itens.forEach((item, i) => {
@@ -563,11 +578,13 @@ function FormularioConfirmacao({
   pergunta,
   aoMudarPergunta,
   aoEnviarPdf,
+  aoEnviarFoto,
   envioPdf,
 }: {
   pergunta: string;
   aoMudarPergunta: (valor: string) => void;
   aoEnviarPdf: (arquivo: File) => void;
+  aoEnviarFoto: (arquivo: File) => void;
   envioPdf: { estado: "ocioso" | "lendo" | "ok" | "erro"; mensagem: string };
   dados: DadosConfirmados;
   online: boolean;
@@ -604,6 +621,12 @@ function FormularioConfirmacao({
           <p className="section-kicker">Antes da conferência</p>
           <h2 id="confirmacao-titulo">Confirme os dados da fatura</h2>
           <p>Nenhuma conta é feita antes da confirmação. Os campos vêm com um exemplo fictício.</p>
+          {dados === DADOS_EXEMPLO && (
+            <p className="field-hint" role="note">
+              <strong>Exemplo fictício.</strong> Substitua pelos dados da sua fatura, ou envie o PDF
+              ou a foto abaixo.
+            </p>
+          )}
           <p className="aviso-conformidade">{AVISO_GERAL}</p>
         </div>
       </div>
@@ -635,6 +658,28 @@ function FormularioConfirmacao({
           </p>
         )}
       </div>
+      <div className="field pdf-upload">
+        <label htmlFor="foto-fatura">Enviar uma foto da fatura (opcional)</label>
+        <input
+          id="foto-fatura"
+          className="input"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          capture="environment"
+          aria-describedby="foto-fatura-ajuda"
+          disabled={envioPdf.estado === "lendo"}
+          onChange={(e) => {
+            const arquivo = e.target.files?.[0];
+            if (arquivo) aoEnviarFoto(arquivo);
+            e.target.value = "";
+          }}
+        />
+        <span className="field-hint" id="foto-fatura-ajuda">
+          JPG, PNG ou WEBP, até 10 MB, com a fatura inteira e legível. A leitura acontece no
+          modelo de visão local da API; os campos aparecem abaixo para você conferir. Fotos HEIC
+          do iPhone não são aceitas.
+        </span>
+      </div>
       <form
         className="confirmation-form"
         noValidate
@@ -643,9 +688,17 @@ function FormularioConfirmacao({
           if (valido && online && !conferindo) aoConfirmar();
         }}
       >
-        {(["distribuidora", "mesReferencia", "leituraAnterior", "leituraAtual", "consumo"] as const).map(
-          campo,
-        )}
+        {(
+          [
+            "distribuidora",
+            "mesReferencia",
+            "leituraAnterior",
+            "leituraAtual",
+            "consumo",
+            "bandeira",
+            "aliquotaIcms",
+          ] as const
+        ).map(campo)}
 
         <fieldset className="items-fieldset">
           <legend>Itens cobrados</legend>
@@ -844,7 +897,7 @@ const FILTROS: { id: Filtro; rotulo: string }[] = [
   { id: "divergencia", rotulo: "Divergência" },
   { id: "sem_conclusao", rotulo: "Sem conclusão" },
   { id: "A", rotulo: "Nível A" },
-  { id: "B", rotulo: "Nível B" },
+  { id: "B", rotulo: "Nível B (não emitido nesta versão)" },
   { id: "C", rotulo: "Nível C" },
 ];
 
@@ -984,6 +1037,24 @@ export default function FaturaAberta() {
       }
     } catch {
       setEnvioPdf({ estado: "erro", mensagem: "Não consegui falar com a API para ler o PDF. Tente de novo." });
+    }
+  }
+
+  async function enviarFoto(arquivo: File) {
+    setEnvioPdf({ estado: "lendo", mensagem: "Lendo a foto…" });
+    try {
+      const r = await extrairFoto(arquivo);
+      if (r.fatura) {
+        alterarDados(() => faturaParaDados(r.fatura!));
+        setEnvioPdf({
+          estado: "ok",
+          mensagem: "Campos lidos da foto. Confira e corrija o que for preciso antes de confirmar.",
+        });
+      } else {
+        setEnvioPdf({ estado: "erro", mensagem: r.erro ?? "Não foi possível ler a foto." });
+      }
+    } catch {
+      setEnvioPdf({ estado: "erro", mensagem: "Não consegui falar com a API para ler a foto. Tente de novo." });
     }
   }
 
@@ -1185,6 +1256,7 @@ export default function FaturaAberta() {
                     alterarDados((atual) => atual);
                   }}
                   aoEnviarPdf={(arquivo) => void enviarPdf(arquivo)}
+                  aoEnviarFoto={(arquivo) => void enviarFoto(arquivo)}
                   envioPdf={envioPdf}
                 />
               </>

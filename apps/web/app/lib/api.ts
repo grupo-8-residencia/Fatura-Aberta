@@ -39,6 +39,9 @@ export type DadosConfirmados = {
   leituraAnterior: string;
   leituraAtual: string;
   consumo: string;
+  /** Opcionais: vazios quando a fatura não informa, e então não entram na conferência. */
+  bandeira: string;
+  aliquotaIcms: string;
   itens: ItemDigitado[];
   total: string;
 };
@@ -114,6 +117,11 @@ export function montarFatura(dados: DadosConfirmados) {
       valor: numeroParaApi(item.valor),
     })),
     total: numeroParaApi(dados.total),
+    ...(dados.bandeira.trim() ? { bandeira: dados.bandeira.trim() } : {}),
+    // A tela mostra a alíquota em porcentagem (12,00); a API recebe a fração (0.12).
+    ...(dados.aliquotaIcms.trim()
+      ? { aliquota_icms: String(Number(numeroParaApi(dados.aliquotaIcms)) / 100) }
+      : {}),
   };
 }
 
@@ -184,6 +192,7 @@ export async function analisarFatura(dados: DadosConfirmados): Promise<RespostaA
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(montarFatura(dados)),
+    signal: AbortSignal.timeout(TEMPO_LIMITE_TEXTO_MS),
   });
   if (!resposta.ok) {
     throw new Error(`A API respondeu ${resposta.status}.`);
@@ -200,10 +209,18 @@ export type FaturaApi = {
   consumo_kwh: string;
   itens: { descricao: string; quantidade?: string | null; tarifa?: string | null; valor: string }[];
   total: string;
+  bandeira?: string | null;
+  aliquota_icms?: string | null;
 };
 
 /** Resposta de `POST /extrair`: campos lidos do PDF para confirmar, ou o motivo claro da falha. */
-export type RespostaExtracao = { fatura?: FaturaApi | null; erro?: string | null; motivo?: string | null };
+export type RespostaExtracao = {
+  fatura?: FaturaApi | null;
+  erro?: string | null;
+  motivo?: string | null;
+  /** Campos obrigatórios que a foto não trouxe (só vem em `POST /extrair-foto`). */
+  pendentes?: string[] | null;
+};
 
 /** Resposta de `POST /perguntar` usada na tela (os demais campos existem e são ignorados aqui). */
 export type RespostaPergunta = {
@@ -257,6 +274,8 @@ export function faturaParaDados(f: FaturaApi): DadosConfirmados {
     leituraAnterior: brInteiro(f.leitura_anterior),
     leituraAtual: brInteiro(f.leitura_atual),
     consumo: brInteiro(f.consumo_kwh),
+    bandeira: f.bandeira ?? "",
+    aliquotaIcms: f.aliquota_icms != null ? brMoeda(String(Number(f.aliquota_icms) * 100)) : "",
     itens: f.itens.map((item, i) => ({
       id: i + 1,
       descricao: item.descricao,
@@ -276,6 +295,13 @@ function paraBase64(bytes: Uint8Array): string {
   return btoa(binario);
 }
 
+/** Prazos do navegador: a leitura de foto roda um modelo local e pode levar minutos. */
+const TEMPO_LIMITE_TEXTO_MS = 60_000;
+const TEMPO_LIMITE_FOTO_MS = 330_000;
+
+export const FORMATOS_FOTO = ["image/jpeg", "image/png", "image/webp"];
+const FOTO_TAMANHO_MAXIMO_BYTES = 10 * 1024 * 1024;
+
 export async function extrairPdf(arquivo: File): Promise<RespostaExtracao> {
   if (arquivo.size > PDF_TAMANHO_MAXIMO_BYTES) {
     return { erro: "O arquivo passa de 5 MB. Envie só as páginas da fatura ou digite os dados.", motivo: "tamanho" };
@@ -285,9 +311,47 @@ export async function extrairPdf(arquivo: File): Promise<RespostaExtracao> {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ pdf_base64 }),
+    signal: AbortSignal.timeout(TEMPO_LIMITE_TEXTO_MS),
   });
   if (resposta.status === 422) {
     return { erro: "O arquivo não parece um PDF válido ou passa do tamanho aceito.", motivo: "arquivo_invalido" };
+  }
+  if (resposta.status === 504) {
+    return { erro: "A leitura do PDF demorou demais. Tente de novo ou digite os dados.", motivo: "tempo_esgotado" };
+  }
+  if (!resposta.ok) throw new Error(`A API respondeu ${resposta.status}.`);
+  return (await resposta.json()) as RespostaExtracao;
+}
+
+/** Foto da fatura: a leitura roda no modelo de visão local da API (nada sai da máquina). */
+export async function extrairFoto(arquivo: File): Promise<RespostaExtracao> {
+  if (!FORMATOS_FOTO.includes(arquivo.type)) {
+    return {
+      erro: "Use uma foto em JPG, PNG ou WEBP. Fotos HEIC do iPhone não são aceitas: troque o formato da câmera para JPEG ou envie o PDF.",
+      motivo: "formato",
+    };
+  }
+  if (arquivo.size > FOTO_TAMANHO_MAXIMO_BYTES) {
+    return { erro: "A foto passa de 10 MB. Tire outra foto ou envie o PDF.", motivo: "tamanho" };
+  }
+  const imagem_base64 = paraBase64(new Uint8Array(await arquivo.arrayBuffer()));
+  const resposta = await fetch(`${API_URL}/extrair-foto`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ imagem_base64 }),
+    signal: AbortSignal.timeout(TEMPO_LIMITE_FOTO_MS),
+  });
+  if (resposta.status === 422) {
+    return { erro: "Não foi possível enviar esta foto. Tente outra ou envie o PDF.", motivo: "arquivo_invalido" };
+  }
+  if (resposta.status === 503) {
+    return {
+      erro: "O leitor de fotos não está disponível agora. Envie o PDF da fatura ou digite os dados.",
+      motivo: "leitor_indisponivel",
+    };
+  }
+  if (resposta.status === 504) {
+    return { erro: "A leitura da foto demorou demais. Tente outra foto ou digite os dados.", motivo: "tempo_esgotado" };
   }
   if (!resposta.ok) throw new Error(`A API respondeu ${resposta.status}.`);
   return (await resposta.json()) as RespostaExtracao;
@@ -298,6 +362,7 @@ export async function perguntar(dados: DadosConfirmados, pergunta: string): Prom
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ pergunta: pergunta.trim(), fatura: montarFatura(dados) }),
+    signal: AbortSignal.timeout(TEMPO_LIMITE_TEXTO_MS),
   });
   if (!resposta.ok) throw new Error(`A API respondeu ${resposta.status}.`);
   return (await resposta.json()) as RespostaPergunta;
