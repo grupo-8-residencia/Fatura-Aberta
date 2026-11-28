@@ -9,7 +9,6 @@ em termos simples e acessíveis, com exemplos práticos de uso.
 
 from __future__ import annotations
 
-import shutil
 from pathlib import Path
 from typing import Any
 
@@ -31,8 +30,6 @@ from reportlab.platypus import (
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_ASSETS = ROOT / "docs" / "assets" / "manual_f2_rag_luizoryone.pdf"
-BRAIN_DIR = Path("/Users/aluno1/.gemini/antigravity/brain/1fe1216a-2202-4c22-aa6e-ed50d5fdca34")
-OUT_BRAIN = BRAIN_DIR / "manual_f2_rag_luizoryone.pdf"
 
 
 class NumberedCanvas(canvas.Canvas):
@@ -345,11 +342,9 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
     )
 
     caixa_missao = (
-        "<b>Em Termos Simples:</b> O Fatura Aberta atua como um 'perito digital independente'. Ele lê os dados da conta "
-        "de energia, confere a matemática e consulta a legislação vigente da <b>ANEEL (Agência Nacional de Energia Elétrica)</b> "
-        "para dizer exatamente se a cobrança está correta ou se o consumidor tem direito a ressarcimento com "
-        "<b>devolução em dobro</b> conforme o artigo 323 da <b>REN (Resolução Normativa) ANEEL nº 1.000/2021</b> e o "
-        "<b>CDC (Código de Defesa do Consumidor)</b>."
+        "<b>Em Termos Simples:</b> O Fatura Aberta atua como um verificador aberto e auditável. Ele lê os dados da conta "
+        "de energia, confere a aritmética (Nível A), compara com tabelas oficiais versionadas da <b>ANEEL (Agência Nacional de Energia Elétrica)</b> "
+        "(Nível B) e cita o texto vigente da norma (Nível C), para que o consumidor possa pedir esclarecimentos ou buscar o Procon-DF/Defensoria."
     )
     story.append(criar_caixa_destaque(caixa_missao, estilos["Callout"], "#1E3A8A", "#EFF6FF"))
     story.append(Spacer(1, 6))
@@ -401,7 +396,8 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
                 estilos["TableCell"],
             ),
             Paragraph(
-                "Primeiro motor de busca jurídica funcional sem alucinações.", estilos["TableCell"]
+                "Recuperação determinística restrita a trechos literais vigentes; 30/30 de recall@5 na amostra estratificada do gate S2 (docs/avaliacao/resultados.md).",
+                estilos["TableCell"],
             ),
         ],
         [
@@ -426,12 +422,12 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
             Paragraph("Issue #38<br/>Issue #114", estilos["TableCell"]),
             Paragraph(
                 "• Criou a ferramenta de busca com citação formal para agentes de IA (<b>buscar_norma_com_citacao</b>).<br/>"
-                "• Conduziu avaliação controlada pareada de embedders (<b>EmbedderHash</b> vs <b>bge-m3</b> via Ollama vs <b>EmbedderSemanticoPtBr</b>).<br/>"
-                "• Realizou testes pareados (bootstrap $B=10.000$ e McNemar) e medição de RAM, emitindo o <b>Parecer Técnico-Estatístico nº 01/2026</b>.",
+                "• Conduziu avaliação controlada pareada de embedders nas 51 perguntas com norma do split de teste (<b>EmbedderHash</b> vs <b>bge-m3</b> e <b>qwen3-embedding:0.6b</b> via Ollama, além de <b>EmbedderSemanticoPtBr</b>).<br/>"
+                "• Realizou testes pareados (bootstrap B=10.000, semente 42, e McNemar) e medição de RAM (docs/avaliacao/resultados.md).",
                 estilos["TableCell"],
             ),
             Paragraph(
-                "Provou que o hashing é estatisticamente equivalente, 140x mais rápido e consome só 2,67 MB de RAM.",
+                "Diferenças numéricas pequenas sem ganho estatisticamente significativo dos alternativos a 5% no conjunto avaliado; hashing 29x a 42x mais rápido e com 2,55 MB no processo.",
                 estilos["TableCell"],
             ),
         ],
@@ -452,13 +448,13 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
             Paragraph("<b>S6 (Sprint 6)</b><br/>Aplicação Funcional", estilos["TableCellBold"]),
             Paragraph("Issue #186<br/>Issue #178<br/>Issue #193", estilos["TableCell"]),
             Paragraph(
-                "• Fixou a política de fim de linha em <b>LF (Alimentação de Linha / Line Feed)</b> no .gitattributes, garantindo checksum idêntico no Windows (CRLF) e Linux/Mac.<br/>"
-                "• Integrou as checagens do Nível B ao endpoint `/analisar`.<br/>"
-                "• Acompanhou e revisou a governança do contrato Achado v1.1.0.",
+                "• Fixou a política de fim de linha em <b>LF (Alimentação de Linha / Line Feed)</b> no .gitattributes, garantindo checksum idêntico no Windows (CRLF) e Linux/Mac (#186, PR #192).<br/>"
+                "• Validou a inclusão do corpus normativo e da tabela tarifária no contêiner da API (PR #183), apoiando a integração do Nível B no endpoint /analisar (trabalho em andamento na issue #178, aberta).<br/>"
+                "• Acompanhou a governança para evolução futura do contrato Achado v1.1 (trabalho em andamento na issue #193, aberta).",
                 estilos["TableCell"],
             ),
             Paragraph(
-                "Robustez de nível de produção e auditoria contínua e reprodutível no CI.",
+                "Reprodutibilidade multiplataforma no CI e base tarifária pronta no contêiner para a S6.",
                 estilos["TableCell"],
             ),
         ],
@@ -652,17 +648,17 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
         Paragraph(
             "<b>O que faz em termos simples:</b> Os computadores não comparam frases lendo como seres humanos; eles transformam "
             "textos em coordenadas matemáticas (vetores de 384 dimensões). O `EmbedderHash` faz isso usando funções de espalhamento matemático "
-            "(hashing) sem depender de rede, sem baixar modelos de 1,2 GB e consumindo apenas 2,67 MB de memória.",
+            "(hashing) sem depender de rede, sem baixar modelos de 1,2 GB e consumindo apenas 2,55 MB no processo (docs/avaliacao/resultados.md).",
             estilos["Body"],
         )
     )
     caixa_embedder = (
-        "<b>Por que o Hashing Venceu o Modelo Neural? (Parecer Técnico-Estatístico nº 01/2026):</b><br/>"
-        "Na Sprint S4, Luiz Oryone conduziu um experimento estatístico pareado (bootstrap $B=10.000$ e teste de McNemar) "
-        "comparando o extrator matemático leve (`EmbedderHash`) com um modelo neural pesado (`bge-m3` via Ollama local). "
-        "<b>Resultado:</b> Não houve diferença estatisticamente significativa no ranking de busca a 5% ($p = 1,000$), mas o modelo neural "
-        "era cerca de 140 vezes mais lento (143 ms contra 1 ms) e consumia ~1.380 MB de memória RAM no servidor Ollama. "
-        "A decisão de engenharia foi categórica: manter o `EmbedderHash` como padrão absoluto de produção e do CI."
+        "<b>Por que o Hashing Seguiu como Padrão? (docs/avaliacao/resultados.md):</b><br/>"
+        "Na comparação pareada de embedders sobre as 51 perguntas com norma do split de teste (bootstrap B=10.000, semente 42, e teste de McNemar), "
+        "o `EmbedderHash` obteve recall@5 = 0,990 (MRR = 0,902), contra 1,000 (MRR = 0,925) do `bge-m3` e 0,990 (MRR = 0,915) do `qwen3-embedding:0.6b` via Ollama local. "
+        "<b>Resultado:</b> Há pequenas diferenças numéricas nas métricas, mas sem ganho estatisticamente significativo dos alternativos a 5% (McNemar p = 1,000 / p = 0,480); "
+        "já a latência p50 dos modelos neurais foi 29x a 42x maior (113,6 ms e 166,9 ms contra 3,9 ms) com ~762 MB a ~1.380 MB de RAM no servidor. "
+        "Decisão registrada em docs/avaliacao/resultados.md: manter o `EmbedderHash` como padrão offline de produção e CI."
     )
     story.append(criar_caixa_destaque(caixa_embedder, estilos["Callout"], "#D97706", "#FFFBEB"))
     story.append(Spacer(1, 6))
@@ -706,16 +702,13 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
     )
     story.append(
         Paragraph(
-            "• <b>Nível A (Auditoria Aritmética Imediata):</b> Confere a soma das parcelas da conta, checa se a alíquota do ICMS aplicada "
-            "bate com o percentual legal do Distrito Federal e verifica se o adicional de bandeira tarifária cobrado corresponde aos dias de vigência.",
+            "• <b>Nível A (Auditoria Aritmética Imediata):</b> Confere a diferença entre leituras e consumo, a soma das linhas com o total, o produto quantidade × tarifa, a alíquota de ICMS impressa e a parcela até 80 kWh.",
             estilos["Bullet"],
         )
     )
     story.append(
         Paragraph(
-            "• <b>Nível B (Auditoria Regulatória Aprofundada):</b> Cruza as tarifas cobradas contra a tabela oficial da <b>REH (Resolução Homologatória) "
-            "ANEEL nº 3.614/2026</b>, verifica os limites de interrupção de fornecimento de energia (<b>DIC</b>, <b>FIC</b>, <b>DMIC</b>) e "
-            "calcula a compensação de crédito automática ou a repetição do indébito (devolução em dobro).",
+            "• <b>Nível B (Comparação Tarifária com a Tabela ANEEL Versionada):</b> Implementado em `packages/motor/src/fa_motor/nivel_b.py`, cruza TUSD, TE e bandeira contra a planilha oficial versionada em `dados/tarifas/`, emitindo achados descritivos com fonte, ato e data de obtenção (sem estimar restituição). A conexão ao endpoint `/analisar` está em andamento na issue #178.",
             estilos["Bullet"],
         )
     )
@@ -790,7 +783,7 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
                 estilos["TableCellBold"],
             ),
             Paragraph(
-                "Se a distribuidora cobrou um valor a mais por erro de leitura, faturamento incorreto ou cobrança indevida, ela deve devolver o dobro do que cobrou a mais, corrigido pela inflação (IPCA).",
+                "Previsão do art. 323 da REN ANEEL nº 1.000/2021 para devolução em dobro de valores cobrados a maior por erro atribuível à distribuidora; o Fatura Aberta apenas aponta a diferença e cita a norma, sem afirmar ilegalidade nem estimar restituição.",
                 estilos["TableCell"],
             ),
         ],
@@ -840,9 +833,7 @@ def construir_story(estilos: dict[str, ParagraphStyle]) -> list[Flowable]:
     )
     story.append(
         Paragraph(
-            "1. <b>Zero Dependências Pesadas e CI 100% Offline:</b> A comprovação empírica de que o `EmbedderHash` atinge "
-            "performance idêntica à de modelos neurais permitiu que toda a suíte de 432 testes rode em menos de 1 minuto em qualquer computador, "
-            "sem custos com servidores na nuvem ou GPUs caras.",
+            "1. <b>Zero Dependências Pesadas e CI 100% Offline:</b> Na avaliação sobre as 51 perguntas com norma do split de teste (docs/avaliacao/resultados.md), os extratores alternativos apresentaram pequenas diferenças numéricas sem ganho estatisticamente significativo sobre o `EmbedderHash` a 5%, sendo 29x a 42x mais lentos e exigindo até ~1.380 MB de RAM no servidor. Manter o `EmbedderHash` como padrão viabilizou rodar a suíte automatizada de testes (mais de 400 testes no repositório, no ambiente local e no CI `ubuntu-latest`) 100% offline, sem servidor de GPU nem custos de nuvem.",
             estilos["Bullet"],
         )
     )
@@ -879,7 +870,6 @@ def main() -> None:
     story = construir_story(estilos)
 
     OUT_ASSETS.parent.mkdir(parents=True, exist_ok=True)
-    BRAIN_DIR.mkdir(parents=True, exist_ok=True)
 
     doc = SimpleDocTemplate(
         str(OUT_ASSETS),
@@ -894,12 +884,6 @@ def main() -> None:
     doc.build(story, canvasmaker=NumberedCanvas)
     tamanho = OUT_ASSETS.stat().st_size
     print(f"Documento PDF gerado com sucesso! Tamanho: {tamanho} bytes")
-
-    # Copiar para o diretório de artefatos da conversa
-    shutil.copy2(OUT_ASSETS, OUT_BRAIN)
-    print(
-        f"Cópia sincronizada no diretório de artefatos: {OUT_BRAIN} ({OUT_BRAIN.stat().st_size} bytes)"
-    )
 
 
 if __name__ == "__main__":
