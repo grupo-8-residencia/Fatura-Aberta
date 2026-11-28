@@ -1,11 +1,20 @@
 """Confere os agentes e o corpus normativo na API em execução no contêiner."""
 
+import base64
 import json
 import os
+from pathlib import Path
 from typing import Any, cast
 from urllib.request import Request, urlopen
 
 BASE = os.getenv("FA_API_BASE_URL", "http://127.0.0.1:8000")
+PDF_DEMO = (
+    Path(__file__).resolve().parents[1]
+    / "docs"
+    / "assets"
+    / "demo-s5"
+    / "fatura-sintetica-demo.pdf"
+)
 
 
 def enviar(caminho: str, dados: dict[str, Any]) -> dict[str, Any]:
@@ -63,4 +72,9 @@ combinada = enviar(
     },
 )
 assert combinada["modo"] == "fatura" and combinada["achados_motor"], "Pergunta combinada falhou"
+extraido = enviar("/extrair", {"pdf_base64": base64.b64encode(PDF_DEMO.read_bytes()).decode()})
+assert extraido["fatura"] is not None and extraido["motivo"] is None, (
+    f"Extração do PDF falhou: {extraido['motivo']}"
+)
+print("Smoke da API: PDF extraído para confirmação.")
 print("Smoke da API: análise de nível C e pergunta com citações aprovadas.")

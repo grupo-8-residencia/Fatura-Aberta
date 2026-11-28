@@ -57,7 +57,7 @@ _DIZ_QUE_CONFERE = re.compile(
     r"(?<!não )\b(confere|est[aá] corret[ao]|n[aã]o h[aá] (diverg[eê]ncia|erro))", re.I
 )
 _DIZ_QUE_DIVERGE = re.compile(
-    r"\b(n[aã]o confere|diverg[eêi]\w*|cobran[cç]a indevida|erros?)\b", re.I
+    r"\b(n[aã]o confere|diverg[eêi]\w*|difere|cobran[cç]a indevida|erros?)\b", re.I
 )
 
 

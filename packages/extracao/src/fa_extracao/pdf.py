@@ -19,5 +19,14 @@ def extrair_texto(origem: Path | bytes) -> str:
     try:
         leitor = PdfReader(BytesIO(dados))
         return "\n".join(pagina.extract_text() for pagina in leitor.pages)
-    except (PyPdfError, ValueError) as erro:
+    except (
+        PyPdfError,
+        ValueError,
+        KeyError,
+        TypeError,
+        IndexError,
+        OSError,
+        NotImplementedError,
+    ) as erro:
+        # NotImplementedError: o pypdf não implementa alguns filtros (ex.: ASCII85 corrompido).
         raise ErroExtracao("PDF ilegível ou corrompido.") from erro

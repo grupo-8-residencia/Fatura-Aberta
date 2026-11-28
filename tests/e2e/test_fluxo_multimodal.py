@@ -81,8 +81,6 @@ FATURA_OK: dict[str, Any] = {
     "total": "40",
 }
 
-VISTOS: list[dict[str, Any]] = []
-
 
 @pytest.fixture
 def cliente() -> Iterator[TestClient]:
@@ -100,7 +98,6 @@ def _post(cliente: TestClient, corpo: dict[str, Any]) -> dict[str, Any]:
     r = cliente.post("/perguntar", json=corpo)
     assert r.status_code == 200, r.text
     dados: dict[str, Any] = r.json()
-    VISTOS.append(dados)
     return dados
 
 
@@ -290,8 +287,19 @@ def test_10_rf15_e_ausencia_de_pii_em_todas_as_saidas(
     assert "FULANA" not in json.dumps(extraido, ensure_ascii=False)
     assert "FULANA" not in caplog.text and "123.456.789-00" not in caplog.text
 
-    assert len(VISTOS) >= 8
-    for d in VISTOS:
+    # Respostas geradas aqui mesmo: o teste não depende de outros testes terem rodado antes.
+    respostas = [
+        _post(cliente, {"pergunta": PERGUNTA, "fatura": extraido["fatura"]}),
+        _post(
+            cliente,
+            {
+                "pergunta": "Essa cobrança é ilegal? Tenho direito a restituição?",
+                "fatura": extraido["fatura"],
+            },
+        ),
+        _post(cliente, {"pergunta": PERGUNTA}),
+    ]
+    for d in respostas:
         literal = bool(d["citacoes"])
         for texto in _textos(d):
             assert not verificar_linguagem(texto, permitir_citacao_literal=literal), texto

@@ -59,7 +59,7 @@ def test_indica_divergencias_de_consumo_e_total() -> None:
         (Decimal("10"), Decimal("11")),
         (Decimal("8"), Decimal("9")),
     ]
-    assert all("não confere" in achado.descricao for achado in achados)
+    assert all("difere" in achado.descricao for achado in achados)
 
 
 def test_se_abstem_quando_as_leituras_estao_em_ordem_decrescente() -> None:

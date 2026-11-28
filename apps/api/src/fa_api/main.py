@@ -3,6 +3,7 @@
 import asyncio
 import base64
 import binascii
+import functools
 import logging
 import os
 from collections.abc import Awaitable, Callable
@@ -12,8 +13,10 @@ from time import perf_counter
 from typing import Any, Literal
 from urllib.parse import urlsplit
 
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from fa_agentes import (
@@ -36,19 +39,29 @@ TEMPO_MAXIMO_AGENTES_SEGUNDOS = float(os.getenv("FA_AGENTES_TIMEOUT_S", "15"))
 _VAGAS_AGENTES = asyncio.Semaphore(int(os.getenv("FA_AGENTES_CONCORRENCIA", "2")))
 
 
-def _devolver_vaga(tarefa: "asyncio.Future[Any]") -> None:
-    _VAGAS_AGENTES.release()
+def _devolver_vaga(vagas: asyncio.Semaphore, tarefa: "asyncio.Future[Any]") -> None:
+    vagas.release()
     if not tarefa.cancelled():
         tarefa.exception()  # já tratada por quem esperou; evita o aviso de exceção não lida
 
 
-async def _com_vaga[T](trabalho: Callable[[], Awaitable[T]], timeout: float) -> T:
+# Leitura de foto usa um semáforo próprio: um modelo de visão local ocupa a GPU por minutos e não
+# pode tomar as vagas dos agentes.
+_VAGAS_FOTO = asyncio.Semaphore(int(os.getenv("FA_FOTO_CONCORRENCIA", "1")))
+
+
+async def _com_vaga[T](
+    trabalho: Callable[[], Awaitable[T]],
+    timeout: float,
+    vagas: asyncio.Semaphore | None = None,
+) -> T:
     """Roda ``trabalho`` numa vaga até ele terminar; quem chama espera no máximo ``timeout``."""
+    semaforo = _VAGAS_AGENTES if vagas is None else vagas
     loop = asyncio.get_running_loop()
     prazo = loop.time() + timeout
-    await asyncio.wait_for(_VAGAS_AGENTES.acquire(), timeout=timeout)
+    await asyncio.wait_for(semaforo.acquire(), timeout=timeout)
     tarefa = asyncio.ensure_future(trabalho())
-    tarefa.add_done_callback(_devolver_vaga)
+    tarefa.add_done_callback(functools.partial(_devolver_vaga, semaforo))
     # shield: o timeout encerra a espera de quem chamou, mas não cancela o trabalho nem a vaga.
     return await asyncio.wait_for(asyncio.shield(tarefa), timeout=max(prazo - loop.time(), 0))
 
@@ -112,6 +125,19 @@ MSG_AGENTES_INDISPONIVEIS = (
     "A análise com os agentes está indisponível no momento; "
     "os achados determinísticos do motor foram preservados e nenhuma conclusão foi inferida."
 )
+TAMANHO_MAXIMO_FOTO_BYTES = 10 * 1024 * 1024  # mesmo limite do extrator de foto (vlm.py)
+TAMANHO_MAXIMO_FOTO_BASE64 = 4 * ((TAMANHO_MAXIMO_FOTO_BYTES + 2) // 3)
+TEMPO_MAXIMO_FOTO_SEGUNDOS = float(os.getenv("FA_FOTO_TIMEOUT_S", "300"))
+MSG_FOTO_NAO_LIDA = (
+    "Não foi possível ler a foto. Envie outra foto (JPEG, PNG ou WEBP, até 10 MB), "
+    "envie o PDF da fatura ou digite os dados."
+)
+MSG_CAMPOS_PENDENTES = (
+    "A foto não trouxe todos os campos obrigatórios. Digite os campos indicados para continuar."
+)
+MSG_LEITOR_INDISPONIVEL = (
+    "O leitor de fotos não está disponível agora. Envie o PDF da fatura ou digite os dados."
+)
 MSG_SAIDA_BLOQUEADA = "Texto omitido por não atender à política de linguagem do produto."
 MSG_ENTRADA_BLOQUEADA = (
     "A entrada contém instruções incompatíveis com a análise da fatura. "
@@ -132,12 +158,16 @@ def _validar_pdf_base64(texto: str) -> bytes:
     return dados
 
 
+TAMANHO_MAXIMO_BASE64 = 4 * ((PDF_TAMANHO_MAXIMO_BYTES + 2) // 3)
+TEMPO_MAXIMO_EXTRACAO_SEGUNDOS = float(os.getenv("FA_EXTRACAO_TIMEOUT_S", "30"))
+
+
 class PedidoExtracao(BaseModel):
     """PDF em base64 para extração dos campos; a análise só roda depois da confirmação."""
 
     model_config = ConfigDict(extra="forbid")
 
-    pdf_base64: str = Field(min_length=1)
+    pdf_base64: str = Field(min_length=1, max_length=TAMANHO_MAXIMO_BASE64)
 
     @model_validator(mode="after")
     def _pdf_valido(self) -> "PedidoExtracao":
@@ -146,11 +176,15 @@ class PedidoExtracao(BaseModel):
 
 
 class RespostaExtracao(BaseModel):
-    """Campos lidos do PDF para o usuário confirmar, ou o motivo claro da falha."""
+    """Campos lidos do PDF ou da foto para o usuário confirmar, ou o motivo claro da falha.
+
+    ``pendentes`` lista os campos obrigatórios que a leitura não trouxe (só vem na foto).
+    """
 
     fatura: Fatura | None = None
     erro: str | None = None
     motivo: str | None = None
+    pendentes: list[str] = Field(default_factory=list)
 
 
 class PedidoPergunta(BaseModel):
@@ -230,6 +264,15 @@ app.add_middleware(
 metricas = MetricasAnalise()
 
 
+@app.exception_handler(RequestValidationError)
+async def _erro_de_validacao(_: Request, erro: RequestValidationError) -> JSONResponse:
+    """422 sem o valor recebido: o padrão do FastAPI ecoa o corpo (inclui o PDF em base64)."""
+    detalhes = [
+        {"loc": item["loc"], "msg": item["msg"], "type": item["type"]} for item in erro.errors()
+    ]
+    return JSONResponse(status_code=422, content={"detail": detalhes})
+
+
 @app.get("/saude")
 def saude() -> dict[str, str]:
     return {"status": "ok", "versao": __version__}
@@ -260,6 +303,11 @@ async def analisar(fatura: Fatura, response: Response) -> RespostaAnalise:
     inicio = perf_counter()
     response.headers["Cache-Control"] = "no-store"
     achados = analisar_nivel_a(fatura)
+    if _fatura_hostil(fatura):
+        # Campo textual com instrução de controle (vindo de PDF, foto ou digitação): os agentes
+        # não rodam, e o nível A segue disponível.
+        metricas.registrar(perf_counter() - inicio)
+        return RespostaAnalise(achados=achados, aviso=MSG_ENTRADA_BLOQUEADA)
     adicionais, aviso = await _executar_agentes(fatura, lambda f: analisar_com_agentes(f, achados))
     metricas.registrar(perf_counter() - inicio)
     return RespostaAnalise(achados=[*achados, *adicionais], aviso=aviso)
@@ -344,7 +392,15 @@ def _extrair_fatura(dados: bytes) -> Fatura:
             raise _FalhaExtracao(
                 MSG_PDF_MUITAS_PAGINAS.format(limite=PDF_PAGINAS_MAXIMAS), "pdf_muitas_paginas"
             )
-    except (PyPdfError, ValueError, KeyError, TypeError, IndexError, OSError) as erro:
+    except (
+        PyPdfError,
+        ValueError,
+        KeyError,
+        TypeError,
+        IndexError,
+        OSError,
+        NotImplementedError,
+    ) as erro:
         raise _FalhaExtracao(MSG_PDF_INVALIDO, "pdf_invalido") from erro
     try:
         texto = extrair_texto(dados)
@@ -386,14 +442,98 @@ def _resposta_da_fatura(
 
 @app.post("/extrair", response_model=RespostaExtracao)
 async def extrair(pedido: PedidoExtracao, response: Response) -> RespostaExtracao:
-    """Lê o PDF e devolve os campos para confirmação; não roda motor nem agentes."""
+    """Lê o PDF e devolve os campos para confirmação; não roda motor nem agentes.
+
+    O base64 já foi validado em ``PedidoExtracao``, então a decodificação aqui não falha.
+    """
     response.headers["Cache-Control"] = "no-store"
+    dados = base64.b64decode(pedido.pdf_base64, validate=True)
     try:
-        dados = base64.b64decode(pedido.pdf_base64, validate=True)
-        fatura = await asyncio.to_thread(_extrair_fatura, dados)
+        fatura = await _com_vaga(
+            lambda: asyncio.to_thread(_extrair_fatura, dados),
+            TEMPO_MAXIMO_EXTRACAO_SEGUNDOS,
+        )
     except _FalhaExtracao as erro:
         return RespostaExtracao(erro=erro.mensagem, motivo=erro.motivo)
+    except TimeoutError as erro:
+        logger.warning("leitura do PDF excedeu o tempo limite")
+        raise HTTPException(504, "A leitura do PDF não respondeu a tempo.") from erro
     return RespostaExtracao(fatura=fatura)
+
+
+class PedidoFoto(BaseModel):
+    """Foto da fatura em base64; a leitura devolve campos para confirmação, sem rodar a análise."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    imagem_base64: str = Field(min_length=1, max_length=TAMANHO_MAXIMO_FOTO_BASE64)
+
+    @model_validator(mode="after")
+    def _base64_valido(self) -> "PedidoFoto":
+        try:
+            base64.b64decode(self.imagem_base64, validate=True)
+        except (binascii.Error, ValueError) as erro:
+            raise ValueError("imagem_base64 não é base64 válido.") from erro
+        return self
+
+
+def _resposta_da_foto(dados: bytes) -> RespostaExtracao:
+    """Foto -> candidata -> `Fatura` para o usuário conferir na tela. Não roda motor nem agentes."""
+    from fa_extracao import (
+        Confirmacao,
+        ErroExtracao,
+        campos_pendentes,
+        confirmar,
+        criar_extrator,
+        extrair_candidata,
+    )
+
+    candidata = extrair_candidata(dados, criar_extrator())
+    pendentes = campos_pendentes(candidata)
+    if pendentes:
+        return RespostaExtracao(
+            erro=MSG_CAMPOS_PENDENTES, motivo="campos_pendentes", pendentes=pendentes
+        )
+    try:
+        # Só monta o contrato `Fatura`. Quem confirma é o usuário, na tela, antes de /analisar.
+        fatura = confirmar(candidata, Confirmacao(confirmado=True))
+    except ErroExtracao as erro:
+        return RespostaExtracao(erro=str(erro), motivo="fora_do_contrato")
+    return RespostaExtracao(fatura=fatura)
+
+
+@app.post("/extrair-foto", response_model=RespostaExtracao)
+async def extrair_foto(pedido: PedidoFoto, response: Response) -> RespostaExtracao:
+    """Lê a foto com o modelo de visão local e devolve os campos para confirmação.
+
+    Erros de formato e de leitura voltam com ``motivo``. Leitor indisponível vira 503 e tempo
+    esgotado vira 504; em nenhum caso a resposta traz a imagem, o texto lido ou um traceback.
+    """
+    from fa_extracao import ErroExtracao, VlmIndisponivel, formato_da_imagem
+
+    response.headers["Cache-Control"] = "no-store"
+    dados = base64.b64decode(pedido.imagem_base64, validate=True)
+    try:
+        formato_da_imagem(dados)
+    except ErroExtracao as erro:
+        return RespostaExtracao(erro=str(erro), motivo="imagem_invalida")
+    try:
+        return await _com_vaga(
+            lambda: asyncio.to_thread(_resposta_da_foto, dados),
+            TEMPO_MAXIMO_FOTO_SEGUNDOS,
+            _VAGAS_FOTO,
+        )
+    except VlmIndisponivel as erro:
+        logger.warning("leitor de fotos indisponível: %s", type(erro).__name__)
+        raise HTTPException(503, MSG_LEITOR_INDISPONIVEL) from erro
+    except ErroExtracao as erro:
+        logger.warning("foto não lida: %s", type(erro).__name__)
+        return RespostaExtracao(erro=MSG_FOTO_NAO_LIDA, motivo="foto_nao_lida")
+    except TimeoutError as erro:
+        logger.warning("leitura da foto excedeu o tempo limite")
+        raise HTTPException(
+            504, "A leitura da foto não respondeu a tempo. Envie o PDF ou digite os dados."
+        ) from erro
 
 
 def _fatura_hostil(fatura: Fatura) -> bool:
