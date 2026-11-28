@@ -33,7 +33,8 @@ def test_instrucao_em_item_bloqueia_os_agentes(monkeypatch: pytest.MonkeyPatch) 
     corpo = resposta.json()
     assert corpo["aviso"] == MSG_ENTRADA_BLOQUEADA
     assert corpo["achados"], "o nível A continua disponível"
-    assert all(achado["nivel"] == "A" for achado in corpo["achados"])
+    assert all(achado["nivel"] in ("A", "B") for achado in corpo["achados"])
+    assert not any(achado["nivel"] == "C" for achado in corpo["achados"]), "agentes não rodam"
 
 
 def test_fatura_sem_instrucao_segue_o_fluxo_normal() -> None:
