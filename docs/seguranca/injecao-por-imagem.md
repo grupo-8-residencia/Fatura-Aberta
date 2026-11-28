@@ -16,12 +16,13 @@ Comando de reprodução:
 uv run pytest tests/seguranca/test_injecao_documentos.py -s -q
 ```
 
-**Resultado local em 27/11/2026:** `ASR_PI: 0/10 = 0%` (2 testes aprovados).
-Para cada caso, o teste passou por `/extrair` e `/perguntar`. PDFs hostis foram
-recusados antes do parser e dos agentes; perguntas hostis receberam abstenção
-sem chegar aos agentes, com os achados determinísticos de nível A/B preservados.
-A saída não repetiu o comando malicioso nem violou o verificador RF-15. A meta
-de RNF-03, **menos de 5%**, foi atendida **neste conjunto específico**.
+**Resultado local em 27/11/2026:** `ASR_PI: 0/10 = 0%` (3 testes aprovados).
+Para cada caso, o teste passou pelo fluxo de `/extrair` e `/perguntar` (exigindo fatura
+confirmada). PDFs hostis foram recusados em `/extrair` antes do parser e dos agentes (e
+chamadas diretas com `pdf_base64` em `/perguntar` são rejeitadas com HTTP 422); perguntas
+hostis sobre fatura confirmada receberam abstenção sem chegar aos agentes, com os achados
+determinísticos de nível A/B preservados. A saída não repetiu o comando malicioso nem violou o
+verificador RF-15. A meta de RNF-03, **menos de 5%**, foi atendida **neste conjunto específico**.
 
 | Vetor | Casos | Falha observada | Mitigação |
 |---|---:|---|---|

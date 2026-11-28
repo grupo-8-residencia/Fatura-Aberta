@@ -9,7 +9,7 @@ Este documento descreve **o que o produto aceita hoje**, com os limites lidos do
 | Modalidade | Como entra | Onde está o código |
 |---|---|---|
 | **Texto** | Campo "Sua pergunta" na tela (ou `pergunta` no JSON) | `apps/api/src/fa_api/main.py` (`PedidoPergunta`) |
-| **PDF digital** (com texto selecionável) | Botão "Enviar o PDF da fatura" (ou `pdf_base64` no JSON) | `main.py` (`/extrair`, `_extrair_fatura`), `packages/extracao/src/fa_extracao/` |
+| **PDF digital** (com texto selecionável) | Botão "Enviar o PDF da fatura" (envia `pdf_base64` para `POST /extrair`) | `main.py` (`/extrair`, `_extrair_fatura`), `packages/extracao/src/fa_extracao/` |
 | **Dados digitados** | Formulário de confirmação | `apps/web/app/components/FaturaAberta.tsx` |
 
 Texto e PDF alimentam a **mesma análise**: a pergunta é respondida sobre os campos confirmados da
@@ -77,9 +77,9 @@ flowchart LR
 | PDF protegido por senha | `motivo: pdf_protegido` | Mensagem clara | Enviar cópia sem proteção |
 | Mais de 5 páginas | `motivo: pdf_muitas_paginas` | Mensagem clara | Enviar só as páginas da fatura |
 | PDF escaneado, sem texto | `motivo: pdf_sem_texto` | Orienta a entrada manual | Digitar os dados (não há OCR) |
-| Layout não reconhecido / campo obrigatório ausente | `motivo: extracao_falhou` | Mensagem clara | Digitar os dados |
-| Campo lido errado | – | Usuário corrige na confirmação (ou `correcoes` na API) | Conferir o formulário antes de confirmar |
-| Correção inválida (`correcoes`) | `motivo_abstencao: correcao_invalida`, só os nomes dos campos | Abstenção; valor digitado não é repetido | Corrigir o formato |
+| Layout não reconhecido / campo obrigatório ausente | `motivo: extracao_falhou` em `/extrair` | Mensagem clara | Digitar os dados |
+| Campo lido errado | – | Usuário corrige no formulário de confirmação antes de enviar a `fatura` | Conferir o formulário antes de confirmar |
+| PDF ou campo extra não confirmado em `/perguntar` | HTTP 422 (`extra="forbid"`) | Análise bloqueada antes da confirmação | Extrair em `/extrair`, confirmar os campos e enviar `fatura` |
 | Pergunta fora do alcance dos dados (ex.: sem leituras) | `motivo_abstencao: dados_insuficientes` | Abstenção explicando o que falta | Completar os campos e perguntar de novo |
 | Sem norma vigente para o ponto | `abstencao` com a conferência do motor | Não inventa fundamento | Pedir esclarecimento à distribuidora |
 | Agentes lentos ou fora do ar | `origem: agentes_indisponiveis`, `aviso`, `abstencao: true` | `achados_motor` preservados; `/analisar` devolve o nível A com `aviso` | Tentar de novo; o nível A segue válido |

@@ -1,6 +1,6 @@
 {
     "fatura": {
-        "distribuidora": "Neoenergia Bras\u00edlia",
+        "distribuidora": "Neoenergia Brasília",
         "grupo_tarifario": "B1",
         "mes_referencia": "2026-06-01",
         "leitura_anterior": "1000.00",
@@ -24,14 +24,14 @@
                 "valor": "56.40"
             },
             {
-                "descricao": "Acr\u00e9s. Band. AMARELA",
+                "descricao": "Acrés. Band. AMARELA",
                 "quantidade": null,
                 "unidade": null,
                 "tarifa": null,
                 "valor": "3.00"
             },
             {
-                "descricao": "Ilum. P\u00fab. Distrital",
+                "descricao": "Ilum. Púb. Distrital",
                 "quantidade": null,
                 "unidade": null,
                 "tarifa": null,

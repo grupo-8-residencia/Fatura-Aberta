@@ -1,24 +1,24 @@
 {
-    "resposta": "Pergunta recebida: \u201cO consumo informado confere com as leituras do medidor?\u201d\nDados da fatura confirmada: m\u00eas 06/2026, consumo 120.00 kWh, total R$ 130,40.\nConfer\u00eancia do motor determin\u00edstico:\n- Consumo medido: A diferen\u00e7a entre as leituras confere com o consumo informado. (calculado: 120.00; informado: 120.00)\nFundamenta\u00e7\u00e3o normativa:\nDispositivos vigentes recuperados (trechos literais, sem interpreta\u00e7\u00e3o):\n- REN ANEEL n\u00ba 1.000/2021, art. 260, \u00a7 2\u00ba: \u201c\u00a7 2\u00ba No caso de remanejamento de rota ou reprograma\u00e7\u00e3o do calend\u00e1rio, o consumidor deve ser informado, por escrito, com anteced\u00eancia de pelo menos um ciclo de faturamento, admitida a inclus\u00e3o de mensagem na fatura de energia el\u00e9trica.\u201d\n- REN ANEEL n\u00ba 1.000/2021, art. 285: \u201cArt. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exce\u00e7\u00f5es dispostas nesta Resolu\u00e7\u00e3o, a distribuidora deve faturar de acordo com as seguintes disposi\u00e7\u00f5es: I - n\u00e3o atingido o limite m\u00ednimo de 27 dias: faturar o consumo medido, vedada a aplica\u00e7\u00e3o do custo de disponibilidade; e II - ultrapassado o limite m\u00e1ximo de 33 dias: proporcionalizar o\u2026\u201d\n- REN ANEEL n\u00ba 1.000/2021, art. 327, caput: \u201cArt. 327. A fatura de energia el\u00e9trica deve conter, de forma clara e objetiva e observadas as disposi\u00e7\u00f5es do M\u00f3dulo 11 do PRODIST, as seguintes informa\u00e7\u00f5es: I - identifica\u00e7\u00e3o do consumidor e demais usu\u00e1rios; II - identifica\u00e7\u00e3o da unidade consumidora ou demais instala\u00e7\u00f5es; III - valor total devido e data de vencimento; IV - grandezas medidas e faturadas; V - tarifas aplicadas; VI - valores adicionais a serem cobrados\u2026\u201d\nIsto \u00e9 o texto da norma; a aplica\u00e7\u00e3o ao seu caso depende dos dados da fatura.",
-    "mensagem": "Pergunta recebida: \u201cO consumo informado confere com as leituras do medidor?\u201d\nDados da fatura confirmada: m\u00eas 06/2026, consumo 120.00 kWh, total R$ 130,40.\nConfer\u00eancia do motor determin\u00edstico:\n- Consumo medido: A diferen\u00e7a entre as leituras confere com o consumo informado. (calculado: 120.00; informado: 120.00)\nFundamenta\u00e7\u00e3o normativa:\nDispositivos vigentes recuperados (trechos literais, sem interpreta\u00e7\u00e3o):\n- REN ANEEL n\u00ba 1.000/2021, art. 260, \u00a7 2\u00ba: \u201c\u00a7 2\u00ba No caso de remanejamento de rota ou reprograma\u00e7\u00e3o do calend\u00e1rio, o consumidor deve ser informado, por escrito, com anteced\u00eancia de pelo menos um ciclo de faturamento, admitida a inclus\u00e3o de mensagem na fatura de energia el\u00e9trica.\u201d\n- REN ANEEL n\u00ba 1.000/2021, art. 285: \u201cArt. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exce\u00e7\u00f5es dispostas nesta Resolu\u00e7\u00e3o, a distribuidora deve faturar de acordo com as seguintes disposi\u00e7\u00f5es: I - n\u00e3o atingido o limite m\u00ednimo de 27 dias: faturar o consumo medido, vedada a aplica\u00e7\u00e3o do custo de disponibilidade; e II - ultrapassado o limite m\u00e1ximo de 33 dias: proporcionalizar o\u2026\u201d\n- REN ANEEL n\u00ba 1.000/2021, art. 327, caput: \u201cArt. 327. A fatura de energia el\u00e9trica deve conter, de forma clara e objetiva e observadas as disposi\u00e7\u00f5es do M\u00f3dulo 11 do PRODIST, as seguintes informa\u00e7\u00f5es: I - identifica\u00e7\u00e3o do consumidor e demais usu\u00e1rios; II - identifica\u00e7\u00e3o da unidade consumidora ou demais instala\u00e7\u00f5es; III - valor total devido e data de vencimento; IV - grandezas medidas e faturadas; V - tarifas aplicadas; VI - valores adicionais a serem cobrados\u2026\u201d\nIsto \u00e9 o texto da norma; a aplica\u00e7\u00e3o ao seu caso depende dos dados da fatura.",
+    "resposta": "Pergunta recebida: “O consumo informado confere com as leituras do medidor?”\nDados da fatura confirmada: mês 06/2026, consumo 120.00 kWh, total R$ 130,40.\nConferência do motor determinístico:\n- Consumo medido: A diferença entre as leituras confere com o consumo informado. (calculado: 120.00; informado: 120.00)\nFundamentação normativa:\nDispositivos vigentes recuperados (trechos literais, sem interpretação):\n- REN ANEEL nº 1.000/2021, art. 260, § 2º: “§ 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.”\n- REN ANEEL nº 1.000/2021, art. 285: “Art. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exceções dispostas nesta Resolução, a distribuidora deve faturar de acordo com as seguintes disposições: I - não atingido o limite mínimo de 27 dias: faturar o consumo medido, vedada a aplicação do custo de disponibilidade; e II - ultrapassado o limite máximo de 33 dias: proporcionalizar o…”\n- REN ANEEL nº 1.000/2021, art. 327, caput: “Art. 327. A fatura de energia elétrica deve conter, de forma clara e objetiva e observadas as disposições do Módulo 11 do PRODIST, as seguintes informações: I - identificação do consumidor e demais usuários; II - identificação da unidade consumidora ou demais instalações; III - valor total devido e data de vencimento; IV - grandezas medidas e faturadas; V - tarifas aplicadas; VI - valores adicionais a serem cobrados…”\nIsto é o texto da norma; a aplicação ao seu caso depende dos dados da fatura.",
+    "mensagem": "Pergunta recebida: “O consumo informado confere com as leituras do medidor?”\nDados da fatura confirmada: mês 06/2026, consumo 120.00 kWh, total R$ 130,40.\nConferência do motor determinístico:\n- Consumo medido: A diferença entre as leituras confere com o consumo informado. (calculado: 120.00; informado: 120.00)\nFundamentação normativa:\nDispositivos vigentes recuperados (trechos literais, sem interpretação):\n- REN ANEEL nº 1.000/2021, art. 260, § 2º: “§ 2º No caso de remanejamento de rota ou reprogramação do calendário, o consumidor deve ser informado, por escrito, com antecedência de pelo menos um ciclo de faturamento, admitida a inclusão de mensagem na fatura de energia elétrica.”\n- REN ANEEL nº 1.000/2021, art. 285: “Art. 285. Caso a leitura do Grupo B seja efetuada sem observar os intervalos de tempo estabelecidos no art. 260, ressalvadas as exceções dispostas nesta Resolução, a distribuidora deve faturar de acordo com as seguintes disposições: I - não atingido o limite mínimo de 27 dias: faturar o consumo medido, vedada a aplicação do custo de disponibilidade; e II - ultrapassado o limite máximo de 33 dias: proporcionalizar o…”\n- REN ANEEL nº 1.000/2021, art. 327, caput: “Art. 327. A fatura de energia elétrica deve conter, de forma clara e objetiva e observadas as disposições do Módulo 11 do PRODIST, as seguintes informações: I - identificação do consumidor e demais usuários; II - identificação da unidade consumidora ou demais instalações; III - valor total devido e data de vencimento; IV - grandezas medidas e faturadas; V - tarifas aplicadas; VI - valores adicionais a serem cobrados…”\nIsto é o texto da norma; a aplicação ao seu caso depende dos dados da fatura.",
     "persona": "marcia",
     "citacoes": [
         {
-            "ato": "REN ANEEL n\u00ba 1.000/2021",
-            "dispositivo": "art. 260, \u00a7 2\u00ba",
+            "ato": "REN ANEEL nº 1.000/2021",
+            "dispositivo": "art. 260, § 2º",
             "vigencia_inicio": "2022-01-03",
             "vigencia_fim": null,
             "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
         },
         {
-            "ato": "REN ANEEL n\u00ba 1.000/2021",
+            "ato": "REN ANEEL nº 1.000/2021",
             "dispositivo": "art. 285",
             "vigencia_inicio": "2022-01-03",
             "vigencia_fim": null,
             "url": "https://www2.aneel.gov.br/cedoc/ren20211000.html"
         },
         {
-            "ato": "REN ANEEL n\u00ba 1.000/2021",
+            "ato": "REN ANEEL nº 1.000/2021",
             "dispositivo": "art. 327, caput",
             "vigencia_inicio": "2022-01-03",
             "vigencia_fim": null,
@@ -51,18 +51,18 @@
             "agente": "Pesquisador",
             "acao": "buscar_com_citacao",
             "detalhe": "3 dispositivo(s) vigente(s); ren1000-art-260::p2 (0.3681), ren1000-art-285 (0.3362), ren1000-art-327::caput (0.3096)",
-            "duracao_s": 0.0018
+            "duracao_s": 0.0053
         },
         {
             "agente": "Analista",
             "acao": "redigir",
-            "detalhe": "0 afirma\u00e7\u00e3o(\u00f5es) proposta(s)",
-            "duracao_s": 0.0
+            "detalhe": "0 afirmação(ões) proposta(s)",
+            "duracao_s": 0.0001
         },
         {
             "agente": "Auditor",
             "acao": "auditar",
-            "detalhe": "barrou o rascunho: sem afirma\u00e7\u00e3o",
+            "detalhe": "barrou o rascunho: sem afirmação",
             "duracao_s": 0.0
         },
         {
@@ -78,12 +78,12 @@
             "duracao_s": 0.0
         }
     ],
-    "modo": "pdf",
+    "modo": "fatura",
     "achados_motor": [
         {
             "item": "Consumo medido",
             "nivel": "A",
-            "descricao": "A diferen\u00e7a entre as leituras confere com o consumo informado.",
+            "descricao": "A diferença entre as leituras confere com o consumo informado.",
             "valor_esperado": "120.00",
             "valor_cobrado": "120.00",
             "citacoes": [],
@@ -119,7 +119,7 @@
         {
             "item": "ICMS",
             "nivel": "A",
-            "descricao": "A al\u00edquota de ICMS foi informada, mas a base de c\u00e1lculo e o valor cobrado do tributo n\u00e3o constam separadamente na fatura.",
+            "descricao": "A alíquota de ICMS foi informada, mas a base de cálculo e o valor cobrado do tributo não constam separadamente na fatura.",
             "valor_esperado": null,
             "valor_cobrado": null,
             "citacoes": [],

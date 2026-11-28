@@ -213,7 +213,7 @@ export type RespostaPergunta = {
   origem: string;
   motivo_abstencao: string;
   aviso?: string | null;
-  modo: "texto" | "fatura" | "pdf";
+  modo: "texto" | "fatura";
 };
 
 export const PDF_TAMANHO_MAXIMO_BYTES = 5 * 1024 * 1024;

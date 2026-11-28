@@ -231,40 +231,42 @@ dispositivos. Detalhes, intervalos e limites no [relatório S4](../avaliacao/rel
 - **Escopo.** Subgrupo B1 e as normas do corpus; fora disso, os agentes abstêm.
 - **Fatura sintética.** O veredito vem do motor, cujo 100% no conjunto sintético é circular (S3).
 
-## Pedido combinado: texto + PDF em `POST /perguntar` (S5-05, #184)
+## Pedido combinado: extração em `POST /extrair` + confirmação em `POST /perguntar` (S5-05, #184)
 
 Limites, falhas e demonstração: [Processamento multimodal](multimodal.md).
 
-O mesmo endpoint aceita três modos, todos retrocompatíveis (`packages/contratos` não muda):
+O fluxo separa a leitura do PDF da análise para garantir confirmação pelo usuário (`packages/contratos` não muda):
+
+1. **`POST /extrair`** recebe `{"pdf_base64": "<PDF em base64>"}` (assinatura `%PDF-`, limite padrão `FA_PDF_MAX_BYTES` = 5 MB e `FA_PDF_MAX_PAGINAS` = 5), extrai e devolve `fatura` (`Fatura`) para conferência na tela, **sem** rodar o motor nem os agentes. Falhas devolvem `erro` e `motivo` ∈ {`pdf_invalido`, `pdf_protegido`, `pdf_muitas_paginas`, `pdf_sem_texto`, `extracao_falhou`}.
+2. **`POST /perguntar`** aceita dois modos retrocompatíveis (campos extras como `pdf_base64` são rejeitados com **422**):
 
 | Modo | Campos do pedido | `modo` na resposta |
 |---|---|---|
 | Pergunta isolada | `pergunta` | `texto` |
 | Fatura confirmada | `pergunta` + `fatura` (contrato `Fatura`) | `fatura` |
-| PDF | `pergunta` + `pdf_base64` (+ `correcoes` confirmadas pelo usuário) | `pdf` |
-
-`fatura` e `pdf_base64` são excludentes; `correcoes` só vale com `pdf_base64` e aceita os campos
-`distribuidora`, `grupo_tarifario`, `mes_referencia` (`AAAA-MM-DD`), `leitura_anterior`,
-`leitura_atual`, `consumo_kwh`, `bandeira`, `aliquota_icms` (fração) e `total`, com números em
-formato decimal (`"150.5"`). O PDF decodificado tem limite de `FA_PDF_MAX_BYTES` (5 MB).
-Payload malformado devolve **422**; falha de leitura do PDF devolve **200** com abstenção.
 
 ```json
 {
   "pergunta": "O consumo informado confere com as leituras do medidor?",
   "persona": "marcia",
-  "pdf_base64": "<PDF em base64>",
-  "correcoes": {"consumo_kwh": "150"}
+  "fatura": {
+    "distribuidora": "Neoenergia Brasília",
+    "mes_referencia": "2026-06-01",
+    "leitura_anterior": "1000.00",
+    "leitura_atual": "1120.00",
+    "consumo_kwh": "150",
+    "itens": [{"descricao": "Consumo-TUSD", "valor": "60.00"}],
+    "total": "130.40"
+  }
 }
 ```
 
 Campos novos da resposta (todos com valor padrão): `modo`, `achados_motor` (nível A do motor),
-`campos_fatura` (campos confirmados usados na análise, para a tela de confirmação) e `aviso`.
-Nas falhas, `abstencao=true`, `origem` ∈ {`falha_extracao`, `agentes_indisponiveis`} e
-`motivo_abstencao` ∈ {`pdf_invalido`, `pdf_sem_texto`, `extracao_falhou`, `correcao_invalida`,
-`agentes_indisponiveis`}; com agentes fora do ar os `achados_motor` continuam na resposta. Sem
+`campos_fatura` (campos confirmados usados na análise) e `aviso`.
+Nas falhas dos agentes, `abstencao=true`, `origem="agentes_indisponiveis"`,
+`motivo_abstencao="agentes_indisponiveis"` e os `achados_motor` continuam na resposta. Sem
 leituras suficientes para o assunto da pergunta, `motivo_abstencao="dados_insuficientes"`.
 
-Fluxo sugerido para a tela S6-01: enviar `pdf_base64` → exibir `campos_fatura` → o usuário corrige →
-reenviar com `correcoes` (ou enviar a `fatura` já confirmada). Toda saída textual passa pelo
-verificador de linguagem do RF-15.
+Fluxo na tela S6-01: enviar PDF para `POST /extrair` → exibir `fatura` no formulário → usuário
+confere/corrige e confirma → enviar `fatura` confirmada para `POST /analisar` e `POST /perguntar`.
+Toda saída textual passa pelo verificador de linguagem do RF-15.
