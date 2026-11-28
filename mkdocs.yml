@@ -135,6 +135,7 @@ nav:
       - Relatório S3 (LLM × RAG): avaliacao/relatorio-s3-final.md
       - Relatório S4 (B4 × B5): avaliacao/relatorio-s4.md
       - Acurácia da leitura de foto (S5): avaliacao/acuracia-fotos.md
+      - Relatório S5 (modalidades, limitações e falhas): avaliacao/relatorio-s5.md
       - Fechamento dos débitos S2/S3: avaliacao/fechamento-debitos-s2-s3.md
   - Operação:
       - Deploy, observabilidade e carga: operacao/deploy-observabilidade-carga.md

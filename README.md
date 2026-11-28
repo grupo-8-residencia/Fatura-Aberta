@@ -3,7 +3,7 @@
 [![CI](https://github.com/grupo-8-residencia/Fatura-Aberta/actions/workflows/ci.yml/badge.svg)](https://github.com/grupo-8-residencia/Fatura-Aberta/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Verificador **aberto e auditável** de faturas de energia elétrica residencial (grupo B1) da Neoenergia Brasília (DF). O usuário envia a fatura (PDF ou foto) e recebe um cartão de decisão que mostra, item por item, se a cobrança confere com as regras e tarifas vigentes, com a citação exata da norma (ato, artigo ou inciso, vigência).
+Verificador **aberto e auditável** de faturas de energia elétrica residencial (grupo B1) da Neoenergia Brasília (DF). O usuário envia o PDF da fatura ou digita os dados (a leitura de foto foi medida só com fotos sintéticas) e recebe um cartão de decisão que mostra, item por item, se a cobrança confere com as regras e tarifas vigentes, com a citação exata da norma (ato, artigo ou inciso, vigência).
 
 📖 **Documentação:** <https://grupo-8-residencia.github.io/Fatura-Aberta/>
 

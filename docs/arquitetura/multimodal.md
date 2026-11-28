@@ -62,7 +62,7 @@ flowchart LR
 ## O que não é suportado
 
 - **PDF escaneado ou foto de PDF** (sem camada de texto): não há OCR. Falha com `pdf_sem_texto`.
-- **Imagem e foto da fatura / VLM:** fora do entregável acadêmico atual (ver decisão abaixo).
+- **Foto da fatura (JPG, PNG ou WEBP, até 10 MB):** aceita em `POST /extrair-foto` e na tela. A leitura usa o modelo de visão local (Ollama; `qwen2.5vl:3b`, escolhido na medição sintética de #41). Sem Ollama, a API responde 503. Medida em 40 fotos sintéticas (campos-chave passaram); fotos reais ainda não medidas (#41); ver [relatório da S5](../avaliacao/relatorio-s5.md).
 - **PDF protegido por senha:** não é aberto (`pdf_protegido`).
 - **Outras distribuidoras, grupos tarifários e layouts:** fora do escopo do MVP.
 - **Áudio e vídeo:** fora de escopo.
@@ -84,7 +84,7 @@ flowchart LR
 | Sem norma vigente para o ponto | `abstencao` com a conferência do motor | Não inventa fundamento | Pedir esclarecimento à distribuidora |
 | Agentes lentos ou fora do ar | `origem: agentes_indisponiveis`, `aviso`, `abstencao: true` | `achados_motor` preservados; `/analisar` devolve o nível A com `aviso` | Tentar de novo; o nível A segue válido |
 | Texto de saída com termo vedado (RF-15) | Texto substituído por aviso neutro | Nunca sai ao cliente | Ajustar a redação na origem |
-| Instrução de controle no PDF, na fatura confirmada ou na pergunta | `instrucao_controle` | PDF recusado em `/extrair` ou entrada abstida antes dos agentes em `/perguntar`; achados A/B preservados | Remover a instrução e reenviar; ver [bateria S5-03](../seguranca/injecao-por-imagem.md) |
+| Instrução de controle no PDF, na fatura confirmada ou na pergunta | `instrucao_controle` | PDF recusado em `/extrair` ou entrada abstida antes dos agentes em `/perguntar`; achados de nível A preservados (o nível B não é emitido nesta versão) | Remover a instrução e reenviar; ver [bateria S5-03](../seguranca/injecao-por-imagem.md) |
 | API fora do ar | A tela avisa que não conseguiu falar com a API | Dados digitados continuam na tela | Subir a API e tentar de novo |
 
 ## Privacidade e tratamento de dados
@@ -102,8 +102,7 @@ flowchart LR
 
 ## Decisões e pendências
 
-- **Imagem e VLM ficam fora do entregável acadêmico atual** (texto + PDF digital). Não há extração
-  de foto no produto.
+- **Foto e VLM estão no produto** (`/extrair-foto` e tela), mas sem medição: o gate S5-02 (#41) segue pendente e a decisão Go / Pivot está no [relatório da S5](../avaliacao/relatorio-s5.md).
 - **Gate S5-02 (#41, acerto ≥ 90% em 40 fotos) e S5-01 (#40, extração de foto via VLM local)
   seguem pendentes.** Em `docs/sprints/s5.md` os critérios do gate ainda estão como TODO; nenhum
   resultado de medição foi registrado. Se o gate falhar, o plano de contingência já previsto é

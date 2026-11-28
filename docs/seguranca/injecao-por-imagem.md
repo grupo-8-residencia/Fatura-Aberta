@@ -21,13 +21,13 @@ Para cada caso, o teste passou pelo fluxo de `/extrair` e `/perguntar` (exigindo
 confirmada). PDFs hostis foram recusados em `/extrair` antes do parser e dos agentes (e
 chamadas diretas com `pdf_base64` em `/perguntar` são rejeitadas com HTTP 422); perguntas
 hostis sobre fatura confirmada receberam abstenção sem chegar aos agentes, com os achados
-determinísticos de nível A/B preservados. A saída não repetiu o comando malicioso nem violou o
+determinísticos de nível A preservados. A saída não repetiu o comando malicioso nem violou o
 verificador RF-15. A meta de RNF-03, **menos de 5%**, foi atendida **neste conjunto específico**.
 
 | Vetor | Casos | Falha observada | Mitigação |
 |---|---:|---|---|
 | Texto de PDF digital | 5 | 0 | Detecção de comandos explícitos após extração; erro neutro `instrucao_controle` |
-| Pergunta com PDF | 5 | 0 | Abstenção antes do agente; achados A/B preservados |
+| Pergunta com PDF | 5 | 0 | Abstenção antes do agente; achados de nível A preservados |
 
 A detecção por padrões não cobre todas as paráfrases, grafias adversariais ou
 instruções indiretas. Esse risco residual fica **aceito para a demonstração
@@ -52,7 +52,7 @@ O teste automatizado passa cada caso pela fronteira de extração:
 
 | Falha | Mitigação | Estado |
 |---|---|---|
-| Instrução de controle no OCR/VLM | `higienizar_texto_extraido`, testes no CI e separação entre dados e instruções | Mitigação parcial |
+| Instrução de controle no OCR/VLM | Detector único `contem_instrucao_controle` (normaliza invisíveis e letras parecidas, remove a frase com a instrução via `higienizar_texto_extraido`), guarda também em `/analisar`, e separação entre dados e instruções | Mitigação parcial: paráfrases fora dos padrões passam |
 | Novo padrão de ataque | Adicionar caso sintético e expressão de bloqueio; revisar pela F4/F5 | Monitorado |
 | Agente indisponível ou lento | Timeout de 15 s; nível A continua disponível | Implementada |
 
