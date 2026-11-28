@@ -53,6 +53,18 @@ Os contratos são o idioma comum entre as frentes. Por isso:
 
 > **Como é garantido tecnicamente?** A proteção de branch do GitHub aplica 1 aprovação global de `CODEOWNERS`, e o status check independente `contratos-aprovacoes` consulta a API do GitHub a cada sincronização de PR ou evento de revisão (`pull_request_review`), garantindo que alterações em `packages/contratos/` só passem com ao menos 2 aprovações humanas distintas e vigentes no commit `HEAD` atual.
 
+## Política de fim de linha (LF)
+
+Todos os arquivos de texto e dados versionados (em especial `dados/golden-set/` e arquivos de checksum) devem usar terminações de linha **LF** (`\n`). O repositório declara essa política expressamente em `.gitattributes` (`* text=auto eol=lf`).
+
+Para desenvolvedores em ambiente Windows, configure o Git para não converter quebras de linha para CRLF ao fazer checkout:
+
+```bash
+git config --global core.autocrlf input
+```
+
+Isso garante a reproduzibilidade exata dos hashes SHA-256 e a validação de `dados/golden-set/checksums.sha256` entre qualquer sistema operacional.
+
 ## Antes de abrir o PR
 
 ```bash

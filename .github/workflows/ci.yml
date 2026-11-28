@@ -42,7 +42,7 @@ jobs:
           - security
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
@@ -190,7 +190,7 @@ jobs:
           - eval-protocol
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
@@ -265,6 +265,25 @@ jobs:
               )
           PY
 
+      - name: Verifica integridade e checksums SHA-256 do golden set
+        if: matrix.check == 'data-provenance'
+        run: |
+          uv run python - <<'PY'
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, str(Path("scripts").resolve()))
+          import gerar_golden_set as gs
+
+          problemas = gs.verificar()
+          assert not problemas, f"Integridade do golden set comprometida: {problemas}"
+          print("Golden set verificado com sucesso contra checksums.sha256.")
+          PY
+          {
+            echo "### MLOps (golden-set) summary"
+            echo "- **Checksums congelados (\`dados/golden-set/checksums.sha256\`):** 100% íntegros (política LF)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Barreira de privacidade LGPD e anonimização PII
         if: matrix.check == 'privacy-lgpd'
         run: |
@@ -319,7 +338,7 @@ jobs:
 
       - name: Configura uv (para validate e docs)
         if: matrix.check == 'validate' || matrix.check == 'docs'
-        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
@@ -461,7 +480,7 @@ jobs:
 
       - name: Configura uv (para pipeline-e2e)
         if: matrix.suite == 'pipeline-e2e'
-        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true

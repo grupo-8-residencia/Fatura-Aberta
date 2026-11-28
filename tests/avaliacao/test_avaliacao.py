@@ -261,3 +261,79 @@ def test_recalibracao_divide_sem_vazar_e_rotula() -> None:
     m = rj.metricas(["suportada", "sem_suporte", "suportada"], ["suportada", "sem_suporte", None])
     assert m["acuracia"] == 2 / 3 and m["sem_veredito_do_juiz"] == 1
     assert m["n_vereditos_validos"] == 2 and m["kappa"] == 1.0 and m["sem_suporte_juiz"] == 1
+
+
+def test_comparar_embedders_registra_teste_pareado_ram_e_segundo_modelo() -> None:
+    import comparar_embedders as ce
+
+    versionado = json.loads(ce.SAIDA.read_text(encoding="utf-8"))
+    res = versionado["resultados"]
+    assert {"E1_hash_lexical", "E2_semantico", "E3_semantico_ptbr", "E4_qwen3_embedding"} <= set(
+        res
+    )
+    for mod in ("E1_hash_lexical", "E2_semantico", "E3_semantico_ptbr", "E4_qwen3_embedding"):
+        ram = res[mod]["memoria_ram_mb"]
+        assert ram["pico_alocacao_processo_mb"] > 0.0
+        assert ram["vetores_indice_mb"] > 0.0
+    assert res["E2_semantico"]["memoria_ram_mb"]["pesos_modelo_mb"] > 1000.0
+    assert res["E2_semantico"]["memoria_ram_mb"]["servico_externo_mb"] > 1000.0
+
+    pareado = versionado["comparacao_pareada"]
+    assert {
+        "E2_bge_m3_menos_E1_hash",
+        "E3_semantico_ptbr_menos_E1_hash",
+        "E4_qwen3_embedding_menos_E1_hash",
+    } <= set(pareado)
+    # Pareado de modelo neural só vale com vetores por pergunta medidos ao vivo, nunca
+    # reconstruídos de agregados.
+    for mod in ("E2_semantico", "E4_qwen3_embedding"):
+        assert len(res[mod]["vetores_por_pergunta"]["ids"]) == 51
+    for chave_par in ("E2_bge_m3_menos_E1_hash", "E4_qwen3_embedding_menos_E1_hash"):
+        assert "status" not in pareado[chave_par]
+    for chave_par, bloco in pareado.items():
+        if "status" in bloco:
+            continue
+        assert bloco["n_perguntas_pareadas"] == 51
+        for medida in ("diferenca_recall_at_5", "diferenca_mrr", "diferenca_ndcg_at_5"):
+            assert bloco[medida]["significativo_5pct"] is False, (chave_par, medida)
+        lat = bloco["diferenca_latencia_ms"]
+        assert lat["ic95_inf"] <= lat["estimativa"] <= lat["ic95_sup"]
+        assert bloco["mcnemar_hit_at_5"]["significativo_5pct"] is False
+        assert bloco["mcnemar_cobertura_total_top5"]["significativo_5pct"] is False
+
+    dec = versionado["decisao"]
+    assert "EmbedderHash" in dec["embedder_padrao_mantido"]
+    assert dec["pesos_versionados_ou_baixados_no_ci"] is False
+
+
+def test_conjunto_independente_abstencao_e_disjunto_e_mede_limiar_030_congelado() -> None:
+    import avaliar_abstencao_teste as aat
+
+    linhas = aat.ler_conjunto_independente()
+    assert len(linhas) == 36
+    assert {r["tipo"] for r in linhas} == {"normativa", "lacuna", "vigencia", "fora_do_corpus"}
+    assert len({r["categoria"] for r in linhas}) == 7
+    assert all(r["anotador_1"] != r["anotador_2"] for r in linhas)
+    assert all(r["veredito_humano_1"] in ("abster", "responder") for r in linhas)
+    # Veredito do anotador 2 deve estar pendente ("") ou preenchido com rótulo válido:
+    assert all(r["veredito_humano_2"] in ("", "abster", "responder") for r in linhas)
+
+    # Teste sintético de dupla anotação completa para validar cálculo de Kappa:
+    sinteticas = [dict(r) for r in linhas]
+    for idx, r in enumerate(sinteticas):
+        v1 = r["veredito_humano_1"]
+        r["veredito_humano_2"] = v1 if idx >= 2 else ("responder" if v1 == "abster" else "abster")
+    conc = aat.calcular_concordancia_dupla(sinteticas)
+    assert conc["status"] == "concluida" and conc["n_pares_completos"] == 36
+    assert conc["kappa_humano1_humano2"] > 0.80
+
+    saida = aat.rodar()
+    ind = saida["resultados"]["conjunto_independente_limiar_030_congelado"]
+    assert ind["n"] == 36 and ind["limiar_congelado"] == 0.30
+    assert ind["reescolha_de_limiar"] is False
+    assert set(ind["por_tipo"]) == {"normativa", "lacuna", "vigencia", "fora_do_corpus"}
+    assert len(ind["por_categoria"]) == 7
+    glob = ind["global_limiar_030"]
+    assert glob["ic95"]["f1"]["ic95_inf"] <= glob["f1"] <= glob["ic95"]["f1"]["ic95_sup"]
+    versionado = json.loads(aat.SAIDA.read_text(encoding="utf-8"))
+    assert versionado["resultados"] == saida["resultados"]

@@ -1,7 +1,7 @@
 {
   "cabecalho": {
-    "gerado_em_utc": "2026-11-23T18:48:41+00:00",
-    "python": "3.12.14",
+    "gerado_em_utc": "2026-11-25T19:54:08+00:00",
+    "python": "3.14.6",
     "sha256_corpus": "a1007db1395797654060b88a4584f09baebe2cf7528c4edd8eda65ce30e4141b",
     "sha256_corpus_arquivo": "b0bcd6c5e848a224a8ec5f9e81f25067628af7aae09bfae7b13f5cd831d0eb22",
     "sha256_perguntas_golden_set": "28c7729a3cc08ce9b68c6531530ea351e22452be3deafe0b6aab2004a4488cc0",
@@ -19,7 +19,8 @@
   },
   "protocolo": {
     "origem_dos_splits": "s3-calibracao-abstencao.json",
-    "limitacao": "O limiar 0,30 foi escolhido após observar o split de teste e o fora da amostra; as métricas de teste do 0,30 são descritivas, não independentes. A estimativa independente exige perguntas novas anotadas por pessoas.",
+    "conjunto_independente": "abstencao-independente-36.csv",
+    "limitacao": "No golden set (60/60) e nas 20 perguntas fora da amostra anteriores, o limiar 0,30 foi mantido após observar o split de teste. Para obter estimativa independente sem reescolher o limiar, avalia-se o limiar 0,30 congelado sobre o conjunto novo de 36 perguntas (abstencao-independente-36.csv).",
     "tau_0_48": "não existe no código; 0,48x são scores em s2-recall-gate.json"
   },
   "resultados": {
@@ -33,7 +34,30 @@
           "acuracia": 0.9833333333333333,
           "vp": 7,
           "fp": 0,
-          "fn": 1
+          "fn": 1,
+          "vn": 52,
+          "ic95": {
+            "precisao": {
+              "estimativa": 1.0,
+              "ic95_inf": 1.0,
+              "ic95_sup": 1.0
+            },
+            "recall": {
+              "estimativa": 0.875,
+              "ic95_inf": 0.5714285714285714,
+              "ic95_sup": 1.0
+            },
+            "f1": {
+              "estimativa": 0.9333333333333333,
+              "ic95_inf": 0.7272727272727273,
+              "ic95_sup": 1.0
+            },
+            "acuracia": {
+              "estimativa": 0.9833333333333333,
+              "ic95_inf": 0.95,
+              "ic95_sup": 1.0
+            }
+          }
         },
         "limiar=0.25": {
           "precisao": 1.0,
@@ -42,7 +66,30 @@
           "acuracia": 0.9833333333333333,
           "vp": 7,
           "fp": 0,
-          "fn": 1
+          "fn": 1,
+          "vn": 52,
+          "ic95": {
+            "precisao": {
+              "estimativa": 1.0,
+              "ic95_inf": 1.0,
+              "ic95_sup": 1.0
+            },
+            "recall": {
+              "estimativa": 0.875,
+              "ic95_inf": 0.5714285714285714,
+              "ic95_sup": 1.0
+            },
+            "f1": {
+              "estimativa": 0.9333333333333333,
+              "ic95_inf": 0.7272727272727273,
+              "ic95_sup": 1.0
+            },
+            "acuracia": {
+              "estimativa": 0.9833333333333333,
+              "ic95_inf": 0.95,
+              "ic95_sup": 1.0
+            }
+          }
         },
         "limiar=0.3": {
           "precisao": 0.875,
@@ -51,7 +98,30 @@
           "acuracia": 0.9666666666666667,
           "vp": 7,
           "fp": 1,
-          "fn": 1
+          "fn": 1,
+          "vn": 51,
+          "ic95": {
+            "precisao": {
+              "estimativa": 0.875,
+              "ic95_inf": 0.5714285714285714,
+              "ic95_sup": 1.0
+            },
+            "recall": {
+              "estimativa": 0.875,
+              "ic95_inf": 0.5714285714285714,
+              "ic95_sup": 1.0
+            },
+            "f1": {
+              "estimativa": 0.875,
+              "ic95_inf": 0.6153846153846153,
+              "ic95_sup": 1.0
+            },
+            "acuracia": {
+              "estimativa": 0.9666666666666667,
+              "ic95_inf": 0.9166666666666666,
+              "ic95_sup": 1.0
+            }
+          }
         }
       },
       "por_tipo": {
@@ -60,15 +130,45 @@
           "abstencoes_esperadas": 2,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
           }
         },
         "lacuna": {
@@ -76,15 +176,45 @@
           "abstencoes_esperadas": 0,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           }
         },
         "normativa": {
@@ -92,15 +222,45 @@
           "abstencoes_esperadas": 0,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 0.9795918367346939,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              0.9387755102040817,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 1,
+            "vp": 0,
+            "fp": 1,
+            "fn": 0
           }
         },
         "vigencia": {
@@ -108,15 +268,45 @@
           "abstencoes_esperadas": 6,
           "limiar=0.2": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 5
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "abstencoes_previstas": 5,
+            "vp": 5,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.25": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 5
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "abstencoes_previstas": 5,
+            "vp": 5,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.3": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 5
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "abstencoes_previstas": 5,
+            "vp": 5,
+            "fp": 0,
+            "fn": 1
           }
         }
       },
@@ -126,15 +316,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "abstencoes_previstas": 2,
+            "vp": 1,
+            "fp": 1,
+            "fn": 0
           }
         },
         "cip_cosip": {
@@ -142,15 +362,45 @@
           "abstencoes_esperadas": 2,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 2
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
           }
         },
         "corte_notificacao": {
@@ -158,15 +408,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "devolucao_dobro": {
@@ -174,15 +454,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 0.9230769230769231,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.7692307692307693,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.25": {
             "acuracia": 0.9230769230769231,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.7692307692307693,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.3": {
             "acuracia": 0.9230769230769231,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.7692307692307693,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 1
           }
         },
         "encargos_multas": {
@@ -190,15 +500,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "medicao_estimada": {
@@ -206,15 +546,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "tarifas_b1": {
@@ -222,15 +592,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         }
       }
@@ -245,7 +645,30 @@
           "acuracia": 0.9333333333333333,
           "vp": 5,
           "fp": 0,
-          "fn": 4
+          "fn": 4,
+          "vn": 51,
+          "ic95": {
+            "precisao": {
+              "estimativa": 1.0,
+              "ic95_inf": 1.0,
+              "ic95_sup": 1.0
+            },
+            "recall": {
+              "estimativa": 0.5555555555555556,
+              "ic95_inf": 0.2,
+              "ic95_sup": 0.8888888888888888
+            },
+            "f1": {
+              "estimativa": 0.7142857142857143,
+              "ic95_inf": 0.33333333333333337,
+              "ic95_sup": 0.9411764705882353
+            },
+            "acuracia": {
+              "estimativa": 0.9333333333333333,
+              "ic95_inf": 0.8666666666666667,
+              "ic95_sup": 0.9833333333333333
+            }
+          }
         },
         "limiar=0.25": {
           "precisao": 1.0,
@@ -254,7 +677,30 @@
           "acuracia": 0.9333333333333333,
           "vp": 5,
           "fp": 0,
-          "fn": 4
+          "fn": 4,
+          "vn": 51,
+          "ic95": {
+            "precisao": {
+              "estimativa": 1.0,
+              "ic95_inf": 1.0,
+              "ic95_sup": 1.0
+            },
+            "recall": {
+              "estimativa": 0.5555555555555556,
+              "ic95_inf": 0.2,
+              "ic95_sup": 0.8888888888888888
+            },
+            "f1": {
+              "estimativa": 0.7142857142857143,
+              "ic95_inf": 0.33333333333333337,
+              "ic95_sup": 0.9411764705882353
+            },
+            "acuracia": {
+              "estimativa": 0.9333333333333333,
+              "ic95_inf": 0.8666666666666667,
+              "ic95_sup": 0.9833333333333333
+            }
+          }
         },
         "limiar=0.3": {
           "precisao": 1.0,
@@ -263,7 +709,30 @@
           "acuracia": 0.95,
           "vp": 6,
           "fp": 0,
-          "fn": 3
+          "fn": 3,
+          "vn": 51,
+          "ic95": {
+            "precisao": {
+              "estimativa": 1.0,
+              "ic95_inf": 1.0,
+              "ic95_sup": 1.0
+            },
+            "recall": {
+              "estimativa": 0.6666666666666666,
+              "ic95_inf": 0.3333333333333333,
+              "ic95_sup": 1.0
+            },
+            "f1": {
+              "estimativa": 0.8,
+              "ic95_inf": 0.5,
+              "ic95_sup": 1.0
+            },
+            "acuracia": {
+              "estimativa": 0.95,
+              "ic95_inf": 0.8833333333333333,
+              "ic95_sup": 1.0
+            }
+          }
         }
       },
       "por_tipo": {
@@ -272,15 +741,45 @@
           "abstencoes_esperadas": 3,
           "limiar=0.2": {
             "acuracia": 0.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.0,
+              0.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 3
           },
           "limiar=0.25": {
             "acuracia": 0.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.0,
+              0.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 3
           },
           "limiar=0.3": {
             "acuracia": 0.3333333333333333,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              0.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.3333333333333333,
+            "f1": 0.5,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 2
           }
         },
         "lacuna": {
@@ -288,15 +787,45 @@
           "abstencoes_esperadas": 0,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           }
         },
         "normativa": {
@@ -304,15 +833,45 @@
           "abstencoes_esperadas": 0,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
           }
         },
         "vigencia": {
@@ -320,15 +879,45 @@
           "abstencoes_esperadas": 6,
           "limiar=0.2": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 5
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "abstencoes_previstas": 5,
+            "vp": 5,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.25": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 5
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "abstencoes_previstas": 5,
+            "vp": 5,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.3": {
             "acuracia": 0.8333333333333334,
-            "abstencoes_previstas": 5
+            "acuracia_ic95": [
+              0.5,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "abstencoes_previstas": 5,
+            "vp": 5,
+            "fp": 0,
+            "fn": 1
           }
         }
       },
@@ -338,15 +927,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "cip_cosip": {
@@ -354,15 +973,45 @@
           "abstencoes_esperadas": 3,
           "limiar=0.2": {
             "acuracia": 0.25,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.0,
+              0.75
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 3
           },
           "limiar=0.25": {
             "acuracia": 0.25,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.0,
+              0.75
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 3
           },
           "limiar=0.3": {
             "acuracia": 0.5,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              0.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 0.3333333333333333,
+            "f1": 0.5,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 2
           }
         },
         "corte_notificacao": {
@@ -370,15 +1019,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "devolucao_dobro": {
@@ -386,15 +1065,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 0.9230769230769231,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.7692307692307693,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.25": {
             "acuracia": 0.9230769230769231,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.7692307692307693,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 1
           },
           "limiar=0.3": {
             "acuracia": 0.9230769230769231,
-            "abstencoes_previstas": 0
+            "acuracia_ic95": [
+              0.7692307692307693,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 1
           }
         },
         "encargos_multas": {
@@ -402,15 +1111,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "medicao_estimada": {
@@ -418,15 +1157,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         },
         "tarifas_b1": {
@@ -434,15 +1203,45 @@
           "abstencoes_esperadas": 1,
           "limiar=0.2": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.25": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           },
           "limiar=0.3": {
             "acuracia": 1.0,
-            "abstencoes_previstas": 1
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 1,
+            "vp": 1,
+            "fp": 0,
+            "fn": 0
           }
         }
       }
@@ -470,6 +1269,256 @@
         "acuracia": 0.8
       },
       "nota": "copiado do JSON histórico, sem recomputar; fora do golden set"
+    },
+    "conjunto_independente_limiar_030_congelado": {
+      "arquivo": "abstencao-independente-36.csv",
+      "n": 36,
+      "limiar_congelado": 0.3,
+      "reescolha_de_limiar": false,
+      "justificativa_tamanho": "N = 36 perguntas inéditas e estritamente disjuntas do golden set (120) e do conjunto exploratório anterior (20): 22 respondíveis (18 normativas nas 7 categorias + 4 de lacuna) e 14 com abstenção esperada (7 de vigência anterior às normas + 7 fora do corpus, incluindo 3 de valor/alíquota/multa de CIP). O múltiplo de 6 permite rotação balanceada entre os 6 anotadores (6 pares x 6 itens) e poder estatístico > 85% (teste binomial exato unilateral a 5% contra baseline p0 = 0,50) e intervalos de confiança bootstrap (B = 10.000) não degenerados por tipo e categoria.",
+      "concordancia_anotadores": {
+        "status": "aguardando_anotador_2",
+        "n_total": 36,
+        "n_anotador_1": 36,
+        "n_anotador_2": 7,
+        "n_pares_completos": 7,
+        "kappa_humano1_humano2": null,
+        "acuracia_entre_humanos": null
+      },
+      "global_limiar_030": {
+        "precisao": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "acuracia": 1.0,
+        "vp": 14,
+        "fp": 0,
+        "fn": 0,
+        "vn": 22,
+        "ic95": {
+          "precisao": {
+            "estimativa": 1.0,
+            "ic95_inf": 1.0,
+            "ic95_sup": 1.0
+          },
+          "recall": {
+            "estimativa": 1.0,
+            "ic95_inf": 1.0,
+            "ic95_sup": 1.0
+          },
+          "f1": {
+            "estimativa": 1.0,
+            "ic95_inf": 1.0,
+            "ic95_sup": 1.0
+          },
+          "acuracia": {
+            "estimativa": 1.0,
+            "ic95_inf": 1.0,
+            "ic95_sup": 1.0
+          }
+        }
+      },
+      "por_tipo": {
+        "fora_do_corpus": {
+          "n": 7,
+          "abstencoes_esperadas": 7,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 7,
+            "vp": 7,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "lacuna": {
+          "n": 4,
+          "abstencoes_esperadas": 0,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "normativa": {
+          "n": 18,
+          "abstencoes_esperadas": 0,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "vigencia": {
+          "n": 7,
+          "abstencoes_esperadas": 7,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 7,
+            "vp": 7,
+            "fp": 0,
+            "fn": 0
+          }
+        }
+      },
+      "por_categoria": {
+        "bandeiras": {
+          "n": 6,
+          "abstencoes_esperadas": 2,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "cip_cosip": {
+          "n": 5,
+          "abstencoes_esperadas": 3,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 3,
+            "vp": 3,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "corte_notificacao": {
+          "n": 4,
+          "abstencoes_esperadas": 2,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "devolucao_dobro": {
+          "n": 4,
+          "abstencoes_esperadas": 0,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "abstencoes_previstas": 0,
+            "vp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "encargos_multas": {
+          "n": 5,
+          "abstencoes_esperadas": 2,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "medicao_estimada": {
+          "n": 7,
+          "abstencoes_esperadas": 3,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 3,
+            "vp": 3,
+            "fp": 0,
+            "fn": 0
+          }
+        },
+        "tarifas_b1": {
+          "n": 5,
+          "abstencoes_esperadas": 2,
+          "limiar=0.3": {
+            "acuracia": 1.0,
+            "acuracia_ic95": [
+              1.0,
+              1.0
+            ],
+            "precisao": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "abstencoes_previstas": 2,
+            "vp": 2,
+            "fp": 0,
+            "fn": 0
+          }
+        }
+      }
     }
   }
 }

@@ -1,0 +1,37 @@
+item_id,tipo,categoria,data_referencia,subgrupo,pergunta,citacao_canonica,anotador_1,anotador_2,veredito_humano_1,veredito_humano_2
+IND-Q01,normativa,tarifas_b1,2026-11-09,B1,"Qual é o critério de renda familiar no CadÚnico para família com pessoa que usa aparelho elétrico vital contínuo?",ren1000-art-177,Luiz,Pedro,responder,
+IND-Q02,normativa,tarifas_b1,2026-11-09,B1,"O desconto da tarifa social incide também sobre o custo de disponibilidade da conta residencial?",ren1000-art-290,Luiz,Talita,responder,responder
+IND-Q03,normativa,tarifas_b1,2026-11-09,B1,"Quais valores de tarifa TUSD e TE em R$/MWh foram homologados para o subgrupo B1 residencial convencional na REH 3.614/2026?",reh3614-tab1-b1,Luiz,Maria Eduarda,responder,
+IND-Q04,normativa,bandeiras,2026-11-09,B1,"Como a distribuidora cobra a bandeira tarifária quando a vigência muda dentro do ciclo de faturamento?",ren1000-art-307,Luiz,Raissa,responder,
+IND-Q05,normativa,bandeiras,2026-11-09,B1,"Unidades consumidoras localizadas em sistemas isolados pagam adicional de bandeira tarifária?",ren1000-art-307,Luiz,Natalia,responder,
+IND-Q06,normativa,bandeiras,2026-11-09,B1,"A fatura de energia elétrica é obrigada a discriminar o valor adicional cobrado a título de bandeira tarifária?",ren1000-art-327,Luiz,Pedro,responder,
+IND-Q07,normativa,medicao_estimada,2026-11-09,B1,"Em quais situações excepcionais o intervalo entre leituras da distribuidora pode ser de 15 a 47 dias?",ren1000-art-260,Luiz,Talita,responder,responder
+IND-Q08,normativa,medicao_estimada,2026-11-09,B1,"Se a leitura mensal ocorrer com menos de 27 dias de consumo, a distribuidora pode cobrar o custo de disponibilidade?",ren1000-art-285,Luiz,Maria Eduarda,responder,
+IND-Q09,normativa,medicao_estimada,2026-11-09,B1,"Quando há impedimento de acesso ao medidor, quantos ciclos anteriores entram no cálculo da média aritmética?",ren1000-art-289,Luiz,Raissa,responder,
+IND-Q10,normativa,devolucao_dobro,2026-11-09,B1,"A devolução em dobro por cobrança a maior na fatura de energia depende de comprovação de dolo ou culpa da distribuidora?",ren1000-art-323,Luiz,Natalia,responder,
+IND-Q11,normativa,devolucao_dobro,2026-11-09,B1,"Como o consumidor pode receber de volta um valor pago em duplicidade na fatura além do crédito na conta seguinte?",ren1000-art-342,Luiz,Pedro,responder,
+IND-Q12,normativa,devolucao_dobro,2026-11-09,B1,"O Código de Defesa do Consumidor garante repetição do indébito pelo dobro do valor pago em excesso?",cdc-art-42-pu,Luiz,Talita,responder,responder
+IND-Q13,normativa,cip_cosip,2026-11-09,B1,"Quais informações sobre arrecadação mensal da CIP por faixa de consumo o contribuinte tem direito de obter no Distrito Federal?",df7888-art-4,Luiz,Maria Eduarda,responder,
+IND-Q14,normativa,cip_cosip,2026-11-09,B1,"A Lei Distrital 7.888/2026 assegura canais institucionais para requerimento administrativo de restituição ou isenção da CIP?",df7888-art-4,Luiz,Raissa,responder,
+IND-Q15,normativa,encargos_multas,2026-11-09,B1,"Qual é o limite percentual de multa e a taxa de juros de mora aplicáveis ao pagamento em atraso da fatura?",ren1000-art-343,Luiz,Natalia,responder,
+IND-Q16,normativa,encargos_multas,2026-11-09,B1,"Qual o prazo máximo em meses para a distribuidora cobrar faturas de energia elétrica em atraso?",ren1000-art-347,Luiz,Pedro,responder,
+IND-Q17,normativa,corte_notificacao,2026-11-09,B1,"Após quantos dias do vencimento da fatura não paga fica vedada a suspensão do fornecimento por inadimplemento?",ren1000-art-357,Luiz,Talita,responder,responder
+IND-Q18,normativa,corte_notificacao,2026-11-09,B1,"Qual é o intervalo mínimo entre o vencimento da fatura e a suspensão do fornecimento para unidade de baixa renda?",ren1000-art-358,Luiz,Maria Eduarda,responder,
+IND-Q19,lacuna,bandeiras,2026-11-09,B1,"Como a resolução da ANEEL aplica a bandeira tarifária proporcionalmente aos dias do ciclo nas subclasses residenciais?",ren1000-art-307,Luiz,Raissa,responder,
+IND-Q20,lacuna,medicao_estimada,2026-11-09,B1,"No impedimento de acesso ao medidor, como a norma define o faturamento pela média dos últimos 12 ciclos?",ren1000-art-289,Luiz,Natalia,responder,
+IND-Q21,lacuna,devolucao_dobro,2026-11-09,B1,"Quais são as regras de devolução em dobro e atualização pelo IPCA no faturamento a maior previstas no art. 323?",ren1000-art-323,Luiz,Pedro,responder,
+IND-Q22,lacuna,encargos_multas,2026-11-09,B1,"Quais acréscimos de multa, IPCA e juros de mora de 1% ao mês incidem no atraso de pagamento da fatura?",ren1000-art-343,Luiz,Talita,responder,responder
+IND-Q23,vigencia,corte_notificacao,2021-04-15,B1,"Em abril de 2021, qual era a antecedência mínima de notificação para suspensão por inadimplemento na REN 1.000?",[],Luiz,Maria Eduarda,abster,
+IND-Q24,vigencia,tarifas_b1,2021-05-10,B1,"Em maio de 2021, como era calculado o custo de disponibilidade do grupo B pela Resolução Normativa 1.000?",[],Luiz,Raissa,abster,
+IND-Q25,vigencia,medicao_estimada,2021-03-20,B1,"Em março de 2021, qual o intervalo de dias permitido entre leituras mensais do grupo B?",[],Luiz,Natalia,abster,
+IND-Q26,vigencia,encargos_multas,2021-07-01,B1,"Em julho de 2021, quantos dias úteis mínimos a distribuidora devia dar entre a apresentação e o vencimento da fatura?",[],Luiz,Pedro,abster,
+IND-Q27,vigencia,bandeiras,2021-08-12,B1,"Em agosto de 2021, como a bandeira tarifária era cobrada proporcionalmente aos dias de vigência?",[],Luiz,Talita,abster,abster
+IND-Q28,vigencia,corte_notificacao,2021-09-01,B1,"Em setembro de 2021, qual o intervalo mínimo antes da suspensão do fornecimento para família de baixa renda?",[],Luiz,Maria Eduarda,abster,
+IND-Q29,vigencia,medicao_estimada,2021-02-10,B1,"Em fevereiro de 2021, quantos ciclos entravam na média aritmética quando havia impedimento de acesso ao medidor?",[],Luiz,Raissa,abster,
+IND-Q30,fora_do_corpus,cip_cosip,2026-11-09,B1,"Qual é o valor em reais ou a alíquota da CIP cobrada na minha faixa de consumo residencial em Brasília?",[],Luiz,Natalia,abster,
+IND-Q31,fora_do_corpus,cip_cosip,2026-11-09,B1,"Qual é a multa por atraso e a tabela de faixas de valor da COSIP no Distrito Federal?",[],Luiz,Pedro,abster,
+IND-Q32,fora_do_corpus,cip_cosip,2026-11-09,B1,"Quem define o valor e a tabela de alíquotas da contribuição de iluminação pública por faixa em Brasília?",[],Luiz,Talita,abster,abster
+IND-Q33,fora_do_corpus,tarifas_b1,2026-11-09,B1,"Qual é a cotação do Bitcoin para pagar imposto de renda sobre criptomoedas na Receita Federal?",[],Luiz,Maria Eduarda,abster,
+IND-Q34,fora_do_corpus,encargos_multas,2026-11-09,B1,"Qual a pena de reclusão prevista no Código Penal para furto de cabos de cobre em subestação?",[],Luiz,Raissa,abster,
+IND-Q35,fora_do_corpus,bandeiras,2026-11-09,B1,"Como funciona o leilão de transmissão de linhas de 500 kV na Câmara de Comercialização de Energia Elétrica?",[],Luiz,Natalia,abster,
+IND-Q36,fora_do_corpus,medicao_estimada,2026-11-09,B1,"Qual é o protocolo de homologação de carro elétrico híbrido no Denatran e no Ibama?",[],Luiz,Pedro,abster,
