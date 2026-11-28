@@ -33,6 +33,7 @@ from fa_agentes.orquestrador import (
     Origem,
     Orquestrador,
     Passo,
+    RespostaFaturaPergunta,
     RespostaPergunta,
     ResultadoFatura,
 )
@@ -81,6 +82,7 @@ __all__ = [
     "Passo",
     "Persona",
     "Pesquisador",
+    "RespostaFaturaPergunta",
     "RespostaPergunta",
     "ResultadoFatura",
     "contradiz_motor",

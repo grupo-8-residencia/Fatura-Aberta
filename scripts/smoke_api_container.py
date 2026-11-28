@@ -46,4 +46,21 @@ pergunta = enviar(
     },
 )
 assert pergunta["citacoes"], "Resposta regulatória sem citação"
+combinada = enviar(
+    "/perguntar",
+    {
+        "pergunta": "O consumo informado confere com as leituras?",
+        "persona": "marcia",
+        "fatura": {
+            "distribuidora": "Distribuidora Sintética",
+            "mes_referencia": "2026-03-01",
+            "leitura_anterior": "100",
+            "leitura_atual": "150",
+            "consumo_kwh": "50",
+            "itens": [{"descricao": "Energia", "valor": "40"}],
+            "total": "40",
+        },
+    },
+)
+assert combinada["modo"] == "fatura" and combinada["achados_motor"], "Pergunta combinada falhou"
 print("Smoke da API: análise de nível C e pergunta com citações aprovadas.")

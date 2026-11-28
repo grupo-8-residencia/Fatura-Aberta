@@ -503,6 +503,7 @@ jobs:
             docker logs fa-api-ci
             exit 1
           fi
+          docker exec fa-api-ci python -c "import fa_extracao"
           docker exec fa-api-ci test -f /app/dados/normas/corpus_b1.json
           docker exec fa-api-ci test -f /app/dados/tarifas/proveniencia.json
           docker exec fa-api-ci test -f /app/dados/tarifas/aneel_neoenergia_brasilia_b1_2026.xlsx

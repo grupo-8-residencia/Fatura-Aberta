@@ -18,7 +18,9 @@ na demonstração, na API e na documentação.
 
 from __future__ import annotations
 
+import re
 import time
+import unicodedata
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import contextmanager
 from dataclasses import dataclass, field
@@ -96,6 +98,79 @@ class ResultadoFatura:
     mensagem: Mensagem
     rastro: tuple[Passo, ...]
     motivos_auditor: dict[str, tuple[str, ...]] = field(default_factory=dict)
+
+
+@dataclass(frozen=True, slots=True)
+class RespostaFaturaPergunta:
+    """Resposta única para uma pergunta em texto sobre uma fatura confirmada."""
+
+    pergunta: str
+    resposta: Resposta
+    origem: str
+    achados_motor: tuple[Achado, ...]
+    achados_relevantes: tuple[Achado, ...]
+    campos_usados: dict[str, str]
+    motivo_abstencao: str
+    mensagem: Mensagem
+    rastro: tuple[Passo, ...]
+
+    @property
+    def abstencao(self) -> bool:
+        return self.resposta.abstencao
+
+
+MOTIVO_DADOS_INSUFICIENTES = "dados_insuficientes"
+
+# Palavras da pergunta -> item do motor a que se referem (comparação sem acento, minúscula).
+_TEMAS_ITEM: dict[str, tuple[str, ...]] = {
+    "Consumo medido": ("consumo", "leitura", "leituras", "medidor", "kwh"),
+    "Total da fatura": ("total", "soma", "somam", "pagar", "valor"),
+    "ICMS": ("icms", "imposto", "aliquota"),
+    "Parcela até 80 kWh": ("80", "parcela", "isencao", "faixa"),
+    "Linha": ("linha", "linhas", "item", "itens", "duplicada", "duplicado", "cobrada"),
+}
+_TEMAS_CONSUMO = frozenset(_TEMAS_ITEM["Consumo medido"]) - {"kwh"}
+
+
+def _sem_acento(texto: str) -> str:
+    base = unicodedata.normalize("NFKD", texto)
+    return "".join(c for c in base if not unicodedata.combining(c)).lower()
+
+
+def _palavras(texto: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9]+", _sem_acento(texto)))
+
+
+def _brl(valor: object) -> str:
+    return f"{valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def _campos_da_fatura(fatura: Fatura) -> dict[str, str]:
+    campos = {
+        "mes_referencia": f"{fatura.mes_referencia:%m/%Y}",
+        "consumo_kwh": f"{fatura.consumo_kwh:f}",
+        "total": f"{fatura.total:f}",
+    }
+    if fatura.leitura_anterior is not None:
+        campos["leitura_anterior"] = f"{fatura.leitura_anterior:f}"
+    if fatura.leitura_atual is not None:
+        campos["leitura_atual"] = f"{fatura.leitura_atual:f}"
+    if fatura.bandeira:
+        campos["bandeira"] = fatura.bandeira
+    if fatura.aliquota_icms is not None:
+        campos["aliquota_icms"] = f"{fatura.aliquota_icms:f}"
+    return campos
+
+
+def _relevantes(pergunta: str, achados: Sequence[Achado]) -> list[Achado]:
+    """Achados que tratam do assunto da pergunta; sem casamento, os que divergem ou se abstêm."""
+    palavras = _palavras(pergunta)
+    alvo = {item for item, termos in _TEMAS_ITEM.items() if palavras & set(termos)}
+    achou = [a for a in achados if any(a.item.startswith(t) for t in alvo)]
+    if achou:
+        return achou
+    pendentes = [a for a in achados if divergente(a) or a.abstencao]
+    return pendentes or list(achados)
 
 
 def _afirmacoes_extrativas(r: Resposta) -> tuple[tuple[str, tuple[Citacao, ...]], ...]:
@@ -276,3 +351,106 @@ class Orquestrador:
         return ResultadoFatura(
             veredito, achados, tuple(explicacoes), origens, msg, tuple(rastro.passos), motivos
         )
+
+    def responder_sobre_fatura(
+        self,
+        pergunta: str,
+        fatura: Fatura,
+        *,
+        achados_motor: Sequence[Achado] | None = None,
+        persona: Persona | str = Persona.MARCIA,
+    ) -> RespostaFaturaPergunta:
+        """Uma só análise: campos confirmados da fatura + achados do motor + pergunta em texto.
+
+        O motor decide os fatos; a norma citada vem do fluxo Pesquisador → Analista → Auditor; e
+        se faltar dado para sustentar a resposta, o sistema se abstém dizendo o que falta.
+        """
+        persona = Persona(persona)
+        rastro = Rastro()
+        if achados_motor is None:
+            if self.motor is None:
+                raise ValueError("Orquestrador sem motor: informe motor= ou achados_motor=")
+            with rastro.passo("Motor", "analisar_nivel_a") as d:
+                achados_motor = self.motor(fatura)
+                d.append(f"{len(achados_motor)} achado(s)")
+        else:
+            rastro.passos.append(
+                Passo("Motor", "analisar_nivel_a", f"{len(achados_motor)} achado(s)", 0.0)
+            )
+        achados = tuple(achados_motor)
+        veredito = "diverge_A" if any(divergente(a) for a in achados) else "confere"
+        rastro.passos.append(Passo("Motor", "veredito", veredito, 0.0))
+        campos = _campos_da_fatura(fatura)
+        relevantes = _relevantes(pergunta, achados)
+        rastro.passos.append(
+            Passo("Orquestrador", "selecionar", ", ".join(a.item for a in relevantes), 0.0)
+        )
+
+        faltam: list[str] = []
+        if _palavras(pergunta) & _TEMAS_CONSUMO:
+            faltam = [
+                nome
+                for nome in ("leitura_anterior", "leitura_atual")
+                if getattr(fatura, nome) is None
+            ]
+        sem_dados = bool(faltam) or all(a.abstencao for a in relevantes)
+        if sem_dados:
+            detalhes = [f"{a.item}: {a.descricao}" for a in relevantes if a.abstencao]
+            if faltam:
+                detalhes.insert(0, f"campos ausentes na fatura confirmada: {', '.join(faltam)}")
+            texto = (
+                "Dados insuficientes para responder com segurança. "
+                + " ".join(detalhes)
+                + " Confirme ou complete esses campos e envie a pergunta de novo."
+            )
+            rastro.passos.append(
+                Passo("Orquestrador", "abstencao", MOTIVO_DADOS_INSUFICIENTES, 0.0)
+            )
+            resp = Resposta(texto, (), True)
+            msg = Mensagem(persona, texto, (), adaptada=False, motivo=MOTIVO_DADOS_INSUFICIENTES)
+            return RespostaFaturaPergunta(
+                pergunta, resp, Origem.ABSTENCAO, achados, tuple(relevantes), campos,
+                MOTIVO_DADOS_INSUFICIENTES, msg, tuple(rastro.passos),
+            )  # fmt: skip
+
+        principal = next((a for a in relevantes if divergente(a)), relevantes[0])
+        norma, origem, _, _, ev = self._resolver(
+            f"{pergunta}. {consulta_do_achado(principal)}",
+            fatura.mes_referencia,
+            rastro,
+            achado=principal,
+        )
+        eco = (
+            pergunta
+            if not verificar_linguagem(pergunta)
+            else "[omitida: contém termo fora da linguagem permitida]"
+        )
+        linhas = [
+            f"Pergunta recebida: “{eco}”",
+            "Dados da fatura confirmada: "
+            f"mês {campos['mes_referencia']}, consumo {campos['consumo_kwh']} kWh, "
+            f"total R$ {_brl(fatura.total)}.",
+            "Conferência do motor determinístico:",
+        ]
+        for a in relevantes:
+            extra = ""
+            if a.valor_esperado is not None and a.valor_cobrado is not None:
+                extra = f" (calculado: {a.valor_esperado:f}; informado: {a.valor_cobrado:f})"
+            linhas.append(f"- {a.item}: {a.descricao}{extra}")
+        abstem_norma = norma.abstencao
+        if abstem_norma:
+            linhas.append(
+                "Fundamentação normativa: sem dispositivo vigente no corpus para este ponto "
+                f"({ev.motivo_abstencao}); cabe pedido de esclarecimento à distribuidora."
+            )
+        else:
+            linhas.append(f"Fundamentação normativa:\n{norma.texto}")
+        texto = "\n".join(linhas)
+        resp = Resposta(texto, norma.citacoes, False, norma.ids_fontes)
+        with rastro.passo("Comunicador", f"compor para {persona.value}") as d:
+            msg = Mensagem(persona, texto, tuple(norma.citacoes), adaptada=False, motivo="")
+            d.append("resposta combinada: fatura confirmada + motor + norma")
+        return RespostaFaturaPergunta(
+            pergunta, resp, origem, achados, tuple(relevantes), campos,
+            ev.motivo_abstencao if abstem_norma else "", msg, tuple(rastro.passos),
+        )  # fmt: skip

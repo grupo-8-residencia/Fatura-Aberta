@@ -6,6 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import fa_api.main as api_main
+from fa_agentes import Persona
 from fa_api.main import _executar_agentes, app
 from fa_contratos import Achado, Fatura, ItemFatura
 
@@ -212,3 +213,75 @@ def test_vaga_so_volta_quando_o_trabalho_termina_mesmo_apos_timeout(
     avisos = asyncio.run(cenario())
     assert all(a and "não respondeu a tempo" in a for a in avisos)
     assert pico == 1  # nunca mais de uma thread de agentes ativa com limite 1
+
+
+def _fatura_json() -> dict[str, str | list[dict[str, str]]]:
+    return {
+        "distribuidora": "Distribuidora Sintética",
+        "mes_referencia": "2026-03-01",
+        "leitura_anterior": "100",
+        "leitura_atual": "150",
+        "consumo_kwh": "50",
+        "itens": [{"descricao": "Energia", "valor": "50"}],
+        "total": "50",
+    }
+
+
+@pytest.mark.parametrize(
+    "extra",
+    [
+        {"pdf_base64": "JVBERi0xLjQK"},  # PDF direto não é aceito sem confirmação prévia
+        {"correcoes": {"consumo_kwh": "10"}},
+        {"campo_desconhecido": "valor"},
+    ],
+)
+def test_perguntar_rejeita_payload_malformado_com_422(extra: dict[str, object]) -> None:
+    resposta = TestClient(api_main.app).post(
+        "/perguntar", json={"pergunta": "O consumo confere?", **extra}
+    )
+    assert resposta.status_code == 422
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"pdf_base64": "não é base64!!"},
+        {"pdf_base64": "aXN0byBuYW8gZSBwZGY="},  # sem assinatura %PDF-
+    ],
+)
+def test_extrair_rejeita_payload_malformado_com_422(payload: dict[str, object]) -> None:
+    resposta = TestClient(api_main.app).post("/extrair", json=payload)
+    assert resposta.status_code == 422
+
+
+def test_extrair_rejeita_pdf_acima_do_limite(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(api_main, "PDF_TAMANHO_MAXIMO_BYTES", 3)
+    resposta = TestClient(api_main.app).post("/extrair", json={"pdf_base64": "JVBERi0xLjQ="})
+    assert resposta.status_code == 422
+
+
+def test_perguntar_com_fatura_devolve_achados_e_campos_sem_quebrar_o_schema_antigo() -> None:
+    resposta = TestClient(api_main.app).post(
+        "/perguntar", json={"pergunta": "O consumo confere?", "fatura": _fatura_json()}
+    )
+    corpo = resposta.json()
+    assert resposta.status_code == 200 and corpo["modo"] == "fatura"
+    assert corpo["achados_motor"] and corpo["campos_fatura"]["consumo_kwh"] == "50"
+    assert {"resposta", "mensagem", "persona", "citacoes", "abstencao", "rastro"} <= set(corpo)
+
+
+def test_saida_com_termo_vedado_e_substituida_pela_guarda_rf15() -> None:
+    bruto = api_main.RespostaPerguntaAPI(
+        resposta="Isso é ilegal.",
+        mensagem="Peça restituição.",
+        persona=Persona.MARCIA,
+        citacoes=[],
+        abstencao=False,
+        origem="x",
+        motivo_abstencao="processar",
+        rastro=[],
+        aviso="ação judicial",
+    )
+    limpo = api_main._sanitizar_saida(bruto)
+    for texto in (limpo.resposta, limpo.mensagem, limpo.motivo_abstencao, limpo.aviso):
+        assert texto == api_main.MSG_SAIDA_BLOQUEADA
