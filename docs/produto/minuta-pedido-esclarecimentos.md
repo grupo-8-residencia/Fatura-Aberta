@@ -42,21 +42,26 @@ Atenciosamente,
 
 Para obter informações sobre direitos do consumidor e conhecer os serviços de atendimento disponíveis, consulte o **Procon-DF** ou a **Defensoria Pública do Distrito Federal**.
 
-**Versão editável de referência (.docx):** [Pedido de esclarecimentos sobre fatura de energia elétrica (1).docx](https://github.com/user-attachments/files/34777280/Pedido.de.esclarecimentos.sobre.fatura.de.energia.eletrica.1.docx)
+- **Procon-DF:** <https://www.procon.df.gov.br/>
+- **Defensoria Pública do Distrito Federal (DPDF):** <https://www.defensoria.df.gov.br/>
 
 ---
 
 ## Registro de revisão — fronteira jurídica (#4 / #46)
 
 - **Revisora (par da F1):** Talita (`@TalitaaNunes`)
-- **Data da revisão:** 25/11/2026
-- **Base documental:** Consulta informal por escrito à docente de Direito **Sarah Gleyce** (relatório técnico-regulatório recebido pela F1 em 18/11/2026 em [`docs/assets/analise-juridico-regulatoria-fatura-aberta.pdf`](../assets/analise-juridico-regulatoria-fatura-aberta.pdf), sintetizado em [`docs/conformidade/recomendacoes-juridico-regulatorias.md`](../conformidade/recomendacoes-juridico-regulatorias.md) e registrado em [`docs/conformidade/fronteira-juridica.md`](../conformidade/fronteira-juridica.md) — issue `#4` / PR #209; Perguntas 03, 08, 10, 11 e 13; Seções 3, 4 e 5.1).
+- **Data da revisão:** 25/11/2026 (atualizado em 27/11/2026 com ajustes de revisão)
+- **Base documental:** Consulta informal por escrito à docente de Direito **Sarah Gleyce**, com relatório técnico-regulatório de 35 páginas recebido em 18/11/2026 ([`docs/assets/analise-juridico-regulatoria-fatura-aberta.pdf`](../assets/analise-juridico-regulatoria-fatura-aberta.pdf)):
+  - **Relatório técnico-regulatório (`analise-juridico-regulatoria-fatura-aberta.pdf`):** Seção 04 (*Respostas às 14 perguntas do questionário*: Pergunta 03 [pág. 8], **Pergunta 05** [pág. 10], Pergunta 08 [págs. 12–13], Pergunta 10 [pág. 14], Pergunta 11 [pág. 15] e Pergunta 13 [pág. 16]); Seção 05 (*Avaliação das frases*: Seção 5.3 — Itens `C1` [pág. 19], `C3` e `C4` [pág. 20]; Seção 5.4 — Item `G1` [pág. 21]).
+  - **Síntese das recomendações ([`docs/conformidade/recomendacoes-juridico-regulatorias.md`](../conformidade/recomendacoes-juridico-regulatorias.md)):** Seção 3 (Perguntas 03, 05, 08, 10, 11 e 13), Seção 5.3 (`C1`, `C3` e `C4`) e Seção 5.4 (*Avisos Contextuais de Transparência*).
+  - **Registro da fronteira jurídica ([`docs/conformidade/fronteira-juridica.md`](../conformidade/fronteira-juridica.md), issue `#4` / PR #209):** Seção 3.3 (`C1`, `C3` e `C4`), Seção 3.4 (`G1`), Seção 5.1 (recomendações das págs. 10–32) e Seção 5.2 (decisões da F1).
 - **Verificações realizadas:**
   - **Conformidade léxica (`RF-15`):** texto íntegro verificado sem ocorrências no validador `verificar_linguagem` (`packages/agentes/src/fa_agentes/linguagem.py`), livre de termos acusatórios, promessas financeiras ou orientações litigiosas.
   - **Escopo administrativo (Nível C):** redação restrita a pedido de esclarecimentos e memória de cálculo (CDC, art. 6º, III; REN ANEEL nº 1.000/2021), sem formato de petição judicial, sem juízo conclusivo de erro e sem assinatura ou protocolo automatizado em nome do consumidor.
   - **Autonomia do titular:** campos de contexto mantidos editáveis e aviso informativo fixo no cabeçalho.
 - **Ajustes realizados na revisão:**
-  - Inclusão do **Aviso informativo** no topo do documento (conforme Seção 5.4 / Pág. 10 do relatório técnico), reforçando que o envio depende exclusivamente da decisão do consumidor e que o produto não substitui avaliação técnica ou jurídica especializada.
-  - Inclusão de menção explícita à **memória de cálculo** no assunto e no primeiro parágrafo do modelo (alinhada à Pergunta 08 e à redação recomendada `C1` da `#4`).
-  - Inclusão da nota informativa sobre **Procon-DF** e **Defensoria Pública do Distrito Federal** na redação validada `C4` (Seção 3.3 da `#4`).
+  - Inclusão do **Aviso informativo** no topo do documento (conforme **Pergunta 05** / pág. 10 e **Seção 5.4** / pág. 21 do relatório técnico, e **Seção 5.4** de `recomendacoes-juridico-regulatorias.md`), reforçando que o envio depende exclusivamente da decisão do consumidor e que o produto não substitui avaliação técnica ou jurídica especializada.
+  - Inclusão de menção explícita à **memória de cálculo** no assunto e no primeiro parágrafo do modelo (alinhada à **Pergunta 08** / págs. 12–13 e à redação `C1` da Seção 5.3 / pág. 19 do relatório técnico e Seção 3.3 de `fronteira-juridica.md`).
+  - Inclusão da nota informativa sobre **Procon-DF** e **Defensoria Pública do Distrito Federal** com os links oficiais na redação validada `C4` (**Pergunta 10** / pág. 14 e Seção 5.3 / pág. 20 do relatório técnico; Seção 3.3 de `fronteira-juridica.md`).
+  - Remoção temporária do link externo do arquivo `.docx` anterior, por ainda não contemplar as alterações consolidadas nesta revisão em Markdown.
   - Inclusão deste registro formal de revisão no documento para atendimento integral dos critérios de aceite da issue `#46`.
