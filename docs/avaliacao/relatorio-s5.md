@@ -65,7 +65,8 @@ Limites em produção (padrões; variáveis em `.env.example`):
   um registro com regra, cálculo, data da tabela e limitações. Achados gerados pelos agentes (nível C)
   ainda não têm registro. Categoria e registro de nível A e B estão no contrato; a conferência jurídica
   delas segue com a F1.
-- **Testes do web.** O web não tem suíte de testes; só lint, typecheck e build.
+- **Itens lidos da foto são o ponto fraco.** No navegador, o modelo 3B preencheu quantidade e tarifa em uma linha de contribuição que não os tem, e isso gerou uma divergência falsa de nível A. O usuário confirma antes da análise, e a mensagem de leitura da foto agora avisa que quantidade e tarifa são o que o leitor mais erra. A medição (linhas corretas de 58% a 64%) já indicava isso.
+- **Testes do web.** O Vitest cobre `lib/api.ts`; não há suíte automatizada de navegador.
 
 ## 3. Casos de falha e mitigação
 
@@ -111,10 +112,10 @@ Limites em produção (padrões; variáveis em `.env.example`):
 | Tipos web | `npm run typecheck` | PASS |
 | Build web | `npm run build` | PASS (Next 16.4.6) |
 | Smoke da API (fluxo PDF) | `scripts/smoke_api_container.py` contra uvicorn local | PASS (sem Docker) |
-| Docker (contêiner da API e da web) | `docker compose` | NOT RUN (Docker não verificado nesta rodada) |
+| Docker (contêiner da API e da web) | `docker compose up --build` com override fora do repositório | PASS em 28/11/2026: API saudável, web com HTTP 200, `smoke_api_container.py` sem erro e `/extrair-foto` lendo a foto no Ollama do host (21 s). `/analisar` devolveu níveis A, B e C com categorias. |
 | Documentação | `mkdocs build --strict` | PASS com as fontes do tema desligadas num build temporário. O build com a configuração do repositório falha aqui por 61 avisos de ambiente (link simbólico no Windows e download de fontes do Google sem rede). |
 | Leitura de foto com VLM real (40 fotos sintéticas) | `scripts/extrair_fotos.py` com `qwen2.5vl:3b` e `7b`; `scripts/acuracia_por_campo.py` | PASS nos seis campos-chave nos dois modelos; ver [acuracia-fotos.md](acuracia-fotos.md) |
-| Testes de interface do web (navegador) | — | NOT RUN (não há suíte; a tela não foi exercitada em navegador nesta rodada) |
+| Tela no navegador (contêiner web) | roteiro manual no navegador integrado | PASS em 28/11/2026 para foto e para PDF com divergência: formulário preenchido pela leitura, cartões A, B e C, categorias e registro. Sem suíte automatizada de navegador; o Vitest cobre só `lib/api.ts`. |
 
 As 5 falhas da suíte completa, todas fora do escopo desta mudança:
 

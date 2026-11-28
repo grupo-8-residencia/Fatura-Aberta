@@ -658,7 +658,7 @@ function FormularioConfirmacao({
         <div>
           <p className="section-kicker">Antes da conferência</p>
           <h2 id="confirmacao-titulo">Confirme os dados da fatura</h2>
-          <p>Nenhuma conta é feita antes da confirmação. Os campos vêm com um exemplo fictício.</p>
+          <p>Nenhuma conta é feita antes da confirmação. Os campos começam com um exemplo fictício, que você troca pelos seus dados.</p>
           {dados === DADOS_EXEMPLO && (
             <p className="field-hint" role="note">
               <strong>Exemplo fictício.</strong> Substitua pelos dados da sua fatura, ou envie o PDF
@@ -1086,7 +1086,8 @@ export default function FaturaAberta() {
         alterarDados(() => faturaParaDados(r.fatura!));
         setEnvioPdf({
           estado: "ok",
-          mensagem: "Campos lidos da foto. Confira e corrija o que for preciso antes de confirmar.",
+          mensagem:
+            "Campos lidos da foto. Confira cada item com atenção: quantidade e tarifa são o que o leitor mais erra, e um valor errado aqui vira divergência na conferência. Corrija o que for preciso antes de confirmar.",
         });
       } else {
         setEnvioPdf({ estado: "erro", mensagem: r.erro ?? "Não foi possível ler a foto." });
